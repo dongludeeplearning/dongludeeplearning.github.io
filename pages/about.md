@@ -3,7 +3,7 @@ layout: page
 title: Education
 tagline:  教育
 sitetime: display
-permalink: /about.html
+permalink: dongludeeplearning/about.html
 ---
 
 ## 董璐  (Lu Dong)
