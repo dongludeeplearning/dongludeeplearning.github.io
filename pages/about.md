@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Education
-tagline:  教育背景
+tagline:  教育
 sitetime: display
 permalink: /about.html
 ---
@@ -11,19 +11,19 @@ permalink: /about.html
 
 ###  XI'an Jiaotong University(XJTU)
 
-+ Master Degree,School of Computer Science and Technology, obtained at 06,2016.    
-+ Specialty: Computer Software and Theory   
-+ Honors: Excellent Graduate Student in XJTU
+Master Degree,School of Computer Science and Technology, obtained at 06,2016.    
+Specialty: Computer Software and Theory   
+Honors: Excellent Graduate Student in XJTU
 
 ### Northeast Electric Power University(NEEPU)
 
-+ Bachelor Degree, School of Computer Science, obtained at 07,2011.      
-+ Specialty: Computer Science and Technology    
-+ Honors: National Endeavor Fellowship; Excellent Student Cadres Award.  
+Bachelor Degree, School of Computer Science, obtained at 07,2011.      
+Specialty: Computer Science and Technology    
+Honors: National Endeavor Fellowship; Excellent Student Cadres Award.  
 
-+ 2nd Bachelor Degree
-+ NEEPU-Higher Education of Self-Taught Examination,obtained at 2012.
-+ Specialty : Power System and Its Automation 
+2nd Bachelor Degree
+NEEPU-Higher Education of Self-Taught Examination,obtained at 2012.
+Specialty : Power System and Its Automation 
 
 
 
