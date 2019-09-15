@@ -1,27 +1,29 @@
 ---
 layout: page
-title: about
-tagline: 关于我 ~
+title: Education
+tagline:  教育背景
 sitetime: display
 permalink: /about.html
 ---
 
-## #作者
+## 董璐  (Lu Dong)
 
-你可以通过以下方式联系作者
 
-QQ: 1316341442
+###  XI'an Jiaotong University(XJTU)
 
-Email: <a href="mailto:lk@atlinker.cn">lk@atlinker.cn</a>
++ Master Degree,School of Computer Science and Technology, obtained at 06,2016.    
++ Specialty: Computer Software and Theory   
++ Honors: Excellent Graduate Student in XJTU
 
-Github: [link9596](https://github.com/link9596)
+### Northeast Electric Power University(NEEPU)
 
-## #捐助我
++ Bachelor Degree, School of Computer Science, obtained at 07,2011.      
++ Specialty: Computer Science and Technology    
++ Honors: National Endeavor Fellowship; Excellent Student Cadres Award.  
 
-本主题使用免费，也是作者长期工作的结晶，如果你喜欢主题\~想支持作者，欢迎给作者捐赠~
++ 2nd Bachelor Degree
++ NEEPU-Higher Education of Self-Taught Examination,obtained at 2012.
++ Specialty : Power System and Its Automation 
 
-<center>扫下方付款二维码即可向作者捐赠!</center>
 
-![wechat](https://atlinker.cn/pay/wechat.png)
 
-![pay](https://atlinker.cn/pay/apay.png)
