@@ -27,4 +27,4 @@ I started my career at Shaanxi Haina Electronic Technology. In this company, I l
 
 ### Online Learning
 
-I enjoy the online study on Coursera, such as Ng's Machine Learning, Deep Learning, and welcome to discuss together. 
+I enjoy the online study on Coursera, for example Ng's Machine Learning, Deep Learning, and welcome to discuss together. 
