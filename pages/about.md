@@ -6,7 +6,7 @@ sitetime: display
 permalink: dongludeeplearning/about.html
 ---
 
-##Education  Experience
+## Education  Experience
 
 ### Northeast Electric Power University(NEEPU)
     
