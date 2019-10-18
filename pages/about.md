@@ -1,7 +1,7 @@
 ---
 layout: page
-title: backgroud
-tagline:  edu
+title: Backgroud
+tagline:  Individual Info
 sitetime: display
 permalink: dongludeeplearning/about.html
 ---
