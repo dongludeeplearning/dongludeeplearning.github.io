@@ -41,4 +41,4 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 Former Captain of Collge Female Basketball Team  
 Silver metal for Hurdle Race  
 Accounting Qualificarion Certificate.   
-Foreign Language: English, Japanese
+Foreign language: English, Japanese.
