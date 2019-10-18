@@ -19,7 +19,7 @@ I obtained my Master degree of Computer Science and Technology in XJTU. During m
 
 
 ## Work Experience 
-I started my career at Shaanxi Haina Electronic Technology. In this company, I lead the work of Artificial Intelligence (AI) recommendation system construction and maintenance. I try all my best to build my team, ensure efficiency, and deliver good results and my team is the most distinguished team in the entire company.
+I started my career at Shaanxi Haina Electronic Technology. Currently, I lead the work of Artificial Intelligence (AI) recommendation system construction and maintenance. I try all my best to build my team, ensure efficiency, and deliver good results and my team is the most distinguished team in the entire company.
 
 
 ## Online Learning
