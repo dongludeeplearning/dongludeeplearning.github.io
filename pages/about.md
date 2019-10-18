@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Backgroud
-tagline:  Individual Experience
+tagline:  Personal Experience
 sitetime: display
 permalink: dongludeeplearning/about.html
 ---
