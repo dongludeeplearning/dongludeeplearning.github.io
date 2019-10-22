@@ -55,7 +55,7 @@ permalink: dongludeeplearning/about.html
 
 
 
-####NORTHEAST ELECTRIC POWER UNIVERSITY (NEEPU), School of Computer Science
+#### NORTHEAST ELECTRIC POWER UNIVERSITY (NEEPU), School of Computer Science   
 **Position**: Undergraduate Research Assistant, 09/2010-07/2011   
 **Research Project**: Honeypot System Design and Programming  
 **Accomplishments**: Adopted socket network programming based on TCP/IP protocol to communicate between client and honeypot, honeypot and server. The attack data are recorded and analyzed by SQL database, with also carrying out the similarity matching. The result is automatically scored and reported. Actual servers choose communications based on ratings.
