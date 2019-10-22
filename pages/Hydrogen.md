@@ -31,4 +31,5 @@ My name is Dong Lu, female, postgraduate of Computer Science major, with three y
 + Emotional Analysis in Film Criticism in Keras
 + Weather Prediction in Keras
 
-Know more please view Background Page.
+**Know more**: please view Background Page.  
+**Contact me**: donglu0823@hotmail.com 
