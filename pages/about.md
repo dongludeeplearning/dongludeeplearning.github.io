@@ -21,8 +21,10 @@ permalink: dongludeeplearning/about.html
 
 ## Research Experience 
 
-####XIAN JIAOTONG UNIVERSITY (XJTU), School of Computer Science and Technology
-**Position**: Graduate Research Assistant, 09/2013-07/2016   
+### XIAN JIAOTONG UNIVERSITY (XJTU), School of Computer Science and Technology
+
+**Position**: Graduate Research Assistant, 09/2013-07/2016  
+
 **Research Project**: General Characteristics and Classification of Chinese Folk Songs with Machine Learning;   
 **Accomplishments**:Constructed a Chinese Folk Song MIDI database, proposed a design combing music theory and data mining technology to explore the inherited meme of a specific regional folk songs, and improved classification among different regions, one published paper and Presentation on 12th SMC Conference. 
       
@@ -55,8 +57,10 @@ permalink: dongludeeplearning/about.html
 
 
 
-#### NORTHEAST ELECTRIC POWER UNIVERSITY (NEEPU), School of Computer Science   
-**Position**: Undergraduate Research Assistant, 09/2010-07/2011   
+### NORTHEAST ELECTRIC POWER UNIVERSITY (NEEPU), School of Computer Science    
+  
+**Position**: Undergraduate Research Assistant, 09/2010-07/2011  
+ 
 **Research Project**: Honeypot System Design and Programming  
 **Accomplishments**: Adopted socket network programming based on TCP/IP protocol to communicate between client and honeypot, honeypot and server. The attack data are recorded and analyzed by SQL database, with also carrying out the similarity matching. The result is automatically scored and reported. Actual servers choose communications based on ratings.
 
