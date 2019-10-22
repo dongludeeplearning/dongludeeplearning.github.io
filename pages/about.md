@@ -21,7 +21,7 @@ permalink: dongludeeplearning/about.html
 
 ## Research Experience 
 
-### XIAN JIAOTONG UNIVERSITY (XJTU), School of Computer Science and Technology
+#### XIAN JIAOTONG UNIVERSITY (XJTU), School of Computer Science and Technology
 
 **Position**: Graduate Research Assistant, 09/2013-07/2016  
 
@@ -57,7 +57,7 @@ permalink: dongludeeplearning/about.html
 
 
 
-### NORTHEAST ELECTRIC POWER UNIVERSITY (NEEPU), School of Computer Science    
+#### NORTHEAST ELECTRIC POWER UNIVERSITY (NEEPU), School of Computer Science    
   
 **Position**: Undergraduate Research Assistant, 09/2010-07/2011  
  
