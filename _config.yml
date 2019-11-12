@@ -5,7 +5,7 @@ author: "小飞鹿"
 
 #title hide and show
 hide: wow
-show: nice
+show: wow
 
 baseurl: "" # change this to the subpath of your site, e.g. /blog. Leave it empty if you don't need it.
 url: "dongludeeplearning.github.io" # change this to the base hostname & protocol for your site
