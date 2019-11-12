@@ -25,7 +25,7 @@ permalink: dongludeeplearning/about.html
 
 **Position**: Graduate Research Assistant, 09/2013-07/2016  
 
-**Research Project**: General Characteristics and Classification of Chinese Folk Songs with Machine Learning;   
+**Research Project**: General Characteristics and Classification of Chinese Folk Songs with Machine Learning;  <[Articles](https://github.com/dongludeeplearning/MIR) >
 **Accomplishments**:Constructed a Chinese Folk Song MIDI database, proposed a design combing music theory and data mining technology to explore the inherited meme of a specific regional folk songs, and improved classification among different regions, one published paper and Presentation on 12th SMC Conference. 
       
 +  Applied improved N-Apriori algorithm to show the shallow music patterns and designed one improved multi-layer melody clustering method based on edit distance contains both direction and value, to refine the most representative structures as the general characteristics of certain region music.    
@@ -38,15 +38,15 @@ permalink: dongludeeplearning/about.html
 +	Proposed one fusion algorithm based on wavelet transform and structural similarity index to improve the fusion quality of infrared and visible images. 
 +	Conducted comparing experiments with traditional fusion algorithms, verify this design under the evaluation indicators of Entropy, Average Mean Brightness Error and Peak SNR.
 
-**Course Project**: Research on data Consistency in multi-database system.  
+**Course Project**: Research on data Consistency in multi-database system.  <[report](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>   
 **Accomplishments**: This article outlines the concepts and background of data consistency in multi-database system, especially focusing on maintaining the consistency of revelent technology, including consistency maintenance control, consistency maintenance between copy of the data, synchronization method of heterogeneous data, as well as incremental data updates.
 
 
-**Course Project**:  Remote Dictionary Application Based on RMI Technology   
+**Course Project**:  Remote Dictionary Application Based on RMI Technology   <[report](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>   
 **Accomplishments**: Designed an application server to provide client services of English-Chinese Translation in way of RMI, completed the program of server-side and client-side, as well as deployed and tested separately on two computers.
 
 
-**Course Project**: A Review of Security Defense Schemes in Wireless Body Sensor Networks(BSN).  
+**Course Project**: A Review of Security Defense Schemes in Wireless Body Sensor Networks(BSN).  <[report](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>   
 **Accomplishments**: This paper surveyed relevant security defense schemes in BSN. Besides, it proposed a discussion about necessary formal security proof in BSN. 
 
 
