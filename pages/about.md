@@ -116,5 +116,5 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 
 Former Captain of Collge Female Basketball Team  
 Silver metal for Hurdle Race  
-Accounting Qualificarion Certificate.   
+Accounting Qualification Certificate.   
 Foreign language: English, Japanese.
