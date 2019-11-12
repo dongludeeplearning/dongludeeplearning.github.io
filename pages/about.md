@@ -39,15 +39,15 @@ permalink: dongludeeplearning/about.html
 +	Conducted comparing experiments with traditional fusion algorithms, verify this design under the evaluation indicators of Entropy, Average Mean Brightness Error and Peak SNR.
 
 **Course Project**: Research on data Consistency in multi-database system.     
-**Accomplishments**: This article outlines the concepts and background of data consistency in multi-database system, especially focusing on maintaining the consistency of revelent technology, including consistency maintenance control, consistency maintenance between copy of the data, synchronization method of heterogeneous data, as well as incremental data updates.<[report](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>
+**Accomplishments**: This article outlines the concepts and background of data consistency in multi-database system, especially focusing on maintaining the consistency of revelent technology, including consistency maintenance control, consistency maintenance between copy of the data, synchronization method of heterogeneous data, as well as incremental data updates.  <[article](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project) >
 
 
 **Course Project**:  Remote Dictionary Application Based on RMI Technology   
-**Accomplishments**: Designed an application server to provide client services of English-Chinese Translation in way of RMI, completed the program of server-side and client-side, as well as deployed and tested separately on two computers. <[report](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>  
+**Accomplishments**: Designed an application server to provide client services of English-Chinese Translation in way of RMI, completed the program of server-side and client-side, as well as deployed and tested separately on two computers.   <[article](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>  
 
 
 **Course Project**: A Review of Security Defense Schemes in Wireless Body Sensor Networks(BSN). 
-**Accomplishments**: This paper surveyed relevant security defense schemes in BSN. Besides, it proposed a discussion about necessary formal security proof in BSN.  <[report](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>   
+**Accomplishments**: This paper surveyed relevant security defense schemes in BSN. Besides, it proposed a discussion about necessary formal security proof in BSN.   <[article](https://github.com/dongludeeplearning/DongHouse/tree/master/Course_Project)>   
 
 
 
