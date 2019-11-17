@@ -36,7 +36,7 @@ My name is Dong Lu, female, postgraduate of Computer Science major, with three y
 + Maze Game (Reinforcement Learning)
 + CartPole (Reinforcement Learning)
 
-## Skills
+## Professional Skills
 **Programming**: Assemble, C, C++, C#, Java, Python, HTML, XML .etc   
 **Tools**: .Net Framework, PyCharm, Matlab, Octave, MySQL, R, Weka, Anaconda, Tensorflow, Keras.etc
 
