@@ -26,8 +26,8 @@ My name is Dong Lu, female, postgraduate of Computer Science major, with three y
 + A Review of Security Defense Schemes in Wireless Body Sensor Networks(BSN).
 + Honeypot Security System  
 + Pharmacy Management System 
-+ Infomation Collection Project
-+ Recommendation Project
++ Information Collection System
++ Recommendation System
 + Handwritten Digits Recognition
 + Students Admission Prediction
 + Neural Style Transfer in Keras 
