@@ -88,7 +88,7 @@ permalink: dongludeeplearning/about.html
 
 
 **Individual Project about ML**: Handwritten digits Recognition   
-**Accomplishments**: According to the formula, manually implement popular algorithms of Vectorizing Logistic Regression and Neural Network including FP,BP and Regularization. Applying them to analyze Handwritten digits pictures. Tune the pramaters, visualize the data, and compare their performance.
+**Accomplishments**: According to the formula, manually implement popular algorithms of Vectorizing Logistic Regression and Neural Network including FP,BP process and Regularization. Applying them to analyze Handwritten digits pictures. Tune the pramaters, visualize the data, and compare their performance.
 
 
 
@@ -109,12 +109,12 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 
 
 ## Major Skills
-**Program**: Assemble, C, C++, C#, Java, Python, HTML, XML .etc   
-**Tools**: .Net Framework, Matlab, Octave, MySQL, R, Weka, Anaconda, Tensorflow, Keras.etc
+**Programming**: Assemble, C, C++, C#, Java, Python, HTML, XML .etc   
+**Tools**: .Net Framework, PyCharm, Matlab, Octave, MySQL, R, Weka, Anaconda, Tensorflow, Keras.etc
 
-## Additional Skills
+## Other Skills
 
-Former Captain of Collge Female Basketball Team  
-Silver metal for Hurdle Race  
-Accounting Qualification Certificate.   
-Foreign language: English, Japanese.
+**Basketball**  -- Captain of Collge Female Basketball Team  
+**Running**   --Silver metal for Hurdle Race  
+**Accounting**  --Certificate of Accounting Qualification .   
+**Language** -- Madarin, English, Japanese.
