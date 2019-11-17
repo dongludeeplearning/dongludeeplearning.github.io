@@ -18,23 +18,28 @@ My name is Dong Lu, female, postgraduate of Computer Science major, with three y
 ## Research Projects
 
 
-+ Exploring the General Melodic Characteristics of XinTianYou Folk Songs 
++ Research on General Melodic Characteristics of XinTianYou Folk Songs 
 + Research on Classification of Chinese Folk Music with Machine Learning
 + Research on Infrared Image Fusion
-+ Research on data Consistency in multi-database system
++ Research on Data Consistency in Multi-database System
 + Remote Dictionary Application Based on RMI Technology 
 + A Review of Security Defense Schemes in Wireless Body Sensor Networks(BSN).
 + Honeypot Security System  
 + Pharmacy Management System 
-+ Infomation Collecting System
-+ Rcommendation System
-+ Handwritten digits Recognition
++ Infomation Collecting Project
++ Recommendation Project
++ Handwritten Digits Recognition
 + Students Admission Prediction
-+ Neural Style transfer in Keras 
++ Neural Style Transfer in Keras 
 + Emotional Analysis in Film Criticism in Keras
 + Weather Prediction in Keras
 + Maze Game (Reinforcement Learning)
 + CartPole (Reinforcement Learning)
+
+## Skills
+**Programming**: Assemble, C, C++, C#, Java, Python, HTML, XML .etc   
+**Tools**: .Net Framework, PyCharm, Matlab, Octave, MySQL, R, Weka, Anaconda, Tensorflow, Keras.etc
+
 
 **Know More**: please view Background Page.  
 **Contact**: donglu0823@hotmail.com 
