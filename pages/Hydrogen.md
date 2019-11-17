@@ -10,7 +10,7 @@ tag: All
 
 
 ## Biography
-My name is Dong Lu, female, postgraduate of Computer Science major, with three years of working experience. I obtained my master's degree in XI’AN JIAOTONG University (CS) and double bachelor's degrees in Northeast Electric Power University (CS and EE). Currently, I am a Data Analyst and in charge of AI group in my company. My research interest is Machine Learning, Deep Learning, NLP, Computer Vision, Reinforcement Learning, etc. Letting ideas interact with algorithm and mathematics is my real thing.
+My name is Dong Lu, female, postgraduate of Computer Science major, with three years of working experience. I obtained my M.S. in XI’AN JIAOTONG University (CS) and Double B.S. in Northeast Electric Power University (CS and EE). Currently, I am a Data Analyst and in charge of AI group in my company. My research interest is Machine Learning, Deep Learning, NLP, Computer Vision, Reinforcement Learning, etc. Letting ideas interact with algorithm and mathematics is my real thing.
 
 
 
