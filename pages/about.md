@@ -115,6 +115,6 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 ## Other Skills
 
 **Basketball**  -- Captain of Collge Female Basketball Team  
-**Running**   --Silver metal for Hurdle Race  
+**Running**   --Silver Metal for Hurdle Race  
 **Accounting**  --Certificate of Accounting Qualification .   
-**Language** -- Madarin, English, Japanese.
+**Language** -- Mandarin, English, Japanese.
