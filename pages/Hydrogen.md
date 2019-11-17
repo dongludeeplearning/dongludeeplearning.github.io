@@ -41,5 +41,5 @@ My name is Dong Lu, female, postgraduate of Computer Science major, with three y
 **Tools**: .Net Framework, PyCharm, Matlab, Octave, MySQL, R, Weka, Anaconda, Tensorflow, Keras.etc
 
 
-**Know More**: please view Background Page.  
+**Know More**: Edu, Job, and Project Details, please view Background Page.  
 **Contact**: donglu0823@hotmail.com 
