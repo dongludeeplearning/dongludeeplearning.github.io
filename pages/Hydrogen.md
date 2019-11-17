@@ -18,8 +18,8 @@ My name is Dong Lu, female, postgraduate of Computer Science major, with three y
 ## Research Projects
 
 
-+ Research on General Melodic Characteristics of XinTianYou Folk Songs 
-+ Research on Classification of Chinese Folk Music with Machine Learning
++ Research on General Melodic Characteristics of XinTianYou Folk Songs [View Publication](https://github.com/dongludeeplearning/MIR)
++ Research on Classification of Chinese Folk Music with Machine Learning  [View Paper](https://github.com/dongludeeplearning/MIR)
 + Research on Infrared Image Fusion
 + Research on Data Consistency in Multi-database System
 + Remote Dictionary Application Based on RMI Technology 
