@@ -1,7 +1,11 @@
 ---
 layout: page
 title: Life
-tagline: Source of my Creation 
+tagline: No Boundaries 
 permalink: /links.html
 ---
 
+
+### 2015 SMC Conference 
+
+![smc_presentation](https://github.com/dongludeeplearning/Others/blob/master/Life/2015SMC_1.jpg)
