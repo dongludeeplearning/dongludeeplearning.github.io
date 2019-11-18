@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Links
-tagline: My friends.
+title: Life
+tagline: Source of my Creation 
 permalink: /links.html
 ---
 
