@@ -12,6 +12,4 @@ permalink: /links.html
 
 <img src="https://github.com/dongludeeplearning/Others/blob/master/Life/11.png" width="50%">
 
-<img src="https://github.com/dongludeeplearning/Others/blob/master/Life/11.png" width="50%">
 
-<img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
