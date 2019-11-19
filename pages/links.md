@@ -13,7 +13,7 @@ permalink: /links.html
 ![presentation](13.png)
 
 <img src="11.png" width="60%"> 
-<img src="12.jpg" width="50%"> 
-<img src="13.jpg" width="60%">
+<img src="122.png" width="50%"> 
+<img src="13.png" width="60%">
 
 
