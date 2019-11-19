@@ -9,8 +9,8 @@ permalink: /links.html
 ### 2015 SMC Conference 
 
 ![presentation](11.png)
-![presentation](12.jpg)
-![presentation](13.jpg)
+![presentation](12.png)
+![presentation](13.png)
 
 <img src="11.png" width="60%"> 
 <img src="12.jpg" width="50%"> 
