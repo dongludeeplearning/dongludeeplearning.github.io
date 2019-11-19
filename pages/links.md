@@ -12,6 +12,8 @@ permalink: /links.html
 
 ![presentation](https://github.com/dongludeeplearning/dongludeeplearning.github.io/blob/master/assets/img/11.png)
 
+![presentation](11.png)
+
 <img src="https://github.com/dongludeeplearning/dongludeeplearning.github.io/blob/master/assets/img/11.png" width="50%">
 
 
