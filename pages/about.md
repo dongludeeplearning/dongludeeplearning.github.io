@@ -113,8 +113,8 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 **Tools**: .Net Framework, PyCharm, Matlab, Octave, MySQL, R, Weka, Anaconda, Tensorflow, Keras.etc
 
 ## Other Skills
-
-**Basketball**  -- Captain of Collge Female Basketball Team  
-**Running**   --Silver Metal for Hurdle Race  
-**Accounting**  --Certificate of Accounting Qualification .   
-**Language** -- Mandarin, English, Japanese.
+**Accounting**  --Certificate of Accounting Qualification   
+**Language** -- Mandarin, English, Japanese.  
+**Sports**  -- Collge Female Basketball Team Captain; Hurdle Race Silver Metal    
+**Art and Literature Lovers**
+ 
