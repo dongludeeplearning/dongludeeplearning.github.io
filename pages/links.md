@@ -8,6 +8,10 @@ permalink: /links.html
 
 ### 2015 SMC Conference 
 
-![presentation](https://github.com/dongludeeplearning/Others/blob/master/Life/2015SMC_1.jpg)
+![presentation](https://github.com/dongludeeplearning/dongludeeplearning.github.io/blob/master/theme/1.png)
 
 <img src="https://github.com/dongludeeplearning/Others/blob/master/Life/11.png" width="50%">
+
+<img src="https://github.com/dongludeeplearning/Others/blob/master/Life/11.png" width="50%">
+
+<img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
