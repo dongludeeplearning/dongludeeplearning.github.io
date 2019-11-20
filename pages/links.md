@@ -11,5 +11,5 @@ permalink: /links.html
 ![presentation](11.png)
 
 ## Embrace Life for Inspiration 
-#### Champion Team Captain & Hurdles Silver Metal & Chorus & Piano & Hiking & Ice-skating
+#### Champion Team Captain & Hurdle Race Silver Metal & Chorus & Piano & Hiking & Ice-skating
 ![presentation](22.png)
