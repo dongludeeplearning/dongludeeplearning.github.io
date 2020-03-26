@@ -24,6 +24,8 @@ permalink: dongludeeplearning/about.html
 
 **Northeast Electric Power University(NEEPU)**, Jilin, China, Obtained in June 2012. 
 
+Higher Education Self-Taught Examination Degree  
+
 #### *Sound and Music Computing* Summer School 
 
 **Maynooth University**, Ireland, July 2015.  
