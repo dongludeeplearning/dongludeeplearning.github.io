@@ -19,7 +19,7 @@ permalink: dongludeeplearning/about.html
 
 **Honors**: Scholarship; National Endeavor Fellowship; Excellent Student Cadres Award
 
-### B.E.   in Power System and Its Automation 
+### B.S.   in Power System and Its Automation 
 
 **Northeast Electric Power University(NEEPU)**, Jilin, China, Obtained in June 2012
 
@@ -33,13 +33,17 @@ permalink: dongludeeplearning/about.html
 
 #### XIAN JIAOTONG UNIVERSITY (XJTU), School of Computer Science and Technology
 
-**Position**: Graduate Research Assistant, 09/2013-07/2016  
+**Position**: Graduate Research Assistant, Sep 2013 -- July 2016.
 
 **Research Project**: General Characteristics and Classification of Chinese Folk Songs with Machine Learning;  
-**Accomplishments**:Constructed a Chinese Folk Song MIDI database, proposed a design combing music theory and data mining technology to explore the inherited meme of a specific regional folk songs, and improved classification among different regions, one published paper and Presentation on 12th SMC Conference. <[Articles](https://github.com/dongludeeplearning/MIR) >
+**Accomplishments**:Constructed a Chinese Folk Song MIDI database, proposed a design combing music theory and data mining technology to explore the inherited meme of a specific regional folk songs, and improved classification among different regions, one published paper and Presentation on 12th SMC Conference. 
       
+
 +  Applied improved N-Apriori algorithm to show the shallow music patterns and designed one improved multi-layer melody clustering method based on edit distance contains both direction and value, to refine the most representative structures as the general characteristics of certain region music.    
 +  Proposed a synthetic feature model with both global and local perspectives. Tested this model by using 10-fold cross-validation with three classifiers- Decision Tree, SVM, Bayesian Network, and two measurements-Accuracy and F-measure. The results indicated our model having the best performance.          
+
+**Publication**(Co-First author):  J. LI, ***Lu DONG***, J-H DING, X-Y YANG; Exploring the General Melodic Characteristics of XinTianYou Folk Songs [C],12th Sound and Music Computing Conference, Maynooth, Ireland. 2015:393-399.   <[Paper](https://github.com/dongludeeplearning/MIR) >
+
 
 
 **Research Project**: Infrared Image Fusion    
@@ -82,7 +86,7 @@ permalink: dongludeeplearning/about.html
 + Developed the Product Information Collecting System, gathering close relevant network information. Parsed structured data and stored into MySQL by analytical technology for optimizing Advertising Strategies;
 +	Built Recommendation System combining multi-database to generate diversity recommendation and visualization, as well as Improvement and Maintenance. 
 
-#### Individual Project about ML, CV, NLP
+#### Individual Project about ML, CV, NLP, etc. 
 
 **Computer Vision**: Neural Style transfer in Keras    
 
@@ -120,12 +124,17 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 **Tools**: PyCharm, Anaconda,  Matlab,.Net Framework, Octave, MySQL, R, Weka,Tensorflow, Keras.etc
 
 ## Other Skills
-**Accounting**  --Certificate of Accounting Qualification   
-**Language** -- Mandarin, English, Japanese.  
-**Sports**  -- Basketball (Captain of Collge Female Basketball Team, won Championship in 2011); 
+**Accounting**  --Certificate of Accounting Qualification.   
+**Language**  -- Mandarin, English, Japanese.  
 
-​              -- Hurdle Race (Silver Metal of University Game);
+**Art**  --Member of College Chorus; Piano, Drawing, and Literature Lovers. 
 
-​              -- Amateur of Ice Skating, Badminton, Table tennis, Billards, Swimming, Climbing, Fitness, etc. 
-**Art** --- Member of College Chorus; Piano, Drawing, and Literature Lovers. 
+**Sports**  
+
++ Basketball (Captain of Collge Female Basketball Team, won Championship in 2011); 
+
++ Hurdle Race (Silver Metal of University Game);
+
++ Amateur of Ice Skating, Badminton, Table tennis, Billiards, Swimming, Climbing, Fitness, etc. 
+  
 
