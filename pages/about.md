@@ -10,7 +10,8 @@ permalink: dongludeeplearning/about.html
 
 ### M.S.  in Computer Science and Technology
 
-**XI'an Jiaotong University(XJTU)**, Xi'an, China, Obtained in June 2016.  
+**XI'an Jiaotong University(XJTU)**, Xi'an, China, Obtained in June 2016.         
+
 **Honors**: “Excellent Graduate Student in XJTU” for two consecutive years of 2014 and 2015
 
 ### B.S.   in Computer Science and Technology
