@@ -77,7 +77,7 @@ Higher Education Self-Taught Examination Degree
 **Research Project**: Honeypot System Design and Programming  
 **Accomplishments**: Adopted socket network programming based on TCP/IP protocol to communicate between client and honeypot, honeypot and server. The attack data are recorded and analyzed by SQL database, with also carrying out the similarity matching. The result is automatically scored and reported. Actual servers choose communications based on ratings.
 
-**Internship Project**: Pharmacy Management System, 2009-2010
+**Internship Project**: Pharmacy Management System, 2009-2010.   
 **Accomplishments**: System administrators can add, modify, or delete employees  information and their permissions; Employees can modify the drug-related information to interact with warehouse; Managers can check inventroy information and related graph; System include functions of stock alert, data back-up, and risk warning.
 
 
@@ -133,14 +133,12 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 
 
 ## Other Skills
-**Accounting**  --Certificate of Accounting Qualification.   
-**Language**  -- Mandarin, English, Japanese.  
+**Accounting**  -- Certificate of Accounting Qualification.   
+**Language**  -- Mandarin, English, Japanese. 
+**Arts ** -- Member of College Chorus; Piano, Drawing, and Literature Lovers. 
+**Sports**   
 
-**Arts and Sports** 
-
-+ Member of College Chorus; Piano, Drawing, and Literature Lovers. 
-
-+ Basketball (Captain of Collge Female Basketball Team, won Championship in 2011); 
+* Basketball (Captain of Collge Female Basketball Team, won Championship in 2011); 
 
 + Hurdle Race (Silver Metal of University Game);
 
