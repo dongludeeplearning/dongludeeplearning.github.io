@@ -36,10 +36,10 @@ Higher Education Self-Taught Examination Degree
 
 #### XIAN JIAOTONG UNIVERSITY (XJTU), School of Computer Science and Technology
 
-**Position**: Graduate Research Assistant, Sep 2013 -- July 2016.
+**Position**: Graduate Research Assistant, September 2013 -- July 2016.
 
 **Research Project**: General Characteristics and Classification of Chinese Folk Songs with Machine Learning;  
-**Accomplishments**:Constructed a Chinese Folk Song MIDI database, proposed a design combing music theory and data mining technology to explore the inherited meme of a specific regional folk songs, and improved classification among different regions, one published paper and Presentation on 12th SMC Conference. 
+**Accomplishments**:Constructed a Chinese Folk Song MIDI database, proposed a design combing music theory and data mining technology to explore the inherited meme of a specific regional folk songs, and improved classification among different regions, with one published paper and Presentation on 12th SMC Conference. 
       
 
 +  Applied improved N-Apriori algorithm to show the shallow music patterns and designed one improved multi-layer melody clustering method based on edit distance contains both direction and value, to refine the most representative structures as the general characteristics of certain region music.    
@@ -139,5 +139,4 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 **Sports** -- Basketball (Captain of Collge Female Basketball Team, won Championship in 2011);   
              -- Hurdle Race (Silver Metal of University Game);   
              -- Amateur of Ice Skating, Badminton, Table tennis, Billiards, Swimming, Climbing, Fitness, etc. 
-
 
