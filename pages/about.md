@@ -10,22 +10,22 @@ permalink: dongludeeplearning/about.html
 
 ### M.S.  in Computer Science and Technology
 
-**XI'an Jiaotong University(XJTU)**, Xi'an, China, Obtained in June 2016
+**XI'an Jiaotong University(XJTU)**, Xi'an, China, Obtained in June 2016.  
 **Honors**: “Excellent Graduate Student in XJTU” for two consecutive years of 2014 and 2015
 
 ### B.S.   in Computer Science and Technology
 
-**Northeast Electric Power University(NEEPU)**, Jilin, China, Obtained in July 2011
+**Northeast Electric Power University(NEEPU)**, Jilin, China, Obtained in July 2011. 
 
 **Honors**: Scholarship; National Endeavor Fellowship; Excellent Student Cadres Award
 
 ### B.S.   in Power System and Its Automation 
 
-**Northeast Electric Power University(NEEPU)**, Jilin, China, Obtained in June 2012
+**Northeast Electric Power University(NEEPU)**, Jilin, China, Obtained in June 2012. 
 
 #### *Sound and Music Computing* Summer School 
 
-**Maynooth University**, Ireland, July 2015
+**Maynooth University**, Ireland, July 2015.  
 
 
 
@@ -42,7 +42,7 @@ permalink: dongludeeplearning/about.html
 +  Applied improved N-Apriori algorithm to show the shallow music patterns and designed one improved multi-layer melody clustering method based on edit distance contains both direction and value, to refine the most representative structures as the general characteristics of certain region music.    
 +  Proposed a synthetic feature model with both global and local perspectives. Tested this model by using 10-fold cross-validation with three classifiers- Decision Tree, SVM, Bayesian Network, and two measurements-Accuracy and F-measure. The results indicated our model having the best performance.          
 
-**Publication**(Co-First author):  J. LI, ***Lu DONG***, J-H DING, X-Y YANG; Exploring the General Melodic Characteristics of XinTianYou Folk Songs [C],12th Sound and Music Computing Conference, Maynooth, Ireland. 2015:393-399.   <[Paper](https://github.com/dongludeeplearning/MIR) >
+**Publication**(Co-First author):  J. LI, ***myself***, J-H DING, X-Y YANG; Exploring the General Melodic Characteristics of XinTianYou Folk Songs [C],12th Sound and Music Computing Conference, Maynooth, Ireland. 2015:393-399.   <[Paper](https://github.com/dongludeeplearning/MIR) >
 
 
 
@@ -81,7 +81,7 @@ permalink: dongludeeplearning/about.html
 
 ## Personal Experience
 #### Shaanxi Haina Electronic Technology Co., LTD
-**Position**: Data Analyst, in charge of Information & Recommendation System, Oct 2016-Present
+**Position**: Data Analyst, in charge of Information & Recommendation System,  2016-Present. 
 
 + Developed the Product Information Collecting System, gathering close relevant network information. Parsed structured data and stored into MySQL by analytical technology for optimizing Advertising Strategies;
 +	Built Recommendation System combining multi-database to generate diversity recommendation and visualization, as well as Improvement and Maintenance. 
@@ -119,17 +119,23 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 + CMU course - 10703 Deep RL and control([Materials](https://katefvision.github.io/#readings))
 
 
+
 ## Professional Skills
+
 **Programming**:  Python, C, C++, C#, Java, HTML, XML .etc   
 **Tools**: PyCharm, Anaconda,  Matlab,.Net Framework, Octave, MySQL, R, Weka,Tensorflow, Keras.etc
+
+
+
+
 
 ## Other Skills
 **Accounting**  --Certificate of Accounting Qualification.   
 **Language**  -- Mandarin, English, Japanese.  
 
-**Art**  --Member of College Chorus; Piano, Drawing, and Literature Lovers. 
+**Arts and Sports** 
 
-**Sports**  
++ Member of College Chorus; Piano, Drawing, and Literature Lovers. 
 
 + Basketball (Captain of Collge Female Basketball Team, won Championship in 2011); 
 
