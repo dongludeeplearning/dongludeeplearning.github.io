@@ -137,7 +137,7 @@ There is one philosophy in my life——"Input as much as possible, set no bound
 **Language**  -- Mandarin, English, Japanese.    
 **Arts** -- Member of College Chorus; Piano, Drawing, and Literature Lovers.  
 **Sports** -- Basketball (Captain of Collge Female Basketball Team, won Championship in 2011);   
-Hurdle Race (Silver Metal of University Game);   
-Amateur of Ice Skating, Badminton, Table tennis, Billiards, Swimming, Climbing, Fitness, etc. 
+             -- Hurdle Race (Silver Metal of University Game);   
+             -- Amateur of Ice Skating, Badminton, Table tennis, Billiards, Swimming, Climbing, Fitness, etc. 
 
 
