@@ -10,7 +10,7 @@ tag: All
 
 
 ## Biography
-My name is Dong Lu, a female growing up in China. I'm pursing my Ph.D. degree in Computing and Information Science of Rochester Institute of Technology. I obtained my M.S. in XI’AN JIAOTONG University (CS) and Double B.S. in Northeast Electric Power University (Major in CS and Minor in EE). After that, I worked as a Data Analyst and in charge of AI group in an Electronic Technology company. Now, my research field  is Human Behavior Modeling. Besides, I also interested in Machine Learning, Deep Learning, NLP, Computer Vision, Reinforcement Learning, etc. Letting ideas interact with algorithm and mathematics is my real thing.
+My name is Dong Lu, a female growing up in China. I'm pursing my Ph.D. degree in Computing and Information Science in Rochester Institute of Technology. I obtained my M.S. in XI’AN JIAOTONG University (CS) and Double B.S. in Northeast Electric Power University (Major in CS and Minor in EE). After that, I worked as a Data Analyst and in charge of AI group in an Electronic Technology company. Now, my research field  is Human Behavior Modeling. Besides, I also interested in Machine Learning, Deep Learning, NLP, Computer Vision, Reinforcement Learning, etc. Letting ideas interact with algorithm and mathematics is my real thing.
 
 
 
