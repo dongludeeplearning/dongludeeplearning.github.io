@@ -1,3 +1,3 @@
 
 
-## My profile repo for academic usage.
+## My academic page.
