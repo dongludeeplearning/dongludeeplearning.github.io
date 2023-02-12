@@ -1,4 +1,4 @@
-<html>
+​	<html>
 
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
 	<title>Lu Dong</title>
@@ -32,8 +32,8 @@
 	.italic {font-style: italic;}
 	.bulletpoints {line-height: 1.5em;}
 	.row {box-sizing: border-box;}
-	.row-media {display: block; float: left; width: 180px; height: 90px; background-position: center; background-size: contain; background-repeat: no-repeat; border-radius: 6px; border: 1px solid #def;}
-	.row-text {display: block; float: left; margin-left: 16px; line-height: 1.5em; max-width: 662px;}
+	.row-media {display: block; float: left; width: 280px; height: 150px; background-position: center; background-size: contain; background-repeat: no-repeat; border-radius: 6px; border: 1px solid #def;}
+	.row-text {display: block; float: left; margin-left: 16px; line-height: 1.5em; max-width: 552px;}
 	.row-text span {line-height: inherit;}
 	.clearfix {content: ""; clear: both; display: table;}
 	.publication {margin-bottom: 32px; margin-left: 16px;}
@@ -41,6 +41,8 @@
 	.img-contain {background-size: contain !important;}
 	.footer {background-color: #345; width: 100%}
 	.footer-content {color: #fff; font-size: 10px; padding: 6px 0; max-width: 900px; margin: auto;}
+
+
 
 
 	@media only screen and (max-width: 1150px) {
@@ -59,8 +61,8 @@
 	</style>
 </head>
 
-
 <body>
+
 <div id="layout-content" style="margin-top:25px">
 <table cellpadding="11px">
 	<tbody>
@@ -122,46 +124,45 @@
   <h3>Under Review</h3>
 
   <div class="publication row clearfix">
-	<div class="row-media" style="background-image: url(files/pubs/unseen.png);"></div>
+	<div class="row-media" style="background-image: url(files/pubs/AtomVAE_Demo.gif);"></div>
 	<div class="row-text" align="justify">
-    <strong>AtomVAE: Towards Zero-Shot Text-to-Motion Synthesis (CVPR2023)</strong> <br/>
-		Abstract: Human motion synthesis is an important task due to its wide applications in computer graphics, human behavior understanding, human-robotic interactions, etc. Existing methods focus on closed-set human action synthesis, limiting their ability to generate actions of novel classes that are not seen during training. To address this problem, we propose AtomVAE for zero-shot text-to-motion synthesis, which aims to generate novel categories of actions that do not belong to the training set. Specifically, the proposed AtomVAE learns a mapping from the input text space that describes the action to the output motion space that represent the action, using limited number of training labels. To facilitate zero-shot text-to-motion synthesis, we propose to decompose seen actions into a set of atomic actions, such that by leveraging the similarity between input text and the learned atomic actions, our model can learn to compose novel actions using the atomic actions. The atomic actions are learned in an end-to-end manner, with diversity and sparsity constrains enforcing the atomicity and robustness. Our method not only achieves promising results on zero-shot synthesis, but also outperforms state-of-the-art approaches by a large margin in the traditional closed-set synthesis task.<br/>
+		<strong>AtomVAE: Towards Zero-Shot Text-to-Motion Synthesis (CVPR 2023)</strong> <br/>
+Human motion synthesis is an important task due to its wide applications in computer graphics, human behavior understanding, human-robotic interactions, etc. Existing methods focus on closed-set human action synthesis, limiting their ability to generate actions of novel classes that are not seen during training. To address this problem, we propose AtomVAE for zero-shot text-to-motion synthesis, which aims to generate novel categories of actions that do not belong to the training set. Specifically, the proposed AtomVAE learns a mapping from the input text space that describes the action to the output motion space that represent the action, using limited number of training labels. To facilitate zero-shot text-to-motion synthesis, we propose to decompose seen actions into a set of atomic actions, such that by leveraging the similarity between input text and the learned atomic actions, our model can learn to compose novel actions using the atomic actions. The atomic actions are learned in an end-to-end manner, with diversity and sparsity constrains enforcing the atomicity and robustness. Our method not only achieves promising results on zero-shot synthesis, but also outperforms state-of-the-art approaches by a large margin in the traditional closed-set synthesis task.<br/>
 	</div>
-  </div>
-
-
+  </div>  
 
 
 
 <h3>Ongoing</h3>
 
+
+
   <div class="publication row clearfix">
-	<div class="row-media" style="background-image: url(files/pubs/demo.png);"></div>
+	<div class="row-media" style="background-image: url(files/pubs/SignCLIP.png);"></div>
 	<div class="row-text" align="justify">
-		SignCLIP: From General Language to Sign Language<br/>
-		Sign language generation not only promotes communication between the hearing-impaired community and the general public but also further improves the mutual understanding between humans and robots.  We propose SignDict, a text-to-sign video approach to deal with challenges in pose estimation and the design of generative networks to further improve the performance.<br/>
+		<strong>SignCLIP: A New Framework for Sign Language 3D Mesh Generation using CLIP (ICCV 2023)</strong> <br/>
+Similar to any language, understanding and communicating sign language can be quite challenging. To make sign language spread over multiple ways like other languages, we proposed a framework to generate 3D mesh sign videos from the image or text. Specifically, we applied SMPL-X model to get the expressive pose including the upper body, face, and hands. Then the Transformer-based model has been applied to analyze and reconstruct the pose sequences. Moreover, we introduced the CLIP model to improve performance when matching the image, text and sign sequence. Our work builds a new baseline for the sign language generation community. Experiments showcase that our model not only achieves promising results on zero-shot generation but also proved can be better understood by the community.<br/>
 	</div>
   </div>
 
 
-<div class="publication row clearfix">
-	<div class="row-media" style="background-image: url(files/pubs/demo.png);"></div>
+
+  <div class="publication row clearfix">
+	<div class="row-media" style="background-image: url(files/pubs/Agent4Sign2.png);"></div>
 	<div class="row-text" align="justify">
-		Whole3DEst:  Human Whole-Body 3D Pose Estimation under Self-supervision<br/>
-		Existing self-supervised 3D human pose estimation schemes rely heavily on weak supervision without faces and hands, which inevitably leads to insufficient body language understanding and poor results in self-occluded realistic scenes. We propose a novel self-supervised approach that allows us to explicitly generate 3D human full-body estimates without 3D ground truth data. Specifically, we take advantage of physical simulations to learn dual co-evolved pose estimation networks.<br/>
+		<strong>Agent4Sign:  Human Whole-Body 3D Pose Agent Estimation for Sign Language </strong> <br/>
+In the sign language community, the traditional method of depicting the skeleton pose in vision is not effective enough for sign language personnel to comprehend. The use of 3D mesh enhances the visual aspect, however, it disregards the essential physical structure of the human body. To tackle these challenges, we propose the Agent4Sign framework. This framework incorporates the MUJOCO physics engine to improve the accuracy and realism of the representation. The proposed model leverages the mutual constraints between two methods to implement a self-supervised training process from videos with reinforcement learning, eliminating the reliance on 3D Ground Truth. Experiments showcase our approach effectively  improves sample efficiency and offers a more naturalistic and realistic representation.  Additionally, the proposed model also provides a path towards manipulating real robots, offering promising potential for real-world applications and advancements in the field.<br/>
 	</div>
   </div>
-
-
 
 
 
   <h3>Previous</h3>
 
   <div class="publication row clearfix">
-	<div class="row-media" style="background-image: url(files/pubs/xintianyou.png);"></div>
+	<div class="row-media" style="background-image: url(files/pubs/Music.gif);"></div>
 	<div class="row-text">
-		Exploring the General Melodic Characteristics of XinTianYou Folk Songs<br/>
+		<a href="Music.html"><strong>Exploring the General Melodic Characteristics of XinTianYou Folk Songs</strong><br/></a>
 		Juan Li, <strong>Lu Dong</strong>, Jianhang Ding, Xinyu Yang<br/>
 		<span class="italic"></i>12th Sound and Music Computing Conference(<strong>SMC</strong>) </span><br/>
 		<a class="btn btn-orange" href="https://zenodo.org/record/851035#.Y2nrz-yZPeo">DOI</a> 
@@ -171,29 +172,44 @@
   </div>
 
 
+
 <h2>Selected Project Demo</h2>
-<video controls="controls" width="100%">
-  <source src="./files/pubs/Pre_lu_vibe_result.mp4" type="video/mp4">
-  <source src="./files/pubs/Pre_lu_vibe_result.webm" type=‘video/webm‘ />
-  <source src="./files/pubs/Pre_lu_vibe_result.ogg" type="video/ogg">
-Your browser does not support the video tag.
-</video>
+
+  <div class="publication row clearfix">
+	<div class="row-media" style="background-image: url(files/pubs/Human_Pose.gif);">   </div>
+	<div class="row-text" align="justify">
+	 <a href="Human_Pose.html">	<strong> A smooth 3D Human Pose Estimation pipeline for video in the wild</strong> <br/></a>
+The majority of current models have been trained on limited close set data, which often results in subpar performance when applied to real-world video data. One of the major challenges in this context is the issue of self-occlusion, which refers to instances where parts of a subject's body obstruct or cover other parts. This results in a less smooth and precise performance. To tackle this issue, my approach involved a transformer-based pipeline that incorporates both self communication and cross communication mechanisms. Applying this technique in consecutive frames has resulted in a marked improvement in smooth and has been verified through extensive experimentation. The results of these experiments demonstrate that the proposed pipeline outperforms state-of-the-art performance on the Human3.6 dataset, as well as exhibiting the best performance on our in-house self-occlusion dataset.
+<br/>
+	</div>
+  </div>
 
 
 
+  <div class="publication row clearfix">
+	<div class="row-media" style="background-image: url(files/pubs/Training_chatbot.gif);"></div>
+	<div class="row-text" align="justify">
+	 <a href="Training_ChatBot.html">	<strong> A Training ChatBot to facilitate medical knowledge dissemination in underdeveloped regions</strong> <br/></a>
+This project is undertaken in providing for support for a non-profit organization with the aim of addressing the lack of medical knowledge in underdeveloped regions of India. This shortfall leads to an alarming number of preventable fatalities each year. The non-profit organization has furnished us with relevant document data and we have developed a training chatbot to enhance the understanding of medical knowledge and local resources by volunteers and the local population. The chatbot will serve as an educational tool to improve medical literacy and ultimately, save lives.<br/>
+	</div>
+  </div>	
 
 
-​	
 
-
-
+  <div class="publication row clearfix">
+	<div class="row-media" style="background-image: url(files/pubs/covid_search_engine.gif);"></div>
+	<div class="row-text" align="justify">
+	 <a href="covid_search.html">	<strong> A Covid Analysis Search Engine: Dissecting Twitter data to analyze government & public attitude towards Covid and Vaccines</strong> <br/></a>
+This search engine aims to explore the impact of authoritative figures on the trend of COVID-19 and the public's attitude towards COVID-19 and vaccines. To gather information, we utilized the Tweepy API to collect 50,000 tweet data from various countries and languages. We further use  some information retrieval technology to build up a database that supports ranking. Meanwhile, the backend implements data analysis from multiple dimensions and sentiment analysis using advanced NLP technology.  The user interface mimics the design of Google's UI, utilizing technologies such as HTML, CSS, Bootstrap, Javascript, and Ajax. Finally, our Flask server deployed on AWS EC2 cloud.<br/>
+	</div>
+  </div>		
 
 
 
 <h2>Experience</h2>
   <ul>
 	<li type="disc">
-    <strong>Research Internship </strong> OPPO US Research Center, Palo Alto, CA, On-Site, May 2022- Aug 2022.
+    <strong>Research Internship </strong> OPPO US Research Institute, Palo Alto, CA, On-Site, May 2022- Aug 2022.
 		</li>  
   <li type="disc">
     <strong>Research Assitant</strong> University at Buaffalo SUNY (UB), Aug 2021- Now.
@@ -227,9 +243,10 @@ Your browser does not support the video tag.
   <h3>Honors</h3>
   	<ul>
       <li type="disc"> <strong>Excellent Postgraduate Student </strong>, XI'an Jiaotong University (XJTU), 2014 & 2015. (top 10%)</li>
-      <li type="disc"> <strong>Excellent Student Cadre </strong>, Northeast Electric Power University (NEEPU), 2010. </li>
-      <li type="disc"> <strong>Excellent Undergraduate Student </strong>,Northeast Electric Power University (NEEPU).</li>
+      <li type="disc"> <strong>Excellent Student Cadre </strong>, Northeast Electric Power University (NEEPU), 2010. (top 3 /120)</li> 
+      <li type="disc"> <strong>Excellent Undergraduate Student </strong>,Northeast Electric Power University (NEEPU).(top 10%)</li> 
 </ul>
+
 
 
 
@@ -267,7 +284,6 @@ Your browser does not support the video tag.
   	</ul>
 
 
-
 <hr>
 <table cellpadding="0px">
 	<tbody>
@@ -280,7 +296,7 @@ Your browser does not support the video tag.
 			</td>
 			<td valign="top">
 				<div style="clear:both;">
-				<p align="right"><font size="2">Last Updated on Nov, 2022<br>
+				<p align="right"><font size="2">Last Updated on Feb, 2023<br>
 				Published with <a href="https://pages.github.com/">GitHub Pages</a></font></p>
 				</div>
 				<div style="clear: both;">
@@ -290,6 +306,7 @@ Your browser does not support the video tag.
 		</tr>
 	</tbody>
 </table>
+
 
 
 </body>
