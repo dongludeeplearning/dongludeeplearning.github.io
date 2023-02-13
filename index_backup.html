@@ -1,4 +1,4 @@
-	<html>
+​	<html>
 
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
 	<title>Lu Dong</title>
@@ -120,25 +120,41 @@
 	</table>
 	</div>
 
-<h2>Selected Research</h2>
+<h2>Selected Publications</h2>
+  <h3>Under Review</h3>
 
   <div class="publication row clearfix">
 	<div class="row-media" style="background-image: url(files/pubs/AtomVAE_Demo.gif);"></div>
 	<div class="row-text" align="justify">
-		<strong>AtomVAE: Towards Zero-Shot Text-to-Motion Synthesis (CVPR 2023 under review)</strong> <br/>
+		<strong>AtomVAE: Towards Zero-Shot Text-to-Motion Synthesis (CVPR 2023)</strong> <br/>
 Human motion synthesis is an important task due to its wide applications in computer graphics, human behavior understanding, human-robotic interactions, etc. Existing methods focus on closed-set human action synthesis, limiting their ability to generate actions of novel classes that are not seen during training. To address this problem, we propose AtomVAE for zero-shot text-to-motion synthesis, which aims to generate novel categories of actions that do not belong to the training set. Specifically, the proposed AtomVAE learns a mapping from the input text space that describes the action to the output motion space that represent the action, using limited number of training labels. To facilitate zero-shot text-to-motion synthesis, we propose to decompose seen actions into a set of atomic actions, such that by leveraging the similarity between input text and the learned atomic actions, our model can learn to compose novel actions using the atomic actions. The atomic actions are learned in an end-to-end manner, with diversity and sparsity constrains enforcing the atomicity and robustness. Our method not only achieves promising results on zero-shot synthesis, but also outperforms state-of-the-art approaches by a large margin in the traditional closed-set synthesis task.<br/>
 	</div>
   </div>  
 
 
 
+<h3>Ongoing</h3>
+
+
+
   <div class="publication row clearfix">
 	<div class="row-media" style="background-image: url(files/pubs/SignClip.png);"></div>
 	<div class="row-text" align="justify">
-		<strong>SignCLIP: A New Framework for Sign Language 3D Mesh Generation using CLIP (ICCV 2023 under review)</strong> <br/>
+		<strong>SignCLIP: A New Framework for Sign Language 3D Mesh Generation using CLIP (ICCV 2023)</strong> <br/>
 Similar to any language, understanding and communicating sign language can be quite challenging. To make sign language spread over multiple ways like other languages, we proposed a framework to generate 3D mesh sign videos from the image or text. Specifically, we applied SMPL-X model to get the expressive pose including the upper body, face, and hands. Then the Transformer-based model has been applied to analyze and reconstruct the pose sequences. Moreover, we introduced the CLIP model to improve performance when matching the image, text and sign sequence. Our work builds a new baseline for the sign language generation community. Experiments showcase that our model not only achieves promising results on zero-shot generation but also proved can be better understood by the community.<br/>
 	</div>
   </div>
+
+
+
+  <div class="publication row clearfix">
+	<div class="row-media" style="background-image: url(files/pubs/Agent4Sign2.png);"></div>
+	<div class="row-text" align="justify">
+		<strong>Agent4Sign:  Human Whole-Body 3D Pose Agent Estimation for Sign Language </strong> <br/>
+In the sign language community, the traditional method of depicting the skeleton pose in vision is not effective enough for sign language personnel to comprehend. The use of 3D mesh enhances the visual aspect, however, it disregards the essential physical structure of the human body. To tackle these challenges, we propose the Agent4Sign framework. This framework incorporates the MUJOCO physics engine to improve the accuracy and realism of the representation. The proposed model leverages the mutual constraints between two methods to implement a self-supervised training process from videos with reinforcement learning, eliminating the reliance on 3D Ground Truth. Experiments showcase our approach effectively  improves sample efficiency and offers a more naturalistic and realistic representation.  Additionally, the proposed model also provides a path towards manipulating real robots, offering promising potential for real-world applications and advancements in the field.<br/>
+	</div>
+  </div>
+
 
 
   <h3>Previous</h3>
@@ -149,13 +165,11 @@ Similar to any language, understanding and communicating sign language can be qu
 		<a href="Music.html"><strong>Exploring the General Melodic Characteristics of XinTianYou Folk Songs</strong><br/></a>
 		Juan Li, <strong>Lu Dong</strong>, Jianhang Ding, Xinyu Yang<br/>
 		<span class="italic"></i>12th Sound and Music Computing Conference(<strong>SMC</strong>) </span><br/>
-    <span class="italic"></i>Please check title link for more details.</span><br/>
 		<a class="btn btn-orange" href="https://zenodo.org/record/851035#.Y2nrz-yZPeo">DOI</a> 
 		<a class="btn btn-red" href="https://github.com/dongludeeplearning/MIR/blob/master/Exploring%20the%20General%20Melodic%20Characteristics%20of%20XinTianYou%20Folk%20Songs.pdf">PDF</a>
 		<a class="btn" href="bibs/xintianyou.txt">BibTeX</a>
 	</div>
   </div>
-
 
 
 
@@ -165,9 +179,8 @@ Similar to any language, understanding and communicating sign language can be qu
 	<div class="row-media" style="background-image: url(files/pubs/Human_Pose.gif);">   </div>
 	<div class="row-text" align="justify">
 	 <a href="Human_Pose.html">	<strong> A smooth 3D Human Pose Estimation pipeline for video in the wild</strong> <br/></a>
-The majority of current models have been trained on limited close set data, which often results in subpar performance when applied to real-world video data. One of the major challenges in this context is the issue of self-occlusion, which refers to instances where parts of a subject's body obstruct or cover other parts. This results in a less smooth and precise performance. This project aims to tackle this issue.
+The majority of current models have been trained on limited close set data, which often results in subpar performance when applied to real-world video data. One of the major challenges in this context is the issue of self-occlusion, which refers to instances where parts of a subject's body obstruct or cover other parts. This results in a less smooth and precise performance. To tackle this issue, my approach involved a transformer-based pipeline that incorporates both self communication and cross communication mechanisms. Applying this technique in consecutive frames has resulted in a marked improvement in smooth and has been verified through extensive experimentation. The results of these experiments demonstrate that the proposed pipeline outperforms state-of-the-art performance on the Human3.6 dataset, as well as exhibiting the best performance on our in-house self-occlusion dataset.
 <br/>
-    <span class="italic"></i>Please check title link for more details.</span><br/>
 	</div>
   </div>
 
@@ -177,8 +190,7 @@ The majority of current models have been trained on limited close set data, whic
 	<div class="row-media" style="background-image: url(files/pubs/Training_chatbot.gif);"></div>
 	<div class="row-text" align="justify">
 	 <a href="chatbot.html">	<strong> A Training ChatBot to facilitate medical knowledge dissemination in underdeveloped regions</strong> <br/></a>
-This project is undertaken in providing for support for a non-profit organization with the aim of addressing the lack of medical knowledge in underdeveloped regions of India. This shortfall leads to an alarming number of preventable fatalities each year. We have developed a training chatbot to enhance the understanding of medical knowledge and local resources by volunteers and the local population. The chatbot will serve as an educational tool to improve medical literacy and ultimately, save lives.<br/>
-    <span class="italic"></i>Please check title link for more details.</span><br/>
+This project is undertaken in providing for support for a non-profit organization with the aim of addressing the lack of medical knowledge in underdeveloped regions of India. This shortfall leads to an alarming number of preventable fatalities each year. The non-profit organization has furnished us with relevant document data and we have developed a training chatbot to enhance the understanding of medical knowledge and local resources by volunteers and the local population. The chatbot will serve as an educational tool to improve medical literacy and ultimately, save lives.<br/>
 	</div>
   </div>	
 
@@ -188,31 +200,9 @@ This project is undertaken in providing for support for a non-profit organizatio
 	<div class="row-media" style="background-image: url(files/pubs/covid_search_engine.gif);"></div>
 	<div class="row-text" align="justify">
 	 <a href="covid_search.html">	<strong> A Covid Analysis Search Engine: Dissecting Twitter data to analyze government & public attitude towards Covid and Vaccines</strong> <br/></a>
-Do authoritative figures have any influence on the trend of COVID-19, what is the attitude of the general public toward COVID-19 and vaccines, whether changes in public attitudes are influenced by authoritative speech? The aim of this project is to design and develop a full-stack search engine that integrates advanced functionalities for retrieval, translation, sentiment analysis, attitude tracking, topic & area statistics, and disinformation detection from multiple dimensions. <br/>
-    <span class="italic"></i>Please check title link for more details.</span><br/>
+This search engine aims to explore the impact of authoritative figures on the trend of COVID-19 and the public's attitude towards COVID-19 and vaccines. To gather information, we utilized the Tweepy API to collect 50,000 tweet data from various countries and languages. We further use  some information retrieval technology to build up a database that supports ranking. Meanwhile, the backend implements data analysis from multiple dimensions and sentiment analysis using advanced NLP technology.  The user interface mimics the design of Google's UI, utilizing technologies such as HTML, CSS, Bootstrap, Javascript, and Ajax. Finally, our Flask server deployed on AWS EC2 cloud.<br/>
 	</div>
   </div>		
-
-
-
-  <h3>Previous</h3>
-
-  <div class="publication row clearfix">
-	<div class="row-media" style="background-image: url(files/pubs/Music.gif);"></div>
-	<div class="row-text">
-		<a href="Music.html"><strong>Exploring the General Melodic Characteristics of XinTianYou Folk Songs</strong><br/></a>
-		Juan Li, <strong>Lu Dong</strong>, Jianhang Ding, Xinyu Yang<br/>
-		<span class="italic"></i>12th Sound and Music Computing Conference(<strong>SMC</strong>) </span><br/>
-		<a class="btn btn-orange" href="https://zenodo.org/record/851035#.Y2nrz-yZPeo">DOI</a> 
-		<a class="btn btn-red" href="https://github.com/dongludeeplearning/MIR/blob/master/Exploring%20the%20General%20Melodic%20Characteristics%20of%20XinTianYou%20Folk%20Songs.pdf">PDF</a>
-		<a class="btn" href="bibs/xintianyou.txt">BibTeX</a>
-	</div>
-  </div>
-
-
-
-
-
 
 
 
@@ -307,15 +297,15 @@ Do authoritative figures have any influence on the trend of COVID-19, what is th
 			<td valign="top">
 				<div style="clear:both;">
 				<p align="right"><font size="2">Last Updated on Feb, 2023<br>
+				Published with <a href="https://pages.github.com/">GitHub Pages</a></font></p>
 				</div>
 				<div style="clear: both;">
-				<p align="right"><font size="5"><img src="./index_files//stay-happy-milk-and-mocha-bear.gif"></font></p>
+				<p align="right"><font size="5"><img src="./index_files//raccoon.gif"></font></p>
 				</div>
 			</td>
 		</tr>
 	</tbody>
 </table>
-
 
 
 
