@@ -1,0 +1,6 @@
+@inproceedings{zhai2023language,
+  title={Language-guided Human Motion Synthesis with Atomic Actions},
+  author={Zhai, Yuanhao and Huang, Mingzhen and Luan, Tianyu and Dong, Lu and Nwogu, Ifeoma and Lyu, Siwei and Doermann, David and Yuan, Junsong},
+  booktitle={Proceedings of the ACM Multimedia},
+  year={2023}
+}

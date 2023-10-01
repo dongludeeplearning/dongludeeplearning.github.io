@@ -107,12 +107,14 @@
 	<tr>
 	<td style="border-style: none; border-width: medium;">
 	<ul>
-		<li type="circle">2023.07: One paper on human motion synthesis is accepted by ACM MM 2023.
+		<li type="circle">2023.08: I was invited to <strong> give a talk </strong> on Internships in the course CSE501, Fall2023, UB.</li>
+		<li type="circle">2023.07: One paper on human motion synthesis is accepted by <strong>ACM MM 2023 </strong>.
+		<li type="circle">2023.06: I successfully passed my Oral Qualifying Exam (<strong>OQE</strong>) and became a PhD candidate at UB.
 		<li type="circle">2023.05: Start my research intern jounrney at <strong> OPPO U.S. Research Center </strong> in Seattle, WA.(on-site)
 		<li type="circle">2022.11: I was invited to be the <strong>judge</strong> of the 2022  <strong>UB Hacking Competition! </strong> </li>
 		<li type="circle">2022.10: I was invited to <strong> give a talk </strong> in the course CSE501, Fall2022, UB.</li>
 		<li type="circle">2022.05: Start my research intern jounrney at <strong> OPPO U.S. Research Cernter </strong> in Palo Alto, CA. (on-site)</li>
-		<li type="circle">2021.08: Start my new Ph.D journey at <strong>UB</strong>, Buffalo, NY.</li>
+		<li type="circle">2021.08: Start my new Ph.D journey following my advisor at <strong>UB</strong>, Buffalo, NY.</li>
 		<li type="circle">2021.05: I passed the Ph.D Research Potential Assessment at RIT!</li>
 		<li type="circle">2020.08: Start my new Ph.D journey at <strong>RIT</strong>, Rochester, NY.</li>
 	</ul><br>
@@ -125,24 +127,28 @@
 <h2>Selected Research</h2>
 
   <div class="publication row clearfix">
-	<div class="row-media" style="background-image: url(files/pubs/AtomVAE_Demo.gif);"></div>
-	<div class="row-text" align="justify">
-		<strong>Language-guided Human Motion Synthesis with Atomic Actions </strong>(ACM MM under review) <br/>
-Human motion synthesis is an important task due to its wide applications in computer graphics, human behavior understanding, human-robotic interactions, etc. Existing methods focus on closed-set human action synthesis, limiting their ability to generate actions of novel classes that are not seen during training. To address this problem, we propose AtomVAE for zero-shot text-to-motion synthesis, which aims to generate novel categories of actions that do not belong to the training set. Specifically, the proposed AtomVAE learns a mapping from the input text space that describes the action to the output motion space that represent the action, using limited number of training labels. To facilitate zero-shot text-to-motion synthesis, we propose to decompose seen actions into a set of atomic actions, such that by leveraging the similarity between input text and the learned atomic actions, our model can learn to compose novel actions using the atomic actions. The atomic actions are learned in an end-to-end manner, with diversity and sparsity constrains enforcing the atomicity and robustness. Our method not only achieves promising results on zero-shot synthesis, but also outperforms state-of-the-art approaches by a large margin in the traditional closed-set synthesis task.<br/>
-	</div>
-  </div>  
-
-
-
-
-
-  <div class="publication row clearfix">
 	<div class="row-media" style="background-image: url(files/pubs/SignClip.png);"></div>
 	<div class="row-text" align="justify">
-		<strong>SignCLIP: A New Framework for Sign Language 3D Mesh Generation using CLIP </strong> <br/>
-Similar to any language, understanding and communicating sign language can be quite challenging. To make sign language spread over multiple ways like other languages, we proposed a framework to generate 3D mesh sign videos from the image or text. Specifically, we applied SMPL-X model to get the expressive pose including the upper body, face, and hands. Then the Transformer-based model has been applied to analyze and reconstruct the pose sequences. Moreover, we introduced the CLIP model to improve performance when matching the image, text and sign sequence. Our work builds a new baseline for the sign language generation community. Experiments showcase that our model not only achieves promising results on zero-shot generation but also proved can be better understood by the community.<br/>
+		<strong>SignAvatar: Sign Language 3D Motion Reconstruction and Generation </strong> <br/>
+Sign language (SL) 3D motion reconstruction and automatic generation help alleviate communication barriers between deaf and hearing communities, promote multi-modal integration, and enable AR/VR applications. Word-level isolated signs are crucial for SL learning, recognition, and sentence synthesis, as they are in all languages. However, achieving expressive 3D motion reconstruction and generation for such isolated signs presents challenges due to the lack of expressive 3D data, complex and nuances of motions, and the cross-modal apprehension of semantics. To address these challenges, we introduce SignAvatar, a framework capable of both SL reconstruction and generation. SignAvatar employs a transformer-based conditional variational autoencoder architecture, effectively establishing relationships across different modalities of semantics. Additionally, our approach incorporates a curriculum learning strategy to enhance the model's generalization, resulting in more realistic motion.Furthermore, we contribute the ASLGloss30 dataset for 3D sign motion approach, ensuring its quality through rigorous quality control. We demonstrate the effectiveness of SignAvatar through extensive experiments, showcasing its superior reconstruction and automatic generation capabilities.<br/>
 	</div>
   </div>
+
+ 
+
+  <div class="publication row clearfix">
+	<div class="row-media" style="background-image: url(files/pubs/ATOM.gif);"></div>
+	<div class="row-text">
+		<a href="https://www.yhzhai.com/publication/mm-2023-atom/"><strong>Language-guided Human Motion Synthesis with Atomic Actions</strong><br/></a>
+    Yuanhao Zhai, Mingzhen Huang, Tianyu Luan,  <strong>Lu Dong </strong>, Ifeoma Nwogu, Siwei Lyu, David Doermann, Junsong Yuan <br/>
+		<span class="italic"></i>ACM Multimedia (<strong>MM</strong>), 2023. </span><br/>
+    <span class="italic"></i>Please check title link for more details.</span><br/>
+		<a class="btn btn-orange" href=" ">DOI</a> 
+		<a class="btn btn-red" href="https://arxiv.org/abs/2308.09611">PDF</a>
+		<a class="btn" href="bibs/xintianyou.txt">BibTeX</a>
+	</div>
+  </div>
+
 
 
   <h3>Previous</h3>
@@ -156,9 +162,10 @@ Similar to any language, understanding and communicating sign language can be qu
     <span class="italic"></i>Please check title link for more details.</span><br/>
 		<a class="btn btn-orange" href="https://zenodo.org/record/851035#.Y2nrz-yZPeo">DOI</a> 
 		<a class="btn btn-red" href="https://www.semanticscholar.org/paper/Exploring-the-General-Melodic-Characteristics-of-Li-Dong/2ccbf8ede81c2f41320cd046d045898cd9325b84">PDF</a>
-		<a class="btn" href="bibs/xintianyou.txt">BibTeX</a>
+		<a class="btn" href="bibs/ATOM.txt">BibTeX</a>
 	</div>
   </div>
+
 
 
 
