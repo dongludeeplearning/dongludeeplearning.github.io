@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facial Emotion Recognition UI</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .sidebar {
+    background-color: #eee;
+    overflow-y: auto;
+    padding: 20px;
+    height: 100vh; /* Full height */
+    box-sizing: border-box; /* Include padding in the box's dimensions */
+    width: 250px; /* Sidebar width */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  }
+  .content {
+    margin-left: 250px; /* Same as the width of the sidebar */
+    padding: 1px 16px;
+  }
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    width: 60%; 
+    margin: auto; 
+  }
+  .video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto
+  }
+  .graph {
+    margin-top: 5px;
+    background-color: #ddd;
+    padding: 40px;
+    height: 25vh; /* Graph area taking half of the viewport height */
+  }
+  .graph-image {
+  width: 100%; /* Fill the width of the .graph container */
+  height: auto; /* Adjust the height automatically to maintain aspect ratio */
+  display: block; /* To prevent default inline behavior */
+  }
+  .selected-tags {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  .tag {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    background-color: #e1e1e1;
+    border-radius: 4px;
+  }
+  .content h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  }  
+  .content h2 {
+    text-align: center; /* Center aligns the subtitle */
+    color: #666; /* Subtitle color */
+    margin-top: 0;
+    margin-bottom: 20px; /* Spacing below the subtitle */
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <!-- Checkbox options for facial emotion recognition -->
+  <h3>Facial Emotion Recognition</h3>
+  <label><input type="checkbox" name="Happy"> Happy</label><br>
+  <label><input type="checkbox" name="Sad"> Sad</label><br>
+  <label><input type="checkbox" name="Anger"> Anger</label><br>
+  <label><input type="checkbox" name="Suprise"> Suprise</label><br>
+  <label><input type="checkbox" name="Fear"> Fear</label><br>
+  <label><input type="checkbox" name="Disgust"> Disgust</label><br>
+  <label><input type="checkbox" name="Neutral"> Neutral</label><br>
+  <label><input type="checkbox" name="Valence"> Valence</label><br>
+  <label><input type="checkbox" name="Arousal"> Arousal</label><br>
+  <!-- Add more checkboxes for each feature -->
+  
+  <!-- Container for selected tags -->
+  <div id="selected-tags" class="selected-tags">
+    <h3>Selected Features</h3>
+  </div>
+</div>
+
+<div class="content">
+    <h1>National AI Institute for Exceptional Education</h1> <!-- 视频标题 -->
+    <h2>Non-verbal Analysis Demo</h2> 
+  <div class="video-container">
+    <!-- Video player -->
+    <video controls>
+        <source src="AI4EE-_files/S1_fear_surprise_1.mp4" type="video/mp4">
+      Your browser does not support the video element.
+    </video>
+  </div>
+  <div class="graph">
+    <!-- Placeholder for the graph -->
+    Analysis Report will be displayed here
+    <img src="AI4EE-_files/graph.png" alt="Graph Image" class="graph-image">
+  </div>
+</div>
+
+<script>
+  // Select all checkboxes and the selected tags container
+  const checkboxes = document.querySelectorAll('.sidebar input[type="checkbox"]');
+  const selectedTagsContainer = document.getElementById('selected-tags');
+
+  // Add event listeners to checkboxes
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      updateSelectedTags(this);
+    });
+  });
+
+  // Function to update the display of selected tags
+  function updateSelectedTags(checkbox) {
+    const tagId = 'tag-' + checkbox.name;
+    const tag = document.getElementById(tagId);
+
+    // If checkbox is checked and tag doesn't exist, create and append the tag
+    if (checkbox.checked && !tag) {
+      const newTag = document.createElement('div');
+      newTag.id = tagId;
+      newTag.textContent = checkbox.name.replace(/([A-Z])/g, ' $1').trim(); // Add spaces before capital letters and trim
+      newTag.className = 'tag';
+      selectedTagsContainer.appendChild(newTag);
+    } 
+    // If checkbox is not checked and tag exists, remove the tag
+    else if (!checkbox.checked && tag) {
+      selectedTagsContainer.removeChild(tag);
+    }
+  }
+</script>
+
+</body>
+</html>
