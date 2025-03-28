@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVI Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 36px;
+            margin: 20px 0 10px 0;
+        }
+        h2 {
+            font-size: 18px;
+            margin: 5px 0; /* 减小上下间距 */
+        }
+        hr {
+            width: 80%; /* 控制横线宽度 */
+            margin: 10px auto; /* 调整横线上下间距和居中 */
+            border: none; /* 移除默认边框样式 */
+            border-top: 2px solid #ddd; /* 添加自定义的横线样式 */
+        }
+        .video-section {
+            width: 80%;
+            margin-top: 20px;
+        }
+        .horizontal-line {
+            width: 80%; /* 设置与导师下面横线宽度一致 */
+            height: 2px;
+            background-color: #ddd;
+            margin: 20px auto;
+        }
+        .video-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .video-wrapper {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 10px;
+        }
+        .video-wrapper:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10%;
+            bottom: 10%;
+            width: 1px;
+            background-color: #ddd;
+        }
+        .video-title {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        video {
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Title, Author and Advisor -->
+    <h1>Non-Verbal Behavior and Cognitive Analysis in Student Learning</h1>
+    <h2> Lu Dong</h2>
+    <h2> Advisor: Ifeoma Nwogu </h2>
+    <hr> <!-- 导师信息下面的横线 -->
+
+    <!-- First Row -->
+    <div class="video-section">
+        <div class="video-container">
+            <div class="video-wrapper">
+                <div class="video-title">Original Video_1</div>
+                <video id="videoPlayer1" controls>
+                    <source src="demo/5000441006.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-wrapper">
+                <div class="video-title">Meta-Analysis: Eyeblink</div>
+                <video id="videoPlayer2" controls>
+                    <source src="demo/eyeblink_5000441006.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-wrapper">
+                <div class="video-title">Meta-Analysis: Gaze</div>
+                <video id="videoPlayer3" controls>
+                    <source src="demo/gaze_5000441006.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+    <!-- Horizontal Line -->
+    <div class="horizontal-line"></div>
+
+    <!-- Second Row -->
+    <div class="video-section">
+        <div class="video-container">
+            <div class="video-wrapper">
+                <div class="video-title">Original Video_2</div>
+                <video id="videoPlayer4" controls>
+                    <source src="demo/4100321001.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-wrapper">
+                <div class="video-title">Meta-Analysis: Eyeblink</div>
+                <video id="videoPlayer5" controls>
+                    <source src="demo/eyeblink_4100321001.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-wrapper">
+                <div class="video-title">Meta-Analysis: Gaze</div>
+                <video id="videoPlayer6" controls>
+                    <source src="demo/gaze_4100321001.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+    <!-- Horizontal Line -->
+    <div class="horizontal-line"></div>
+
+    <!-- Third Row -->
+    <div class="video-section">
+        <div class="video-container">
+            <div class="video-wrapper">
+                <div class="video-title">Original Video_3</div>
+                <video id="videoPlayer7" controls>
+                    <source src="demo/1100021003.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-wrapper">
+                <div class="video-title">Meta-Analysis: Eyeblink</div>
+                <video id="videoPlayer8" controls>
+                    <source src="demo/eyeblink_1100021003.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-wrapper">
+                <div class="video-title">Meta-Analysis: Gaze</div>
+                <video id="videoPlayer9" controls>
+                    <source src="demo/gaze_1100021003.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
