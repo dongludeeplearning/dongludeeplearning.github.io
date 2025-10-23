@@ -1,146 +1,226 @@
+<!DOCTYPE html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SignAvatar: Sign Language 3D Motion Reconstruction and Generation.">
+  <meta name="keywords" content="SignAvatar, SMPLX, 3D Mesh">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SignAvatar: Sign Language 3D Motion Reconstruction and Generation</title>
 
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
-	<title>Lu Dong</title>
-	<meta content="LuDong, Lu Dong UB, lu dong ub, ludong,  https://dongludeeplearning.github.io/" name="keywords">
-	<link rel="stylesheet" href="./index_files/jemdoc.css" type="text/css">
-	<script async="" src="http://www.google-analytics.com/analytics.js"></script>
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-66888300-1', 'auto');
-		ga('send', 'pageview');
-	</script>
-	<script type="text/javascript" src="./index_files/jquery-1.12.4.min.js"></script>
-	<style>
-	a {color: #2471a3; text-decoration: none;}
-	a:hover {color: #5499c7;}
-	a.btn {background-color: #2471a3; color: #fff; font-size: 12px; margin-top: 4px; display: inline-block; padding: 0 4px; border-radius: 2px; line-height: 1.5em;}
-	a.btn:hover {background-color: #174e74;}
-	a.btn.btn-red {background-color: #d63a3a;}
-	a.btn.btn-red:hover {background-color: #a02727;}
-	a.btn.btn-orange {background-color: #e2700c;}
-	a.btn.btn-orange:hover {background-color: #c46009;}
-	a.btn.btn-dark {background-color: #345;}
-	a.btn.btn-dark:hover {background-color: #234;}
-	p {line-height: 1.5em;}
-	.nobreak {white-space: nowrap;}
-	.noselect {-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
-	.bold {font-weight: bold;}
-	.italic {font-style: italic;}
-	.bulletpoints {line-height: 1.5em;}
-	.row {box-sizing: border-box;}
-	.row-media {display: block; float: left; width: 280px; height: 150px; background-position: center; background-size: contain; background-repeat: no-repeat; border-radius: 6px; border: 1px solid #def;}
-	.row-text {display: block; float: left; margin-left: 16px; line-height: 1.5em; max-width: 552px;}
-	.row-text span {line-height: inherit;}
-	.clearfix {content: ""; clear: both; display: table;}
-	.publication {margin-bottom: 32px; margin-left: 16px;}
-	.press {width: 100px; height: 80px; border: 1px solid #def; margin-right: 12px; background-size: cover;}  
-	.img-contain {background-size: contain !important;}
-	.footer {background-color: #345; width: 100%}
-	.footer-content {color: #fff; font-size: 10px; padding: 6px 0; max-width: 900px; margin: auto;}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
 
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
 
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
 
-
-	@media only screen and (max-width: 1150px) {
-		.header-profile-picture, .header-text {display: block; margin: auto; text-align: center;}
-		.header-profile-picture {margin-bottom: 12px; width: 140px; height: 140px;}
-		body {font-size: 18px;}
-		a.btn {font-size: 14px; padding: 2px 6px;}
-	}
-	
-	@media only screen and (max-width: 900px) {
-		.publication {margin-bottom: 46px;}
-		.publication .row-media {width: 260px; height: 130px; margin: auto; margin-bottom: 12px; display: block;}
-		.publication .row-text {display: block; width: 100%; margin-left: 0;}
-		.press {display: block;}
-	}
-	</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 </head>
-
 <body>
 
 
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">SignAvatar: Sign Language 3D Motion Reconstruction and Generations </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://dongludeeplearning.github.io/">Lu Dong</a>,</span>
+            <span class="author-block">
+              <a href=" ">Lipisha Chaudhary</a>,</span>
+            <span class="author-block">
+              <a href=" ">Fei Xu</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://wangxiaoshawn.github.io/">Xiao Wang</a>,
+            </span>
+            <span class="author-block">
+              <a href=" ">Mason Lary</a>,
+            </span>
+            <span class="author-block">
+              <a href=" ">Ifeoma Nwogu</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University at Buffalo,SUNY</span>
+
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10581934"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2405.07974"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="./files/FG_poster.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Poster</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/dongludeeplearning/SignAvatar"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href=" "
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./files/pubs/SignAvatarbg.png" alt="SignAvatar Teaser" style="width:90%; height:auto; margin-left:3%">
+      <h2 class="subtitle has-text-centered" style="font-size:16px">
+        <span class="dnerf">SignAvatar </span>  excels at two tasks: reconstructing 3D sign language motions from videos and generating them from semantics (images,
+        text). The top row displays a sign language video for "drink" - note some motion blur here. The middle row shows the 3D avatar
+        reconstruction by SignAvatar, and the bottom row demonstrates its ability to generate a 3D signing avatar from the word "drink".
+      </h2>
+    </div>
+  </div>
+</section>
 
 
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p style="text-align:justify;">  Achieving expressive 3D motion reconstruction and automatic generation for isolated sign words can be challenging, 
+            due to the lack of real-world 3D sign-word data, the complex nuances of signing motions, and the cross-modal understanding of sign language semantics. 
+            To address these challenges, we introduce SignAvatar, a framework capable of both word-level sign language reconstruction and generation. 
+            SignAvatar employs a transformer-based conditional variational autoencoder architecture, effectively establishing relationships across different semantic modalities. 
+            Additionally, this approach incorporates a curriculum learning strategy to enhance the model’s robustness and generalization, resulting in more realistic motions. 
+            Furthermore, we contribute the ASL3DWord dataset, composed of 3D joint rotation data for the body, hands, and face, for unique sign words. 
+            We demonstrate the effectiveness of SignAvatar through extensive experiments, showcasing its superior reconstruction and automatic generation capabilities.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
 
 
-<h1 style="text-align: center; margin-top: 100px;">SignAvatar: Sign Language 3D Motion Reconstruction and Generation</h1>
-<h3 style="text-align: center; margin-top: 10px;"> Lu Dong, Lipisha Chaudhary, Fei Xu, Xiao Wang, Mason Lary, Ifeoma Nwogu </h3>
-<div style="text-align: center; margin-top: 30px;">
-  <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10581934" target="_blank">Paper</a> |
-  <a href="https://arxiv.org/pdf/2405.07974" target="_blank">ArXiv</a> |
-  <a href="https://github.com/dongludeeplearning/SignAvatar" target="_blank"> Code </a> |
-  <a href="./files/FG_poster.pdf" target="_blank"> Poster</a>
-</div>
-
-
-
-
-
-
-
-
-
-<img src="./files/pubs/SignAvatarbg.png" alt="SignAvatar Project" width="100%">
-
-
-
-
-
-
-
-
-<h3>Abstract</h3>
-
-<p style="text-align:justify;">  Achieving expressive 3D motion reconstruction and automatic generation for isolated sign words can be challenging, 
-	due to the lack of real-world 3D sign-word data, the complex nuances of signing motions, and the cross-modal understanding of sign language semantics. 
-	To address these challenges, we introduce SignAvatar, a framework capable of both word-level sign language reconstruction and generation. 
-	SignAvatar employs a transformer-based conditional variational autoencoder architecture, effectively establishing relationships across different semantic modalities. 
-	Additionally, this approach incorporates a curriculum learning strategy to enhance the model’s robustness and generalization, resulting in more realistic motions. 
-	Furthermore, we contribute the ASL3DWord dataset, composed of 3D joint rotation data for the body, hands, and face, for unique sign words. 
-	We demonstrate the effectiveness of SignAvatar through extensive experiments, showcasing its superior reconstruction and automatic generation capabilities.
-</p>
+    <section class="main-idea">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="./files/pubs/SignAvatar_overview.png" alt="SignAvatar" style="width:90%; height:auto; margin-left:5%">
+          <h2 class="subtitle has-text-centered">
+            <span class="dnerf"> SignAvatar Overview</span> 
+          </h2>
+        </div>
+      </div>
+    </section>
 
 
 
+  <section class="main-idea">
+    <div class="container is-max-desktop">
+      <div class="main-body">
+        <img src="./files/pubs/SignAvatar_p2.png" alt="SignAvatar" style="width:90%; height:auto; margin-left:5%">
+        <h2 class="subtitle has-text-centered" style="font-size:16px">
+          <span class="dnerf"> SignAvatar Pipeline</span> The upper row represents the reconstruction process, absorbing knowledge and analyzing their relationships, while the lower row
+          indicates the generation process, which outputs knowledge. Unlike the rigid mapping of sign language production, the input text or images
+          in sign language generation showcase greater semantic flexibility.
+        </h2>
+      </div>
+    </div>
+  </section>
 
-<h4 style="text-align: left; margin-left: 20px;"> Type: Conference Paper</h4>
-<h4 style="text-align: left; margin-left: 20px;"> Publication: IEEE Automatic Face and Gesture Recognition (FG) 2024</h4>
-
-
-
-
-
-
-
-<hr>
-<table cellpadding="0px">
-	<tbody>
-		<tr>
-			<td width="720px">
-			<div id="clustrmaps-widget"></div>
-				<script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=7seMHMuQZlvELLsuK6wd30IX5cz7U58mGsA8iV8s6_o"></script></script>
-				</script>
-			<div class="jvectormap-tip"></div>
-			</td>
-			<td valign="top">
-				<div style="clear:both;">
-				<p align="right"><font size="2">Last Updated on April, 2024<br>
-				</div>
-				<div style="clear: both;">
-				<p align="right"><font size="5"><img src="./index_files//happy.gif"></font></p>
-				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+  <section class="main-idea">
+    <div class="container is-max-desktop">
+      <div class="main-body">
+        <img src="./files/pubs/SignAvatar_book.png" alt="SignAvatar" style="width:100%; height:auto">
+        <h2 class="subtitle has-text-centered" style="font-size:16px">
+          <span class="dnerf"> SignAvatar </span> can accept images as input. Given an image on the left, and using the text-image embedding of CLIP, SignAvatar can
+          recognize the corresponding semantics - "book", and generate the corresponding 3D signing motion. The upper row is the front view and
+          the lower row is the side view.
+        </h2>
+      </div>
+    </div>
+  </section>
+    
+<!-- </section> -->
 
 
 
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{dong2024signavatar,
+  title     = {Signavatar: Sign language 3d motion reconstruction and generation},
+  author    = {Dong, Lu and Chaudhary, Lipisha and Xu, Fei and Wang, Xiao and Lary, Mason and Nwogu, Ifeoma},
+  booktitle = {2024 IEEE 18th International Conference on Automatic Face and Gesture Recognition (FG)},
+  year      = {2024},
+  organization = {IEEE}
+}</code></pre>
+  </div>
+</section>
+
+Website template modified from <a href="https://nerfies.github.io/" target="_blank">NeRFies</a>.
 </body>
 </html>
