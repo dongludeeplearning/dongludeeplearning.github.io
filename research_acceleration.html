@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Research Acceleration Program – Mentoring Masters Program">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Acceleration Program – Mentoring Masters Program (ongoing)</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <style>
+    .student-row {
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e1e1e1;
+    }
+    .student-row:last-child {
+      border-bottom: none;
+    }
+    .project-image-container img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      object-fit: contain;
+      object-position: left;
+      max-height: 250px;
+    }
+    .project-meta-label {
+      font-weight: 700;
+      color: #363636;
+    }
+    .project-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .tag.is-project-title {
+        background-color: #209cee;
+        color: #fff;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Research Acceleration Program</h1>
+          <h2 class="subtitle is-3 publication-subtitle">Mentoring early-stage AI researchers</h2>
+          
+          <div class="is-size-5 publication-authors" style="margin-top: 1rem; margin-bottom: 1rem;">
+            <span class="author-block"><strong>Lead:</strong> Lu Dong</span>
+            <span class="author-block" style="margin-left: 20px;"><strong>Advisor:</strong> Ifeoma Nwogu</span>
+          </div>
+
+          <div class="content has-text-justified" style="max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
+            <p>
+              We initiated the Research Acceleration Program to support the rapid growth of early-stage AI researchers, emphasizing human-centered multimodal intelligence—spanning generative AI, multimodal large models, and LLM-based agentic systems for applications in education, sign language communication, and digital humans.
+            </p>
+            
+            <h4 class="title is-4" style="text-align: center; margin-top: 1.5rem; margin-bottom: 1rem;">What you can expect</h4>
+            
+            <p>
+              A structured mentoring program designed to accelerate research productivity and build strong technical and academic foundations for students. The program offers guidance on:
+            </p>
+            
+            <ul>
+              <li>Efficiently identifying core ideas and contributions in research papers</li>
+              <li>Tracking and reproducing state-of-the-art GenAI techniques</li>
+              <li>Training generative models</li>
+              <li>Deploying models on Hugging Face</li>
+              <li>Releasing well-documented open-source code</li>
+              <li>Building clear demos to visualize staged research progress</li>
+            </ul>
+            
+            <p>
+              Projects will be tailored to each student’s background, research interests, and starting level, with appropriately calibrated difficulty.
+            </p>
+            
+            <p>
+              If you’re interested, please feel free to send me your resume. Spots are limited and will be filled on a first-come, first-served basis.
+            </p>
+          </div>
+
+          <div class="is-size-5" style="margin-top: 2rem;">
+            <h4 class="title is-4" style="text-align: center; margin-top: 1.5rem; margin-bottom: 1rem;">Sample Project Progress Demonstrations </h4>
+            <div class="content has-text-centered" style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+              <p>
+              The following projects will be updated periodically. The demos are fully interactive, but because they are hosted on free-tier Hugging Face resources, they may enter a sleeping state when idle. As a result, the first run may take some time to wake up.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Student A -->
+    <div class="columns student-row is-vcentered">
+      <div class="column is-5 project-image-container">
+        <!-- Placeholder image -->
+        <img src="./files/SignMotionGPT.png" alt="Student A Project">
+      </div>
+      <div class="column is-7 project-content">
+        <h2 class="title is-3">Rajvi Zala</h2>
+        <div>
+            <span class="tag is-project-title">SignOmni </span>
+        </div>
+        
+        <div class="content">
+          <p>
+            <span class="project-meta-label">Project Participation:</span><br>
+            SignOmni — American Sign Language Search and Generative Models to Support Early Learners
+          </p>
+          <p>
+            <span class="project-meta-label">Branch Goal:</span><br>
+            Build SignMotionGPT by pre-training an LLM for 3D ASL generation, along with quantitative and qualitative evaluation.
+          </p>
+          
+        </div>
+
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="https://huggingface.co/spaces/rdz-falcon/SignMotionGPT" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">🤗</span>
+              <span>HuggingFace Online</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-powerpoint"></i></span>
+              <span>Slides (soon)</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code (soon)</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student B -->
+    <div class="columns student-row is-vcentered">
+      <div class="column is-5 project-image-container">
+         <img src="./files/DAISEE3.png" alt="Student B Project">
+      </div>
+      <div class="column is-7 project-content">
+        <h2 class="title is-3">Nitish Yeramilli</h2>
+        <div>
+            <span class="tag is-project-title">SCOPE</span>
+        </div>
+
+        <div class="content">
+          <p>
+            <span class="project-meta-label">Project Participation:</span><br>
+            SCOPE – Student Cognitive Observation, Perception, and Explanation
+          </p>
+          <p>
+            <span class="project-meta-label">Branch Goal:</span><br>
+            Analyzing students’ cognitive states : engagement, confusion, frustration, and boredom—along with the intensity level of each state in online studies using image-based data.
+          </p>
+        </div>
+
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="https://huggingface.co/spaces/SantoshYeramilli/Affective_state_analysis" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">🤗</span>
+              <span>HuggingFace Online</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-powerpoint"></i></span>
+              <span>Slides (soon)</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code (soon)</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student C -->
+    <div class="columns student-row is-vcentered">
+      <div class="column is-5 project-image-container">
+         <img src="./files/SignDescription.png" alt="Student C Project">
+      </div>
+      <div class="column is-7 project-content">
+        <h2 class="title is-3">Sudheendra Peddiraju</h2>
+        <div>
+            <span class="tag is-project-title">SignOmni</span>
+        </div>
+
+        <div class="content">
+          <p>
+            <span class="project-meta-label">Project Participation:</span><br>
+            SignOmni — American Sign Language Search and Generative Models to Support Early Learners
+          </p>
+          <p>
+            <span class="project-meta-label">Branch Goal:</span><br>
+            Building a RAG-based system that maps sign language descriptions to signs, using key linguistic features such as handshape, palm orientation, movement, and location.
+          </p>
+        </div>
+
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">🤗</span>
+              <span>HuggingFace Online</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-powerpoint"></i></span>
+              <span>Slides (soon)</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code (soon)</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student D -->
+    <div class="columns student-row is-vcentered">
+      <div class="column is-5 project-image-container">
+         <img src="./files/Ecolang.png" alt="Student D Project">
+      </div>
+      <div class="column is-7 project-content">
+        <h2 class="title is-3">Hemasree Pujari</h2>
+        <div>
+            <span class="tag is-project-title">StrategyGen</span>
+        </div>
+
+        <div class="content">
+          <p>
+            <span class="project-meta-label">Project Participation:</span><br>
+            StrategyGen: Generating Adult–Child Interaction Strategies for Early Education
+          </p>
+          <p>
+            <span class="project-meta-label">Branch Goal:</span><br>
+            Reconstruct 3D body meshes from 2D interaction videos and train an audio-driven generative model that generates matching 3D body motion.
+          </p>
+        </div>
+
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">🤗</span>
+              <span>Streamlit Online</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="https://ecolang-mesh.streamlit.app/" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-powerpoint"></i></span>
+              <span>Slides (soon)</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code (soon)</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student E -->
+    <div class="columns student-row is-vcentered">
+      <div class="column is-5 project-image-container">
+         <img src="./files/ecolang_denoising.png" alt="Student E Project">
+      </div>
+      <div class="column is-7 project-content">
+        <h2 class="title is-3">Gayathri Adulla</h2>
+        <div>
+            <span class="tag is-project-title">StrategyGen</span>
+        </div>
+
+        <div class="content">
+          <p>
+            <span class="project-meta-label">Project Participation:</span><br>
+            StrategyGen: Generating Adult–Child Interaction Strategies for Early Education
+          </p>
+          <p>
+            <span class="project-meta-label">Branch Goal:</span><br>
+            Exploring multiple denoising methods to reduce jitter in reconstructed 3D meshes and develop an automated denoising pipeline.
+          </p>
+        </div>
+
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="https://human-child-interaction-bnbdjag3eazrycwcrp2xjv.streamlit.app/" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">🤗</span>
+              <span>Streamlit Online</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-powerpoint"></i></span>
+              <span>Slides (soon)</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code (soon)</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student F -->
+    <div class="columns student-row is-vcentered">
+      <div class="column is-5 project-image-container">
+         <img src="./files/Anotator.png" alt="Student F Project">
+      </div>
+      <div class="column is-7 project-content">
+        <h2 class="title is-3">Jaya Chandra Galda</h2>
+        <div>
+            <span class="tag is-project-title">StrategyGen</span>
+        </div>
+
+        <div class="content">
+          <p>
+            <span class="project-meta-label">Project Participation:</span><br>
+            StrategyGen: Generating Adult–Child Interaction Strategies for Early Education
+          </p>
+          <p>
+            <span class="project-meta-label">Branch Goal:</span><br>
+            Given an interaction video, annotate adult strategies, yield their timestamps, and further develop an end-to-end detection pipeline.
+          </p>
+        </div>
+
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">🤗</span>
+              <span>HuggingFace Online</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-powerpoint"></i></span>
+              <span>Slides (soon)</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code (soon)</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        &copy; 2024 Research Acceleration Program. 
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
