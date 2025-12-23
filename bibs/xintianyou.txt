@@ -1,5 +1,9 @@
-@inproceedings{Li2015ExploringTG,
-  title={Exploring the General Melodic Characteristics of XinTianYou Folk Songs},
-  author={Juan Li and Lu Dong and Jianhang Ding and Xinyu Yang},
-  year={2015}
+@misc{li2015xintianyou,
+	author       = {Li, Juan and Dong, Lu and Ding, Jianhang and Yang, Xinyu},
+	title        = {Exploring the General Melodic Characteristics of XinTianYou Folk Songs},
+	month        = July,
+	year         = {2015},
+	publisher    = {Zenodo},
+	doi          = {10.5281/zenodo.851035},
+	url          = {https://doi.org/10.5281/zenodo.851035}
 }
