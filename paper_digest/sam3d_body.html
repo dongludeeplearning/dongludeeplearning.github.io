@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • Meta 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">SAM 3D Body: Robust Full-Body Human Mesh Recovery</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xitong Yang, Devansh Kukreja, Don Pinkus, Anushka Sagar, Taosha Fan, Jinhyung Park, Soyong Shin, Jinkun Cao, Jiawei Liu, Nicolas Ugrinovic, Matt Feiszli, Jitendra Malik, Piotr Dollár, Kris Kitani<br>
+        <span style="opacity:0.8">Meta Superintelligence Labs</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create a robust full-body human mesh recovery model from single images that works reliably in diverse in-the-wild conditions, particularly for challenging poses, severe occlusion, and uncommon viewpoints, while enabling interactive user-guided inference?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从单个图像创建一个健壮的完整人体网格恢复模型，能够在多样化的野外条件下可靠工作，特别是对于具有挑战性的姿势、严重遮挡和不寻常视点的场景，同时实现交互式的用户引导推理？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SAM 3D Body (3DB) Model:</b> Introduced a promptable full-body human mesh recovery model that achieves state-of-the-art performance with strong generalization across diverse in-the-wild conditions, estimating body, feet, and hands pose in a unified framework.</div>
+            <div class="lang-zh" style="display:none"><b>SAM 3D Body (3DB)模型：</b>引入了一个可提示的完整人体网格恢复模型，实现了最先进的性能，在多样化的野外条件下具有强大的泛化能力，在统一框架中估计身体、脚和手姿势。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Momentum Human Rig (MHR):</b> Pioneered a new parametric mesh representation that decouples skeletal structure and surface shape, providing richer control, better interpretability, and more accurate full-body reconstruction compared to traditional SMPL models.</div>
+            <div class="lang-zh" style="display:none"><b>Momentum Human Rig (MHR)：</b>开创了一种新的参数化网格表示，将骨骼结构和表面形状分离，与传统的SMPL模型相比提供更丰富的控制、更高的可解释性和更准确的完整人体重建。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Promptable Architecture:</b> Developed a novel encoder-decoder architecture supporting auxiliary prompts (2D keypoints, masks, camera information) for controllable pose estimation, enabling user-guided inference similar to the SAM family while integrating hand and body predictions coherently.</div>
+            <div class="lang-zh" style="display:none"><b>可提示架构：</b>开发了一种新颖的编码器-解码器架构，支持辅助提示（2D关键点、遮罩、相机信息）以实现可控姿势估计，类似于SAM家族实现用户引导推理，同时连贯地集成手和身体预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Engine for Diversity:</b> Created a VLM-driven data engine that mines challenging in-the-wild images and routes them for annotation, ensuring coverage of rare poses, difficult viewpoints, and varied appearances through iterative failure analysis and rule updates.</div>
+            <div class="lang-zh" style="display:none"><b>多样性数据引擎：</b>创建了一个VLM驱动的数据引擎，用于挖掘具有挑战性的野外图像并将其路由进行注释，通过迭代故障分析和规则更新确保覆盖罕见姿势、困难视点和多样外观。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Annotation Pipeline:</b> Designed a comprehensive annotation pipeline combining manual keypoint annotation, dense keypoint detection, geometric constraints, parametric priors, and robust optimization to produce high-quality 3D human mesh annotations at scale.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段注释管道：</b>设计了一个全面的注释管道，结合手动关键点注释、密集关键点检测、几何约束、参数化先验和鲁棒优化，以规模化生产高质量的3D人体网格注释。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Achieved 5:1 win rate in human preference studies with 7,800 participants, outperforming prior methods on standard metrics while generalizing better to unseen datasets and enabling interactive control for challenging poses.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在7800名参与者的人类偏好研究中实现了5:1的胜率，在标准指标上优于以前的方法，同时更好地泛化到未见数据集，并为具有挑战性的姿势实现交互式控制。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/sam3d_body_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('sam3d_body.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('sam3d_body.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/sam3d_body_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('sam3d_body.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('sam3d_body.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Robustness in Wild Conditions:</b> Existing HMR models exhibit unsatisfactory robustness when applied to in-the-wild images with challenging poses, severe occlusion, or uncommon viewpoints, limiting their applicability to real-world robotics and biomechanics scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>野外条件下的有限鲁棒性：</b>现有的HMR模型在应用于具有挑战性姿势、严重遮挡或不寻常视点的野外图像时表现出不令人满意的鲁棒性，限制了它们在真实世界机器人和生物力学场景中的适用性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unreliable Full-Body Estimation:</b> Current models struggle to reliably estimate both overall body pose and fine details of hands and feet in a unified framework, with separate optimization mechanisms creating conflicts in resolution, camera estimation, and supervision objectives.</div>
+            <div class="lang-zh" style="display:none"><b>不可靠的完整身体估计：</b>当前模型难以在统一框架中可靠地估计整体身体姿势和手脚的精细细节，分开的优化机制在分辨率、相机估计和监督目标方面产生冲突。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Quality and Scale Bottlenecks:</b> Collecting large-scale, diverse human pose datasets with high-quality mesh annotations is computationally costly and difficult, with existing datasets suffering from low diversity or low mesh quality due to laboratory settings or pseudo-labeling.</div>
+            <div class="lang-zh" style="display:none"><b>数据质量和规模瓶颈：</b>收集大规模、多样化的人体姿势数据集以及高质量网格注释在计算上是昂贵的且困难的，现有的数据集由于实验室设置或伪标记而遭受低多样性或低网格质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Architecture Limitations:</b> Traditional HMR architectures fail to adequately address distinct optimization requirements for body and hand pose estimation, nor do they incorporate effective training strategies to handle uncertainty and ambiguity from monocular images.</div>
+            <div class="lang-zh" style="display:none"><b>架构局限性：</b>传统的HMR架构未能充分解决身体和手姿势估计的不同优化需求，也没有纳入有效的训练策略来处理来自单目图像的不确定性和歧义。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Interactive Control:</b> Existing models lack mechanisms for user-guided inference, preventing users from providing corrective input for ambiguous scenarios or challenging poses that automatic methods struggle with.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏交互控制：</b>现有模型缺乏用户引导推理的机制，阻止用户为自动方法难以处理的歧义场景或挑战性姿势提供纠正输入。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Domain Gap Issues:</b> Models trained on synthetic or constrained datasets struggle to generalize to real-world images with diverse appearances, poses, and imaging conditions, requiring sophisticated alignment techniques.</div>
+            <div class="lang-zh" style="display:none"><b>领域差距问题：</b>在合成或受限数据集上训练的模型难以泛化到具有多样化外观、姿势和成像条件的真实世界图像，需要复杂的对齐技术。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Promptable Encoder-Decoder Architecture:</b> Designed a promptable encoder-decoder with shared image encoder and separate body/hand decoders, supporting auxiliary prompts (2D keypoints, masks, camera info) for controllable pose estimation and coherent integration of hand and body predictions.</div>
+            <div class="lang-zh" style="display:none"><b>可提示编码器-解码器架构：</b>设计了一个可提示的编码器-解码器，具有共享图像编码器和独立的身体/手解码器，支持辅助提示（2D关键点、遮罩、相机信息）以实现可控姿势估计和手与身体预测的连贯集成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Momentum Human Rig (MHR):</b> Adopted a new parametric mesh representation that decouples skeletal structure and surface shape, providing richer control, better interpretability, and more accurate full-body reconstruction than intertwined SMPL models.</div>
+            <div class="lang-zh" style="display:none"><b>Momentum Human Rig (MHR)：</b>采用了一种新的参数化网格表示，将骨骼结构和表面形状分离，与交织的SMPL模型相比提供更丰富的控制、更高的可解释性和更准确的完整身体重建。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>VLM-Driven Data Engine:</b> Implemented a vision-language model driven mining strategy that automatically generates and updates rules to identify challenging in-the-wild images for annotation, ensuring data diversity through iterative failure analysis and adaptive rule updates.</div>
+            <div class="lang-zh" style="display:none"><b>VLM驱动的数据引擎：</b>实施了一个视觉-语言模型驱动的挖掘策略，自动生成和更新规则以识别需要注释的具有挑战性的野外图像，通过迭代故障分析和自适应规则更新确保数据多样性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Annotation Pipeline:</b> Developed a comprehensive pipeline combining manual keypoint annotation, dense keypoint detection, geometric constraints, parametric priors, and robust optimization to produce high-quality 3D mesh annotations from single-view and multi-view datasets.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段注释管道：</b>开发了一个全面的管道，结合手动关键点注释、密集关键点检测、几何约束、参数化先验和鲁棒优化，从单视图和多视图数据集中生产高质量的3D网格注释。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Training Datasets:</b> Curated 7 million images from diverse sources including licensed stock photos, multi-view captures, and synthetic data, covering body pose, hands, interactions, and in-the-wild conditions for robust full-body HMR.</div>
+            <div class="lang-zh" style="display:none"><b>全面训练数据集：</b>从多样化来源整理了700万个图像，包括许可的库存照片、多视图捕获和合成数据，涵盖身体姿势、手部、交互和野外条件，以实现鲁棒的完整身体HMR。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Task Loss with Uncertainty:</b> Employed comprehensive loss functions with learnable per-joint uncertainty modulation and prompt-aware training strategies to handle monocular image ambiguities and provide strong supervision across all prediction heads.</div>
+            <div class="lang-zh" style="display:none"><b>具有不确定性的多任务损失：</b>采用全面的损失函数，具有可学习的每个关节不确定性调制和提示感知训练策略，以处理单目图像歧义并为所有预测头提供强大的监督。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Unified Full-Body Framework:</b> 3DB represents the first single model to deliver state-of-the-art performance on both body and hand pose estimation, achieving comparable results to hand-specialized models while maintaining superiority over body-specialized approaches in a unified architecture.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>统一的完整身体框架：</b>3DB代表了第一个在身体和手姿势估计上都提供最先进性能的单一模型，在统一架构中实现与手部专用模型相当的结果，同时保持对身体专用方法的优越性。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Data-Driven Robustness:</b> The combination of a sophisticated data engine for diversity and multi-stage annotation pipeline for quality enables 3DB to overcome fundamental data bottlenecks in HMR, resulting in unprecedented generalization to challenging in-the-wild scenarios.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据驱动的鲁棒性：</b>多样性数据引擎和质量多阶段注释管道的结合使3DB能够克服HMR中的基本数据瓶颈，从而实现对具有挑战性的野外场景的空前泛化。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Interactive Promptability:</b> By supporting auxiliary prompts similar to the SAM family, 3DB enables user-guided inference that allows correction of ambiguous scenarios, providing a practical solution for real-world deployment where perfect automatic performance remains challenging.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>交互可提示性：</b>通过支持类似于SAM家族的辅助提示，3DB实现了用户引导推理，允许纠正歧义场景，为完美自动性能仍然具有挑战性的真实世界部署提供了实用解决方案。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because 3DB addresses both the data and model challenges in full-body HMR through a comprehensive approach: the MHR representation provides better control and interpretability, the promptable architecture enables interactive refinement, and the sophisticated data engine ensures the quality and diversity needed for robust generalization to diverse real-world conditions.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为3DB通过全面方法解决了完整身体HMR中的数据和模型挑战：MHR表示提供更好的控制和可解释性，可提示架构实现交互细化，复杂的数据引擎确保了鲁棒泛化到多样化真实世界条件所需的质量和多样性。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces SAM 3D Body (3DB), a robust full-body human mesh recovery model that demonstrates state-of-the-art performance with strong generalization across diverse in-the-wild conditions. 3DB is the first model to use the Momentum Human Rig (MHR) representation, which decouples skeletal structure and surface shape for richer control and interpretability. The promptable encoder-decoder architecture supports auxiliary prompts for user-guided inference, enabling correction of challenging scenarios. A sophisticated data engine ensures diversity by mining difficult cases, while a multi-stage annotation pipeline produces high-quality 3D annotations from 7 million images. Extensive experiments show 3DB outperforms prior methods with a 5:1 win rate in human preference studies, achieves superior quantitative results on standard benchmarks, and generalizes better to unseen datasets. Both 3DB and MHR are open-source, providing the foundation for more robust and interactive human mesh recovery systems.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了SAM 3D Body (3DB)，一个健壮的完整人体网格恢复模型，展示了在多样化的野外条件下具有强大泛化的最先进性能。3DB是第一个使用Momentum Human Rig (MHR)表示的模型，该表示将骨骼结构和表面形状分离，以实现更丰富的控制和可解释性。可提示的编码器-解码器架构支持辅助提示以实现用户引导推理，能够纠正具有挑战性的场景。一个复杂的数据引擎通过挖掘困难案例确保多样性，而多阶段注释管道从700万个图像中生产高质量的3D注释。广泛实验显示，3DB在人类偏好研究中以5:1的胜率优于以前的方法，在标准基准上实现了卓越的定量结果，并更好地泛化到未见数据集。3DB和MHR都是开源的，为更健壮和交互式的人体网格恢复系统提供了基础。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://ai.meta.com/sam3d" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Website
+        </a>
+        <a href="https://www.aidemos.meta.com/segment-anything/editor/convert-body-to-3d" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Online Demo
+        </a>
+        <a href="https://github.com/facebookresearch/sam-3d-body" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Code
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

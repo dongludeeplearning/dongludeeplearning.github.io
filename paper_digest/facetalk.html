@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2023 (CVPR 2024)
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">FaceTalk: Audio-Driven Motion Diffusion for Neural Parametric Head Models</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Shivangi Aneja, Justus Thies, Angela Dai, Matthias Nießner <br>
+        <span style="opacity:0.8">Technical University of Munich</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate high-fidelity, temporally coherent 3D talking head motion sequences, including fine details like hair and eye movements, from audio signals?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从音频信号生成高保真、时间连贯的 3D 说话头动作序列，包括头发和眼球运动等精细细节？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>NPHM Integration:</b> Coupled speech signals with the latent space of Neural Parametric Head Models (NPHM) to capture fine-grained head details.</div>
+            <div class="lang-zh" style="display:none"><b>NPHM 集成：</b>将语音信号与神经参数化头部模型 (NPHM) 的潜在空间耦合，以捕捉细粒度的头部细节。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Latent Diffusion Model:</b> Proposed a novel latent diffusion model operating in the expression space of NPHM for realistic motion synthesis.</div>
+            <div class="lang-zh" style="display:none"><b>潜在扩散模型：</b>提出了一种在 NPHM 表情空间中运行的新型潜在扩散模型，用于逼真的动作合成。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Data Optimization:</b> Created a dataset of temporally-optimized NPHM expressions fit to audio-video recordings to address the lack of paired data.</div>
+            <div class="lang-zh" style="display:none"><b>数据优化：</b>创建了一个适应音视频录音的时间优化 NPHM 表情数据集，以解决缺乏配对数据的问题。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/facetalk_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>High-Fidelity Detail:</b> Traditional mesh-based models struggle to capture volumetric details like hair and ears; NPHM addresses this but is hard to animate.</div>
+            <div class="lang-zh" style="display:none"><b>高保真细节：</b>传统的基于网格的模型难以捕捉头发和耳朵等体积细节；NPHM 解决了这个问题，但难以制作动画。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Data Scarcity:</b> Lack of existing datasets with high-quality NPHM expressions paired with audio required a new data creation pipeline.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>缺乏具有高质量 NPHM 表情与音频配对的现有数据集，需要新的数据创建流程。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Latent Space Modeling:</b> Operates in the disentangled latent space of NPHM (identity vs. expression) to generate expression codes from audio.</div>
+            <div class="lang-zh" style="display:none"><b>潜在空间建模：</b>在 NPHM 的解耦潜在空间（身份与表情）中运行，从音频生成表情代码。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Diffusion-Based Generation:</b> Uses a conditional diffusion model to predict the distribution of expression codes conditioned on audio features (e.g., wav2vec).</div>
+            <div class="lang-zh" style="display:none"><b>基于扩散的生成：</b>使用条件扩散模型，在音频特征（如 wav2vec）的条件下预测表情代码的分布。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Optimization-Based Tracking:</b> Generates ground truth training data by optimizing NPHM expression codes to fit existing 2D talking head videos.</div>
+            <div class="lang-zh" style="display:none"><b>基于优化的跟踪：</b>通过优化 NPHM 表情代码以适应现有的 2D 说话头视频来生成地面实况训练数据。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/facetalk_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2312.08459.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2312.08459.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                FaceTalk represents a significant advancement in audio-driven 3D animation by enabling high-fidelity volumetric head synthesis.
+            </div>
+            <div class="lang-zh" style="display:none">
+                FaceTalk 通过实现高保真体积头部合成，代表了音频驱动的 3D 动画领域的重大进步。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The approach consistently outperforms existing methods in generating visually natural and diverse motion, as validated by user studies.
+            </div>
+            <div class="lang-zh" style="display:none">
+                经用户研究验证，该方法在生成视觉自然和多样化的动作方面始终优于现有方法。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/shivangi-aneja/FaceTalk" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

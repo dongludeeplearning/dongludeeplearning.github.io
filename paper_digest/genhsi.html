@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • WACV2026
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">GenHSI: Controllable Generation of Human-Scene Interaction Videos</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zekun Li, Rui Zhou, Rahul Sajnani, Xiaoyan Cong, Daniel Ritchie, Srinath Sridhar<br>
+        <span style="opacity:0.8">Brown University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate long, controllable human-scene interaction videos that preserve person identity and scene consistency without expensive training?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何生成长、可控的人类-场景交互视频，同时保持人物身份和场景一致性而无需昂贵训练？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training-Free HSI Video Generation:</b> First training-free method for controllable generation of long human-scene interaction videos using only scene image, person images, and text description.</div>
+            <div class="lang-zh" style="display:none"><b>无需训练的HSI视频生成：</b>首个无需训练的方法，仅使用场景图像、人物图像和文本描述来生成可控的长人类-场景交互视频。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Three-Stage Pipeline:</b> Novel decomposition of HSI video generation into script writing, pre-visualization, and animation stages, inspired by movie production workflow.</div>
+            <div class="lang-zh" style="display:none"><b>三阶段流水线：</b>将HSI视频生成分解为脚本编写、预可视化和动画三个阶段的新颖方法，灵感来源于电影制作工作流程。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3D-Aware Keyframe Control:</b> Generates 3D keyframes from single-view images for precise human-object interactions and rich contacts in a consistent camera pose.</div>
+            <div class="lang-zh" style="display:none"><b>3D感知关键帧控制：</b>从单视图图像生成3D关键帧，实现精确的人类-物体交互和丰富接触，在一致的相机姿态下。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Identity Preservation:</b> Maintains consistent person identity and scene content throughout long video sequences with arbitrary numbers of character actions.</div>
+            <div class="lang-zh" style="display:none"><b>身份保持：</b>在包含任意数量角色动作的长视频序列中保持一致的人物身份和场景内容。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Single-View 3D Reconstruction:</b> Alleviates need for accurate scanned scenes by creating 3D keyframes from real-world images using large reconstruction models.</div>
+            <div class="lang-zh" style="display:none"><b>单视图3D重建：</b>通过使用大型重建模型从真实世界图像创建3D关键帧，消除对精确扫描场景的需求。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/genhsi_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unrealistic Human-Scene Interactions:</b> Existing video diffusion models produce physically implausible interactions due to implicit knowledge about scene constraints.</div>
+            <div class="lang-zh" style="display:none"><b>不现实的人类-场景交互：</b>现有的视频扩散模型由于对场景约束的隐式知识而产生物理上不合理的交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Identity Inconsistency:</b> Difficulty maintaining consistent person identity across long video sequences without appearance changes.</div>
+            <div class="lang-zh" style="display:none"><b>身份不一致：</b>难以在长视频序列中保持一致的人物身份而不发生外观变化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Expensive Training Requirements:</b> Most existing methods require costly fine-tuning or training on large datasets for human-scene interaction generation.</div>
+            <div class="lang-zh" style="display:none"><b>昂贵的训练需求：</b>大多数现有方法需要对大型数据集进行昂贵的微调或训练来生成人类-场景交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Control and Duration:</b> Existing solutions struggle with detailed spatial control for complex motion sequences and cannot extend to arbitrary lengths.</div>
+            <div class="lang-zh" style="display:none"><b>有限的控制和持续时间：</b>现有解决方案难以对复杂运动序列进行详细的空间控制，并且无法扩展到任意长度。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Scene Geometry Requirements:</b> Prior works assume accurate scanned 3D scenes, limiting applicability to real-world images.</div>
+            <div class="lang-zh" style="display:none"><b>场景几何要求：</b>先前的工作假设准确扫描的3D场景，限制了适用于真实世界图像。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Script Writing:</b> Uses Vision-Language Model (VLM) to decompose complex human tasks into simple atomic tasks with step-by-step instructions.</div>
+            <div class="lang-zh" style="display:none"><b>脚本编写：</b>使用视觉-语言模型(VLM)将复杂的人类任务分解为带有逐步指令的简单原子任务。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Pre-visualization:</b> Generates 3D keyframes (storyboards) for each atomic task by synthesizing human-object interactions using inpainting models and optimizing 3D contacts.</div>
+            <div class="lang-zh" style="display:none"><b>预可视化：</b>通过使用修复模型合成人类-物体交互并优化3D接触，为每个原子任务生成3D关键帧(故事板)。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3D Scene Reconstruction:</b> Reconstructs 3D scenes from single-view images using large reconstruction models, alleviating need for accurate scanned geometries.</div>
+            <div class="lang-zh" style="display:none"><b>3D场景重建：</b>使用大型重建模型从单视图图像重建3D场景，消除对准确扫描几何的需求。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Animation Stage:</b> Harmonizes and interpolates 3D keyframes to generate controlled videos using off-the-shelf video diffusion models in a consistent camera pose.</div>
+            <div class="lang-zh" style="display:none"><b>动画阶段：</b>协调和插值3D关键帧，使用现成的视频扩散模型在一致的相机姿态下生成可控视频。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Identity Preservation:</b> Maintains person identity throughout the sequence by using personalized human avatars obtained from input person images.</div>
+            <div class="lang-zh" style="display:none"><b>身份保持：</b>通过使用从输入人物图像获得的个性化人类头像，在整个序列中保持人物身份。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/genhsi_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <hr style="border-top: 1px dashed rgba(255,255,255,.1); margin: 20px 0;">
+            <img src="Figures/genhsi_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2506.19840.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2506.19840.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <b>Key Advantages:</b> GenHSI pioneers a training-free approach that generates cinematic-quality HSI videos with precise 3D control. By decomposing the complex task into manageable stages, it achieves superior interaction plausibility and identity consistency compared to existing diffusion-based methods. The use of single-view 3D reconstruction democratizes HSI video generation, removing the barrier of requiring expensive 3D scanning equipment.
+            <br><br>
+            <b>Limitations:</b> While effective for static camera scenarios, the method may struggle with dynamic camera movements. The quality depends on the accuracy of underlying VLM and reconstruction models. Complex interactions involving multiple people or highly dynamic scenes may require further research.
+            <br><br>
+            <b>Future Impact:</b> This work opens new possibilities for content creation, virtual cinematography, and interactive storytelling. The modular three-stage approach could inspire similar decompositions in other complex generative tasks.
+          </div>
+          <div class="lang-zh" style="display:none">
+            <b>关键优势：</b>GenHSI开创了一种无需训练的方法，能够生成具有精确3D控制的电影级HSI视频。通过将复杂任务分解为可管理的阶段，它比现有的基于扩散的方法实现了更好的交互合理性和身份一致性。使用单视图3D重建使HSI视频生成民主化，消除了需要昂贵3D扫描设备的障碍。
+            <br><br>
+            <b>局限性：</b>虽然对静态相机场景有效，但该方法可能难以处理动态相机运动。质量取决于底层VLM和重建模型的准确性。涉及多人或高度动态场景的复杂交互可能需要进一步研究。
+            <br><br>
+            <b>未来影响：</b>这项工作为内容创作、虚拟电影摄影和互动叙事开辟了新的可能性。三阶段模块化方法可能启发其他复杂生成任务的类似分解。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            GenHSI represents a significant advancement in controllable human-scene interaction video generation. By introducing a novel three-stage pipeline inspired by movie production—script writing, pre-visualization, and animation—the method achieves training-free generation of long HSI videos with consistent identity preservation and physically plausible interactions. The key innovation of 3D-aware keyframe control from single-view images addresses fundamental limitations in existing approaches, enabling precise spatial control and rich human-object contacts. Experimental results demonstrate superior performance in both qualitative and quantitative evaluations, establishing GenHSI as the first solution capable of generating arbitrary-length action sequences with consistent camera poses. This work bridges the gap between high-level text descriptions and detailed 3D interactions, opening new avenues for applications in virtual cinematography, content creation, and interactive media.
+          </div>
+          <div class="lang-zh" style="display:none">
+            GenHSI代表了可控人类-场景交互视频生成领域的重大进步。通过引入受电影制作启发的三阶段流水线——脚本编写、预可视化和动画——该方法实现了无需训练的长HSI视频生成，同时保持身份一致性和物理上合理的交互。从单视图图像进行3D感知关键帧控制的关键创新解决了现有方法的基本局限性，实现精确的空间控制和丰富的人类-物体接触。实验结果在定性和定量评估中均显示出卓越性能，将GenHSI确立为首个能够生成具有一致相机姿态的任意长度动作序列的解决方案。这项工作弥合了高层文本描述与详细3D交互之间的差距，为虚拟电影摄影、内容创作和互动媒体开辟了新的途径。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://kunkun0w0.github.io/project/GenHSI/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page (Homepage)
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

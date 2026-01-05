@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • NeurIPS 2022
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed Chi, Quoc Le, Denny Zhou<br>
+        <span style="opacity:0.8">Google Research, Brain Team</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can large language models be prompted to perform complex multi-step reasoning by generating intermediate reasoning steps, overcoming their limitations in arithmetic, commonsense, and symbolic reasoning tasks?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过生成中间推理步骤来提示大型语言模型执行复杂的多步骤推理，克服它们在算术、常识和符号推理任务中的局限性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Chain-of-Thought Prompting:</b> Introduced a simple yet powerful prompting technique that elicits multi-step reasoning by generating intermediate reasoning steps before final answers, achieving state-of-the-art performance on arithmetic reasoning benchmarks.</div>
+            <div class="lang-zh" style="display:none"><b>思维链提示：</b>引入了一种简单而强大的提示技术，通过在最终答案之前生成中间推理步骤来引发多步骤推理，在算术推理基准上取得了最先进的性能。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Emergent Reasoning Abilities:</b> Demonstrated that chain-of-thought reasoning emerges predictably at scale, with performance improving dramatically as model size increases from 100M to 540B parameters across arithmetic, commonsense, and symbolic reasoning tasks.</div>
+            <div class="lang-zh" style="display:none"><b>涌现推理能力：</b>证明了思维链推理在规模上可预测地涌现，随着模型大小从100M增加到540B参数，在算术、常识和符号推理任务上的性能显著提升。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Evaluation:</b> Systematically evaluated chain-of-thought prompting across multiple model families (LaMDA, PaLM) and diverse reasoning tasks, showing consistent improvements and robustness to prompt variations including different annotators and exemplar orders.</div>
+            <div class="lang-zh" style="display:none"><b>全面评估：</b>系统地评估了思维链提示在多个模型家族（LaMDA、PaLM）和不同推理任务上的表现，显示了持续改进和对提示变化的鲁棒性，包括不同注释者和示例顺序。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>GSM8K Benchmark Breakthrough:</b> Achieved state-of-the-art accuracy on GSM8K math word problems using only 8 chain-of-thought exemplars, surpassing even fine-tuned GPT-3 with a verifier and establishing new performance levels for few-shot prompting.</div>
+            <div class="lang-zh" style="display:none"><b>GSM8K基准突破：</b>仅使用8个思维链示例就在GSM8K数学单词问题上取得了最先进的准确性，甚至超越了带有验证器的微调GPT-3，并为少样本提示建立了新的性能水平。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Multi-step Reasoning:</b> Standard prompting methods fail to elicit complex reasoning capabilities in large language models, resulting in poor performance on tasks requiring intermediate reasoning steps like arithmetic word problems and commonsense reasoning.</div>
+            <div class="lang-zh" style="display:none"><b>有限的多步骤推理：</b>标准提示方法无法在大型语言模型中引发复杂的推理能力，导致在需要中间推理步骤的任务（如算术单词问题和常识推理）上表现不佳。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scale-dependent Emergence:</b> Reasoning abilities emerge unpredictably at certain model scales, making it difficult to know when and how to apply prompting techniques for complex reasoning tasks across different model sizes.</div>
+            <div class="lang-zh" style="display:none"><b>规模相关涌现：</b>推理能力在某些模型规模上不可预测地涌现，使得难以知道何时以及如何在不同模型大小上为复杂推理任务应用提示技术。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Prompt Engineering Sensitivity:</b> Chain-of-thought prompting performance can vary significantly based on prompt construction, annotator writing styles, exemplar selection, and ordering, requiring careful prompt engineering for optimal results.</div>
+            <div class="lang-zh" style="display:none"><b>提示工程敏感性：</b>思维链提示性能可能会根据提示构建、注释者写作风格、示例选择和排序而显著变化，需要仔细的提示工程来获得最佳结果。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Task-Specific Adaptation:</b> Different reasoning tasks (arithmetic, commonsense, symbolic) require tailored approaches to chain-of-thought construction and evaluation, complicating the development of universal reasoning enhancement methods.</div>
+            <div class="lang-zh" style="display:none"><b>任务特定适应：</b>不同的推理任务（算术、常识、符号）需要针对思维链构建和评估的定制方法，复杂化了通用推理增强方法的开发。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The chain-of-thought prompting method enables large language models to perform complex reasoning:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Chain-of-Thought Construction:</b> Instead of direct answer generation, models are prompted to generate a series of intermediate reasoning steps that lead to the final answer, mimicking human-like problem-solving processes.</li>
+                <li style="margin-bottom:6px;"><b>Few-shot Exemplars:</b> Provide 8-12 examples of questions with corresponding chain-of-thought reasoning traces, allowing models to learn the pattern of step-by-step reasoning without explicit fine-tuning.</li>
+                <li style="margin-bottom:6px;"><b>Scale-dependent Emergence:</b> Chain-of-thought reasoning emerges predictably at certain model scales (typically 10B+ parameters), with performance improving dramatically as model size increases from 100M to 540B parameters.</li>
+                <li style="margin-bottom:6px;"><b>Task-Specific Adaptation:</b> Different reasoning tasks require tailored chain-of-thought formats: arithmetic problems use explicit calculation steps, commonsense reasoning uses elimination-based approaches, and symbolic tasks use pattern matching.</li>
+                <li style="margin-bottom:6px;"><b>Robust Prompt Engineering:</b> Demonstrated robustness to variations in annotator styles, exemplar ordering, and prompt construction, while maintaining consistent performance improvements across different model families.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>思维链提示方法使大型语言模型能够执行复杂推理：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>思维链构建：</b>不是直接生成答案，而是提示模型生成一系列导致最终答案的中间推理步骤，模仿人类般的解决问题的过程。</li>
+                <li style="margin-bottom:6px;"><b>少样本示例：</b>提供8-12个带有相应思维链推理轨迹的问题示例，使模型能够在没有显式微调的情况下学习逐步推理的模式。</li>
+                <li style="margin-bottom:6px;"><b>规模相关涌现：</b>思维链推理在某些模型规模（通常10B+参数）上可预测地涌现，随着模型大小从100M增加到540B参数，性能显著提升。</li>
+                <li style="margin-bottom:6px;"><b>任务特定适应：</b>不同的推理任务需要定制的思维链格式：算术问题使用显式计算步骤，常识推理使用基于消除的方法，符号任务使用模式匹配。</li>
+                <li style="margin-bottom:6px;"><b>鲁棒提示工程：</b>证明了对注释者风格、示例排序和提示构建变异的鲁棒性，同时在不同模型家族中保持一致的性能改进。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/chain_of_thought_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/chain_of_thought_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>Chain-of-Thought prompting enables step-by-step reasoning: "There are 15 trees originally. Then there were 21 trees after some more were planted. So there must have been 21 - 15 = 6. The answer is 6." This intermediate reasoning dramatically improves performance on arithmetic, commonsense, and symbolic tasks.</p>
+            <p>Note: The method shows emergent reasoning abilities at scale, with PaLM 540B achieving 17.9% on GSM8K using just 8 CoT exemplars. Results demonstrate consistent improvements across LaMDA and PaLM model families, with robustness to prompt variations.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_chain_of_thought.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_chain_of_thought.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Chain-of-thought prompting succeeds by leveraging the latent reasoning capabilities of large language models:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Latent Knowledge Activation:</b> Large language models possess implicit reasoning knowledge that standard prompting fails to access; chain-of-thought provides a structured pathway to elicit step-by-step reasoning capabilities.</li>
+                <li style="margin-bottom:6px;"><b>Scale-dependent Emergence:</b> Reasoning abilities emerge predictably at sufficient model scale, where models can learn and apply complex reasoning patterns from few-shot exemplars without explicit fine-tuning.</li>
+                <li style="margin-bottom:6px;"><b>Structured Problem Decomposition:</b> By breaking down complex problems into intermediate steps, models can apply familiar reasoning patterns to unfamiliar problems, enabling generalization across diverse reasoning tasks.</li>
+                <li style="margin-bottom:6px;"><b>Robust Prompt Engineering:</b> The method's effectiveness is robust to prompt variations, suggesting that the core mechanism relies on activating inherent model capabilities rather than brittle prompt engineering.</li>
+                <li style="margin-bottom:6px;"><b>Human-like Reasoning Mimicry:</b> Chain-of-thought prompting mimics human problem-solving by generating intermediate reasoning steps, allowing models to leverage pre-trained knowledge in a more structured and interpretable manner.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>思维链提示通过利用大型语言模型的潜在推理能力而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>潜在知识激活：</b>大型语言模型拥有标准提示无法访问的隐式推理知识；思维链提供了一个结构化的途径来引发逐步推理能力。</li>
+                <li style="margin-bottom:6px;"><b>规模相关涌现：</b>推理能力在足够的模型规模上可预测地涌现，其中模型可以从未经显式微调的少样本示例中学习和应用复杂的推理模式。</li>
+                <li style="margin-bottom:6px;"><b>结构化问题分解：</b>通过将复杂问题分解为中间步骤，模型可以将熟悉的推理模式应用于不熟悉的问题，从而实现跨不同推理任务的泛化。</li>
+                <li style="margin-bottom:6px;"><b>鲁棒提示工程：</b>方法的有效性对提示变异具有鲁棒性，这表明核心机制依赖于激活固有模型能力，而不是脆弱的提示工程。</li>
+                <li style="margin-bottom:6px;"><b>人类推理模仿：</b>思维链提示通过生成中间推理步骤来模仿人类问题解决，允许模型以更结构化和可解释的方式利用预训练知识。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work introduces chain-of-thought prompting, a simple yet transformative technique that unlocks the latent reasoning capabilities of large language models. By prompting models to generate intermediate reasoning steps before providing final answers, the method achieves dramatic performance improvements across diverse reasoning tasks including arithmetic, commonsense, and symbolic reasoning. The work demonstrates that these reasoning abilities emerge predictably at scale, with particularly striking results on challenging benchmarks like GSM8K where PaLM 540B achieves state-of-the-art performance using only eight chain-of-thought exemplars. Comprehensive experiments across multiple model families and evaluation settings establish the robustness and generalizability of the approach, showing consistent improvements regardless of prompt engineering variations. This work not only advances the practical capabilities of large language models for complex reasoning tasks but also provides fundamental insights into how scaling and prompting interact to unlock emergent reasoning abilities in neural language models.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了思维链提示，这是一种简单而变革性的技术，可以解锁大型语言模型的潜在推理能力。通过提示模型在提供最终答案之前生成中间推理步骤，该方法在包括算术、常识和符号推理在内的不同推理任务上取得了显著的性能改进。该工作证明，这些推理能力在规模上可预测地涌现，在像GSM8K这样的挑战性基准上取得了特别显著的结果，其中PaLM 540B仅使用八个思维链示例就取得了最先进的性能。跨多个模型家族和评估设置的全面实验确立了该方法的鲁棒性和泛化能力，无论提示工程变异如何，都显示出一致的改进。这项工作不仅提升了大型语言模型在复杂推理任务上的实际能力，还提供了关于缩放和提示如何相互作用以解锁神经语言模型中涌现推理能力的根本见解。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2201.11903" target="_blank" style="color:#8bffcf;">2201.11903</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Chain-of-Thought Prompting Implementation<br>
+<br>
+// Standard prompting vs Chain-of-Thought<br>
+<span style="color:#6a9955;"># Standard: Direct answer generation</span><br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">standard_prompt</span>(question):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> f"Q: {question}\nA:"<br>
+<br>
+// Chain-of-Thought: Step-by-step reasoning<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">chain_of_thought_prompt</span>(question, exemplars):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prompt = ""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> exemplar <span style="color:#569cd6;">in</span> exemplars:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt += f"Q: {exemplar['question']}\nA: {exemplar['reasoning']}\n\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prompt += f"Q: {question}\nA:"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> prompt<br>
+<br>
+// Example usage<br>
+exemplars = [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"question": "There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"reasoning": "There are 15 trees originally. Then there were 21 trees after some more were planted. So there must have been 21 - 15 = 6. The answer is 6."<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># ... more exemplars</span><br>
+]<br>
+<br>
+question = "If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?"<br>
+cot_prompt = chain_of_thought_prompt(question, exemplars)<br>
+<br>
+// Model generates step-by-step reasoning:<br>
+// "There are originally 3 cars. 2 more cars arrive. 3 + 2 = 5. The answer is 5."<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

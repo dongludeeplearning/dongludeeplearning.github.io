@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ECCV 2024, TPAMI 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Street Gaussians: Modeling Dynamic Urban Scenes with Gaussian Splatting</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Yunzhi Yan, Haotong Lin, Chenxu Zhou, Weijie Wang, Haiyang Sun, Kun Zhan, Xianpeng Lang, Xiaowei Zhou, Sida Peng<br>
+        <span style="opacity:0.8">Zhejiang University, Li Auto</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to efficiently model and render dynamic urban street scenes for autonomous driving with high-fidelity, real-time performance and scene editing capabilities?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何高效地建模和渲染自动驾驶的动态城市街景，具有高保真度、实时性能和场景编辑能力？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Street Gaussians Framework:</b> Introduced Street Gaussians, a novel explicit scene representation that decomposes dynamic urban scenes into background and foreground vehicles using point clouds with 3D Gaussians, enabling efficient reconstruction and real-time rendering of complex street scenes.</div>
+            <div class="lang-zh" style="display:none"><b>Street Gaussians框架：</b>引入了Street Gaussians，这是一种新颖的显式场景表示，将动态城市街景分解为背景和前景车辆使用带有3D高斯的点云，实现复杂街景的高效重建和实时渲染。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>4D Spherical Harmonics Appearance Model:</b> Developed a time-varying 4D spherical harmonics model using Fourier transform coefficients to represent dynamic vehicle appearances across time, enabling efficient storage and realistic rendering of appearance changes.</div>
+            <div class="lang-zh" style="display:none"><b>4D球谐外观模型：</b>开发了一个使用傅里叶变换系数的时变4D球谐模型来表示跨时间的动态车辆外观，实现外观变化的高效存储和逼真渲染。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Tracked Pose Optimization:</b> Implemented learnable transformations to tracked vehicle poses as optimization parameters, eliminating noise from off-the-shelf trackers and improving reconstruction quality without requiring ground-truth poses.</div>
+            <div class="lang-zh" style="display:none"><b>跟踪姿势优化：</b>将跟踪车辆姿势的学习变换实现为优化参数，消除现成跟踪器的噪声并提高重建质量，而无需地面真相姿势。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Performance and Scene Editing:</b> Achieved 135 FPS rendering at 1066×1600 resolution within 30 minutes of training, enabling scene editing operations like vehicle rotation, translation, and swapping while maintaining high visual fidelity and semantic segmentation capabilities.</div>
+            <div class="lang-zh" style="display:none"><b>实时性能和场景编辑：</b>在30分钟训练时间内实现135 FPS渲染在1066×1600分辨率，实现车辆旋转、平移和交换等场景编辑操作，同时保持高视觉保真度和语义分割能力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/street_gaussians_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('street_gaussians_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('street_gaussians_arxiv2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/street_gaussians_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('street_gaussians_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('street_gaussians_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Scene Reconstruction:</b> Capturing both static background elements and moving vehicles in urban environments while maintaining geometric accuracy and temporal consistency across different viewpoints and time frames.</div>
+            <div class="lang-zh" style="display:none"><b>动态场景重建：</b>在城市环境中同时捕获静态背景元素和移动车辆，同时在不同视点和时间帧中保持几何精度和时间一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Rendering Performance:</b> Achieving high-quality photorealistic rendering of complex urban scenes with dynamic elements at interactive frame rates, surpassing the computational limitations of NeRF-based approaches.</div>
+            <div class="lang-zh" style="display:none"><b>实时渲染性能：</b>以交互式帧率实现复杂城市场景的高质量逼真渲染，超越基于NeRF方法的计算限制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Vehicle Motion Modeling:</b> Accurately representing the 3D motion trajectories and appearance changes of vehicles over time, including pose transformations and lighting variations, using noisy tracking data.</div>
+            <div class="lang-zh" style="display:none"><b>车辆运动建模：</b>使用噪声跟踪数据准确表示车辆随时间的三维运动轨迹和外观变化，包括姿势变换和照明变化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene Composition and Editing:</b> Enabling seamless composition of foreground vehicles with background environments while supporting scene editing operations like object manipulation for autonomous driving simulation.</div>
+            <div class="lang-zh" style="display:none"><b>场景合成和编辑：</b>实现前景车辆与背景环境的无缝合成，同时支持对象操纵等场景编辑操作用于自动驾驶模拟。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Large-Scale Urban Scene Handling:</b> Efficiently processing and rendering extensive urban environments with multiple dynamic objects, managing memory constraints and computational complexity for real-world applications.</div>
+            <div class="lang-zh" style="display:none"><b>大规模城市场景处理：</b>高效处理和渲染具有多个动态对象的广泛城市环境，管理内存约束和计算复杂度以用于现实世界应用。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Compositional Point Cloud Representation:</b> Decomposed urban scenes into separate point clouds for background and each foreground vehicle, each equipped with 3D Gaussians, semantic logits, and time-varying appearance models for efficient scene representation.</div>
+            <div class="lang-zh" style="display:none"><b>合成点云表示：</b>将城市街景分解为背景和每个前景车辆的单独点云，每个点云配备3D高斯、语义logits和时变外观模型以实现高效场景表示。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>4D Spherical Harmonics for Dynamic Appearance:</b> Extended spherical harmonics to 4D using Fourier transform coefficients to capture time-varying vehicle appearances, enabling compact storage and realistic rendering of appearance changes across different lighting conditions.</div>
+            <div class="lang-zh" style="display:none"><b>4D球谐用于动态外观：</b>使用傅里叶变换系数将球谐扩展到4D以捕获时变的车辆外观，实现外观变化的紧凑存储和在不同照明条件下的逼真渲染。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Tracked Pose Optimization:</b> Treated tracked vehicle poses as learnable parameters with small perturbations, enabling gradient-based optimization to refine noisy tracking data and improve reconstruction accuracy without ground-truth supervision.</div>
+            <div class="lang-zh" style="display:none"><b>跟踪姿势优化：</b>将跟踪车辆姿势视为具有小扰动的可学习参数，实现基于梯度的优化以细化噪声跟踪数据并提高重建准确性，而无需地面真相监督。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Point Cloud Initialization and Densification:</b> Combined LiDAR and SfM point clouds for initialization, followed by adaptive densification strategies to handle sparse point distributions and improve rendering quality in textureless regions.</div>
+            <div class="lang-zh" style="display:none"><b>点云初始化和致密化：</b>结合LiDAR和SfM点云进行初始化，随后采用自适应致密化策略来处理稀疏点分布并改善纹理较少区域的渲染质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Explicit Rendering Pipeline:</b> Implemented direct point cloud composition and 2D Gaussian projection for real-time rendering, with semantic segmentation support and scene editing capabilities through object manipulation in 3D space.</div>
+            <div class="lang-zh" style="display:none"><b>显式渲染管道：</b>实现直接点云合成和2D高斯投影以进行实时渲染，具有语义分割支持和通过3D空间对象操纵的场景编辑能力。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Explicit vs. Implicit Representations:</b> Street Gaussians demonstrates that explicit point-based representations can surpass implicit NeRF methods in both rendering speed and scene editing capabilities while maintaining photorealistic quality for dynamic urban scenes.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>显式 vs. 隐式表示：</b>Street Gaussians证明显式基于点的表示可以在渲染速度和场景编辑能力方面超越隐式NeRF方法，同时为动态城市街景保持逼真质量。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Time-Varying Appearance Modeling:</b> The 4D spherical harmonics approach provides an efficient solution for modeling dynamic appearances without excessive storage overhead, enabling realistic rendering of lighting and shadow variations in urban environments.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>时变外观建模：</b>4D球谐方法为建模动态外观提供了一种高效解决方案，没有过多的存储开销，实现城市环境中照明和阴影变化的逼真渲染。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Scene Composition for Simulation:</b> The decompositional approach enables flexible scene editing and object manipulation, crucial for autonomous driving simulation where controllable and diverse scenarios are essential for training and validation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>模拟的场景合成：</b>分解方法实现灵活的场景编辑和对象操纵，这对于自动驾驶模拟至关重要，其中可控和多样化的场景对于训练和验证至关重要。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because Street Gaussians leverages the explicit nature of 3D Gaussians to enable efficient scene composition and optimization, while the 4D appearance model and pose optimization address the core challenges of dynamic urban scene reconstruction with minimal computational overhead.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为Street Gaussians利用3D高斯的显式性质来实现高效场景合成和优化，而4D外观模型和姿势优化以最小的计算开销解决了动态城市场景重建的核心挑战。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces Street Gaussians, a novel explicit scene representation for modeling dynamic urban street scenes. By decomposing scenes into composable point clouds with 3D Gaussians and implementing 4D spherical harmonics for dynamic appearances, the method achieves photorealistic rendering at 135 FPS within 30 minutes of training. The approach demonstrates superior performance on KITTI and Waymo datasets, enabling scene editing operations and semantic segmentation while significantly outperforming NeRF-based methods in rendering speed and quality.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了Street Gaussians，一种新颖的显式场景表示，用于建模动态城市街景。通过将场景分解为带有3D高斯的可合成点云，并实现4D球谐用于动态外观，该方法在30分钟训练时间内实现135 FPS的逼真渲染。该方法在KITTI和Waymo数据集上展示了卓越性能，实现场景编辑操作和语义分割，同时在渲染速度和质量方面显著优于基于NeRF的方法。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://zju3dv.github.io/street_gaussians/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

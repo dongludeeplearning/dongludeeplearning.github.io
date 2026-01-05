@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICLR 2025 (Spotlight)
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">CLoSD: Closing the Loop between Simulation and Diffusion for multi-task character control</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Guy Tevet, Sigal Raab, Setareh Cohan, Daniele Reda, Zhengyi Luo, Xue Bin Peng, Amit H. Bermano, Michiel van de Panne<br>
+        <span style="opacity:0.8">University of British Columbia, Simon Fraser University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to combine the strengths of motion diffusion models (diverse generation) and RL controllers (physical plausibility) for text-driven multi-task character control in physics-based simulations?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何结合运动扩散模型（多样化生成）和RL控制器（物理合理性）的优势，实现物理模拟中的文本驱动多任务角色控制？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>CLoSD Framework:</b> A text-driven RL physics-based controller that combines diffusion planning with robust motion tracking for multi-task character control.</div>
+            <div class="lang-zh" style="display:none"><b>CLoSD 框架：</b>一个文本驱动的RL物理控制器，将扩散规划与鲁棒运动跟踪相结合，实现多任务角色控制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Diffusion Planner (DiP):</b> A fast-responding autoregressive diffusion model controlled by textual prompts and target locations, serving as an on-the-fly universal planner.</div>
+            <div class="lang-zh" style="display:none"><b>扩散规划器 (DiP)：</b>一个快速响应的自回归扩散模型，由文本提示和目标位置控制，作为即时通用规划器。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Closed-Loop Architecture:</b> Maintains continuous interaction between diffusion planning and motion tracking controller with environmental feedback for robust execution.</div>
+            <div class="lang-zh" style="display:none"><b>闭环架构：</b>在扩散规划和运动跟踪控制器之间保持连续交互，并通过环境反馈实现鲁棒执行。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Multi-Task Capabilities:</b> Seamlessly performs sequences of diverse tasks including navigation, object interaction (striking with hand/foot), sitting down, and standing up.</div>
+            <div class="lang-zh" style="display:none"><b>多任务能力：</b>无缝执行多样化任务序列，包括导航、物体交互（用手/脚击打）、坐下和站起来。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/closd_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Complementary Strengths Gap:</b> Motion diffusion models excel at diverse generation but lack physical plausibility, while RL controllers offer physical accuracy but struggle with intuitive control and task diversity.</div>
+            <div class="lang-zh" style="display:none"><b>互补优势差距：</b>运动扩散模型擅长多样化生成但缺乏物理合理性，而RL控制器提供物理准确性但难以实现直观控制和任务多样性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Task Sequencing:</b> Enabling seamless transitions between different tasks (navigation, interaction, posture changes) in a unified control framework.</div>
+            <div class="lang-zh" style="display:none"><b>任务序列化：</b>在统一控制框架中实现不同任务（导航、交互、姿态变化）之间的无缝过渡。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Real-time Responsiveness:</b> Maintaining fast response times for diffusion planning while ensuring robust tracking and environmental adaptation.</div>
+            <div class="lang-zh" style="display:none"><b>实时响应性：</b>在确保扩散规划快速响应同时保证鲁棒跟踪和环境适应性。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Diffusion Planner (DiP):</b> An autoregressive diffusion model trained on motion data, conditioned on text prompts and target locations to generate motion plans on-the-fly.</div>
+            <div class="lang-zh" style="display:none"><b>扩散规划器 (DiP)：</b>一个在运动数据上训练的自回归扩散模型，以文本提示和目标位置为条件，即时生成运动计划。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Tracking Controller:</b> A robust motion imitator that receives motion plans from DiP and provides continuous environmental feedback for physical plausibility.</div>
+            <div class="lang-zh" style="display:none"><b>跟踪控制器：</b>一个鲁棒的运动模仿器，从DiP接收运动计划并提供连续的环境反馈以确保物理合理性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Closed-Loop Integration:</b> Continuous bidirectional communication between DiP and controller, with the controller providing feedback to refine DiP's planning.</div>
+            <div class="lang-zh" style="display:none"><b>闭环集成：</b>DiP和控制器之间的连续双向通信，控制器提供反馈以优化DiP的规划。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Multi-Task Training:</b> Joint training on diverse tasks (locomotion, manipulation, posture changes) to enable seamless task transitions.</div>
+            <div class="lang-zh" style="display:none"><b>多任务训练：</b>在多样化任务（运动、操作、姿态变化）上联合训练，以实现无缝任务过渡。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/closd_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2410.03441.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2410.03441.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                CLoSD successfully bridges the gap between generative diffusion models and physically plausible RL controllers, enabling intuitive text-driven multi-task character control.
+            </div>
+            <div class="lang-zh" style="display:none">
+                CLoSD成功弥合了生成扩散模型和物理合理RL控制器之间的差距，实现直观的文本驱动多任务角色控制。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The closed-loop architecture with diffusion planning as a universal planner enables robust execution of diverse tasks in physics-based environments.
+            </div>
+            <div class="lang-zh" style="display:none">
+                以扩散规划作为通用规划器的闭环架构能够在物理环境中实现多样化任务的鲁棒执行。
+            </div>
+          </li>
+          <li>
+            <div class="lang-en">
+                This approach opens new possibilities for controllable character animation in games, VR, and interactive applications requiring both diversity and physical accuracy.
+            </div>
+            <div class="lang-zh" style="display:none">
+                该方法为游戏、VR和需要多样性和物理准确性的交互应用中的可控角色动画开辟了新的可能性。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/GuyTevet/closd" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

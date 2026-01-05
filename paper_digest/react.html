@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICLR 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">ReAct: Synergizing Reasoning and Acting in Language Models</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao<br>
+        <span style="opacity:0.8">Princeton University, Google Research</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we synergize reasoning and acting in language models to enable more grounded, interpretable, and effective problem-solving across diverse tasks like question answering and interactive decision making?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在语言模型中协同推理和行动，以实现更接地、更可解释、更有效的跨任务问题解决，如问答和交互式决策制定？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ReAct Framework:</b> Introduced ReAct, a novel paradigm that synergizes reasoning and acting in language models by interleaving verbal reasoning traces with actionable steps, enabling more grounded and interpretable problem-solving.</div>
+            <div class="lang-zh" style="display:none"><b>ReAct框架：</b>引入了ReAct，这是一种新颖的范式，通过交替排列语言推理轨迹和可行动步骤，在语言模型中协同推理和行动，实现更接地和更可解释的问题解决。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Knowledge-Intensive Reasoning:</b> Demonstrated ReAct's effectiveness on knowledge-intensive tasks like HotpotQA and FEVER, where it outperforms Chain-of-Thought prompting by interacting with external knowledge sources to reduce hallucinations and improve factual accuracy.</div>
+            <div class="lang-zh" style="display:none"><b>知识密集型推理：</b>展示了ReAct在HotpotQA和FEVER等知识密集型任务上的有效性，通过与外部知识源交互来减少幻觉并提高事实准确性，从而优于Chain-of-Thought提示。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Interactive Decision Making:</b> Extended ReAct to interactive environments like ALFWorld and WebShop, achieving significant improvements over imitation learning methods with sparse reasoning traces that guide exploration and action selection.</div>
+            <div class="lang-zh" style="display:none"><b>交互式决策制定：</b>将ReAct扩展到ALFWorld和WebShop等交互环境，通过指导探索和行动选择的稀疏推理轨迹，实现了优于模仿学习方法的显著改进。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Human-Aligned and Interpretable:</b> Showed that ReAct produces human-like decision-making trajectories that are more interpretable and trustworthy than methods without reasoning components, while being controllable through thought editing.</div>
+            <div class="lang-zh" style="display:none"><b>人类对齐和可解释：</b>展示了ReAct产生类似人类的决策轨迹，比没有推理组件的方法更可解释和值得信赖，同时可以通过思想编辑进行控制。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hallucination in Reasoning:</b> Pure reasoning methods like Chain-of-Thought can suffer from factual hallucinations and error propagation when relying solely on internal knowledge without external validation.</div>
+            <div class="lang-zh" style="display:none"><b>推理中的幻觉：</b>像Chain-of-Thought这样的纯推理方法在仅依赖内部知识而没有外部验证时，会遭受事实幻觉和错误传播。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Acting Without Guidance:</b> Pure acting methods lack reasoning to guide action selection and exploration in complex environments, leading to inefficient or suboptimal decision-making.</div>
+            <div class="lang-zh" style="display:none"><b>没有指导的行动：</b>纯行动方法缺乏推理来指导复杂环境中的行动选择和探索，导致低效或次优决策制定。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Interleaved Reasoning-Action:</b> Designing effective prompts that properly interleave reasoning traces with actions requires careful consideration of timing, granularity, and integration with environment feedback.</div>
+            <div class="lang-zh" style="display:none"><b>交替推理-行动：</b>设计有效提示以正确交替推理轨迹与行动，需要仔细考虑时机、粒度和与环境反馈的集成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Task-Specific Adaptation:</b> Different tasks require different levels of reasoning density (dense for QA, sparse for decision-making) and action spaces, necessitating flexible prompt design and adaptation strategies.</div>
+            <div class="lang-zh" style="display:none"><b>任务特定适应：</b>不同任务需要不同级别的推理密度（问答密集，决策制定稀疏）和行动空间，需要灵活的提示设计和适应策略。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>ReAct synergizes reasoning and acting by augmenting the language model's action space to include both external actions and internal reasoning traces:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Augmented Action Space:</b> Extends traditional action space A with language space L, allowing ˆA = A ∪ L where language actions serve as reasoning traces that don't affect the external environment but update the agent's context.</li>
+                <li style="margin-bottom:6px;"><b>Interleaved Reasoning-Action:</b> For knowledge-intensive tasks, densely interleaves thoughts and actions so reasoning can guide information retrieval and actions can provide factual grounding for reasoning.</li>
+                <li style="margin-bottom:6px;"><b>Sparse Reasoning for Decision Making:</b> In interactive environments, uses sparse reasoning traces that appear at key decision points to decompose goals, track progress, and reason about commonsense knowledge.</li>
+                <li style="margin-bottom:6px;"><b>Prompt-Based Implementation:</b> Uses few-shot prompting with human-written trajectories containing interleaved thoughts and actions, enabling the model to learn the synergy without additional training.</li>
+                <li style="margin-bottom:6px;"><b>Flexible Thought Types:</b> Supports diverse reasoning patterns including task decomposition, information extraction, commonsense reasoning, progress tracking, and error recovery through natural language thoughts.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>ReAct通过扩展语言模型的行动空间以包含外部行动和内部推理轨迹来协同推理和行动：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>增强行动空间：</b>将传统行动空间A扩展为语言空间L，允许ˆA = A ∪ L，其中语言行动作为推理轨迹，不会影响外部环境但会更新代理的上下文。</li>
+                <li style="margin-bottom:6px;"><b>交替推理-行动：</b>对于知识密集型任务，密集交替思想和行动，以便推理可以指导信息检索，行动可以为推理提供事实基础。</li>
+                <li style="margin-bottom:6px;"><b>决策制定的稀疏推理：</b>在交互环境中，使用出现在关键决策点的稀疏推理轨迹来分解目标、跟踪进度和推理常识知识。</li>
+                <li style="margin-bottom:6px;"><b>基于提示的实现：</b>使用少样本提示与包含交替思想和行动的人类编写轨迹，使模型能够在没有额外训练的情况下学习协同。</li>
+                <li style="margin-bottom:6px;"><b>灵活思想类型：</b>通过自然语言思想支持多样化推理模式，包括任务分解、信息提取、常识推理、进度跟踪和错误恢复。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/react_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/react_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/react_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/react_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>ReAct synergizes reasoning and acting by interleaving thoughts (reasoning traces) with actions in a closed-loop system, enabling more grounded and interpretable problem-solving across diverse tasks.</p>
+            <p>Note: The framework achieves superior performance on HotpotQA (multi-hop QA), FEVER (fact verification), ALFWorld (text-based games), and WebShop (online shopping) by allowing models to reason about their actions and act on their reasoning.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_react.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_react.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>ReAct succeeds by creating a virtuous cycle between reasoning and acting that leverages the complementary strengths of both:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Grounded Reasoning:</b> Actions provide external feedback that grounds reasoning in factual information, reducing hallucinations and enabling the model to update beliefs based on real-world observations.</li>
+                <li style="margin-bottom:6px;"><b>Actionable Reasoning:</b> Reasoning traces help the model plan, decompose tasks, and evaluate progress, making actions more purposeful and efficient rather than random exploration.</li>
+                <li style="margin-bottom:6px;"><b>Interpretable Decision-Making:</b> The interleaved thought-action trajectories provide human-understandable explanations for why certain actions were taken, enabling better debugging and human-AI collaboration.</li>
+                <li style="margin-bottom:6px;"><b>Flexible Adaptation:</b> The framework adapts to different task requirements by adjusting reasoning density (dense for QA, sparse for decision-making) and integrating seamlessly with different action spaces.</li>
+                <li style="margin-bottom:6px;"><b>Robust Error Recovery:</b> Reasoning enables the model to detect when actions fail or lead to dead ends, allowing for dynamic replanning and recovery strategies based on environmental feedback.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>ReAct通过在推理和行动之间创造一个良性循环而成功，该循环利用了两者的互补优势：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>接地推理：</b>行动提供外部反馈，将推理建立在事实信息基础上，减少幻觉，使模型能够基于真实世界观察更新信念。</li>
+                <li style="margin-bottom:6px;"><b>可行动推理：</b>推理轨迹帮助模型规划、分解任务和评估进度，使行动更有目的性和效率，而不是随机探索。</li>
+                <li style="margin-bottom:6px;"><b>可解释决策制定：</b>交替的思想-行动轨迹为为什么采取某些行动提供了人类可理解的解释，实现了更好的调试和人机协作。</li>
+                <li style="margin-bottom:6px;"><b>灵活适应：</b>该框架通过调整推理密度（问答密集，决策制定稀疏）并无缝集成不同的行动空间来适应不同的任务要求。</li>
+                <li style="margin-bottom:6px;"><b>鲁棒错误恢复：</b>推理使模型能够检测行动何时失败或导致死胡同，允许基于环境反馈进行动态重新规划和恢复策略。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work introduces ReAct, a simple yet powerful framework that synergizes reasoning and acting in large language models. By augmenting the model's action space to include both external actions and internal reasoning traces, ReAct creates a closed-loop system where thoughts guide actions and actions inform thoughts, enabling more grounded, interpretable, and effective problem-solving across diverse domains. The framework's key insight—that reasoning and acting are complementary rather than separate processes—has profound implications for how we design AI systems that interact with the world. Experimental results demonstrate ReAct's superiority over state-of-the-art baselines on knowledge-intensive reasoning tasks (HotpotQA, FEVER) and interactive decision-making environments (ALFWorld, WebShop), with particularly striking improvements in reducing hallucinations and enabling systematic exploration. The human-aligned nature of ReAct trajectories makes it particularly valuable for applications requiring transparency and trustworthiness. While the current implementation relies on prompting rather than fine-tuning, the framework opens exciting avenues for future research in scaling ReAct to more complex tasks, integrating it with reinforcement learning, and developing more sophisticated reasoning-action synergies. ReAct represents a fundamental shift in how language models can be used for real-world problem-solving, bridging the gap between isolated reasoning capabilities and effective action in interactive environments.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了ReAct，这是一个简单却强大的框架，在大型语言模型中协同推理和行动。通过将模型的行动空间扩展为包含外部行动和内部推理轨迹，ReAct创建了一个闭环系统，其中思想指导行动，行动告知思想，实现跨不同领域更接地、更可解释、更有效的问解决。该框架的关键洞察——推理和行动是互补而非分离的过程——对我们如何设计与世界交互的AI系统具有深远影响。实验结果证明了ReAct在知识密集型推理任务（HotpotQA、FEVER）和交互式决策环境（ALFWorld、WebShop）上优于最先进基线，在减少幻觉和实现系统探索方面特别显著。ReAct轨迹的人类对齐性质使其特别适用于需要透明度和可信度的应用。虽然当前实现依赖提示而不是微调，但该框架为未来研究开辟了激动人心的途径，在更复杂的任务上扩展ReAct、将其与强化学习集成，以及开发更复杂的推理-行动协同。ReAct代表了语言模型用于现实世界问题解决的根本转变，弥合了孤立推理能力与交互环境中的有效行动之间的差距。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2210.03629" target="_blank" style="color:#8bffcf;">2210.03629</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/ysymyth/ReAct" target="_blank" style="color:#8bffcf;">https://github.com/ysymyth/ReAct</a></p>
+          <p><b>Project Site:</b> <a href="https://react-lm.github.io" target="_blank" style="color:#8bffcf;">https://react-lm.github.io</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# ReAct Implementation<br>
+<br>
+// ReAct trajectory generation with interleaved reasoning and acting<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">react_trajectory</span>(question, environment, max_steps=10):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Generate ReAct trajectory with interleaved thoughts and actions"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;trajectory = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;current_state = question<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> step <span style="color:#569cd6;">in</span> range(max_steps):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate reasoning trace (thought)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thought = generate_thought(current_state, trajectory)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trajectory.append({<span style="color:#9cdcfe;">"type"</span>: <span style="color:#ce9178;">"thought"</span>, <span style="color:#9cdcfe;">"content"</span>: thought})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate action based on thought and current state</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;action = generate_action(current_state, thought, trajectory)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trajectory.append({<span style="color:#9cdcfe;">"type"</span>: <span style="color:#ce9178;">"action"</span>, <span style="color:#9cdcfe;">"content"</span>: action})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Execute action in environment and get observation</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;observation = environment.execute(action)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trajectory.append({<span style="color:#9cdcfe;">"type"</span>: <span style="color:#ce9178;">"observation"</span>, <span style="color:#9cdcfe;">"content"</span>: observation})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Update current state with observation</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_state = update_state(current_state, observation)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Check if task is complete</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> is_task_complete(trajectory):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">break</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> trajectory<br>
+<br>
+// Thought generation with context awareness<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">generate_thought</span>(current_state, trajectory):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Generate reasoning trace based on current state and trajectory"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;context = format_trajectory_for_thought(trajectory)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Thought types: task decomposition, information extraction, commonsense reasoning, etc.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;thought_prompt = f"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Current task: {current_state}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Previous trajectory: {context}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Think step by step about what to do next...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> llm.generate(thought_prompt)<br>
+<br>
+// Action generation guided by reasoning<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">generate_action</span>(current_state, thought, trajectory):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Generate action based on current thought and state"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;action_prompt = f"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Thought: {thought}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Current state: {current_state}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;What action should be taken?<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> llm.generate(action_prompt)<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

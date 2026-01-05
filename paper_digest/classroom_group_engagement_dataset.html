@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • Scientific Data 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">A Video Dataset for Classroom Group Engagement Recognition</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Weigang Lu, Yang Yang, Runfei Song, Ying Chen, Tao Wang, Cunling Bian<br>
+        <span style="opacity:0.8">Ocean University of China</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create a comprehensive video dataset that captures authentic classroom group dynamics for automated recognition of student group engagement levels, transcending individual-focused paradigms to enable pedagogical interventions at the group level?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建一个全面的视频数据集，捕捉真实课堂群体动态，用于自动识别学生群体参与度水平，超越个人焦点范式以实现群体层面的教学干预？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>OUC-CGE Dataset Creation:</b> Introduced OUC Classroom Group Engagement Dataset (OUC-CGE), the first benchmark dataset dedicated to group engagement analysis in authentic classroom settings using pure visual signals, containing 7,705 annotated 10-second video clips from 17 undergraduate students engaged in structured group learning activities.</div>
+            <div class="lang-zh" style="display:none"><b>OUC-CGE数据集创建：</b>引入了OUC课堂群体参与度数据集（OUC-CGE），这是第一个专门用于真实课堂环境中群体参与度分析的基准数据集，使用纯视觉信号，包含来自17名本科生参与结构化群体学习活动的7,705个标注的10秒视频片段。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Ecological Validity in Data Collection:</b> Collected data in real classroom environments with structured activities (70% scripted debates, quizzes) and unscripted interactions (30% open discussions), ensuring ecological validity while capturing diverse engagement states through controlled stimuli sequencing and participant consent protocols.</div>
+            <div class="lang-zh" style="display:none"><b>数据收集的生态有效性：</b>在真实课堂环境中收集数据，包括结构化活动（70%脚本化辩论、测验）和非脚本化互动（30%开放讨论），通过控制刺激排序和参与者同意协议确保生态有效性，同时捕捉多样化的参与状态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Technical-Pedagogical Validation:</b> Implemented dual validation strategy combining technical metrics (97.8% accuracy with SLOW model) and pedagogical assessments, demonstrating the dataset's consistency with existing benchmarks while establishing group engagement as a computable pedagogical construct.</div>
+            <div class="lang-zh" style="display:none"><b>技术-教学验证：</b>实施双重验证策略，结合技术指标（SLOW模型达到97.8%的准确率）和教学评估，证明数据集与现有基准的一致性，同时将群体参与度确立为可计算的教学结构。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ICAP Framework Integration:</b> Annotated engagement levels based on the ICAP (Interactive, Constructive, Active, Passive) framework, capturing behavioral (task collaboration, discussion participation), cognitive (knowledge seeking, critical thinking), and emotional (interest, positive investment) dimensions of group engagement.</div>
+            <div class="lang-zh" style="display:none"><b>ICAP框架集成：</b>基于ICAP（交互式、建构式、主动式、被动式）框架标注参与度水平，捕捉群体参与的行为维度（任务协作、讨论参与）、认知维度（知识寻求、批判性思维）和情感维度（兴趣、积极投入）。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/classroom_group_engagement_dataset_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('classroom_group_engagement_dataset_nature2025.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('classroom_group_engagement_dataset_nature2025.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+
+      </div>
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           
+            <img src="Figures/classroom_group_engagement_dataset_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <hr style="border-top: 1px dashed rgba(255,255,255,.1); margin: 20px 0;">
+            <img src="Figures/classroom_group_engagement_dataset_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <hr style="border-top: 1px dashed rgba(255,255,255,.1); margin: 20px 0;">
+            <img src="Figures/classroom_group_engagement_dataset_overview03.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('classroom_group_engagement_dataset_nature2025.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('classroom_group_engagement_dataset_nature2025.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Capturing Authentic Group Dynamics:</b> Collecting ecologically valid data that represents real classroom group interactions rather than individual behaviors in isolation, requiring careful design of learning activities that naturally elicit varied group engagement states.</div>
+            <div class="lang-zh" style="display:none"><b>捕捉真实群体动态：</b>收集代表真实课堂群体互动的生态有效数据，而不是孤立的个人行为，需要精心设计学习活动以自然地引发各种群体参与状态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multidimensional Engagement Assessment:</b> Developing reliable annotation frameworks that capture the complex interplay of behavioral, cognitive, and emotional dimensions in group settings, rather than oversimplifying engagement to individual-level metrics.</div>
+            <div class="lang-zh" style="display:none"><b>多维度参与度评估：</b>开发可靠的标注框架，捕捉群体环境中行为、认知和情感维度的复杂相互作用，而不是将参与度过度简化到个人层面指标。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inter-Subject Variability:</b> Accounting for individual differences in engagement expression within groups, where cultural backgrounds, learning styles, and personality traits influence how group members contribute to collective engagement states.</div>
+            <div class="lang-zh" style="display:none"><b>主体间变异性：</b>考虑群体内参与表达的个体差异，其中文化背景、学习风格和人格特质影响群体成员对集体参与状态的贡献。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Longitudinal Engagement Tracking:</b> Maintaining temporal coherence in engagement assessments across video sequences, ensuring that short-term fluctuations don't compromise the overall characterization of group learning trajectories.</div>
+            <div class="lang-zh" style="display:none"><b>纵向参与度跟踪：</b>维持视频序列中参与度评估的时间连贯性，确保短期波动不会损害群体学习轨迹的整体特征描述。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Privacy and Ethical Considerations:</b> Balancing the need for detailed behavioral data collection with participant privacy rights, implementing informed consent protocols and data anonymization while maintaining analytical utility for educational research.</div>
+            <div class="lang-zh" style="display:none"><b>隐私和伦理考虑：</b>平衡详细行为数据收集需求与参与者隐私权，实现知情同意协议和数据匿名化，同时保持教育研究的分析效用。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ICAP Framework-Based Annotation:</b> Established engagement assessment grounded in the ICAP (Interactive, Constructive, Active, Passive) framework, categorizing group engagement into three levels (High, Medium, Low) based on observable behavioral indicators like discussion participation, collaborative problem-solving, and emotional investment.</div>
+            <div class="lang-zh" style="display:none"><b>基于ICAP框架的标注：</b>建立基于ICAP（交互式、建构式、主动式、被动式）框架的参与度评估，将群体参与度分为三个水平（高、中、低），基于可观察的行为指标，如讨论参与、协作问题解决和情感投入。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Controlled Stimuli Design:</b> Implemented structured learning activities with 70% scripted interventions (debates, quizzes) and 30% unstructured interactions, using diverse stimuli (humorous teaching, high-cognitive content) to systematically elicit different engagement states while maintaining ecological validity.</div>
+            <div class="lang-zh" style="display:none"><b>控制刺激设计：</b>实施结构化学习活动，其中70%为脚本化干预（辩论、测验）和30%为非结构化互动，使用多样化刺激（幽默教学、高认知内容）系统地引发不同的参与状态，同时保持生态有效性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Camera Data Collection:</b> Deployed three synchronized webcams in classroom settings to capture comprehensive group dynamics from multiple viewpoints, recording 10-second video clips at 30fps resolution to balance temporal granularity with behavioral continuity.</div>
+            <div class="lang-zh" style="display:none"><b>多摄像头数据收集：</b>在课堂环境中部署三个同步网络摄像头，从多个视点捕捉全面的群体动态，以30fps分辨率记录10秒视频片段，以平衡时间粒度和行为连续性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Expert Annotation Pipeline:</b> Developed rigorous annotation protocol with expert reviewers achieving 93% inter-rater agreement through dual-coding validation and baseline arbitration, ensuring reliable ground truth for machine learning model training.</div>
+            <div class="lang-zh" style="display:none"><b>专家标注管道：</b>开发严格的标注协议，通过双重编码验证和基准仲裁，专家评审者达到93%的评定者间一致性，确保机器学习模型训练的可靠地面真相。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><div class="lang-en"><b>Video Recognition Baselines:</b> Evaluated state-of-the-art video recognition models (SlowFast, C2D, I3D, X3D, SLOW-NLN, SLOW) on the OUC-CGE dataset, achieving 97.8% accuracy with the SLOW model, demonstrating superior performance on spatio-temporally coherent classroom engagement data.</div>
+            <div class="lang-zh" style="display:none"><b>视频识别基线：</b>在OUC-CGE数据集上评估最先进的视频识别模型（SlowFast、C2D、I3D、X3D、SLOW-NLN、SLOW），SLOW模型达到97.8%的准确率，证明在时空连贯的课堂参与度数据上具有卓越性能。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Paradigm Shift from Individual to Group Analysis:</b> OUC-CGE represents a fundamental shift from individualistic engagement assessment to group-level analysis, recognizing that classroom learning occurs in social contexts where collective dynamics drive educational outcomes beyond individual contributions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>从个人到群体分析的范式转变：</b>OUC-CGE代表了从个人参与度评估到群体层面分析的根本转变，认识到课堂学习发生在社交环境中，其中集体动态驱动超出个人贡献的教育成果。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Ecological Complexity Preservation:</b> Unlike controlled lab settings, the dataset maintains the authentic complexity of classroom environments, including varying lighting, camera angles, and spontaneous interactions, enabling more robust and generalizable engagement recognition systems.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>生态复杂性保持：</b>与受控实验室环境不同，该数据集保持了课堂环境的真实复杂性，包括变化的照明、摄像头角度和自发互动，使参与度识别系统更稳健和通用。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Pedagogical Diagnostic Insights:</b> The dataset enables teachers to receive objective, data-driven insights into group engagement trajectories, supporting evidence-based pedagogical adjustments from individual behavior modification to classroom ecological optimization.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>教学诊断洞察：</b>该数据集使教师能够接收到客观的、数据驱动的群体参与度轨迹洞察，支持从个人行为修改到课堂生态优化的循证教学调整。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because it bridges the gap between computer vision capabilities and educational psychology needs, providing a comprehensive dataset that captures the social complexity of classroom learning while enabling automated, real-time assessment of group engagement for enhanced pedagogical outcomes.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为它弥合了计算机视觉能力和教育心理学需求之间的差距，提供了一个全面的数据集，捕捉课堂学习的社交复杂性，同时实现群体参与度的自动化、实时评估，以增强教学成果。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces the OUC Classroom Group Engagement Dataset (OUC-CGE), the first benchmark dataset dedicated to group engagement analysis in authentic classroom settings. The dataset contains 7,705 annotated 10-second video clips from 17 undergraduate students, achieving 97.8% classification accuracy with state-of-the-art video recognition models. By transcending individualistic paradigms and incorporating the ICAP framework, OUC-CGE establishes group engagement as a computable pedagogical construct, offering diagnostic insights for teachers and catalyzing research in socially-embedded educational AI systems.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了OUC课堂群体参与度数据集（OUC-CGE），这是第一个专门用于真实课堂环境中群体参与度分析的基准数据集。该数据集包含来自17名本科生的7,705个标注的10秒视频片段，使用最先进的视频识别模型达到97.8%的分类准确率。通过超越个人主义范式并纳入ICAP框架，OUC-CGE将群体参与度确立为可计算的教学结构，为教师提供诊断洞察，并催化社会嵌入式教育AI系统的研究。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://www.nature.com/articles/s41597-025-04987-w" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Nature
+        </a>
+        <a href="https://github.com/oucyy361/OUC-CGE.git" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

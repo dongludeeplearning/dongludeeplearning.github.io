@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">From Audio to Photoreal Embodiment: Synthesizing Humans in Conversations</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Evonne Ng, Javier Romero, Timur Bagautdinov, Shaojie Bai, Trevor Darrell, Angjoo Kanazawa, Alexander Richard <br>
+        <span style="opacity:0.8">UC Berkeley, Meta Reality Labs</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate full-bodied, photorealistic avatars that produce diverse and expressive gestures (face, body, hands) synchronized with conversational audio dynamics?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何生成全身、照片级逼真的化身，使其能够根据对话音频动态产生多样且富有表现力的手势（面部、身体、手）？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hybrid Generation Framework:</b> Combines Vector Quantization (VQ) for sample diversity with Diffusion for high-frequency details, generating dynamic and expressive motion.</div>
+            <div class="lang-zh" style="display:none"><b>混合生成框架：</b>结合了用于样本多样性的矢量量化 (VQ) 和用于高频细节的扩散，生成动态且富有表现力的动作。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Photorealistic Visualization:</b> Demonstrates that visualizing generated motion on photorealistic avatars (vs. meshes) is crucial for perceiving subtle nuances like sneers and smirks.</div>
+            <div class="lang-zh" style="display:none"><b>照片级逼真可视化：</b>证明了在照片级逼真的化身（相对于网格）上可视化生成的动作对于感知诸如冷笑和假笑等微妙差别至关重要。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Multi-View Conversational Dataset:</b> Introduced a first-of-its-kind multi-view dataset capturing dyadic interactions, enabling high-quality photorealistic reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>多视图对话数据集：</b>引入了首个捕捉二元交互的多视图数据集，实现了高质量的照片级逼真重建。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/photoreal_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Subtle Expression:</b> Capturing and generating subtle conversational signals (micro-expressions, finger movements) is difficult with standard mesh-based metrics and models.</div>
+            <div class="lang-zh" style="display:none"><b>微妙表达：</b>使用基于网格的标准指标和模型很难捕捉和生成微妙的对话信号（微表情、手指动作）。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Diversity vs. Quality:</b> Purely diffusion-based methods can struggle with mode collapse or lack of diversity, while VQ methods may miss high-frequency details.</div>
+            <div class="lang-zh" style="display:none"><b>多样性与质量：</b>纯扩散方法可能会遇到模式崩溃或缺乏多样性的问题，而 VQ 方法可能会丢失高频细节。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>VQ-Diffusion Hybrid:</b> Uses a Vector Quantized Variational Autoencoder (VQ-VAE) to learn a discrete latent space of motion, and then a Diffusion model to sample from this space conditioned on audio.</div>
+            <div class="lang-zh" style="display:none"><b>VQ-扩散混合：</b>使用矢量量化变分自动编码器 (VQ-VAE) 学习动作的离散潜在空间，然后使用扩散模型以音频为条件从该空间进行采样。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Photoreal Rendering:</b> The generated skeletal motion drives a high-fidelity avatar model (like Codec Avatars), bridging the gap between motion synthesis and realistic visual perception.</div>
+            <div class="lang-zh" style="display:none"><b>照片级逼真渲染：</b>生成的骨骼动作驱动高保真化身模型（如 Codec Avatars），弥合了动作合成与逼真视觉感知之间的差距。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/photoreal_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2401.01885.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2401.01885.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Performance:</b> Outperformed baseline methods (Diffusion-only, VQ-only) in terms of gesture appropriateness and diversity.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>性能：</b>在手势适当性和多样性方面优于基线方法（仅扩散、仅 VQ）。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Perceptual Study:</b> Showed that evaluating motion on photorealistic avatars leads to different and more accurate human judgments compared to evaluating on skeletons or meshes.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>感知研究：</b>表明与在骨骼或网格上评估相比，在照片级逼真化身评估动作会导致不同且更准确的人类判断。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                This work highlights the importance of photorealism in synthesizing and evaluating conversational agents, showing that high-fidelity embodiment is necessary to fully convey the nuances of human communication.
+            </div>
+            <div class="lang-zh" style="display:none">
+                这项工作强调了照片级真实感在合成和评估对话代理中的重要性，表明高保真化身对于充分传达人类交流的细微差别是必要的。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/facebookresearch/audio2photoreal" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

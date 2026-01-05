@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Motion-R1: Enhancing Motion Generation with Decomposed Chain-of-Thought and RL Binding</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Runqi Ouyang, Haoyun Li, Zhenyuan Zhang, Xiaofeng Wang, Zeyu Zhang, Zheng Zhu, Guan Huang, Sirui Han, Xingang Wang<br>
+        <span style="opacity:0.8">GigaAI, CASIA, HKUST</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to combine decomposed Chain-of-Thought reasoning with reinforcement learning to enhance both the quality and interpretability of text-to-motion generation while overcoming the limitations of existing end-to-end and overly complex RL approaches?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何结合分解的Chain-of-Thought推理和强化学习来增强文本到运动生成的质量和可解释性，同时克服现有端到端方法和过度复杂的RL方法的限制？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion-R1 Framework:</b> Pioneering integration of decomposed Chain-of-Thought reasoning with reinforcement learning binding to address the dual challenges of capturing temporal/causal complexities in language and simplifying RL-based motion generation approaches.</div>
+            <div class="lang-zh" style="display:none"><b>Motion-R1框架：</b>开创性地将分解的Chain-of-Thought推理与强化学习绑定相结合，解决捕捉语言中时间/因果复杂性和简化基于RL的运动生成方法的双重挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Decomposed CoT Data Engine:</b> Automated pipeline using LLMs to synthesize structured motion planning traces with step-by-step reasoning, enabling models to capture temporal dependencies and causal relationships without expensive manual annotation.</div>
+            <div class="lang-zh" style="display:none"><b>分解CoT数据引擎：</b>使用LLM的自动化管道合成具有逐步推理的结构化运动规划轨迹，使模型能够捕获时间依赖性和因果关系，而无需昂贵的手动标注。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>RL Binding Strategy:</b> Novel reinforcement learning approach that embeds multi-modal text-motion alignment directly into the reward function through motion similarity, semantic similarity, and format rewards, ensuring efficient optimization without human annotations.</div>
+            <div class="lang-zh" style="display:none"><b>RL绑定策略：</b>新颖的强化学习方法，通过运动相似性、语义相似性和格式奖励将多模态文本-运动对齐直接嵌入奖励函数，确保无需人工标注的高效优化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieves 3.5% improvement in MM-Dist on HumanML3D, sets new records in R-Precision and FID on KIT-ML and BABEL, demonstrating superior capability in generating diverse, semantically accurate, and motionally realistic human motions.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在HumanML3D上实现了MM-Dist的3.5%改进，在KIT-ML和BABEL上建立了R-Precision和FID的新记录，展示了在生成多样化、语义准确和运动真实的人类运动方面的卓越能力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/motion_r1_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2506.10353.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2506.10353.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/motion_r1_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2506.10353.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2506.10353.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Temporal and Causal Complexity:</b> Existing end-to-end approaches fail to capture the deeper temporal dependencies and causal relationships inherent in natural language descriptions of complex human activities involving sequential sub-actions.</div>
+            <div class="lang-zh" style="display:none"><b>时间和因果复杂性：</b>现有的端到端方法无法捕捉自然语言描述中固有的更深层次的时间依赖性和因果关系，这些描述涉及复杂人类活动的顺序子动作。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>RL Complexity and Scalability:</b> Current RL-based motion generation methods are overly complex and over-engineered, making them difficult to scale and deploy across diverse motion generation tasks despite their effectiveness.</div>
+            <div class="lang-zh" style="display:none"><b>RL复杂性和可扩展性：</b>当前的基于RL的运动生成方法过于复杂和过度设计，尽管有效，但难以扩展并部署到各种运动生成任务中。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Interpretability:</b> Most T2M methods lack explicit reasoning capabilities, making it difficult to understand and control the generation process for complex, multi-step activities.</div>
+            <div class="lang-zh" style="display:none"><b>有限的可解释性：</b>大多数T2M方法缺乏明确的推理能力，使得难以理解和控制复杂、多步骤活动的生成过程。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Annotation Cost:</b> RL-based methods typically require expensive human annotations for preference models or reward signals, limiting their practicality for large-scale motion generation tasks.</div>
+            <div class="lang-zh" style="display:none"><b>标注成本：</b>基于RL的方法通常需要昂贵的人工标注来获取偏好模型或奖励信号，限制了它们在大规模运动生成任务中的实用性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Modal Alignment:</b> Ensuring simultaneous alignment between generated motions and both textual descriptions (semantic fidelity) and real-world motion patterns (temporal coherence) remains challenging.</div>
+            <div class="lang-zh" style="display:none"><b>多模态对齐：</b>确保生成的运动同时与文本描述（语义保真度）和真实世界运动模式（时间连贯性）对齐仍然具有挑战性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Decomposed CoT Data Engine:</b> Automated LLM-powered pipeline that decomposes high-level motion descriptions into structured, step-by-step reasoning traces with temporal ordering and causal dependencies, enabling cold-start supervised fine-tuning.</div>
+            <div class="lang-zh" style="display:none"><b>分解CoT数据引擎：</b>自动化的LLM驱动管道，将高级运动描述分解为具有时间排序和因果依赖性的结构化、逐步推理轨迹，实现冷启动监督微调。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>RL Binding Strategy:</b> GRPO-based reinforcement learning with embedded multi-modal alignment rewards (motion similarity, semantic similarity, format rewards) that simultaneously optimize for motion quality, text adherence, and structural validity.</div>
+            <div class="lang-zh" style="display:none"><b>RL绑定策略：</b>基于GRPO的强化学习，具有嵌入的多模态对齐奖励（运动相似性、语义相似性、格式奖励），同时优化运动质量、文本依从性和结构有效性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>VQ-VAE Motion Tokenizer:</b> Discrete motion representation using vector quantization with temporal downsampling, enabling efficient sequence modeling and seamless integration with LLM-based generation pipeline.</div>
+            <div class="lang-zh" style="display:none"><b>VQ-VAE运动分词器：</b>使用向量量化和时间下采样的离散运动表示，实现高效的序列建模和与基于LLM的生成管道的无缝集成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Training:</b> Cold-start supervised fine-tuning with decomposed CoT data followed by GRPO-based RL optimization, providing stable foundation for complex reasoning capabilities and efficient multi-modal alignment.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段训练：</b>使用分解CoT数据的冷启动监督微调，后跟基于GRPO的RL优化，为复杂推理能力和高效多模态对齐提供稳定的基础。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Quality Control Pipeline:</b> Automated evaluation and regeneration of CoT traces using LLM-based assessment for relevance, logical consistency, and conciseness, ensuring high-quality training data without manual curation.</div>
+            <div class="lang-zh" style="display:none"><b>质量控制管道：</b>使用基于LLM的评估自动评估和重新生成CoT轨迹，以确保相关性、逻辑一致性和简洁性，无需手动整理的高质量训练数据。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>CoT for Motion Reasoning:</b> Decomposed Chain-of-Thought provides the missing link between high-level language understanding and fine-grained motion planning, enabling models to reason about complex activities with proper temporal and causal structure.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>运动推理的CoT：</b>分解的Chain-of-Thought提供了高级语言理解和细粒度运动规划之间的缺失环节，使模型能够以适当的时间和因果结构推理复杂活动。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Efficient RL without Annotations:</b> RL Binding demonstrates that multi-modal alignment can be achieved through carefully designed reward functions without expensive human preference annotations, making RL practical for motion generation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>无需标注的高效RL：</b>RL绑定证明了通过精心设计的奖励函数可以实现多模态对齐，而无需昂贵的人类偏好标注，使RL在运动生成中变得实用。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Unified Framework Benefits:</b> Combining structured reasoning with reinforcement learning creates a powerful paradigm that addresses both the interpretability challenges of end-to-end methods and the complexity issues of traditional RL approaches.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>统一框架的好处：</b>将结构化推理与强化学习相结合创造了一个强大的范式，既解决了端到端方法的可解释性挑战，也解决了传统RL方法的复杂性问题。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because Motion-R1 addresses the fundamental disconnect between language understanding and motion generation by introducing explicit reasoning capabilities. The decomposed CoT provides the necessary intermediate representations that bridge semantic understanding with temporal motion planning, while RL binding ensures that the generated motions are both semantically faithful and physically realistic without requiring expensive human annotations.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为Motion-R1通过引入明确的推理能力解决了语言理解和运动生成之间的基本脱节。分解的CoT提供了必要的中间表示，将语义理解与时间运动规划连接起来，而RL绑定确保生成的运动在语义上忠实且物理上真实，而无需昂贵的人工标注。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces Motion-R1, a novel framework that combines decomposed Chain-of-Thought reasoning with reinforcement learning binding to enhance text-to-motion generation. By addressing the dual challenges of capturing temporal/causal complexities in natural language and simplifying RL-based approaches, Motion-R1 achieves state-of-the-art performance across multiple benchmark datasets. The Decomposed CoT Data Engine enables structured reasoning about complex motion sequences, while RL Binding provides efficient multi-modal alignment without costly human annotations. Extensive experiments demonstrate superior results in motion quality, semantic fidelity, and diversity, establishing Motion-R1 as a scalable and interpretable solution for high-quality motion generation from natural language descriptions.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了Motion-R1，这是一个新颖的框架，将分解的Chain-of-Thought推理与强化学习绑定相结合，以增强文本到运动生成。通过解决捕捉自然语言中时间/因果复杂性和简化基于RL的方法的双重挑战，Motion-R1在多个基准数据集上实现了最先进的性能。分解CoT数据引擎实现了对复杂运动序列的结构化推理，而RL绑定提供了无需昂贵人工标注的高效多模态对齐。广泛的实验展示了在运动质量、语义保真度和多样性方面的卓越结果，将Motion-R1确立为从自然语言描述生成高质量运动的可扩展和可解释解决方案。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://motion-r1.github.io/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

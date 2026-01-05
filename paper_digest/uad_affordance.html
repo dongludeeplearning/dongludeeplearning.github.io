@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICRA 2025 (Best Paper Finalist)
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">UAD: Unsupervised Affordance Distillation for Generalization in Robotic Manipulation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Yihe Tang, Wenlong Huang, Yingke Wang, Chengshu Li, Roy Yuan, Ruohan Zhang, Jiajun Wu, Li Fei-Fei<br>
+        <span style="opacity:0.8">Stanford University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we distill affordance knowledge from foundation models to create task-conditioned affordance models that generalize to unseen robotic manipulation scenarios without manual annotations?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从基础模型中蒸馏可及性知识，以创建任务条件化的可及性模型，在没有手动注释的情况下泛化到未见的机器人操作场景？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unsupervised Affordance Distillation:</b> Novel pipeline that extracts fine-grained affordance annotations from foundation models (VLMs and LVMs) without manual labeling, automatically annotating large-scale datasets with <instruction, visual affordance> pairs.</div>
+            <div class="lang-zh" style="display:none"><b>无监督可及性蒸馏：</b>新颖的流水线，从基础模型（VLMs和LVMs）中提取细粒度可及性注释，而无需手动标记，自动为大规模数据集注释<指令，可视化可及性>配对。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Task-Conditioned Affordance Model:</b> Lightweight decoder atop frozen DINOv2 features using FiLM layers for language conditioning, enabling pixel-level affordance prediction conditioned on open-ended task instructions.</div>
+            <div class="lang-zh" style="display:none"><b>任务条件化可及性模型：</b>在冻结的DINOv2特征之上的轻量级解码器，使用FiLM层进行语言条件化，实现基于开放式任务指令的像素级可及性预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Zero-Shot Generalization:</b> Model trained only on rendered single objects in simulation achieves strong zero-shot performance on real-world robotic datasets (DROID) and human activity benchmarks (AGD20K), despite no exposure to these domains.</div>
+            <div class="lang-zh" style="display:none"><b>零样本泛化：</b>仅在模拟中渲染的单个对象上训练的模型，在真实世界机器人数据集（DROID）和人类活动基准（AGD20K）上实现了强大的零样本性能，尽管从未接触过这些领域。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Affordance-as-Observation Policy:</b> Imitation learning policy using UAD affordance predictions as observation space, demonstrating generalization to unseen object instances, categories, and task instructions after training on just 10 demonstrations.</div>
+            <div class="lang-zh" style="display:none"><b>可及性作为观察策略：</b>模仿学习策略使用UAD可及性预测作为观察空间，在仅用10个演示训练后，展示了泛化到未见对象实例、类别和任务指令的能力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Grounding Language to Visual Affordance:</b> Bridging the gap between language-space affordance knowledge in VLMs and continuous pixel-level visual affordance predictions required for robotic manipulation.</div>
+            <div class="lang-zh" style="display:none"><b>将语言 grounding 到视觉可及性：</b>弥合VLMs中语言空间可及性知识与机器人操作所需的连续像素级视觉可及性预测之间的差距。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Free-Form Task Instructions:</b> Scaling affordance learning beyond predefined task vocabularies to handle open-ended natural language instructions in unstructured robotic environments.</div>
+            <div class="lang-zh" style="display:none"><b>自由形式任务指令：</b>将可及性学习扩展到预定义任务词汇之外，以处理非结构化机器人环境中的开放式自然语言指令。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Simulation-to-Real Generalization:</b> Ensuring models trained only on synthetic single-object renderings generalize to multi-object cluttered real-world robotic scenes and diverse human activities.</div>
+            <div class="lang-zh" style="display:none"><b>模拟到真实泛化：</b>确保仅在合成单对象渲染上训练的模型泛化到多对象杂乱的真实世界机器人场景和多样化人类活动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Few-Shot Manipulation Learning:</b> Developing visuomotor policies that can learn generalizable manipulation behaviors from extremely limited demonstration data using affordance-centric observation spaces.</div>
+            <div class="lang-zh" style="display:none"><b>少样本操作学习：</b>开发视觉运动策略，使用以可及性为中心观察空间，能够从极其有限的演示数据中学习可泛化的操作行为。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The UAD framework presents a comprehensive approach for unsupervised affordance distillation:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Affordance Annotation Extraction:</b> Leverages VLM (GPT-4o) to propose task instructions and associate them with fine-grained object regions obtained via DINOv2 feature clustering and multi-view fusion, creating <instruction, affordance map> triplets.</li>
+                <li style="margin-bottom:6px;"><b>Task-Conditioned Model Training:</b> Trains lightweight FiLM-conditioned decoder atop frozen DINOv2 features, using language embeddings to modulate visual features for task-specific affordance prediction without updating pre-trained weights.</li>
+                <li style="margin-bottom:6px;"><b>Zero-Shot Evaluation Pipeline:</b> Evaluates model generalization on held-out rendered objects, real-world robotic datasets (DROID), and human activity benchmarks (AGD20K) using AUC and saliency metrics without fine-tuning.</li>
+                <li style="margin-bottom:6px;"><b>Affordance-Centric Policy Learning:</b> Integrates UAD affordance predictions as observation space in imitation learning policies, training on minimal demonstrations (10 per task) while achieving generalization across object instances, categories, and instructions.</li>
+                <li style="margin-bottom:6px;"><b>Real-World Robotic Deployment:</b> Validates approach on physical Franka Panda robot with tabletop manipulation tasks (pouring, opening, insertion), using kinesthetic teaching for demonstration collection and multi-view RGB-D sensing.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>UAD框架提出了无监督可及性蒸馏的全面方法：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>可及性注释提取：</b>利用VLM（GPT-4o）提出任务指令，并将它们与通过DINOv2特征聚类和多视图融合获得的细粒度对象区域关联，创建<指令，可及性地图>三元组。</li>
+                <li style="margin-bottom:6px;"><b>任务条件化模型训练：</b>在冻结的DINOv2特征之上训练轻量级FiLM条件化解码器，使用语言嵌入来调节视觉特征以进行任务特定的可及性预测，而不更新预训练权重。</li>
+                <li style="margin-bottom:6px;"><b>零样本评估流水线：</b>使用AUC和显著性指标评估模型在保留渲染对象、真实世界机器人数据集（DROID）和人类活动基准（AGD20K）上的泛化，而无需微调。</li>
+                <li style="margin-bottom:6px;"><b>以可及性为中心策略学习：</b>将UAD可及性预测作为观察空间集成到模仿学习策略中，在最少的演示（每个任务10个）上训练，同时实现跨对象实例、类别和指令的泛化。</li>
+                <li style="margin-bottom:6px;"><b>真实世界机器人部署：</b>在物理Franka Panda机器人上验证方法，使用桌面操作任务（倾倒、打开、插入），使用运动教学收集演示和多视图RGB-D传感。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/uad_affordance_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <p style="margin-top:12px;">UAD pipeline showing unsupervised extraction of affordance annotations from foundation models and distillation into task-conditioned affordance model for robotic manipulation generalization.</p>
+            <img src="Figures/uad_affordance_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_uad_affordance.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_uad_affordance.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of UAD in enabling generalization for robotic manipulation stems from its innovative integration of foundation model capabilities:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Foundation Model Synergy:</b> Complementary strengths of VLMs (task reasoning and instruction understanding) and LVMs (fine-grained visual features) enable automatic generation of high-quality affordance annotations without human supervision.</li>
+                <li style="margin-bottom:6px;"><b>Parameter-Efficient Conditioning:</b> FiLM layers provide lightweight language conditioning atop frozen DINOv2 features, preserving general visual knowledge while enabling task-specific affordance prediction with minimal training data.</li>
+                <li style="margin-bottom:6px;"><b>Continuous Affordance Representation:</b> Pixel-level continuous predictions capture nuanced affordance information beyond binary segmentation, enabling precise robotic manipulation in complex, multi-object scenes.</li>
+                <li style="margin-bottom:6px;"><b>Affordance-Centric Learning:</b> Using affordance as observation space sidesteps challenges of learning generalizable visual representations from limited interaction data, providing manipulation-relevant features that transfer across tasks and environments.</li>
+                <li style="margin-bottom:6px;"><b>Scalable Data Annotation:</b> Unsupervised pipeline scales affordance learning to thousands of object-instruction pairs by leveraging existing 3D assets and foundation models, creating diverse training data that supports broad generalization.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>UAD在实现机器人操作泛化方面的成功源于其创新的基础模型能力集成：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>基础模型协同：</b>VLMs（任务推理和指令理解）和LVMs（细粒度视觉特征）的互补优势能够在无人监督的情况下自动生成高质量的可及性注释。</li>
+                <li style="margin-bottom:6px;"><b>参数高效条件化：</b>FiLM层在冻结的DINOv2特征之上提供轻量级语言条件化，保留一般视觉知识，同时使用最少的训练数据实现任务特定的可及性预测。</li>
+                <li style="margin-bottom:6px;"><b>连续可及性表示：</b>像素级连续预测捕获超出二进制分割的细微可及性信息，在复杂多对象场景中实现精确的机器人操作。</li>
+                <li style="margin-bottom:6px;"><b>以可及性为中心学习：</b>使用可及性作为观察空间避开了从有限交互数据中学习可泛化视觉表示的挑战，提供跨任务和环境的操作相关特征。</li>
+                <li style="margin-bottom:6px;"><b>可扩展数据注释：</b>无监督流水线通过利用现有的3D资产和基础模型，将可及性学习扩展到数千个对象-指令配对，创建支持广泛泛化的多样化训练数据。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This work introduces Unsupervised Affordance Distillation (UAD), a groundbreaking approach that bridges the gap between foundation models and practical robotic manipulation by automatically extracting and distilling affordance knowledge without manual annotations. By synergistically combining vision-language models for task reasoning with large vision models for fine-grained visual understanding, UAD creates a scalable pipeline for generating task-conditioned affordance datasets. The resulting lightweight model demonstrates exceptional zero-shot generalization capabilities, performing competitively on established benchmarks and real-world robotic datasets despite training solely on synthetic renderings. When integrated as the observation space in imitation learning policies, UAD enables remarkable generalization to unseen object instances, categories, and task instructions using minimal demonstration data. The approach achieves an average 73% success rate on real-world manipulation tasks with a physical robot, validating its practical utility. This work establishes a new paradigm for affordance learning that leverages foundation model knowledge to overcome traditional limitations in robotic manipulation, opening avenues for more generalizable and data-efficient robot learning systems.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项工作介绍了无监督可及性蒸馏（UAD），这是一种开创性的方法，通过自动提取和蒸馏可及性知识而不进行手动注释，弥合了基础模型和实际机器人操作之间的差距。通过将用于任务推理的视觉语言模型与用于细粒度视觉理解的大型视觉模型协同结合，UAD创建了一个可扩展的流水线，用于生成任务条件化的可及性数据集。生成的轻量级模型展示了卓越的零样本泛化能力，尽管仅在合成渲染上训练，但在已建立的基准和真实世界机器人数据集上表现出竞争力。当作为模仿学习策略中的观察空间集成时，UAD能够使用最少的演示数据实现对未见对象实例、类别和任务指令的显著泛化。该方法在使用物理机器人进行真实世界操作任务时实现了平均73%的成功率，验证了其实际效用。这项工作建立了一种新的可及性学习范式，利用基础模型知识克服机器人操作中的传统限制，为更可泛化和数据高效的机器人学习系统开辟道路。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2506.09284" style="color:#8bffcf;">2506.09284</a></p>
+          <p><b>Project Page:</b> <a href="https://unsup-affordance.github.io/" style="color:#8bffcf;">unsup-affordance.github.io</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/" style="color:#8bffcf;">Code Not Available</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import torch<br>
+import torch.nn as nn<br>
+from transformers import AutoModel<br>
+import openai<br>
+import numpy as np<br>
+<br>
+// Unsupervised Affordance Distillation (UAD)<br>
+class AffordanceAnnotationExtractor:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, vlm_model="gpt-4o", lvm_model="facebook/dino-v2-giant"):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.vlm_client = openai.OpenAI()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.lvm_model = AutoModel.from_pretrained(lvm_model)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.lvm_model.eval()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def extract_affordance_annotations(self, object_3d_assets, task_instructions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract <instruction, visual affordance> pairs from 3D objects"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annotations = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for asset in object_3d_assets:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Render multi-view images<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rendered_views = self._render_multi_view(asset)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract fine-grained regions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;regions = self._extract_semantic_regions(rendered_views)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Generate task instructions via VLM<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instructions = self._propose_task_instructions(asset, regions)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Map instructions to affordance maps<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for instruction in instructions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;affordance_map = self._create_affordance_map(instruction, regions, rendered_views)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annotations.append((instruction, affordance_map))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return annotations<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _extract_semantic_regions(self, rendered_views):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract fine-grained semantic regions using DINOv2 clustering"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Multi-view feature fusion<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fused_features = self._fuse_multi_view_features(rendered_views)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# PCA for feature reduction<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reduced_features = self._apply_pca(fused_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Clustering to find regions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;regions = self._cluster_features(reduced_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return regions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _propose_task_instructions(self, asset, regions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Use VLM to propose relevant task instructions"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt = self._create_instruction_prompt(asset, regions)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response = self.vlm_client.chat.completions.create(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model="gpt-4o",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages=[{"role": "user", "content": prompt}],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_tokens=500<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self._parse_instructions(response.choices[0].message.content)<br>
+<br>
+// Task-Conditioned Affordance Model with FiLM<br>
+class TaskConditionedAffordanceModel(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, dino_model, language_embed_dim=768):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.dino_backbone = dino_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.dino_backbone.eval()  # Freeze DINOv2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# FiLM layers for language conditioning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.film_layers = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FiLMLayer(1024, language_embed_dim) for _ in range(3)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decoder to affordance map<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.decoder = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Conv2d(64, 32, 3, padding=1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Conv2d(32, 1, 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, image, language_embedding):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract DINOv2 features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with torch.no_grad():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features = self.dino_backbone(image)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Apply FiLM conditioning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for film_layer in self.film_layers:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features = film_layer(features, language_embedding)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decode to affordance map<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;affordance_logits = self.decoder(features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return torch.sigmoid(affordance_logits)<br>
+<br>
+class FiLMLayer(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, feature_dim, language_dim):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(FiLMLayer, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.scale_net = nn.Linear(language_dim, feature_dim)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.shift_net = nn.Linear(language_dim, feature_dim)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, features, language_embedding):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scale = self.scale_net(language_embedding).unsqueeze(-1).unsqueeze(-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift = self.shift_net(language_embedding).unsqueeze(-1).unsqueeze(-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return scale * features + shift<br>
+<br>
+// Affordance-as-Observation Imitation Learning Policy<br>
+class AffordanceBasedPolicy(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, affordance_model, num_cameras=3):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.affordance_model = affordance_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_cameras = num_cameras<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Multi-view transformer (similar to RVT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.transformer = nn.Transformer(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d_model=256,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nhead=8,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num_encoder_layers=6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Action decoder<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.action_decoder = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(256, 128),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(128, 7)  # 6-DoF pose + gripper action<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, images, depths, instruction, proprioception):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Get language embedding<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;language_embed = self._encode_instruction(instruction)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract affordance for each camera view<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;affordance_features = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(self.num_cameras):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;affordance = self.affordance_model(images[i], language_embed)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Augment with depth and position<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;augmented = self._augment_with_geometry(affordance, depths[i])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;affordance_features.append(augmented)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Multi-view attention<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fused_features = self.transformer(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torch.stack(affordance_features, dim=0),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torch.cat([torch.stack(affordance_features, dim=0), proprioception], dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decode action<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;action = self.action_decoder(fused_features.mean(dim=0))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return action<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _encode_instruction(self, instruction):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Encode text instruction to embedding"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return torch.randn(768)  # Placeholder for actual embedding<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _augment_with_geometry(self, affordance, depth):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Augment affordance with depth and 3D coordinates"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return torch.cat([affordance, depth], dim=1)  # Simplified<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

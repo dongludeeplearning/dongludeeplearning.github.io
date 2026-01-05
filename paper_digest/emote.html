@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • Siggraph Asia 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">EMOTE: Emotional Speech-Driven Animation with Content-Emotion Disentanglement</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Radek Daněček, Kiran Chhatre, Shashank Tripathi, Yandong Wen, Michael J. Black, Timo Bolkart <br>
+        <span style="opacity:0.8">Max Planck Institute for Intelligent Systems, KTH</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate 3D facial animations that simultaneously maintain accurate lip-sync and express natural, controllable emotions, despite the conflict between speech-driven lip motion and emotion-driven facial expressions?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>尽管语音驱动的嘴唇运动与情感驱动的面部表情之间存在冲突，如何生成既保持准确口型同步又表达自然、可控情感的 3D 面部动画？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Semantic Emotion Editing:</b> The first method to offer explicit semantic control over the expressed emotion in speech-driven 3D facial animation.</div>
+            <div class="lang-zh" style="display:none"><b>语义情感编辑：</b>第一种在语音驱动的 3D 面部动画中提供对表达情感的显式语义控制的方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Disentanglement Mechanism:</b> Proposed a novel supervision strategy with decoupled losses for high-frequency lip-sync (speech) and low-frequency global expressions (emotion).</div>
+            <div class="lang-zh" style="display:none"><b>解耦机制：</b>提出了一种新的监督策略，对高频口型同步（语音）和低频全局表情（情感）使用解耦损失。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Motion Prior (Temporal VAE):</b> Designed a temporal VAE as a motion prior to ensure generated animations are natural and temporally consistent, even when using deep perceptual losses.</div>
+            <div class="lang-zh" style="display:none"><b>动作先验 (Temporal VAE)：</b>设计了一个时间 VAE 作为动作先验，以确保即使在使用深度感知损失时，生成的动画也是自然且时间一致的。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/emote_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Conflict of Interest:</b> Lip-sync requires precise, localized, high-frequency mouth movements, while emotion involves global, sustained facial deformations. Naively combining them leads to artifacts or loss of lip-sync.</div>
+            <div class="lang-zh" style="display:none"><b>利益冲突：</b>口型同步需要精确、局部、高频的嘴部运动，而情感涉及全局、持续的面部变形。简单地结合它们会导致伪影或口型同步丢失。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Lack of 3D Data:</b> There are no large-scale 3D scan datasets with emotional speech. EMOTE addresses this by learning from 2D emotional video datasets (MEAD) via pseudo-GT reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏 3D 数据：</b>没有带有情感语音的大规模 3D 扫描数据集。EMOTE 通过伪 GT 重建从 2D 情感视频数据集 (MEAD) 中学习来解决这个问题。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Decoupled Supervision:</b> Uses a per-frame lip-reading loss for speech fidelity and a sequence-level dynamic emotion consistency loss for emotion fidelity, reflecting their different temporal natures.</div>
+            <div class="lang-zh" style="display:none"><b>解耦监督：</b>对语音保真度使用每帧唇读损失，对情感保真度使用序列级动态情感一致性损失，反映了它们不同的时间性质。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Temporal VAE Prior:</b> A Transformer-based VAE is pre-trained on facial motion sequences to learn a manifold of valid, natural facial motions. The main model then predicts latents in this space.</div>
+            <div class="lang-zh" style="display:none"><b>时间 VAE 先验：</b>基于 Transformer 的 VAE 在面部动作序列上进行预训练，以学习有效、自然面部动作的流形。然后主模型预测该空间中的潜在变量。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Content-Emotion Exchange:</b> A training mechanism that swaps emotion labels for the same audio to ensure the model learns to apply different emotions to the same speech content without breaking lip-sync.</div>
+            <div class="lang-zh" style="display:none"><b>内容-情感交换：</b>一种训练机制，交换同一音频的情感标签，以确保模型学会将不同的情感应用于相同的语音内容，而不会破坏口型同步。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/emote_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2306.08990.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2306.08990.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Lip-Sync:</b> Outperformed state-of-the-art methods (like FaceFormer trained on same data) in lip synchronization metrics, proving that adding emotion doesn't degrade lip-sync quality.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>口型同步：</b>在口型同步指标上优于最先进的方法（如在相同数据上训练的 FaceFormer），证明添加情感不会降低口型同步质量。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>User Study:</b> Participants rated EMOTE animations as more emotionally expressive and natural compared to baselines.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>用户研究：</b>与基线相比，参与者认为 EMOTE 动画在情感表达和自然度方面得分更高。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Disentanglement is Key:</b> The success of EMOTE lies in treating speech and emotion as distinct signals with different properties (high vs. low frequency, local vs. global) and supervising them separately.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>解耦是关键：</b>EMOTE 的成功在于将语音和情感视为具有不同属性（高频与低频，局部与全局）的不同信号，并分别对其进行监督。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                EMOTE works because it acknowledges that "talking" and "feeling" are parallel processes. By using a strong motion prior (VAE) to ensure the face always moves naturally, and then gently "nudging" this valid motion with separate speech (lips) and emotion (expression) losses, it avoids the "averaging" or "jittery" artifacts common in end-to-end models that try to learn everything at once from noisy data.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                EMOTE 之所以有效，是因为它承认“说话”和“感觉”是并行过程。通过使用强大的动作先验 (VAE) 来确保面部始终自然移动，然后使用单独的语音（嘴唇）和情感（表情）损失轻轻地“推动”这种有效动作，它避免了试图从噪声数据中一次性学习所有内容的端到端模型中常见的“平均”或“抖动”伪影。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/radekd91/EMOTE" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual logic for training with decoupled losses.
+            </div>
+            <div class="lang-zh" style="display:none">
+                使用解耦损失进行训练的概念逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Decoupled Training Loop</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">train_step</span>(audio, emotion_label, gt_motion):
+    <span style="color:#6a9955;"># 1. Predict Motion Latents</span>
+    pred_latents = model(audio, emotion_label)
+    pred_motion = decoder(pred_latents)
+    
+    <span style="color:#6a9955;"># 2. Lip-Reading Loss (High Frequency, Mouth Region)</span>
+    <span style="color:#6a9955;"># Ensures words are recognizable</span>
+    loss_lip = lip_reading_net(pred_motion, gt_audio_transcript)
+    
+    <span style="color:#6a9955;"># 3. Dynamic Emotion Loss (Low Frequency, Global Face)</span>
+    <span style="color:#6a9955;"># Ensures emotion is correct over the sequence</span>
+    loss_emo = emotion_classifier(pred_motion, emotion_label)
+    
+    <span style="color:#6a9955;"># 4. Reconstruction Loss (Regularization)</span>
+    loss_rec = mse(pred_motion, gt_motion)
+    
+    loss = loss_lip + lambda_emo * loss_emo + lambda_rec * loss_rec
+    loss.backward()
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Scaling Rectified Flow Transformers for High-Resolution Image Synthesis</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik Lorenz, Axel Sauer, Frederic Boesel, Dustin Podell, Tim Dockhorn, Zion English, Kyle Lacey, Alex Goodwin, Yannik Marek, Robin Rombach<br>
+        <span style="opacity:0.8">Stability AI</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to scale rectified flow transformers for high-resolution text-to-image synthesis while improving training efficiency and establishing them as standard practice over traditional diffusion models?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何扩展修正流变换器用于高分辨率文本到图像合成，同时提高训练效率并将它们确立为超越传统扩散模型的标准实践？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Improved Rectified Flow Training:</b> Introduced noise sampling techniques that bias towards perceptually relevant scales, establishing rectified flow as superior to traditional diffusion formulations for high-resolution text-to-image synthesis through large-scale empirical validation.</div>
+            <div class="lang-zh" style="display:none"><b>改进的修正流训练：</b>引入偏向感知相关尺度的噪声采样技术，通过大规模实证验证将修正流确立为优于传统扩散公式的高分辨率文本到图像合成方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multimodal DiT Architecture:</b> Developed a novel transformer-based architecture with separate weights for image and text modalities, enabling bidirectional flow of information between tokens to improve text comprehension, typography, and human preference ratings.</div>
+            <div class="lang-zh" style="display:none"><b>多模态DiT架构：</b>开发了一种新颖的基于变换器的架构，为图像和文本模态使用独立权重，实现令牌之间的双向信息流以改善文本理解、排版和人类偏好评分。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Predictable Scaling Trends:</b> Demonstrated that the architecture follows predictable scaling trends and that lower validation loss strongly correlates with improved text-to-image performance across various metrics and human evaluations.</div>
+            <div class="lang-zh" style="display:none"><b>可预测的缩放趋势：</b>证明了架构遵循可预测的缩放趋势，并且较低的验证损失与各种指标和人类评估中改进的文本到图像性能高度相关。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved superior results over leading open-source models (SDXL, Pixart-α) and closed-source models (DALL-E 3) in prompt understanding, typography, spatial reasoning, and human preference ratings with models up to 8B parameters.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在提示理解、排版、空间推理和人类偏好评分方面实现了优于领先开源模型（SDXL、Pixart-α）和闭源模型（DALL-E 3）的结果，模型参数规模高达80亿。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/rectified_flow_transformers_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2403.03206.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2403.03206.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/rectified_flow_transformers_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2403.03206.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2403.03206.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Rectified Flow Adoption:</b> Despite superior theoretical properties and conceptual simplicity, rectified flow has not been established as standard practice compared to traditional diffusion models, with limited empirical validation at scale.</div>
+            <div class="lang-zh" style="display:none"><b>修正流采用：</b>尽管具有优越的理论特性和概念简单性，但与传统扩散模型相比，修正流尚未确立为标准实践，在大规模实证验证方面受到限制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training Efficiency:</b> Existing noise sampling techniques for rectified flow models are suboptimal, leading to inefficient training and failure to capture perceptually relevant scales in high-resolution synthesis.</div>
+            <div class="lang-zh" style="display:none"><b>训练效率：</b>现有的修正流模型噪声采样技术次优，导致训练效率低下和高分辨率合成中无法捕捉感知相关尺度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Text-Image Integration:</b> Traditional approaches using fixed text representations and cross-attention are inadequate for complex text-to-image synthesis, limiting text comprehension, typography, and semantic understanding.</div>
+            <div class="lang-zh" style="display:none"><b>文本-图像集成：</b>使用固定文本表示和交叉注意力的传统方法不足以进行复杂的文本到图像合成，限制了文本理解、排版和语义理解。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalability and Evaluation:</b> Lack of predictable scaling trends and reliable correlation between validation metrics and actual text-to-image performance hinders model development and comparison.</div>
+            <div class="lang-zh" style="display:none"><b>可扩展性和评估：</b>缺乏可预测的缩放趋势和验证指标与实际文本到图像性能之间可靠的相关性阻碍了模型开发和比较。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>High-Resolution Quality:</b> Achieving state-of-the-art results in typography, spatial reasoning, fine detail preservation, and prompt following across diverse styles remains challenging for large-scale models.</div>
+            <div class="lang-zh" style="display:none"><b>高分辨率质量：</b>在大规模模型中实现排版、空间推理、精细细节保持和跨不同风格的提示跟随方面的最先进结果仍然具有挑战性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Tailored Noise Samplers:</b> Introduced Logit-Normal, Mode Sampling with Heavy Tails, and CosMap samplers that bias training towards perceptually relevant scales, improving rectified flow performance over uniform sampling.</div>
+            <div class="lang-zh" style="display:none"><b>定制噪声采样器：</b>引入Logit-Normal、带重尾的模式采样和CosMap采样器，将训练偏向感知相关尺度，提高修正流相对于均匀采样的性能。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multimodal DiT Architecture:</b> Developed separate weight streams for image and text modalities with bidirectional information flow, enabling learnable representations and improved text-image interaction beyond fixed cross-attention.</div>
+            <div class="lang-zh" style="display:none"><b>多模态DiT架构：</b>为图像和文本模态开发独立的权重流，具有双向信息流，实现可学习表示并改善超越固定交叉注意力的文本-图像交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Conditional Flow Matching:</b> Employed conditional flow matching with improved noise sampling to train velocity fields that map between data and noise distributions along straight trajectories, providing better theoretical properties than curved diffusion paths.</div>
+            <div class="lang-zh" style="display:none"><b>条件流匹配：</b>使用改进的噪声采样和条件流匹配来训练沿直线轨迹在数据和噪声分布之间映射的速度场，提供比弯曲扩散路径更好的理论特性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scaling Study and Validation:</b> Conducted comprehensive scaling studies demonstrating predictable trends in validation loss and strong correlation with text-to-image performance metrics including T2I-CompBench, GenEval, and human evaluations.</div>
+            <div class="lang-zh" style="display:none"><b>缩放研究和验证：</b>进行了全面的缩放研究，展示了验证损失的可预测趋势以及与包括T2I-CompBench、GenEval和人类评估在内的文本到图像性能指标的强相关性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Large-Scale Training:</b> Trained models up to 8B parameters on extensive datasets with advanced techniques including data deduplication, aspect ratio bucketing, and half-precision text embeddings to ensure high-quality, non-memorized generation.</div>
+            <div class="lang-zh" style="display:none"><b>大规模训练：</b>在广泛数据集上训练高达80亿参数的模型，使用先进技术包括数据去重、纵横比分桶和半精度文本嵌入，以确保高质量、非记忆化的生成。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Rectified Flow Superiority:</b> Straight-line trajectories in rectified flow provide theoretical advantages over curved diffusion paths, enabling single-step simulation and reducing error accumulation during sampling.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>修正流优越性：</b>修正流中的直线轨迹相对于弯曲扩散路径提供了理论优势，使单步模拟成为可能并减少采样过程中的误差累积。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Improved Conditioning:</b> Separate modality streams with bidirectional information flow enable richer text-image interactions, leading to better semantic understanding and typography compared to traditional cross-attention mechanisms.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>改进的条件化：</b>具有双向信息流的独立模态流实现了更丰富的文本-图像交互，与传统的交叉注意力机制相比导致更好的语义理解和排版。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Scaling Predictability:</b> The demonstrated correlation between validation loss and actual performance provides a reliable metric for model development, enabling more efficient architecture search and training decisions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>缩放可预测性：</b>验证损失与实际性能之间的证明相关性为模型开发提供了可靠指标，使架构搜索和训练决策更加高效。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because rectified flow's straight-line trajectories combined with perceptually-biased noise sampling create a more stable and efficient generative process. The multimodal architecture with separate weight streams enables deeper text-image fusion, while predictable scaling trends provide reliable guidance for model improvement. This comprehensive approach establishes rectified flow as the new standard for high-resolution text-to-image synthesis.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为修正流的直线轨迹结合感知偏向的噪声采样创造了一个更稳定和高效的生成过程。多模态架构与独立权重流实现了更深层次的文本-图像融合，而可预测的缩放趋势为模型改进提供了可靠指导。这种全面方法将修正流确立为高分辨率文本到图像合成的新标准。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper establishes rectified flow as the superior generative modeling approach for high-resolution text-to-image synthesis by introducing improved noise sampling techniques that bias training towards perceptually relevant scales. The novel multimodal DiT architecture with separate weights for image and text modalities enables bidirectional information flow, significantly improving text comprehension, typography, and human preference ratings. Through comprehensive scaling studies, the authors demonstrate predictable trends where lower validation loss strongly correlates with improved performance across various metrics and human evaluations. The largest models, reaching up to 8B parameters, outperform state-of-the-art open-source models like SDXL and Pixart-α, as well as closed-source models like DALL-E 3, in prompt understanding and overall image quality. This work provides the foundation for establishing rectified flow transformers as the new standard practice in generative image synthesis.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文通过引入偏向感知相关尺度的改进噪声采样技术，将修正流确立为高分辨率文本到图像合成的优越生成建模方法。新颖的多模态DiT架构为图像和文本模态使用独立权重，实现双向信息流，显著改善了文本理解、排版和人类偏好评分。通过全面的缩放研究，作者展示了可预测的趋势，其中较低的验证损失与各种指标和人类评估中改进的性能高度相关。最大的模型达到高达80亿参数，在提示理解和整体图像质量方面超越了最先进的开源模型如SDXL和Pixart-α，以及闭源模型如DALL-E 3。这项工作为将修正流变换器确立为生成图像合成的新标准实践提供了基础。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/Stability-AI/generative-models" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repository
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

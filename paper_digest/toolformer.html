@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Toolformer: Language Models Can Teach Themselves to Use Tools</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom<br>
+        <span style="opacity:0.8">Meta AI Research, Universitat Pompeu Fabra</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can language models autonomously learn to use external tools via simple APIs in a self-supervised manner, enabling them to overcome inherent limitations like factual lookup, mathematical calculation, and multilingual understanding without requiring large amounts of human annotations?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何让语言模型通过简单的API以自监督的方式自主学习使用外部工具，使其能够克服固有的局限性，如事实查找、数学计算和多语言理解，而无需大量人工标注？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Self-Supervised Tool Learning:</b> Introduced Toolformer, the first model that learns to use external tools autonomously through self-supervised learning, requiring only a handful of API demonstrations without extensive human annotations.</div>
+            <div class="lang-zh" style="display:none"><b>自监督工具学习：</b>引入了Toolformer，这是第一个通过自监督学习自主学习使用外部工具的模型，只需要少量的API演示，无需大量人工标注。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Tool Integration:</b> Successfully integrated five diverse tools (calculator, QA system, Wikipedia search, machine translation, and calendar) that address major LM limitations including arithmetic, factual knowledge, multilingual understanding, and temporal awareness.</div>
+            <div class="lang-zh" style="display:none"><b>全面工具集成：</b>成功集成了五种多样化的工具（计算器、问答系统、维基百科搜索、机器翻译和日历），这些工具解决了LM的主要局限性，包括算术、事实知识、多语言理解和时间意识。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved substantial zero-shot performance improvements on various downstream tasks, with a 6.7B parameter GPT-J model outperforming much larger models like GPT-3 (175B) on math, QA, and fact-checking benchmarks.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在各种下游任务上实现了显著的零-shot性能改进，一个67亿参数的GPT-J模型在数学、问答和事实检查基准上超过了更大的模型如GPT-3（1750亿）。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Autonomous Tool Selection:</b> Developed a framework where LMs autonomously decide when and which tools to use, learning to call APIs in the most appropriate contexts without explicit human instructions.</div>
+            <div class="lang-zh" style="display:none"><b>自主工具选择：</b>开发了一个框架，其中LM自主决定何时以及使用哪些工具，在最合适的上下文中学习调用API，而无需明确的指示。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Annotation Cost:</b> Traditional tool-augmented LMs require extensive human annotations to learn when and how to use tools, making the approach expensive and difficult to scale across many tools and domains.</div>
+            <div class="lang-zh" style="display:none"><b>标注成本：</b>传统的工具增强LM需要大量人工标注来学习何时以及如何使用工具，使得这种方法昂贵且难以扩展到许多工具和领域。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Task-Specific Adaptation:</b> Existing approaches often limit tool use to specific tasks or require manual prompt engineering for each use case, preventing models from autonomously generalizing tool use across diverse scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>任务特定适应：</b>现有方法通常将工具使用限制在特定任务中，或需要为每个用例进行手动提示工程，阻止模型自主地将工具使用泛化到多样化场景。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Tool Integration Complexity:</b> Seamlessly integrating external tools into LM architectures requires handling text-to-API conversions, result interpretation, and maintaining coherence in generated text across tool calls.</div>
+            <div class="lang-zh" style="display:none"><b>工具集成复杂性：</b>将外部工具无缝集成到LM架构中需要处理文本到API的转换、结果解释以及在工具调用中保持生成文本的连贯性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Quality Control:</b> Ensuring that tool calls are appropriate and results are correctly incorporated requires mechanisms to filter out unhelpful or incorrect API usages without human supervision.</div>
+            <div class="lang-zh" style="display:none"><b>质量控制：</b>确保工具调用适当且结果正确纳入需要机制来过滤掉无帮助或不正确的API使用，而无需人工监督。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Toolformer learns to use tools through a self-supervised approach that augments language modeling datasets with API calls:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>API Call Representation:</b> Represent tool calls as text sequences using special tokens ([API], [/API], ->) to seamlessly integrate with LM tokenization, allowing models to learn tool usage patterns.</li>
+                <li style="margin-bottom:6px;"><b>Self-Supervised Annotation:</b> Use LM's in-context learning to sample potential API calls across a large language modeling dataset, requiring only a few demonstration examples per tool.</li>
+                <li style="margin-bottom:6px;"><b>Quality Filtering:</b> Execute sampled API calls and filter them based on whether they reduce perplexity when predicting future tokens, ensuring only helpful tool usages are retained.</li>
+                <li style="margin-bottom:6px;"><b>Model Finetuning:</b> Finetune the LM on the augmented dataset containing both original text and filtered API calls, enabling autonomous tool selection and usage during inference.</li>
+                <li style="margin-bottom:6px;"><b>Inference with Tools:</b> During generation, interrupt decoding when API tokens are predicted, execute the corresponding tool, and continue generation with the results.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>Toolformer通过自监督方法学习使用工具，该方法使用API调用增强语言建模数据集：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>API调用表示：</b>使用特殊标记（[API]、[/API]、->）将工具调用表示为文本序列，以无缝集成LM分词化，允许模型学习工具使用模式。</li>
+                <li style="margin-bottom:6px;"><b>自监督标注：</b>使用LM的上下文学习来对大型语言建模数据集采样潜在的API调用，每个工具只需要几个演示示例。</li>
+                <li style="margin-bottom:6px;"><b>质量过滤：</b>执行采样的API调用，并根据它们是否在预测未来标记时减少困惑度来过滤它们，确保只保留有帮助的工具使用。</li>
+                <li style="margin-bottom:6px;"><b>模型微调：</b>在包含原始文本和过滤API调用的增强数据集上微调LM，使其能够在推理过程中自主选择和使用工具。</li>
+                <li style="margin-bottom:6px;"><b>带工具的推理：</b>在生成过程中，当预测出API标记时中断解码，执行相应的工具，并使用结果继续生成。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/toolformer_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/toolformer_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>Toolformer learns to use tools through self-supervised API call annotation and quality filtering, enabling autonomous tool selection for improved LM capabilities.</p>
+            <p>Note: The approach achieves state-of-the-art zero-shot performance, with Toolformer (6.7B) outperforming GPT-3 (175B) on math, QA, and fact-checking tasks by learning when and how to call external tools.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_toolformer.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_toolformer.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Toolformer's self-supervised approach succeeds by leveraging the inherent capabilities of large language models:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Exploiting In-Context Learning:</b> Large LMs can learn tool usage patterns from just a few demonstrations, using their understanding of language to generate appropriate API calls without extensive training data.</li>
+                <li style="margin-bottom:6px;"><b>Quality-Driven Learning:</b> The perplexity-based filtering mechanism ensures that only API calls that genuinely help with text completion are retained, creating a high-quality training signal from self-supervision.</li>
+                <li style="margin-bottom:6px;"><b>Seamless Integration:</b> By representing API calls as text sequences with special tokens, the approach maintains compatibility with existing LM architectures while enabling tool use to be learned like any other language pattern.</li>
+                <li style="margin-bottom:6px;"><b>Autonomous Decision Making:</b> Through finetuning on filtered API calls, models learn not just how to use tools, but when to use them, resulting in contextually appropriate tool selection without explicit rules.</li>
+                <li style="margin-bottom:6px;"><b>Preserved Generalization:</b> Since the augmented dataset contains the original training data plus API calls, models maintain their core language modeling capabilities while gaining tool-using abilities.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>Toolformer的自监督方法通过利用大型语言模型的固有能力而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>利用上下文学习：</b>大型LM可以从少量演示中学习工具使用模式，使用它们对语言的理解来生成适当的API调用，而无需大量训练数据。</li>
+                <li style="margin-bottom:6px;"><b>质量驱动学习：</b>基于困惑度的过滤机制确保只有真正有助于文本完成的API调用被保留，从自监督中创建高质量的训练信号。</li>
+                <li style="margin-bottom:6px;"><b>无缝集成：</b>通过使用特殊标记将API调用表示为文本序列，该方法保持与现有LM架构的兼容性，同时使工具使用能够像任何其他语言模式一样被学习。</li>
+                <li style="margin-bottom:6px;"><b>自主决策：</b>通过在过滤的API调用上微调，模型不仅学习如何使用工具，还学习何时使用它们，导致在没有明确规则的情况下进行上下文合适的工具选择。</li>
+                <li style="margin-bottom:6px;"><b>保留泛化：</b>由于增强数据集包含原始训练数据加上API调用，模型保持其核心语言建模能力，同时获得使用工具的能力。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work introduces Toolformer, a transformative approach to equipping language models with external tools through self-supervised learning. By enabling LMs to autonomously discover and learn tool usage patterns from minimal demonstrations, Toolformer overcomes the fundamental limitations of traditional language models in areas like mathematical reasoning, factual knowledge, and multilingual understanding. The self-supervised framework, which annotates language modeling datasets with API calls and filters them based on their utility for text completion, represents a significant advancement over previous tool-augmented approaches that required extensive human annotations. Experimental results demonstrate that Toolformer, based on a 6.7B parameter GPT-J model, achieves zero-shot performance competitive with much larger models like GPT-3 (175B), particularly excelling on tasks requiring arithmetic, question answering, and temporal reasoning. This work establishes a new paradigm for tool integration in language models, where models can teach themselves to use tools without explicit supervision, opening avenues for more capable and versatile AI systems. The approach's success suggests that self-supervised tool learning could become a cornerstone of future LM development, enabling models to overcome their inherent limitations by intelligently leveraging external resources while maintaining their core language understanding capabilities.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了Toolformer，这是一种通过自监督学习为语言模型配备外部工具的变革性方法。通过使LM能够从最少的演示中自主发现和学习工具使用模式，Toolformer克服了传统语言模型在数学推理、事实知识和多语言理解等领域的根本局限性。自监督框架通过API调用标注语言建模数据集并基于它们对文本完成的效用进行过滤，代表了相对于需要大量人工标注的以前工具增强方法的重大进步。实验结果表明，基于67亿参数GPT-J模型的Toolformer在算术、问答和时间推理等需要任务上实现了与更大模型如GPT-3（1750亿）竞争的零-shot性能。这项工作为语言模型中的工具集成建立了新范式，其中模型可以在没有明确监督的情况下自学使用工具，为更强大和多功能的AI系统开辟途径。该方法的成功表明，自监督工具学习可能成为未来LM开发的基础，使模型能够通过智能利用外部资源来克服其固有限制，同时保持其核心语言理解能力。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2302.04761" target="_blank" style="color:#8bffcf;">2302.04761</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Toolformer Self-Supervised Tool Learning Implementation<br>
+<br>
+// API Call Representation and Execution<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">ToolAPI</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Base class for external tool APIs"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, name):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">call</span>(self, query):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Execute API call and return text result"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">pass</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">format_call</span>(self, query):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Format API call as text: [API]name(query)[/API]"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> <span style="color:#ce9178;">f"[API]{self.name}({query})[/API]"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">format_result</span>(self, query, result):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Format API call with result: [API]name(query)->result[/API]"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> <span style="color:#ce9178;">f"[API]{self.name}({query})->{result}[/API]"</span><br>
+<br>
+// Toolformer Training Pipeline<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">ToolformerTrainer</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Self-supervised training for tool-augmented language models"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, language_model, tools, sampling_threshold=0.05, filtering_threshold=1.0):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.lm = language_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.tools = {tool.name: tool <span style="color:#569cd6;">for</span> tool <span style="color:#569cd6;">in</span> tools}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.τ_s = sampling_threshold<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.τ_f = filtering_threshold<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">sample_api_calls</span>(self, text, tool_name, prompt_template):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Sample potential API calls for a given text and tool"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tool = self.tools[tool_name]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt = prompt_template.format(x=text)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Find positions where LM is likely to start API call</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;candidate_positions = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> i <span style="color:#569cd6;">in</span> range(len(text.split())):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prefix = prompt + text[:i]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_api = self.lm.get_probability(<span style="color:#ce9178;">"[API]"</span>, prefix)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> p_api > self.τ_s:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;candidate_positions.append(i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Sample API calls at candidate positions</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;api_calls = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> pos <span style="color:#569cd6;">in</span> candidate_positions[:5]:  <span style="color:#6a9955;"># Limit to top 5 positions</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prefix = prompt + text[:pos] + <span style="color:#ce9178;">"[API]"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> _ <span style="color:#569cd6;">in</span> range(5):  <span style="color:#6a9955;"># Sample 5 calls per position</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call_text = self.lm.sample_continuation(prefix, stop_token=<span style="color:#ce9178;">"[/API]"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> call_text.startswith(<span style="color:#ce9178;">f"{tool_name}("</span>):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;api_calls.append((pos, call_text))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> api_calls<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">filter_api_calls</span>(self, text, api_calls, tool_name):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Filter API calls based on perplexity reduction"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tool = self.tools[tool_name]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filtered_calls = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> pos, call_text <span style="color:#569cd6;">in</span> api_calls:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Extract query from call_text</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query = call_text.split(<span style="color:#ce9178;">"("</span>)[1].split(<span style="color:#ce9178;">")"</span>)[0]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Execute API call</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result = tool.call(query)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Calculate perplexity reduction</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_with_call = (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text[:pos] + tool.format_result(query, result) + text[pos:]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_without_call = text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_with = self.lm.calculate_perplexity(text_with_call, start_pos=pos)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_without = self.lm.calculate_perplexity(text_without_call, start_pos=pos)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> L_without - L_with > self.τ_f:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filtered_calls.append((pos, query, result))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> filtered_calls<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">augment_dataset</span>(self, dataset):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Augment language modeling dataset with filtered API calls"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;augmented_data = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> text <span style="color:#569cd6;">in</span> dataset:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;augmented_text = text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> tool_name <span style="color:#569cd6;">in</span> self.tools:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;api_calls = self.sample_api_calls(text, tool_name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filtered_calls = self.filter_api_calls(text, api_calls, tool_name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Insert filtered calls into text</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> pos, query, result <span style="color:#569cd6;">in</span> sorted(filtered_calls, reverse=True):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tool = self.tools[tool_name]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call_with_result = tool.format_result(query, result)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;augmented_text = augmented_text[:pos] + call_with_result + augmented_text[pos:]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;augmented_data.append(augmented_text)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> augmented_data<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

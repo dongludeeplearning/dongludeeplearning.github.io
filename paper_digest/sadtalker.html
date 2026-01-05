@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">SadTalker: Learning Realistic 3D Motion Coefficients for Stylized Audio-Driven Single Image Talking Face Animation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Wenxuan Zhang, Xiaodong Cun, Xuan Wang, Yong Zhang, Xi Shen, Yu Guo, Ying Shan, Fei Wang <br>
+        <span style="opacity:0.8">Tencent AI Lab, Xi'an Jiaotong University, Ant Group</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate realistic, stylized talking head videos from a single image and audio, overcoming the unnatural head movements and distorted expressions typical of 2D methods?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从单张图像和音频生成逼真、风格化的说话人头视频，克服 2D 方法中典型的不自然头部运动和扭曲表情？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ExpNet:</b> Designed a network to learn accurate facial expression coefficients from audio by distilling both 3D motion coefficients and rendered 3D faces.</div>
+            <div class="lang-zh" style="display:none"><b>ExpNet：</b>设计了一个网络，通过提取 3D 运动系数和渲染的 3D 人脸，从音频中学习准确的面部表情系数。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>PoseVAE:</b> Proposed a conditional VAE to synthesize diverse, stylized, and realistic head poses driven by audio.</div>
+            <div class="lang-zh" style="display:none"><b>PoseVAE：</b>提出了一个条件 VAE，用于合成由音频驱动的多样化、风格化且逼真的头部姿态。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>3D-Aware Rendering:</b> Integrated generated 3D motion coefficients with an unsupervised 3D keypoint-based neural renderer for high-quality video synthesis.</div>
+            <div class="lang-zh" style="display:none"><b>3D 感知渲染：</b>将生成的 3D 运动系数与基于无监督 3D 关键点的神经渲染器集成，以实现高质量的视频合成。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/sadtalker_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Coupled 2D Motion:</b> Learning from 2D motion fields often entangles head pose and facial expression, leading to unnatural distortions when the head moves significantly.</div>
+            <div class="lang-zh" style="display:none"><b>耦合的 2D 运动：</b>从 2D 运动场学习通常会纠缠头部姿态和面部表情，导致头部大幅移动时出现不自然的扭曲。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Unnatural Head Movement:</b> Generating realistic, audio-correlated head motion (nodding, turning) along with lip-sync is difficult, often resulting in static or repetitive poses.</div>
+            <div class="lang-zh" style="display:none"><b>不自然的头部运动：</b>生成逼真的、与音频相关的头部运动（点头、转动）以及口型同步是困难的，通常会导致静态或重复的姿势。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Decoupled Generation:</b> Explicitly generates 3DMM parameters (Pose, Expression) separately from audio, ensuring they are disentangled.</div>
+            <div class="lang-zh" style="display:none"><b>解耦生成：</b>显式地从音频分别生成 3DMM 参数（姿态、表情），确保它们是解耦的。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ExpNet with Distillation:</b> Uses a teacher network (pre-trained face reconstruction model) to guide the audio-to-expression mapping, ensuring high fidelity.</div>
+            <div class="lang-zh" style="display:none"><b>带蒸馏的 ExpNet：</b>使用教师网络（预训练的人脸重建模型）来指导音频到表情的映射，确保高保真度。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>PoseVAE:</b> A VAE that learns a manifold of valid head poses conditioned on audio, allowing for sampling diverse, natural head motions.</div>
+            <div class="lang-zh" style="display:none"><b>PoseVAE：</b>一个 VAE，它以音频为条件学习有效头部姿态的流形，允许采样多样化、自然的头部动作。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figures（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <div style="display:grid; grid-template-columns: 1fr; gap: 16px;">
+                <img src="Figures/sadtalker_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 1" />
+                <img src="Figures/sadtalker_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 2" />
+                <img src="Figures/sadtalker_overview03.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 3" />
+                <img src="Figures/sadtalker_overview04.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 4" />
+            </div>
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2211.12194.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2211.12194.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Visual Quality:</b> Significantly outperformed methods like MakeItTalk and Wav2Lip in terms of head pose naturalness and identity preservation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>视觉质量：</b>在头部姿态自然度和身份保留方面显着优于 MakeItTalk 和 Wav2Lip 等方法。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Lip-Sync:</b> Achieved competitive lip-sync quality while enabling full head motion, a trade-off that previous methods struggled with.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>口型同步：</b>在实现完整头部运动的同时实现了具有竞争力的口型同步质量，这是以前的方法难以权衡的。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>The "Sad" in SadTalker:</b> The name "SadTalker" refers to "Stylized Audio-Driven Talker", emphasizing its ability to generate stylized, diverse motions (via PoseVAE) rather than just a deterministic output.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>SadTalker 中的 "Sad"：</b>"SadTalker" 这个名字指的是 "Stylized Audio-Driven Talker"（风格化音频驱动的说话者），强调了它生成风格化、多样化动作（通过 PoseVAE）的能力，而不仅仅是确定性的输出。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                SadTalker works by "dividing and conquering". Instead of trying to predict pixel motions directly (which is hard and messy), it predicts the underlying 3D parameters (what the head is doing, what the face is doing) separately. By using a 3D-aware renderer, it ensures that when the head turns, the face features move correctly in 3D space, maintaining the person's identity.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                SadTalker 的工作原理是“分而治之”。它不是试图直接预测像素运动（这既困难又混乱），而是分别预测底层的 3D 参数（头部在做什么，面部在做什么）。通过使用 3D 感知渲染器，它确保当头部转动时，面部特征在 3D 空间中正确移动，从而保持人的身份。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/Winfredy/SadTalker" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual logic for 3D coefficient generation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                3D 系数生成的概念逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># SadTalker Inference Flow</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">generate_talking_head</span>(image, audio):
+    <span style="color:#6a9955;"># 1. Extract 3D coefficients from image</span>
+    source_coeffs = face_3dmm(image)
+    
+    <span style="color:#6a9955;"># 2. Predict Expression from Audio (ExpNet)</span>
+    pred_expression = exp_net(audio, source_coeffs.identity)
+    
+    <span style="color:#6a9955;"># 3. Predict Head Pose from Audio (PoseVAE)</span>
+    <span style="color:#6a9955;"># Sample from latent space for diverse motion</span>
+    pred_pose = pose_vae.sample(audio, style_code)
+    
+    <span style="color:#6a9955;"># 4. Render Video</span>
+    <span style="color:#6a9955;"># Map 3D coeffs to unsupervised keypoints then to image</span>
+    generated_video = renderer(source_coeffs.identity, pred_expression, pred_pose)
+    <span style="color:#569cd6;">return</span> generated_video
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

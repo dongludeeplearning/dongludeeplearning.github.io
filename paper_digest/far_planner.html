@@ -1,0 +1,391 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2021
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">FAR Planner: Fast, Attemptable Route Planner using Dynamic Visibility Update</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Fan Yang, Chao Cao, Hongbiao Zhu, Jean Oh, Ji Zhang<br>
+        <span style="opacity:0.8">Carnegie Mellon University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can a visibility graph-based planner efficiently navigate robots through unknown environments with dynamic updates while maintaining fast replanning capabilities?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何使基于可见性图的规划器能够通过动态更新高效地在未知环境中导航机器人，同时保持快速重规划能力？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Layered Visibility Graph Framework:</b> Incremental polygon extraction from obstacle edge points and dynamic visibility graph construction with local and global layers for efficient computation in unknown environments.</div>
+            <div class="lang-zh" style="display:none"><b>两层可见性图框架：</b>从障碍物边缘点增量提取多边形，并在局部和全局层中构建动态可见性图，以在未知环境中实现高效计算。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Visibility Updates:</b> Real-time visibility graph adjustments by expanding edges during navigation and removing occluded edges from newly observed obstacles, enabling fast replanning in changing environments.</div>
+            <div class="lang-zh" style="display:none"><b>动态可见性更新：</b>通过在导航过程中扩展边并从新观察到的障碍物中移除被遮挡的边来实时调整可见性图，从而在变化环境中实现快速重规划。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Attemptable Navigation:</b> Sequential route attempts in unknown environments by discovering layout on-the-fly, updating visibility graph, and performing fast replanning to reach goals.</div>
+            <div class="lang-zh" style="display:none"><b>可尝试导航：</b>通过实时发现布局、更新可见性图和执行快速重规划，在未知环境中按顺序尝试路线以到达目标。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Benchmarking:</b> Extensive evaluation against state-of-the-art planners (A*, D* Lite, RRT*, BIT*, SPARS) showing 12-47% travel time reduction in unknown environments with low computational cost.</div>
+            <div class="lang-zh" style="display:none"><b>全面基准测试：</b>对最先进规划器（A*、D* Lite、RRT*、BIT*、SPARS）的广泛评估显示，在未知环境中旅行时间减少12-47%，计算成本低。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Visibility Graph Computational Complexity:</b> Traditional visibility graph construction has O(n² log n) complexity and requires polygonal world representation, making it unsuitable for real-time robotic applications in unstructured environments.</div>
+            <div class="lang-zh" style="display:none"><b>可见性图计算复杂度：</b>传统可见性图构建具有O(n² log n)复杂度并需要多边形世界表示，使其不适合非结构化环境中实时机器人应用。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Environment Updates:</b> Handling newly observed obstacles and changing environment representations requires efficient graph modifications without complete reconstruction for real-time replanning.</div>
+            <div class="lang-zh" style="display:none"><b>动态环境更新：</b>处理新观察到的障碍物和变化的环境表示需要高效的图修改，而无需完全重建以进行实时重规划。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unknown Environment Navigation:</b> Sequential route attempts in unexplored spaces require balancing exploration with goal-directed navigation while maintaining computational efficiency.</div>
+            <div class="lang-zh" style="display:none"><b>未知环境导航：</b>在未探索空间中按顺序尝试路线需要在保持计算效率的同时平衡探索与目标导向导航。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3D Multi-Layer Representation:</b> Extending visibility graph to 3D environments for aerial vehicles requires multi-layer polygonal representation and cross-layer visibility edge connections.</div>
+            <div class="lang-zh" style="display:none"><b>3D多层表示：</b>将可见性图扩展到3D环境以用于空中车辆需要多层多边形表示和跨层可见性边连接。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The FAR Planner introduces a visibility graph-based framework for efficient navigation in unknown environments:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Obstacle Polygon Extraction:</b> Converts LiDAR point clouds into binary images, applies inflation for vehicle size, uses image processing to extract enclosed polygons with dense vertices representing obstacle contours.</li>
+                <li style="margin-bottom:6px;"><b>Two-Layered Visibility Graph:</b> Maintains local layer (40m×40m) around robot for incremental updates and global layer covering observed environment, merging local updates into global graph at low computational cost.</li>
+                <li style="margin-bottom:6px;"><b>Dynamic Graph Updates:</b> Expands visibility edges during navigation, removes edges occluded by newly observed obstacles, and handles dynamic obstacles by disconnecting/reconnecting blocked edges.</li>
+                <li style="margin-bottom:6px;"><b>Path Planning on Graph:</b> Performs breadth-first search on visibility graph to find shortest paths, with fast replanning (<10ms) by reusing graph structure and updating only affected regions.</li>
+                <li style="margin-bottom:6px;"><b>3D Multi-Layer Extension:</b> Models aerial environments as horizontal slices with multi-layer polygons, connects visibility edges across layers for 3D navigation planning.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>FAR Planner引入了一种基于可见性图的框架，用于在未知环境中高效导航：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>障碍物多边形提取：</b>将LiDAR点云转换为二进制图像，为车辆尺寸应用膨胀，使用图像处理提取具有密集顶点的封闭多边形，表示障碍物轮廓。</li>
+                <li style="margin-bottom:6px;"><b>两层可见性图：</b>维护机器人周围的局部层（40m×40m）用于增量更新和覆盖观察环境的全局层，以低计算成本将局部更新合并到全局图中。</li>
+                <li style="margin-bottom:6px;"><b>动态图更新：</b>在导航过程中扩展可见性边，移除被新观察到的障碍物遮挡的边，并通过断开/重新连接被阻塞的边来处理动态障碍物。</li>
+                <li style="margin-bottom:6px;"><b>图上路径规划：</b>对可见性图执行广度优先搜索以找到最短路径，通过重用图结构和仅更新受影响区域，实现快速重规划（<10ms）。</li>
+                <li style="margin-bottom:6px;"><b>3D多层扩展：</b>将空中环境建模为具有多层多边形的水平切片，跨层连接可见性边以进行3D导航规划。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/far_planner_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+          <img src="Figures/far_planner_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+          <img src="Figures/far_planner_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_far_planner.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_far_planner.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The FAR Planner's effectiveness in unknown environment navigation stems from its innovative visibility graph approach:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Incremental Graph Construction:</b> Two-layered framework distributes computation evenly across frames by updating only local regions, achieving low computational cost (∼20% CPU usage) while maintaining global consistency.</li>
+                <li style="margin-bottom:6px;"><b>Line-of-Sight Efficiency:</b> Visibility graph leverages sparse edge connections between obstacles, avoiding dense sampling in unknown spaces and enabling fast path finding in partially observed environments.</li>
+                <li style="margin-bottom:6px;"><b>Dynamic Adaptability:</b> Graph modifications handle both static environment discovery and dynamic obstacle avoidance, with edge removal/addition operations that preserve graph structure for efficient replanning.</li>
+                <li style="margin-bottom:6px;"><b>Attemptable Exploration:</b> Sequential route testing in unknown spaces allows progressive environment discovery without requiring complete prior knowledge, making it suitable for real-world robotic applications.</li>
+                <li style="margin-bottom:6px;"><b>Scalable Performance:</b> Sub-linear complexity growth with environment size and consistent low-latency planning (<10ms) enables deployment on resource-constrained robotic platforms for real-time navigation.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>FAR Planner在未知环境导航中的有效性源于其创新的可见性图方法：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>增量图构建：</b>两层框架通过仅更新局部区域在帧间均匀分配计算，实现低计算成本（约20% CPU使用率）同时保持全局一致性。</li>
+                <li style="margin-bottom:6px;"><b>视线效率：</b>可见性图利用障碍物之间的稀疏边连接，避免在未知空间中的密集采样，并在部分观察环境中实现快速路径查找。</li>
+                <li style="margin-bottom:6px;"><b>动态适应性：</b>图修改同时处理静态环境发现和动态障碍物避免，边移除/添加操作保留图结构以实现高效重规划。</li>
+                <li style="margin-bottom:6px;"><b>可尝试探索：</b>在未知空间中的顺序路线测试允许渐进环境发现，而无需完整先验知识，使其适合真实世界机器人应用。</li>
+                <li style="margin-bottom:6px;"><b>可扩展性能：</b>随着环境大小的次线性复杂度增长和一致的低延迟规划（<10ms）能够在资源受限的机器人平台上进行实时导航部署。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This work reintroduces visibility graph-based planning as a powerful solution for robotic navigation in unknown environments, overcoming traditional computational barriers through a two-layered dynamic update framework. The FAR Planner demonstrates superior performance compared to state-of-the-art search-based (A*, D* Lite) and sampling-based (RRT*, BIT*, SPARS) methods, achieving up to 47% reduction in travel time while maintaining low computational overhead. By incrementally constructing and updating visibility graphs from sensor data, the method enables attemptable navigation that progressively discovers environment layouts and efficiently replans routes. Experimental validation across simulated indoor, outdoor campus, and tunnel environments, as well as real-world ground vehicle deployments, confirms the approach's robustness and scalability. The framework's extension to 3D multi-layer representations further enables aerial vehicle navigation. This work establishes visibility graph planning as a practical and efficient alternative for autonomous robotic systems operating in complex, unknown environments.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项工作重新引入基于可见性图的规划作为未知环境中机器人导航的强大解决方案，通过两层动态更新框架克服传统计算障碍。FAR Planner展示了优于最先进搜索基（A*、D* Lite）和采样基（RRT*、BIT*、SPARS）方法的卓越性能，在保持低计算开销的同时实现旅行时间减少高达47%。通过从传感器数据增量构建和更新可见性图，该方法实现了可尝试导航，能够渐进发现环境布局并高效重规划路线。对模拟室内、外校园和隧道环境以及真实世界地面车辆部署的实验验证证实了该方法的鲁棒性和可扩展性。该框架扩展到3D多层表示进一步实现了空中车辆导航。这项工作将可见性图规划确立为复杂未知环境中自主机器人系统的实用且高效的替代方案。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2110.09460" style="color:#8bffcf;">2110.09460</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/MichaelFYang/far_planner" style="color:#8bffcf;">https://github.com/MichaelFYang/far_planner</a></p>
+          <p><b>Development Environment:</b> <a href="https://www.cmu-exploration.com/" style="color:#8bffcf;">www.cmu-exploration.com</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import numpy as np<br>
+import cv2<br>
+from collections import deque<br>
+<br>
+// FAR Planner: Fast, Attemptable Route Planner<br>
+class FARPlanner:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, local_range=40.0, resolution=0.2):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.local_range = local_range<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.resolution = resolution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.global_polygons = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.global_edges = set()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.robot_pos = None<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.goal_pos = None<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def update_map(self, sensor_points, robot_pos):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Update visibility graph with new sensor data"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.robot_pos = robot_pos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract local polygons from sensor points<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local_polygons = self._extract_polygons(sensor_points, robot_pos)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Build local visibility graph<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local_edges = self._build_local_visibility_graph(local_polygons)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Merge with global graph<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._merge_graphs(local_polygons, local_edges)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def plan_path(self, goal_pos):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Find shortest path using visibility graph"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.goal_pos = goal_pos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Add start and goal vertices<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vertices = self._get_all_vertices() + [self.robot_pos, goal_pos]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edges = self._get_all_edges()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Add connections from start/goal to visible vertices<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_edges = self._connect_to_vertices(self.robot_pos, vertices)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goal_edges = self._connect_to_vertices(goal_pos, vertices)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edges.update(start_edges)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edges.update(goal_edges)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# BFS for shortest path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self._bfs_shortest_path(vertices, edges)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _extract_polygons(self, sensor_points, robot_pos):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract polygons from sensor points using image processing"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Create binary image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img_size = int(2 * self.local_range / self.resolution)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary_img = np.zeros((img_size, img_size), dtype=np.uint8)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Project points to image (simplified)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for point in sensor_points:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x_pixel = int((point[0] - robot_pos[0] + self.local_range) / self.resolution)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y_pixel = int((point[1] - robot_pos[1] + self.local_range) / self.resolution)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if 0 <= x_pixel < img_size and 0 <= y_pixel < img_size:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary_img[y_pixel, x_pixel] = 255<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Apply morphological operations and extract contours<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary_img = cv2.morphologyEx(binary_img, cv2.MORPH_CLOSE, kernel)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contours, _ = cv2.findContours(binary_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Convert to polygons<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;polygons = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for contour in contours:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if cv2.contourArea(contour) > 10:  # Filter small contours<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;polygon = contour.reshape(-1, 2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Convert back to world coordinates<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;polygon_world = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for px, py in polygon:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x_world = (px * self.resolution) - self.local_range + robot_pos[0]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y_world = (py * self.resolution) - self.local_range + robot_pos[1]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;polygon_world.append([x_world, y_world])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;polygons.append(np.array(polygon_world))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return polygons<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _build_local_visibility_graph(self, polygons):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Build partially reduced visibility graph"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edges = set()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vertices = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for polygon in polygons:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vertices.extend(polygon)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Connect vertices with visibility edges<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i, v1 in enumerate(vertices):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for j, v2 in enumerate(vertices):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if i != j and self._is_visible(v1, v2, polygons):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edge_length = np.linalg.norm(v2 - v1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if edge_length > 2.0:  # Keep longer edges that pass around<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edges.add((tuple(v1), tuple(v2)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return edges<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _is_visible(self, v1, v2, polygons):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Check if line segment between v1 and v2 is not blocked"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Simplified visibility check - in practice would need proper polygon intersection<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return True  # Placeholder<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _merge_graphs(self, local_polygons, local_edges):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Merge local graph with global graph"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.global_polygons.extend(local_polygons)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.global_edges.update(local_edges)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _get_all_vertices(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Get all vertices from global polygons"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vertices = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for polygon in self.global_polygons:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vertices.extend(polygon)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return vertices<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _get_all_edges(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.global_edges<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _connect_to_vertices(self, point, vertices):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Connect point to all visible vertices"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edges = set()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for vertex in vertices:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self._is_visible(point, np.array(vertex), self.global_polygons):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edges.add((tuple(point), vertex))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return edges<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _bfs_shortest_path(self, vertices, edges):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Find shortest path using BFS on visibility graph"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if not vertices or self.robot_pos is None or self.goal_pos is None:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Create adjacency list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adj_list = {tuple(v): [] for v in vertices}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for edge in edges:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v1, v2 = edge<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adj_list[v1].append(v2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adj_list[v2].append(v1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# BFS<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue = deque([tuple(self.robot_pos)])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;came_from = {tuple(self.robot_pos): None}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while queue:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current = queue.popleft()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if np.allclose(np.array(current), self.goal_pos, atol=0.1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for neighbor in adj_list[current]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if neighbor not in came_from:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;came_from[neighbor] = current<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue.append(neighbor)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Reconstruct path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current = tuple(self.goal_pos)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while current is not None:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path.append(current)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current = came_from.get(current)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path.reverse()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return path<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

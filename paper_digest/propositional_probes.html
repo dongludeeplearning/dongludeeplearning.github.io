@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Monitoring Latent World States in Language Models with Propositional Probes</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jiahai Feng, Stuart Russell, Jacob Steinhardt<br>
+        <span style="opacity:0.8">UC Berkeley</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we interpret internal activations of language models to extract faithful representations of input contexts as logical propositions, enabling monitoring of unfaithful behavior while maintaining model interpretability?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何解释语言模型的内部激活以提取输入上下文的忠实逻辑命题表示，实现对不忠实行为的监控同时保持模型的可解释性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Propositional Probes:</b> Introduced propositional probes that decode logical propositions from language model activations, compositionally combining domain probes with binding similarity metrics to extract faithful world state representations.</div>
+            <div class="lang-zh" style="display:none"><b>命题探针：</b>引入了命题探针，能够从语言模型激活中解码逻辑命题，通过组合领域探针与绑定相似度度量来提取忠实的世界状态表示。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hessian-Based Binding Subspace:</b> Developed a novel Hessian-based algorithm to identify the binding subspace in activation space, enabling causal interventions that mediate entity-attribute binding relationships.</div>
+            <div class="lang-zh" style="display:none"><b>基于Hessian的绑定子空间：</b>开发了一种新颖的基于Hessian的算法来识别激活空间中的绑定子空间，实现调解实体-属性绑定关系的因果干预。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Faithful World State Monitoring:</b> Demonstrated that propositional probes remain faithful to input contexts even when language models exhibit unfaithful behavior due to prompt injections, backdoors, and gender bias, suggesting models encode faithful latent world models.</div>
+            <div class="lang-zh" style="display:none"><b>忠实世界状态监控：</b>证明了命题探针即使在语言模型由于提示注入、后门和性别偏见而表现出不忠实行为时仍保持对输入上下文的忠实，表明模型编码了忠实的潜在世界模型。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Out-of-Distribution Generalization:</b> Showed that probes trained on simple templated contexts generalize to complex paraphrased stories and Spanish translations, validating the robustness of the approach for real-world monitoring applications.</div>
+            <div class="lang-zh" style="display:none"><b>分布外泛化：</b>展示了在简单模板化上下文中训练的探针能够泛化到复杂的释义故事和西班牙语翻译，验证了该方法对现实世界监控应用的鲁棒性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Binding Representation:</b> Understanding how language models represent entity-attribute binding relationships in their internal activations, particularly how to decompose activations into content and binding components.</div>
+            <div class="lang-zh" style="display:none"><b>绑定表示：</b>理解语言模型如何在其内部激活中表示实体-属性绑定关系，特别是如何将激活分解为内容和绑定组件。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalable Proposition Extraction:</b> Developing methods to extract logical propositions from high-dimensional activation spaces that can scale beyond simple closed-world settings to more complex, open-ended scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>可扩展命题提取：</b>开发从高维激活空间中提取逻辑命题的方法，能够扩展到超出简单封闭世界设置的更复杂、开放式场景。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Faithful vs Unfaithful Representations:</b> Investigating the discrepancy between faithful latent representations and unfaithful model outputs, and developing monitoring tools that can detect when models deviate from their internal understanding.</div>
+            <div class="lang-zh" style="display:none"><b>忠实vs不忠实表示：</b>调查忠实潜在表示与不忠实模型输出之间的差异，并开发能够检测模型何时偏离其内部理解的监控工具。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Robustness to Adversarial Inputs:</b> Ensuring that interpretability methods remain reliable even when models are subjected to adversarial attacks, prompt injections, or other forms of manipulation that affect model behavior.</div>
+            <div class="lang-zh" style="display:none"><b>对对抗性输入的鲁棒性：</b>确保可解释性方法即使在模型受到对抗性攻击、提示注入或其他影响模型行为的操纵形式时仍保持可靠。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The paper develops propositional probes to extract logical world states from language model activations:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Closed-World Proposition Representation:</b> Define a closed world of people and attributes (names, countries, occupations, foods) represented as logical propositions like LivesIn(Carol, Italy).</li>
+                <li style="margin-bottom:6px;"><b>Hessian-Based Binding Subspace Identification:</b> Use second-derivative analysis of binding strength to identify subspaces in activation space where bound tokens have similar activations, enabling causal interventions.</li>
+                <li style="margin-bottom:6px;"><b>Domain Probes Construction:</b> Train linear probes that classify activation vectors into domain values (names, countries, etc.) or null, using Grad-CAM attribution to identify informative layers and token positions.</li>
+                <li style="margin-bottom:6px;"><b>Propositional Composition:</b> Combine domain probes with binding similarity metrics to compose propositions, using a lookup algorithm that matches names to their most similar attribute tokens.</li>
+                <li style="margin-bottom:6px;"><b>Faithfulness Evaluation:</b> Test probes on unfaithful model behaviors (prompt injections, backdoors, gender bias) to verify they remain faithful to input contexts while model outputs do not.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>论文开发了命题探针来从语言模型激活中提取逻辑世界状态：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>封闭世界命题表示：</b>定义一个人和属性（名称、国家、职业、食物）的封闭世界，表示为逻辑命题如LivesIn(Carol, Italy)。</li>
+                <li style="margin-bottom:6px;"><b>基于Hessian的绑定子空间识别：</b>使用绑定强度的二阶导数分析来识别激活空间中的子空间，其中绑定标记具有相似的激活，实现因果干预。</li>
+                <li style="margin-bottom:6px;"><b>领域探针构建：</b>训练线性探针，将激活向量分类为领域值（名称、国家等）或null，使用Grad-CAM归因来识别信息丰富的层和标记位置。</li>
+                <li style="margin-bottom:6px;"><b>命题组合：</b>将领域探针与绑定相似度度量相结合来组合命题，使用查找算法将名称与其最相似的属性标记匹配。</li>
+                <li style="margin-bottom:6px;"><b>忠实性评估：</b>在不忠实模型行为（提示注入、后门、性别偏见）上测试探针，以验证它们在模型输出不忠实时仍保持对输入上下文的忠实。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/propositional_probes_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/propositional_probes_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/propositional_probes_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>Propositional probes extract logical propositions from LM activations by identifying binding subspaces and composing domain probes, enabling faithful monitoring of latent world states.</p>
+            <p>Note: The approach shows that LMs may encode faithful internal world models but decode them unfaithfully, motivating the development of monitoring tools for detecting unfaithful behavior in AI systems.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_propositional_probes.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_propositional_probes.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of propositional probes stems from understanding the geometric structure of language model representations:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Binding Subspace Geometry:</b> The Hessian-based algorithm identifies low-dimensional subspaces that causally control entity-attribute binding, allowing interventions that swap bound relationships without affecting content.</li>
+                <li style="margin-bottom:6px;"><b>Compositional Probe Design:</b> Domain probes leverage the locality of semantic information in activation space, while binding similarity metrics exploit the structured nature of predicate-argument relationships.</li>
+                <li style="margin-bottom:6px;"><b>Faithful Latent Representations:</b> The finding that probes remain faithful while model outputs become unfaithful suggests that language models construct internal world models that are more truthful than their final generations.</li>
+                <li style="margin-bottom:6px;"><b>Robust Attribution Methods:</b> Grad-CAM-style attribution identifies which layers and token positions carry semantic information, enabling probes to target the most informative activations for decoding.</li>
+                <li style="margin-bottom:6px;"><b>Out-of-Distribution Robustness:</b> The generalization from templated to paraphrased and translated contexts demonstrates that the learned binding mechanisms capture fundamental linguistic structures rather than superficial patterns.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>命题探针的成功源于理解语言模型表示的几何结构：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>绑定子空间几何：</b>基于Hessian的算法识别出控制实体-属性绑定的低维子空间，允许干预在不影响内容的情况下交换绑定关系。</li>
+                <li style="margin-bottom:6px;"><b>组合探针设计：</b>领域探针利用激活空间中语义信息的局部性，而绑定相似度度量利用谓词-参数关系的结构化性质。</li>
+                <li style="margin-bottom:6px;"><b>忠实的潜在表示：</b>探针保持忠实而模型输出变得不忠实的发现表明，语言模型构建的内部世界模型比其最终生成更真实。</li>
+                <li style="margin-bottom:6px;"><b>鲁棒归因方法：</b>Grad-CAM风格的归因识别哪些层和标记位置携带语义信息，使探针能够针对解码的最具信息量的激活。</li>
+                <li style="margin-bottom:6px;"><b>分布外鲁棒性：</b>从模板化到释义和翻译上下文的泛化表明，学习的绑定机制捕获了基本的语言结构而不是表面模式。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work establishes a foundation for monitoring and interpreting the internal states of language models through propositional probes. By demonstrating that language models construct faithful latent representations of input contexts that can be decoded as logical propositions, the paper provides crucial insights into the discrepancy between internal model understanding and external behaviors. The Hessian-based approach for identifying binding subspaces represents a significant methodological advance in mechanistic interpretability, enabling causal interventions that reveal how language models represent entity-attribute relationships. The finding that propositional probes remain faithful to input contexts even when prompted models exhibit unfaithful behaviors due to biases, prompt injections, or backdoors has profound implications for AI safety and trustworthiness. This work suggests that language models may indeed construct internal "world models" that are more reliable than their outputs, opening avenues for developing monitoring systems that can detect when models deviate from their internal understanding. The successful generalization of probes to out-of-distribution contexts, including paraphrased stories and foreign languages, demonstrates the robustness of the approach for real-world applications. Future work could extend these methods to larger, more complex worlds, potentially enabling comprehensive monitoring of language model faithfulness at inference time. The paper represents a critical step toward understanding the internal mechanisms of large language models and developing the interpretability tools necessary for their safe and reliable deployment.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作通过命题探针为监控和解释语言模型的内部状态奠定了基础。通过证明语言模型构建了可以解码为逻辑命题的输入上下文的忠实潜在表示，论文提供了对内部模型理解与外部行为之间差异的关键洞见。用于识别绑定子空间的基于Hessian的方法代表了机制可解释性中的重大方法进步，能够实现揭示语言模型如何表示实体-属性关系的因果干预。命题探针在模型由于偏见、提示注入或后门而表现出不忠实行为时仍保持对输入上下文的忠实的发现，对AI安全性和可信度具有深远影响。这项工作表明，语言模型可能确实构建了比其输出更可靠的内部"世界模型"，为开发能够在模型偏离其内部理解时进行检测的监控系统开辟了途径。探针成功泛化到分布外上下文，包括释义故事和外语，证明了该方法对现实世界应用的鲁棒性。未来工作可以扩展这些方法到更大、更复杂的领域，可能实现对语言模型在推理时的忠实性的全面监控。论文代表了理解大型语言模型内部机制的关键步骤，并为开发其安全可靠部署所需的可解释性工具奠定了基础。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2406.19501" target="_blank" style="color:#8bffcf;">2406.19501</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Propositional Probes Implementation<br>
+<br>
+// Hessian-based Binding Subspace Identification<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">BindingSubspaceIdentifier</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Identify binding subspace using Hessian analysis of binding strength"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, language_model):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.lm = language_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.layer = 15  <span style="color:#6a9955;"># Layer for binding similarity</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">compute_binding_strength</span>(self, context, query_entity, expected_attr):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute probability of correct attribute prediction after query"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query = <span style="color:#ce9178;">f"What is {query_entity}'s attribute?"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full_input = context + query<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Get probability of expected attribute</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logits = self.lm.generate_logits(full_input)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prob_correct = torch.softmax(logits[:, -1], dim=-1)[expected_attr]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> prob_correct<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">identify_binding_subspace</span>(self, contexts):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Use Hessian to identify binding subspace from contexts"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># For each context with two entities, compute binding differences</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binding_vectors = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> context <span style="color:#569cd6;">in</span> contexts:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Extract entity and attribute activations</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;activations = self.lm.get_activations(context, layer=self.layer)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compute average difference in binding vectors</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delta_binding = self.compute_binding_differences(activations)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binding_vectors.append(delta_binding)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compute Hessian of binding strength function</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H = self.compute_binding_hessian(binding_vectors)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Extract low-rank subspace via SVD</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U, S, V = torch.svd(H)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subspace_dim = 50  <span style="color:#6a9955;"># Use top 50 dimensions</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binding_subspace = U[:, :subspace_dim]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> binding_subspace<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">binding_similarity</span>(self, act1, act2, subspace):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute binding similarity between two activations"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;proj1 = subspace.T @ act1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;proj2 = subspace.T @ act2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;similarity = proj1.T @ proj2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> similarity<br>
+<br>
+// Domain Probes for lexical information<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">DomainProbe</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Linear probe for classifying activations into domain values"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, domain_values, hidden_dim):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.domain_values = domain_values + [<span style="color:#ce9178;">"NULL"</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.probe = nn.Linear(hidden_dim, len(self.domain_values))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.threshold = 0.0  <span style="color:#6a9955;"># Threshold for NULL classification</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">train</span>(self, activations, labels):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Train probe using difference-in-means initialization"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Initialize probe vectors to mean activations per class</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> i, value <span style="color:#569cd6;">in</span> enumerate(self.domain_values):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value_mask = labels == value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> value_mask.any():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mean_activation = activations[value_mask].mean(dim=0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.probe.weight.data[i] = mean_activation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">else</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.probe.weight.data[i] = torch.randn_like(self.probe.weight.data[i])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Fine-tune probe</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizer = torch.optim.Adam(self.probe.parameters())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> _ <span style="color:#569cd6;">in</span> range(100):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logits = self.probe(activations)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss = F.cross_entropy(logits, labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizer.zero_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss.backward()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizer.step()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">classify</span>(self, activation):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Classify activation into domain value or NULL"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logits = self.probe(activation)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_prob, pred_idx = torch.softmax(logits, dim=-1).max(dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> max_prob > self.threshold:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.domain_values[pred_idx]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">else</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> <span style="color:#ce9178;">"NULL"</span><br>
+<br>
+// Propositional Probes Composition<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">PropositionalProbe</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Compose domain probes into logical propositions using binding similarity"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, domain_probes, binding_subspace, binding_identifier):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.domain_probes = domain_probes  <span style="color:#6a9955;"># Dict of domain_name -> probe</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.binding_subspace = binding_subspace<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.binding_identifier = binding_identifier<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">extract_propositions</span>(self, context):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract logical propositions from context activations"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Get activations at probe layer</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;activations = self.binding_identifier.lm.get_activations(context, layer=20)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Identify names and attributes using domain probes</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attributes = {domain: [] <span style="color:#569cd6;">for</span> domain <span style="color:#569cd6;">in</span> self.domain_probes <span style="color:#569cd6;">if</span> domain != <span style="color:#ce9178;">"names"</span>}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> i, act <span style="color:#569cd6;">in</span> enumerate(activations):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = self.domain_probes[<span style="color:#ce9178;">"names"</span>].classify(act)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> name != <span style="color:#ce9178;">"NULL"</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names.append((i, act, name))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> domain, probe <span style="color:#569cd6;">in</span> self.domain_probes.items():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> domain == <span style="color:#ce9178;">"names"</span>: <span style="color:#569cd6;">continue</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attr = probe.classify(act)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> attr != <span style="color:#ce9178;">"NULL"</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attributes[domain].append((i, act, attr))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compose propositions by binding names to most similar attributes</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;propositions = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> _, name_act, name <span style="color:#569cd6;">in</span> names:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> domain, attr_list <span style="color:#569cd6;">in</span> attributes.items():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best_attr = <span style="color:#569cd6;">None</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_similarity = -float(<span style="color:#ce9178;">'inf'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> _, attr_act, attr <span style="color:#569cd6;">in</span> attr_list:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;similarity = self.binding_identifier.binding_similarity(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name_act, attr_act, self.binding_subspace)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> similarity > max_similarity:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_similarity = similarity<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best_attr = attr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> best_attr:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;propositions.append(<span style="color:#ce9178;">f"{domain.capitalize()}({name}, {best_attr})"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> propositions<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

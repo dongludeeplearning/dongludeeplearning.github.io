@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Weakly-Supervised Text-driven Contrastive Learning for Facial Behavior Understanding</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xiang Zhang, Taoyue Wang, Xiaotian Li, Huiyuan Yang, Lijun Yin<br>
+        <span style="opacity:0.8">State University of New York at Binghamton, Rice University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we leverage coarse-grained activity descriptions and text-driven contrastive learning to improve facial behavior understanding without requiring fine-grained auxiliary information like landmarks?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>我们如何利用粗粒度活动描述和文本驱动的对比学习来改善面部行为理解，而不需要像地标这样的细粒度辅助信息？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Weakly-Supervised Contrastive Learning:</b> Introduced activity-based positive-negative pairing that leverages coarse-grained activity descriptions to guide contrastive learning, effectively learning representations without fine-grained auxiliary information.</div>
+            <div class="lang-zh" style="display:none"><b>弱监督对比学习：</b>引入了基于活动的正负配对，利用粗粒度活动描述来指导对比学习，有效地学习表示而不需要细粒度的辅助信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Text-Driven Framework:</b> Proposed CLEF, a two-stage framework using CLIP architecture that incorporates textual information at both pre-training and fine-tuning stages for facial behavior understanding.</div>
+            <div class="lang-zh" style="display:none"><b>文本驱动框架：</b>提出了CLEF，一个两阶段框架，使用CLIP架构，在预训练和微调阶段都融入文本信息，用于面部行为理解。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Joint Label Representation Learning:</b> Enhanced label representations through self-supervised contrastive learning between label names and descriptions, enriching semantic information for better FER and AUR performance.</div>
+            <div class="lang-zh" style="display:none"><b>联合标签表示学习：</b>通过标签名称和描述之间的自监督对比学习来增强标签表示，为更好的FER和AUR性能丰富语义信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved superior results on three in-the-lab AU datasets and three in-the-wild FER datasets, demonstrating the effectiveness of the proposed text-driven contrastive learning approach.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在三个实验室AU数据集和三个野外FER数据集上取得了卓越结果，证明了所提出的文本驱动对比学习方法的有效性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Subject Diversity:</b> Facial behavior datasets have fewer subjects and categories compared to object detection datasets, making traditional contrastive learning pairing strategies ineffective due to identity interference.</div>
+            <div class="lang-zh" style="display:none"><b>有限的主题多样性：</b>面部行为数据集的主题和类别数量比对象检测数据集少，使得传统的对比学习配对策略由于身份干扰而无效。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Coarse-Grained Information Utilization:</b> Need to explore easily obtainable coarse-grained information (activity descriptions) rather than requiring fine-grained auxiliary data like landmarks or image captions.</div>
+            <div class="lang-zh" style="display:none"><b>粗粒度信息利用：</b>需要探索容易获得的粗粒度信息（活动描述），而不是需要像地标或图像标题这样的细粒度辅助数据。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Label Representation Enhancement:</b> Traditional numerical label approaches lack semantic richness; need to enrich label representations using textual descriptions for better discrimination between expressions and action units.</div>
+            <div class="lang-zh" style="display:none"><b>标签表示增强：</b>传统的数值标签方法缺乏语义丰富性；需要使用文本描述来丰富标签表示，以更好地区分表情和动作单元。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Modal Integration:</b> Effectively integrating vision and text modalities in a unified framework while maintaining computational efficiency and avoiding modality conflicts.</div>
+            <div class="lang-zh" style="display:none"><b>多模态集成：</b>在统一框架中有效整合视觉和文本模态，同时保持计算效率并避免模态冲突。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>CLEF employs a sophisticated two-stage text-driven contrastive learning framework:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Pre-training Stage:</b> Uses weakly-supervised contrastive learning with activity-based pairing, where images from the same activity are positive pairs and different activities are negative pairs, guided by coarse-grained activity descriptions.</li>
+                <li style="margin-bottom:6px;"><b>Cross-Modal Contrastive Loss:</b> Implements supervised contrastive loss between images and activity texts, and self-supervised contrastive loss between images from the same activity to learn robust representations.</li>
+                <li style="margin-bottom:6px;"><b>Fine-tuning Stage:</b> Applies supervised contrastive learning for image-label name pairs and self-supervised contrastive learning for label name-description pairs to enhance semantic discrimination.</li>
+                <li style="margin-bottom:6px;"><b>CLIP-based Architecture:</b> Utilizes unified vision-text encoders with shared weights for text encoders, enabling efficient multi-modal feature learning and classification.</li>
+                <li style="margin-bottom:6px;"><b>Text Prompting:</b> Employs prompt templates to augment label names and descriptions, improving the semantic alignment between visual and textual modalities.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>CLEF采用了一种复杂的两阶段文本驱动对比学习框架：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>预训练阶段：</b>使用弱监督对比学习与基于活动的配对，其中来自同一活动的图像是正配对，不同活动的图像是负配对，由粗粒度活动描述指导。</li>
+                <li style="margin-bottom:6px;"><b>跨模态对比损失：</b>在图像和活动文本之间实现监督对比损失，在来自同一活动的图像之间实现自监督对比损失，以学习鲁棒表示。</li>
+                <li style="margin-bottom:6px;"><b>微调阶段：</b>对图像-标签名称配对应用监督对比学习，对标签名称-描述配对应用自监督对比学习，以增强语义区分。</li>
+                <li style="margin-bottom:6px;"><b>基于CLIP的架构：</b>利用具有共享权重的统一视觉-文本编码器，实现高效的多模态特征学习和分类。</li>
+                <li style="margin-bottom:6px;"><b>文本提示：</b>使用提示模板来增强标签名称和描述，提高视觉和文本模态之间的语义对齐。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/text_driven_clef_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/text_driven_clef_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('iccv2023_weakly_supervised_text_driven.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('iccv2023_weakly_supervised_text_driven.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The effectiveness of CLEF stems from its innovative use of coarse-grained information and multi-modal learning:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Activity-Based Pairing:</b> By using activity descriptions to construct positive-negative pairs, CLEF overcomes the identity interference problem in facial datasets, focusing on expression-related features rather than subject-specific characteristics.</li>
+                <li style="margin-bottom:6px;"><b>Textual Semantic Enhancement:</b> Incorporating label descriptions alongside names enriches the semantic space, providing better discrimination between similar facial behaviors and enabling more robust cross-modal feature learning.</li>
+                <li style="margin-bottom:6px;"><b>Multi-Stage Learning:</b> The pre-training stage learns general facial representations while fine-tuning adapts to specific recognition tasks, creating a hierarchical learning approach that builds upon coarse to fine-grained understanding.</li>
+                <li style="margin-bottom:6px;"><b>Efficient Modality Integration:</b> Using CLIP's unified architecture with shared text encoders reduces computational overhead while maintaining strong vision-text alignment for facial behavior analysis.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>CLEF的有效性源于其对粗粒度信息和多模态学习的创新使用：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>基于活动的配对：</b>通过使用活动描述来构建正负配对，CLEF克服了面部数据集中身份干扰问题，专注于与表情相关的特征而不是主题特定特征。</li>
+                <li style="margin-bottom:6px;"><b>文本语义增强：</b>除了名称外纳入标签描述丰富了语义空间，在相似的面部行为之间提供更好的区分，并实现更鲁棒的跨模态特征学习。</li>
+                <li style="margin-bottom:6px;"><b>多阶段学习：</b>预训练阶段学习一般面部表示，而微调阶段适应特定识别任务，创建了一种层次学习方法，从粗到细粒度理解。</li>
+                <li style="margin-bottom:6px;"><b>高效模态集成：</b>使用CLIP的统一架构和共享文本编码器减少了计算开销，同时为面部行为分析保持了强大的视觉-文本对齐。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>CLEF represents a significant advancement in facial behavior understanding by effectively leveraging coarse-grained activity information and text-driven contrastive learning. The two-stage framework successfully addresses the challenges of limited subject diversity and the need for fine-grained auxiliary information by utilizing easily obtainable activity descriptions. Through the integration of vision and text modalities using CLIP architecture, CLEF achieves state-of-the-art performance across multiple FER and AUR benchmarks. The approach demonstrates that coarse-grained textual information can be more effective than fine-grained auxiliary data for facial behavior analysis, opening new directions for multi-modal learning in affective computing. The method's ability to enhance label representations through joint learning of names and descriptions provides a foundation for more semantically rich facial analysis systems.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>CLEF通过有效利用粗粒度活动信息和文本驱动对比学习，在面部行为理解方面取得了重大进展。两阶段框架通过利用容易获得的活动描述，成功解决了主题多样性有限和需要细粒度辅助信息的挑战。通过使用CLIP架构整合视觉和文本模态，CLEF在多个FER和AUR基准上取得了最先进的性能。该方法证明了粗粒度文本信息可以比细粒度辅助数据更有效地用于面部行为分析，为情感计算中的多模态学习开辟了新方向。该方法通过联合学习名称和描述来增强标签表示的能力，为更具语义丰富的面部分析系统奠定了基础。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>GitHub:</b> <a href="https://github.com/" style="color:#8bffcf;">Code Not Available</a></p>
+          <p><b>DOI:</b> <a href="https://openaccess.thecvf.com/content/ICCV2023/papers/Zhang_Weakly-Supervised_Text-Driven_Contrastive_Learning_for_Facial_Behavior_Understanding_ICCV_2023_paper.pdf" style="color:#8bffcf;">ICCV 2023 Paper</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import torch<br>
+import torch.nn as nn<br>
+from transformers import CLIPModel, CLIPProcessor<br>
+import torch.nn.functional as F<br>
+<br>
+// CLEF: Contrastive Learning with Text-Embedded Framework<br>
+class CLEF(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, num_classes=8):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(CLEF, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# CLIP model with vision and text encoders<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.clip_model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Temperature parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.temperature_pretrain = nn.Parameter(torch.tensor(0.25))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.temperature_finetune = nn.Parameter(torch.tensor(0.07))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward_pretrain(self, images, activity_texts):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Get image and text features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_features = self.clip_model.get_image_features(images)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_features = self.clip_model.get_text_features(activity_texts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Normalize features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_features = F.normalize(image_features, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_features = F.normalize(text_features, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return image_features, text_features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward_finetune(self, images, label_names, label_descriptions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Get features for all modalities<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_features = self.clip_model.get_image_features(images)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name_features = self.clip_model.get_text_features(label_names)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc_features = self.clip_model.get_text_features(label_descriptions)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Normalize all features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_features = F.normalize(image_features, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name_features = F.normalize(name_features, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc_features = F.normalize(desc_features, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return image_features, name_features, desc_features<br>
+<br>
+// Pre-training contrastive loss (Activity-based)<br>
+def pretrain_contrastive_loss(image_features, text_features, activity_labels, temperature):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Cross-modal supervised contrastive loss (L_IÃtext{T})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;logits = torch.matmul(image_features, text_features.t()) / temperature<br>
+&nbsp;&nbsp;&nbsp;&nbsp;labels = torch.arange(logits.size(0)).to(logits.device)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss_it = F.cross_entropy(logits, labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Self-supervised contrastive loss for images (L_II)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sim_matrix = torch.matmul(image_features, image_features.t()) / temperature<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mask = torch.eq(activity_labels.unsqueeze(0), activity_labels.unsqueeze(1))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mask = mask.float() - torch.eye(mask.size(0)).to(mask.device)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Remove self-similarities<br>
+&nbsp;&nbsp;&nbsp;&nbsp;logits_ii = sim_matrix - torch.eye(sim_matrix.size(0)).to(sim_matrix.device) * 1e9<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss_ii = -torch.log(torch.exp(logits_ii) / torch.exp(logits_ii).sum(dim=1, keepdim=True))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss_ii = (loss_ii * mask).sum() / mask.sum()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return loss_it + loss_ii<br>
+<br>
+// Fine-tuning contrastive losses<br>
+def finetune_contrastive_loss(image_features, name_features, desc_features, labels, temperature):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Image-Name supervised contrastive loss<br>
+&nbsp;&nbsp;&nbsp;&nbsp;logits_in = torch.matmul(image_features, name_features.t()) / temperature<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss_in = F.cross_entropy(logits_in, labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Name-Description self-supervised contrastive loss<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name_desc_sim = torch.matmul(name_features, desc_features.t()) / temperature<br>
+&nbsp;&nbsp;&nbsp;&nbsp;labels_nd = torch.arange(name_desc_sim.size(0)).to(name_desc_sim.device)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss_nd = F.cross_entropy(name_desc_sim, labels_nd)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return loss_in + loss_nd<br>
+<br>
+// Activity-based text prompting<br>
+def create_activity_prompts(activity_descriptions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prompts = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for desc in activity_descriptions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Randomly select prompt template<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;templates = [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f"a photo of an activity that {desc}",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f"a person from an activity that {desc}",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f"activity showing {desc}"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompts.append(random.choice(templates))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return prompts<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

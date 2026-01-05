@@ -1,0 +1,378 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        DeepSeek-AI<br>
+        <span style="opacity:0.8">research@deepseek.com</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we develop reasoning-capable LLMs through pure reinforcement learning without supervised fine-tuning, achieving performance comparable to OpenAI-o1 while naturally emerging powerful reasoning behaviors?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过纯强化学习而不使用监督微调来开发具有推理能力的LLM，实现与OpenAI-o1相当的性能，同时自然出现强大的推理行为？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>DeepSeek-R1-Zero:</b> First model trained via pure reinforcement learning without supervised fine-tuning, demonstrating that LLMs can naturally develop powerful reasoning capabilities through self-evolution, achieving 71.0% pass@1 on AIME 2024 and matching OpenAI-o1-0912 performance.</div>
+            <div class="lang-zh" style="display:none"><b>DeepSeek-R1-Zero：</b>第一个通过纯强化学习训练而无需监督微调的模型，证明LLM可以通过自我演化自然发展强大的推理能力，在AIME 2024上实现71.0%的pass@1，并与OpenAI-o1-0912性能相当。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>DeepSeek-R1:</b> Enhanced reasoning model with multi-stage training incorporating cold-start data and rejection sampling, achieving performance comparable to OpenAI-o1-1217 while addressing readability and language mixing issues from pure RL training.</div>
+            <div class="lang-zh" style="display:none"><b>DeepSeek-R1：</b>采用多阶段训练的增强推理模型，结合冷启动数据和拒绝采样，实现与OpenAI-o1-1217相当的性能，同时解决纯RL训练的可读性和语言混合问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>GRPO Algorithm:</b> Novel reinforcement learning algorithm that enables stable and efficient training of reasoning capabilities, supporting thousands of RL steps and demonstrating the emergence of sophisticated reasoning behaviors like self-verification and reflection.</div>
+            <div class="lang-zh" style="display:none"><b>GRPO算法：</b>新颖的强化学习算法，支持推理能力的稳定高效训练，支持数千步RL步骤，并展示了自我验证和反思等复杂推理行为的出现。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Distillation to Dense Models:</b> Successfully distilled reasoning capabilities from DeepSeek-R1 to smaller dense models (1.5B to 70B), with distilled 14B model outperforming QwQ-32B-Preview and setting new records for dense models on reasoning benchmarks.</div>
+            <div class="lang-zh" style="display:none"><b>蒸馏到密集模型：</b>成功将DeepSeek-R1的推理能力蒸馏到更小的密集模型（1.5B到70B），蒸馏的14B模型优于QwQ-32B-Preview，并在推理基准上为密集模型设立新记录。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Open-Source Initiative:</b> Released DeepSeek-R1-Zero, DeepSeek-R1, and six distilled dense models to support the research community, enabling further exploration of reinforcement learning for LLM reasoning capabilities.</div>
+            <div class="lang-zh" style="display:none"><b>开源倡议：</b>发布DeepSeek-R1-Zero、DeepSeek-R1和六个蒸馏的密集模型以支持研究社区，进一步探索强化学习用于LLM推理能力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Test-Time Scaling:</b> Developing effective methods for inference-time scaling of reasoning processes to match or exceed the performance of models like OpenAI-o1 without requiring massive computational resources during training.</div>
+            <div class="lang-zh" style="display:none"><b>测试时扩展：</b>开发有效的推理时扩展推理过程的方法，以匹配或超过OpenAI-o1等模型的性能，而无需在训练期间消耗大量计算资源。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Pure RL Training:</b> Exploring whether LLMs can develop reasoning capabilities purely through reinforcement learning without any supervised fine-tuning, addressing challenges like readability, language mixing, and training stability.</div>
+            <div class="lang-zh" style="display:none"><b>纯RL训练：</b>探索LLM是否可以通过纯强化学习而不使用任何监督微调来发展推理能力，解决可读性、语言混合和训练稳定性等挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Reasoning Behavior Emergence:</b> Understanding how sophisticated reasoning behaviors like self-verification, reflection, and problem decomposition naturally emerge through reinforcement learning without explicit supervision.</div>
+            <div class="lang-zh" style="display:none"><b>推理行为出现：</b>理解自我验证、反思和问题分解等复杂推理行为如何通过强化学习自然出现，而无需明确的监督。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Training Pipeline:</b> Designing effective multi-stage training approaches that combine cold-start data, reasoning-oriented RL, rejection sampling, and supervised fine-tuning to optimize both reasoning performance and output quality.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段训练管道：</b>设计有效的多阶段训练方法，结合冷启动数据、推理导向RL、拒绝采样和监督微调，以优化推理性能和输出质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Distillation of Reasoning:</b> Effectively transferring reasoning capabilities from large models trained with RL to smaller dense models, preserving the complex reasoning patterns discovered through reinforcement learning.</div>
+            <div class="lang-zh" style="display:none"><b>推理蒸馏：</b>有效地将通过RL训练的大型模型的推理能力转移到更小的密集模型，保持通过强化学习发现的复杂推理模式。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>DeepSeek-R1 advances LLM reasoning through pure reinforcement learning and multi-stage training:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>DeepSeek-R1-Zero:</b> Pure RL training on base model using GRPO algorithm with rule-based reward modeling, enabling self-evolution of reasoning capabilities without any supervised data.</li>
+                <li style="margin-bottom:6px;"><b>GRPO Algorithm:</b> Novel RL framework that normalizes advantages using group statistics, providing stable training and enabling exploration of sophisticated reasoning behaviors.</li>
+                <li style="margin-bottom:6px;"><b>DeepSeek-R1:</b> Multi-stage approach combining cold-start data, reasoning-oriented RL, rejection sampling for SFT data generation, and final RL across all scenarios.</li>
+                <li style="margin-bottom:6px;"><b>Reasoning Behavior Emergence:</b> RL naturally produces behaviors like self-verification, reflection, and problem decomposition, demonstrating LLM's inherent reasoning potential.</li>
+                <li style="margin-bottom:6px;"><b>Distillation Pipeline:</b> Transferring reasoning capabilities from large models to smaller dense models, achieving superior performance compared to direct RL on smaller models.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>DeepSeek-R1通过纯强化学习和多阶段训练推进LLM推理：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>DeepSeek-R1-Zero：</b>使用GRPO算法对基础模型进行纯RL训练，采用基于规则的奖励建模，使推理能力无需任何监督数据即可自我演化。</li>
+                <li style="margin-bottom:6px;"><b>GRPO算法：</b>新颖的RL框架，使用组统计标准化优势，提供稳定训练并支持探索复杂的推理行为。</li>
+                <li style="margin-bottom:6px;"><b>DeepSeek-R1：</b>多阶段方法结合冷启动数据、推理导向RL、拒绝采样用于SFT数据生成，以及最终跨所有场景的RL。</li>
+                <li style="margin-bottom:6px;"><b>推理行为出现：</b>RL自然产生自我验证、反思和问题分解等行为，证明LLM固有的推理潜力。</li>
+                <li style="margin-bottom:6px;"><b>蒸馏管道：</b>将推理能力从大型模型转移到更小的密集模型，实现优于直接在小型模型上应用RL的性能。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/deepseek_r1_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+            <p>Benchmark performance comparison showing DeepSeek-R1 achieving performance comparable to OpenAI-o1-1217 across multiple reasoning tasks including AIME, Codeforces, GPQA, MATH-500, MMLU, and SWE-bench.</p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（总体示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/deepseek_r1_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/deepseek_r1_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/deepseek_r1_overview03.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>Training pipeline overview showing the multi-stage approach from DeepSeek-R1-Zero (pure RL) to DeepSeek-R1 (cold-start + multi-stage training), with distillation to smaller dense models.</p>
+            <p>Note: The framework demonstrates that pure RL can achieve remarkable reasoning capabilities, with multi-stage training addressing practical issues like readability while maintaining performance.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_deepseek_r1.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_deepseek_r1.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of DeepSeek-R1 demonstrates the transformative power of pure reinforcement learning for LLM reasoning:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Pure RL Potential:</b> DeepSeek-R1-Zero proves that LLMs possess inherent reasoning capabilities that can be unlocked through reinforcement learning without any supervised fine-tuning, challenging the conventional wisdom that SFT is necessary for reasoning.</li>
+                <li style="margin-bottom:6px;"><b>Self-Evolution of Reasoning:</b> The emergence of sophisticated behaviors like self-verification, reflection, and problem decomposition shows that LLMs can develop complex reasoning strategies through trial-and-error learning, mimicking human-like thinking processes.</li>
+                <li style="margin-bottom:6px;"><b>GRPO Stability:</b> The GRPO algorithm provides stable training by normalizing advantages with group statistics, enabling long training runs (thousands of steps) that are crucial for the emergence of advanced reasoning capabilities.</li>
+                <li style="margin-bottom:6px;"><b>Multi-Stage Refinement:</b> Combining pure RL with cold-start data and rejection sampling creates a balanced approach that maintains the reasoning power of RL while improving output quality and readability.</li>
+                <li style="margin-bottom:6px;"><b>Distillation Superiority:</b> Distilling reasoning patterns from large RL-trained models to smaller dense models outperforms direct RL training on smaller models, suggesting that complex reasoning behaviors are best learned at scale.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>DeepSeek-R1的成功证明了纯强化学习对LLM推理的变革力量：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>纯RL潜力：</b>DeepSeek-R1-Zero证明LLM拥有可以通过强化学习解锁的固有推理能力，而无需任何监督微调，挑战了SFT对推理而言是必要的传统智慧。</li>
+                <li style="margin-bottom:6px;"><b>推理的自我演化：</b>自我验证、反思和问题分解等复杂行为的出现表明，LLM可以通过试错学习发展复杂的推理策略，模仿人类思维过程。</li>
+                <li style="margin-bottom:6px;"><b>GRPO稳定性：</b>GRPO算法通过用组统计标准化优势提供稳定训练，支持长训练运行（数千步），这对高级推理能力的出现至关重要。</li>
+                <li style="margin-bottom:6px;"><b>多阶段精炼：</b>将纯RL与冷启动数据和拒绝采样相结合创建了一种平衡方法，在保持RL推理能力的同时改进输出质量和可读性。</li>
+                <li style="margin-bottom:6px;"><b>蒸馏优越性：</b>将推理模式从大型RL训练模型蒸馏到更小的密集模型优于直接在小型模型上进行RL训练，表明复杂的推理行为最好在大规模上学习。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>DeepSeek-R1 represents a groundbreaking advancement in LLM reasoning capabilities, demonstrating that pure reinforcement learning can achieve performance comparable to OpenAI-o1-1217 without requiring supervised fine-tuning. The successful development of DeepSeek-R1-Zero through large-scale RL showcases the remarkable potential of LLMs to naturally develop sophisticated reasoning behaviors, including self-verification, reflection, and problem decomposition, through self-evolution. By introducing multi-stage training with cold-start data and rejection sampling, DeepSeek-R1 addresses practical challenges like readability and language mixing while maintaining exceptional reasoning performance. The distillation of reasoning capabilities to smaller dense models further democratizes access to advanced reasoning, with the 14B distilled model setting new benchmarks for dense architectures. The open-sourcing of DeepSeek-R1-Zero, DeepSeek-R1, and six distilled models provides the research community with powerful tools to further explore reinforcement learning approaches for LLM reasoning. This work not only achieves state-of-the-art performance on reasoning benchmarks but also opens new research directions in understanding how LLMs can develop reasoning capabilities through pure reinforcement learning. The success of DeepSeek-R1 challenges conventional approaches to LLM training and suggests that reinforcement learning may be a more natural and effective path toward artificial general intelligence. Future work can build upon these findings to develop even more sophisticated reasoning systems and explore the full potential of reinforcement learning in shaping LLM capabilities.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>DeepSeek-R1代表了LLM推理能力的突破性进步，证明纯强化学习可以在无需监督微调的情况下实现与OpenAI-o1-1217相当的性能。DeepSeek-R1-Zero通过大规模RL的成功开发展示了LLM通过自我演化自然发展复杂推理行为的巨大潜力，包括自我验证、反思和问题分解。通过引入带有冷启动数据和拒绝采样的多阶段训练，DeepSeek-R1解决了可读性和语言混合等实际挑战，同时保持卓越的推理性能。将推理能力蒸馏到更小的密集模型进一步民主化了对高级推理的访问，14B蒸馏模型为密集架构设立了新基准。DeepSeek-R1-Zero、DeepSeek-R1和六个蒸馏模型的开源为研究社区提供了强大的工具，以进一步探索用于LLM推理的强化学习方法。这项工作不仅在推理基准上实现了最先进的性能，还开辟了新的研究方向，以理解LLM如何通过纯强化学习发展推理能力。DeepSeek-R1的成功挑战了传统的LLM训练方法，并表明强化学习可能是朝着通用人工智能更自然和更有效的路径。未来的工作可以在这些发现的基础上构建，开发更复杂的推理系统，并探索强化学习在塑造LLM能力方面的全部潜力。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2501.12948" target="_blank" style="color:#8bffcf;">2501.12948</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/deepseek-ai/DeepSeek-R1" target="_blank" style="color:#8bffcf;">DeepSeek-R1 Repository</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# DeepSeek-R1 GRPO Implementation<br>
+<br>
+// GRPO (Generalized Reward-based Policy Optimization)<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">GRPOTrainer</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""GRPO algorithm for stable RL training of reasoning capabilities"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, model, reward_model, epsilon=0.2, beta=0.04):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model = model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.reward_model = reward_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.epsilon = epsilon  <span style="color:#6a9955;"># KL penalty coefficient</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.beta = beta  <span style="color:#6a9955;"># PPO clipping parameter</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.optimizer = AdamW(model.parameters(), lr=1e-6)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">compute_advantages</span>(self, rewards, old_log_probs, new_log_probs, eps=1e-8):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute GRPO advantages using group-relative normalization"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ratio = torch.exp(new_log_probs - old_log_probs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Group-relative advantage normalization (key GRPO innovation)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards_mean = rewards.mean(dim=1, keepdim=True)  <span style="color:#6a9955;"># Per-group mean</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards_std = rewards.std(dim=1, keepdim=True) + eps  <span style="color:#6a9955;"># Per-group std</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normalized_rewards = (rewards - rewards_mean) / rewards_std<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compute advantages with KL penalty</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;advantages = normalized_rewards - self.beta * (new_log_probs - old_log_probs).detach()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> advantages<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">train_step</span>(self, prompts, group_size=8):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Single GRPO training step"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate responses for each prompt in the group</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_responses = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_log_probs = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> prompt <span style="color:#569cd6;">in</span> prompts:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_responses = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_log_probs = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> _ <span style="color:#569cd6;">in</span> range(group_size):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response, log_prob = self.model.generate_with_log_prob(prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_responses.append(response)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_log_probs.append(log_prob)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_responses.append(group_responses)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_log_probs.append(group_log_probs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compute rewards for each response</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards = self.compute_rewards(all_responses)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Convert to tensors</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old_log_probs = torch.stack([torch.stack(group) <span style="color:#569cd6;">for</span> group <span style="color:#569cd6;">in</span> all_log_probs])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards = torch.tensor(rewards)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Sample new responses from current policy</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_responses, new_log_probs = self.model.generate_batch_with_log_prob(prompts, group_size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_log_probs = torch.stack(new_log_probs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compute advantages</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;advantages = self.compute_advantages(rewards, old_log_probs, new_log_probs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># PPO-style loss with clipping</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ratio = torch.exp(new_log_probs - old_log_probs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clipped_ratio = torch.clamp(ratio, 1-self.epsilon, 1+self.epsilon)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;policy_loss = -torch.min(ratio * advantages, clipped_ratio * advantages).mean()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Update policy</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.optimizer.zero_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;policy_loss.backward()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.optimizer.step()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> policy_loss.item()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">compute_rewards</span>(self, responses):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute rule-based rewards for reasoning quality"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> group_responses <span style="color:#569cd6;">in</span> responses:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_rewards = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> response <span style="color:#569cd6;">in</span> group_responses:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Accuracy reward (1.0 for correct, 0.0 for incorrect)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accuracy = self.check_answer_correctness(response)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Format reward (bonus for structured reasoning)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format_bonus = 0.1 <span style="color:#569cd6;">if</span> self.has_reasoning_format(response) <span style="color:#569cd6;">else</span> 0.0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reward = accuracy + format_bonus<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_rewards.append(reward)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards.append(group_rewards)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> rewards<br>
+<br>
+// DeepSeek-R1 Multi-Stage Training Pipeline<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">DeepSeekR1Trainer</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Multi-stage training pipeline for DeepSeek-R1"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, base_model):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.base_model = base_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.grpo_trainer = GRPOTrainer(base_model, reward_model=None)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">train_deepseek_r1_zero</span>(self, reasoning_prompts, num_steps=10000):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Stage 1: Pure RL training (DeepSeek-R1-Zero)"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Training DeepSeek-R1-Zero with pure RL...")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> step <span style="color:#569cd6;">in</span> range(num_steps):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;batch_prompts = self.sample_reasoning_prompts(reasoning_prompts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss = self.grpo_trainer.train_step(batch_prompts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> step % 1000 == 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.evaluate_reasoning_capability()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&span style="color:#569cd6;">return</span> self.base_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">train_deepseek_r1</span>(self, cold_start_data, general_data):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Multi-stage training for DeepSeek-R1"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Stage 2: Cold-start fine-tuning</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Stage 2: Cold-start fine-tuning...")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.supervised_fine_tune(cold_start_data)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Stage 3: Reasoning-oriented RL</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Stage 3: Reasoning-oriented RL...")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rl_model = self.train_deepseek_r1_zero(reasoning_prompts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Stage 4: Rejection sampling and SFT</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Stage 4: Rejection sampling and SFT...")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sft_data = self.rejection_sampling(rl_model, reasoning_prompts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined_sft_data = sft_data + general_data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.supervised_fine_tune(combined_sft_data)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Stage 5: Final RL across all scenarios</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Stage 5: Final RL across all scenarios...")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_model = self.reasoning_rl_all_scenarios()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> final_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">distill_to_dense</span>(self, teacher_model, student_sizes=[1.5, 7, 8, 14, 32, 70]):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Distill reasoning capabilities to smaller dense models"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;distilled_models = {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> size <span style="color:#569cd6;">in</span> student_sizes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;student_model = self.load_dense_model(size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Distillation training</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;distilled_model = self.knowledge_distillation(teacher_model, student_model)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;distilled_models[size] = distilled_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> distilled_models<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

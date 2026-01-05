@@ -1,0 +1,689 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">HIS-GPT: Towards 3D Human-In-Scene Multimodal Understanding</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jiahe Zhao, Ruibing Hou, Zejie Tian, Hong Chang, Shiguang Shan<br>
+        <span style="opacity:0.8">Key Laboratory of AI Safety of CAS, Institute of Computing Technology, CAS & University of CAS</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to enable embodied agents to understand and answer questions about human behaviors and states within complex 3D scenes?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何让具身智能体能够理解并回答关于人类在复杂3D场景中的行为和状态的问题？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>HIS-QA Task:</b> Introduces Human-In-Scene Question Answering (HIS-QA), a novel task requiring agents to comprehend human states, behaviors, and interactions within 3D scenes.</div>
+            <div class="lang-zh" style="display:none"><b>HIS-QA任务：</b>引入人类-场景问答(HIS-QA)，这是一个新颖的任务，要求智能体理解人类在3D场景中的状态、行为和交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>HIS-Bench Benchmark:</b> Creates HIS-Bench, the first multimodal benchmark with 800 questions spanning basic perception to advanced reasoning, prediction, and planning tasks.</div>
+            <div class="lang-zh" style="display:none"><b>HIS-Bench基准：</b>创建HIS-Bench，这是首个包含800个问题的多模态基准，涵盖从基本感知到高级推理、预测和规划的任务。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>HIS-GPT Model:</b> Develops HIS-GPT, the first foundation model for HIS understanding, integrating 3D scene context and human motion dynamics into LLMs.</div>
+            <div class="lang-zh" style="display:none"><b>HIS-GPT模型：</b>开发HIS-GPT，这是首个针对HIS理解的基础模型，将3D场景上下文和人类运动动态集成到大型语言模型中。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Specialized Mechanisms:</b> Introduces Auxiliary Interaction (AInt) module and Layout-Trajectory Position Encoding (LTP) to capture human-scene interactions and spatiotemporal dynamics.</div>
+            <div class="lang-zh" style="display:none"><b>专门机制：</b>引入辅助交互(AInt)模块和布局-轨迹位置编码(LTP)来捕捉人类-场景交互和时空动态。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieves new state-of-the-art results on HIS-QA tasks, establishing foundation for embodied AI and world models research.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在HIS-QA任务上取得新的最先进结果，为具身AI和世界模型研究奠定基础。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/hisgpt_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Joint Human-Scene Understanding:</b> Existing models excel at either 3D scene or human understanding separately, but fail to integrate both modalities for comprehensive HIS comprehension.</div>
+            <div class="lang-zh" style="display:none"><b>联合人类-场景理解：</b>现有模型擅长分别理解3D场景或人类，但无法集成两种模态进行全面的HIS理解。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Complex Interaction Modeling:</b> Capturing intricate human-scene interactions requires understanding spatial relationships, temporal dynamics, and contextual reasoning.</div>
+            <div class="lang-zh" style="display:none"><b>复杂交互建模：</b>捕捉复杂的人类-场景交互需要理解空间关系、时间动态和上下文推理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited HIS Annotations:</b> Existing HIS datasets lack detailed textual annotations needed for comprehensive evaluation of human-scene understanding tasks.</div>
+            <div class="lang-zh" style="display:none"><b>有限的HIS标注：</b>现有的HIS数据集缺乏进行全面的人类-场景理解任务评估所需的详细文本标注。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Spatiotemporal Reasoning:</b> HIS understanding requires modeling the dynamic interplay between human motions and 3D environments over time.</div>
+            <div class="lang-zh" style="display:none"><b>时空推理：</b>HIS理解需要建模人类运动与3D环境之间随时间的动态相互作用。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Benchmark Evaluation:</b> Need for comprehensive benchmarks that systematically evaluate HIS understanding across perception, reasoning, and planning abilities.</div>
+            <div class="lang-zh" style="display:none"><b>基准评估：</b>需要全面的基准来系统地评估跨感知、推理和规划能力的HIS理解。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>HIS-QA Task Definition:</b> Formulates Human-In-Scene Question Answering where agents answer questions about human states and behaviors within 3D scenes.</div>
+            <div class="lang-zh" style="display:none"><b>HIS-QA任务定义：</b>制定人类-场景问答，其中智能体回答关于人类在3D场景中的状态和行为的问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>HIS-Bench Construction:</b> Builds comprehensive benchmark with 800 questions organized hierarchically into 3 abilities, 7 tasks, and 16 sub-tasks using specialized annotation pipeline.</div>
+            <div class="lang-zh" style="display:none"><b>HIS-Bench构建：</b>使用专门的标注流水线构建包含800个问题的综合基准，按层次组织为3个能力、7个任务和16个子任务。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>HIS-GPT Architecture:</b> Integrates scene encoder and motion encoder with LLM, enabling joint interpretation of 3D scenes and human motions.</div>
+            <div class="lang-zh" style="display:none"><b>HIS-GPT架构：</b>将场景编码器和运动编码器与LLM集成，实现对3D场景和人类运动的联合解释。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Auxiliary Interaction Module:</b> Enhances interactive cues within modalities through multiple training objectives requiring joint understanding of humans and surroundings.</div>
+            <div class="lang-zh" style="display:none"><b>辅助交互模块：</b>通过需要联合理解人类和周围环境的多个训练目标来增强模态内的交互线索。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Layout-Trajectory Position Encoding:</b> Generates position embeddings by encoding spatial distribution of scene objects and temporal trajectories of human motion.</div>
+            <div class="lang-zh" style="display:none"><b>布局-轨迹位置编码：</b>通过编码场景对象的空间分布和人类运动的时间轨迹来生成位置嵌入。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/hisgpt_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2503.12955.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2503.12955.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <b>Key Advantages:</b> HIS-GPT pioneers multimodal understanding by jointly modeling 3D scenes and human dynamics, addressing the critical gap in embodied AI. The HIS-Bench benchmark establishes a comprehensive evaluation framework for HIS understanding, enabling systematic assessment from perception to planning. By introducing specialized mechanisms for capturing human-scene interactions, HIS-GPT achieves superior performance on complex reasoning tasks that previous models struggled with.
+            <br><br>
+            <b>Limitations:</b> While effective for understanding human behaviors in static scenes, the current approach may require extensions for highly dynamic environments or multi-person scenarios. The quality of HIS understanding depends on the accuracy of underlying 3D scene and motion representations.
+            <br><br>
+            <b>Future Impact:</b> This work establishes HIS understanding as a core capability for embodied agents, paving the way for more intelligent robotic assistants and advanced world modeling systems. The HIS-QA framework and HIS-Bench could inspire similar multimodal understanding tasks in other domains.
+          </div>
+          <div class="lang-zh" style="display:none">
+            <b>关键优势：</b>HIS-GPT通过联合建模3D场景和人类动态开创了多模态理解，解决了具身AI中的关键空白。HIS-Bench基准为HIS理解建立了全面的评估框架，能够从感知到规划进行系统评估。通过引入专门机制来捕捉人类-场景交互，HIS-GPT在以前模型难以处理的复杂推理任务上取得了卓越性能。
+            <br><br>
+            <b>局限性：</b>虽然在理解静态场景中的人类行为方面有效，但当前方法可能需要扩展到高度动态环境或多人场景。HIS理解的质量取决于底层3D场景和运动表示的准确性。
+            <br><br>
+            <b>未来影响：</b>这项工作将HIS理解确立为具身智能体的核心能力，为更智能的机器人助手和先进的世界建模系统铺平道路。HIS-QA框架和HIS-Bench可能启发其他领域类似的 multimodal 理解任务。
+          </div>
+        </div>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because HIS-GPT leverages the LLM's proven ability to model complex relationships and generate coherent sequences. By discretizing motions and projecting all modalities into the LLM's token space, it transforms the notoriously difficult problem of multimodal scene-motion reasoning into the well-solved domain of language modeling. The key is treating "human motion in 3D scenes" as a form of "non-verbal language" that LLMs can learn to generate, complete, and understand through unified token prediction.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为HIS-GPT利用了LLM建模复杂关系和生成连贯序列的成熟能力。通过离散化运动并将所有模态投影到LLM的token空间，它将多模态场景-运动推理这一公认的难题转换为语言建模这一已解决领域。关键是将"3D场景中的人类运动"视为LLM可以通过统一token预测来学习生成、补全和理解的一种"非语言形式"。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            HIS-GPT represents a significant advancement in multimodal understanding for embodied agents by introducing the HIS-QA task and establishing comprehensive evaluation through HIS-Bench. The model's innovative integration of 3D scene context and human motion dynamics, enhanced by specialized mechanisms for capturing human-scene interactions, achieves state-of-the-art performance across a wide spectrum of HIS understanding tasks. This work bridges the critical gap between separate scene and human understanding capabilities, enabling embodied agents to comprehensively comprehend human behaviors within 3D environments. By providing both the foundational model and evaluation framework, HIS-GPT establishes a new paradigm for human-in-scene understanding, with broad implications for embodied AI, robotics, and world modeling research. The open-source release of codes and data will facilitate further advancements in this emerging field.
+          </div>
+          <div class="lang-zh" style="display:none">
+            HIS-GPT通过引入HIS-QA任务并通过HIS-Bench建立全面评估，代表了具身智能体多模态理解的重大进步。该模型通过创新地集成3D场景上下文和人类运动动态，并通过专门机制增强人类-场景交互的捕捉，在广泛的HIS理解任务上取得了最先进的性能。这项工作弥合了分离的场景和人类理解能力之间的关键空白，使具身智能体能够全面理解3D环境中的人类行为。通过提供基础模型和评估框架，HIS-GPT为人类-场景理解建立了新范式，对具身AI、机器人和世界建模研究具有广泛影响。代码和数据的开源发布将促进这一新兴领域的进一步发展。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="font-family:ui-monospace,monospace;font-size:13px;color:rgba(232,236,255,.8);background:rgba(0,0,0,.3);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,.05);">
+          <div class="lang-en">
+            <pre><code>import torch
+import torch.nn as nn
+from transformers import LLaMAForCausalLM, LLaMATokenizer
+
+class HIS_GPT(nn.Module):
+    """通用场景-运动-语言模型"""
+
+    def __init__(self, motion_vocab_size=1024, scene_dim=768):
+        super().__init__()
+        # 多模态编码器
+        self.scene_encoder = PointNetSceneEncoder()      # 3D场景编码
+        self.motion_vqvae = MotionVQVAE(vocab_size=motion_vocab_size)  # 运动VQ-VAE
+        self.language_model = LLaMAForCausalLM.from_pretrained('llama')
+
+        # 对齐和交互模块
+        self.scene_lang_aligner = SceneLanguageAligner(scene_dim, 4096)
+        self.motion_lang_aligner = MotionLanguageAligner(motion_vocab_size, 4096)
+        self.mia = MultiModalInteractionAggregator()     # 多模态交互聚合器
+
+    def forward(self, scene, motion, text_tokens):
+        # 1. 多模态tokenization
+        scene_features = self.scene_encoder(scene)              # [B, N_points, D]
+        motion_tokens, _ = self.motion_vqvae.encode(motion)     # [B, seq_len]
+
+        # 2. 模态对齐
+        scene_aligned = self.scene_lang_aligner(scene_features, text_tokens)
+        motion_aligned = self.motion_lang_aligner(motion_tokens, text_tokens)
+
+        # 3. 多模态交互聚合
+        interaction_features = self.mia(scene_aligned, motion_aligned)
+
+        # 4. 语言模型推理
+        combined_tokens = torch.cat([text_tokens, interaction_features], dim=1)
+        output = self.language_model(combined_tokens)
+
+        return output
+
+class MotionVQVAE(nn.Module):
+    """运动向量量化自编码器"""
+
+    def __init__(self, vocab_size=1024, hidden_dim=512):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Conv1d(135, hidden_dim, 3, padding=1),  # SMPL关节维度
+            nn.ReLU(),
+            nn.Conv1d(hidden_dim, hidden_dim, 3, padding=1),
+            nn.ReLU(),
+        )
+        self.codebook = nn.Embedding(vocab_size, hidden_dim)
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose1d(hidden_dim, hidden_dim, 3, padding=1),
+            nn.ReLU(),
+            nn.ConvTranspose1d(hidden_dim, 135, 3, padding=1),
+        )
+
+    def encode(self, motion):
+        """编码运动为离散token"""
+        features = self.encoder(motion.transpose(1, 2))  # [B, T, 135] -> [B, hidden_dim, T]
+        features = features.transpose(1, 2)  # [B, T, hidden_dim]
+
+        # 向量量化
+        distances = torch.cdist(features, self.codebook.weight.unsqueeze(0))
+        tokens = torch.argmin(distances, dim=-1)  # [B, T]
+
+        return tokens, features
+
+    def decode(self, tokens):
+        """从token解码运动"""
+        embeddings = self.codebook(tokens)  # [B, T, hidden_dim]
+        embeddings = embeddings.transpose(1, 2)  # [B, hidden_dim, T]
+
+        motion_recon = self.decoder(embeddings)  # [B, 135, T]
+        motion_recon = motion_recon.transpose(1, 2)  # [B, T, 135]
+
+        return motion_recon
+
+class MultiModalInteractionAggregator(nn.Module):
+    """多模态交互聚合器"""
+
+    def __init__(self, embed_dim=4096, num_heads=8):
+        super().__init__()
+        self.scene_proj = nn.Linear(768, embed_dim)
+        self.motion_proj = nn.Linear(1024, embed_dim)
+
+        self.cross_attention = nn.MultiheadAttention(
+            embed_dim=embed_dim,
+            num_heads=num_heads,
+            batch_first=True
+        )
+
+        self.affordance_encoder = nn.Sequential(
+            nn.Linear(135 * 24, 512),  # 关节数 * 帧数
+            nn.ReLU(),
+            nn.Linear(512, embed_dim)
+        )
+
+    def forward(self, scene_features, motion_tokens, affordance_map=None):
+        # 投影到相同维度
+        scene_emb = self.scene_proj(scene_features)      # [B, seq_len, embed_dim]
+        motion_emb = self.motion_proj(motion_tokens)     # [B, seq_len, embed_dim]
+
+        # 场景-运动交叉注意力
+        attended_scene, _ = self.cross_attention(
+            query=scene_emb,
+            key=motion_emb,
+            value=motion_emb
+        )
+
+        # 整合可及性信息（如果提供）
+        if affordance_map is not None:
+            affordance_emb = self.affordance_encoder(
+                affordance_map.view(affordance_map.size(0), -1)
+            ).unsqueeze(1)  # [B, 1, embed_dim]
+            attended_scene = attended_scene + affordance_emb
+
+        return attended_scene
+
+# 三阶段训练
+def train_his_gpt():
+    """HIS-GPT三阶段训练"""
+
+    model = HIS_GPT()
+
+    # Stage 1: 多模态Tokenizers训练
+    print("Stage 1: Training multimodal tokenizers...")
+    motion_optimizer = torch.optim.Adam(model.motion_vqvae.parameters())
+
+    for epoch in range(100):
+        for batch in motion_dataset:
+            motion_tokens, reconstructed = model.motion_vqvae(batch['motion'])
+
+            # VQ-VAE损失
+            recon_loss = F.mse_loss(reconstructed, batch['motion'])
+            vq_loss = F.mse_loss(model.motion_vqvae.codebook(motion_tokens.detach()),
+                               model.motion_vqvae.encoder(batch['motion']))
+
+            total_loss = recon_loss + 0.25 * vq_loss
+            motion_optimizer.zero_grad()
+            total_loss.backward()
+            motion_optimizer.step()
+
+    # Stage 2: 场景-运动-语言对齐
+    print("Stage 2: Multimodal alignment...")
+    full_optimizer = torch.optim.Adam([
+        {'params': model.scene_encoder.parameters()},
+        {'params': model.scene_lang_aligner.parameters()},
+        {'params': model.motion_lang_aligner.parameters()},
+        {'params': model.mia.parameters()},
+        {'params': model.language_model.parameters(), 'lr': 1e-5}  # 较低的学习率
+    ])
+
+    for epoch in range(50):
+        for batch in alignment_dataset:
+            scene, motion, text = batch['scene'], batch['motion'], batch['text']
+
+            # 前向传播
+            output = model(scene, motion, text)
+
+            # 多任务损失
+            lm_loss = F.cross_entropy(output.view(-1, output.size(-1)), text.view(-1))
+            scene_loss = scene_understanding_loss(output, scene)
+            motion_loss = motion_reconstruction_loss(output, motion)
+
+            total_loss = lm_loss + 0.1 * scene_loss + 0.1 * motion_loss
+            full_optimizer.zero_grad()
+            total_loss.backward()
+            full_optimizer.step()
+
+    # Stage 3: 指令微调
+    print("Stage 3: Instruction tuning...")
+    from peft import LoraConfig, get_peft_model
+
+    lora_config = LoraConfig(
+        r=16,
+        lora_alpha=32,
+        target_modules=["q_proj", "v_proj"],
+        lora_dropout=0.05,
+        bias="none"
+    )
+    model = get_peft_model(model, lora_config)
+
+    instruction_templates = {
+        'generation': "Generate motion for '{}' in this 3D scene: {}",
+        'completion': "Complete motion {} in scene: {}",
+        'captioning': "Describe motion {} in scene: {}",
+        'qa': "Answer about human in scene: {}"
+    }
+
+    lora_optimizer = torch.optim.Adam(model.parameters(), lr=2e-5)
+
+    for epoch in range(10):
+        for batch in instruction_dataset:
+            task_type = batch['task']
+            template = instruction_templates[task_type]
+
+            # 构建指令
+            instruction = template.format(batch['text'], batch['scene_desc'])
+            target = batch['target']
+
+            # 生成响应
+            response = model.generate(instruction, scene=batch['scene'])
+            loss = instruction_following_loss(response, target)
+
+            lora_optimizer.zero_grad()
+            loss.backward()
+            lora_optimizer.step()
+
+    print("Training completed!")
+    return model
+
+# 使用示例
+if __name__ == "__main__":
+    model = train_his_gpt()
+
+    # 示例推理
+    scene_data = load_3d_scene("living_room.ply")
+    instruction = "A person walks to the chair and sits down"
+
+    motion_sequence = model.generate_motion(scene_data, instruction)
+    print(f"Generated motion sequence with {motion_sequence.shape[0]} frames")</code></pre>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <pre><code>import torch
+import torch.nn as nn
+from transformers import LLaMAForCausalLM, LLaMATokenizer
+
+class HIS_GPT(nn.Module):
+    """通用场景-运动-语言模型"""
+
+    def __init__(self, motion_vocab_size=1024, scene_dim=768):
+        super().__init__()
+        # 多模态编码器
+        self.scene_encoder = PointNetSceneEncoder()      # 3D场景编码
+        self.motion_vqvae = MotionVQVAE(vocab_size=motion_vocab_size)  # 运动VQ-VAE
+        self.language_model = LLaMAForCausalLM.from_pretrained('llama')
+
+        # 对齐和交互模块
+        self.scene_lang_aligner = SceneLanguageAligner(scene_dim, 4096)
+        self.motion_lang_aligner = MotionLanguageAligner(motion_vocab_size, 4096)
+        self.mia = MultiModalInteractionAggregator()     # 多模态交互聚合器
+
+    def forward(self, scene, motion, text_tokens):
+        # 1. 多模态tokenization
+        scene_features = self.scene_encoder(scene)              # [B, N_points, D]
+        motion_tokens, _ = self.motion_vqvae.encode(motion)     # [B, seq_len]
+
+        # 2. 模态对齐
+        scene_aligned = self.scene_lang_aligner(scene_features, text_tokens)
+        motion_aligned = self.motion_lang_aligner(motion_tokens, text_tokens)
+
+        # 3. 多模态交互聚合
+        interaction_features = self.mia(scene_aligned, motion_aligned)
+
+        # 4. 语言模型推理
+        combined_tokens = torch.cat([text_tokens, interaction_features], dim=1)
+        output = self.language_model(combined_tokens)
+
+        return output
+
+class MotionVQVAE(nn.Module):
+    """运动向量量化自编码器"""
+
+    def __init__(self, vocab_size=1024, hidden_dim=512):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Conv1d(135, hidden_dim, 3, padding=1),  # SMPL关节维度
+            nn.ReLU(),
+            nn.Conv1d(hidden_dim, hidden_dim, 3, padding=1),
+            nn.ReLU(),
+        )
+        self.codebook = nn.Embedding(vocab_size, hidden_dim)
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose1d(hidden_dim, hidden_dim, 3, padding=1),
+            nn.ReLU(),
+            nn.ConvTranspose1d(hidden_dim, 135, 3, padding=1),
+        )
+
+    def encode(self, motion):
+        """编码运动为离散token"""
+        features = self.encoder(motion.transpose(1, 2))  # [B, T, 135] -> [B, hidden_dim, T]
+        features = features.transpose(1, 2)  # [B, T, hidden_dim]
+
+        # 向量量化
+        distances = torch.cdist(features, self.codebook.weight.unsqueeze(0))
+        tokens = torch.argmin(distances, dim=-1)  # [B, T]
+
+        return tokens, features
+
+    def decode(self, tokens):
+        """从token解码运动"""
+        embeddings = self.codebook(tokens)  # [B, T, hidden_dim]
+        embeddings = embeddings.transpose(1, 2)  # [B, hidden_dim, T]
+
+        motion_recon = self.decoder(embeddings)  # [B, 135, T]
+        motion_recon = motion_recon.transpose(1, 2)  # [B, T, 135]
+
+        return motion_recon
+
+class MultiModalInteractionAggregator(nn.Module):
+    """多模态交互聚合器"""
+
+    def __init__(self, embed_dim=4096, num_heads=8):
+        super().__init__()
+        self.scene_proj = nn.Linear(768, embed_dim)
+        self.motion_proj = nn.Linear(1024, embed_dim)
+
+        self.cross_attention = nn.MultiheadAttention(
+            embed_dim=embed_dim,
+            num_heads=num_heads,
+            batch_first=True
+        )
+
+        self.affordance_encoder = nn.Sequential(
+            nn.Linear(135 * 24, 512),  # 关节数 * 帧数
+            nn.ReLU(),
+            nn.Linear(512, embed_dim)
+        )
+
+    def forward(self, scene_features, motion_tokens, affordance_map=None):
+        # 投影到相同维度
+        scene_emb = self.scene_proj(scene_features)      # [B, seq_len, embed_dim]
+        motion_emb = self.motion_proj(motion_tokens)     # [B, seq_len, embed_dim]
+
+        # 场景-运动交叉注意力
+        attended_scene, _ = self.cross_attention(
+            query=scene_emb,
+            key=motion_emb,
+            value=motion_emb
+        )
+
+        # 整合可及性信息（如果提供）
+        if affordance_map is not None:
+            affordance_emb = self.affordance_encoder(
+                affordance_map.view(affordance_map.size(0), -1)
+            ).unsqueeze(1)  # [B, 1, embed_dim]
+            attended_scene = attended_scene + affordance_emb
+
+        return attended_scene
+
+# 三阶段训练
+def train_his_gpt():
+    """HIS-GPT三阶段训练"""
+
+    model = HIS_GPT()
+
+    # Stage 1: 多模态Tokenizers训练
+    print("Stage 1: 多模态tokenizers训练...")
+    motion_optimizer = torch.optim.Adam(model.motion_vqvae.parameters())
+
+    for epoch in range(100):
+        for batch in motion_dataset:
+            motion_tokens, reconstructed = model.motion_vqvae(batch['motion'])
+
+            # VQ-VAE损失
+            recon_loss = F.mse_loss(reconstructed, batch['motion'])
+            vq_loss = F.mse_loss(model.motion_vqvae.codebook(motion_tokens.detach()),
+                               model.motion_vqvae.encoder(batch['motion']))
+
+            total_loss = recon_loss + 0.25 * vq_loss
+            motion_optimizer.zero_grad()
+            total_loss.backward()
+            motion_optimizer.step()
+
+    # Stage 2: 场景-运动-语言对齐
+    print("Stage 2: 多模态对齐...")
+    full_optimizer = torch.optim.Adam([
+        {'params': model.scene_encoder.parameters()},
+        {'params': model.scene_lang_aligner.parameters()},
+        {'params': model.motion_lang_aligner.parameters()},
+        {'params': model.mia.parameters()},
+        {'params': model.language_model.parameters(), 'lr': 1e-5}  # 较低的学习率
+    ])
+
+    for epoch in range(50):
+        for batch in alignment_dataset:
+            scene, motion, text = batch['scene'], batch['motion'], batch['text']
+
+            # 前向传播
+            output = model(scene, motion, text)
+
+            # 多任务损失
+            lm_loss = F.cross_entropy(output.view(-1, output.size(-1)), text.view(-1))
+            scene_loss = scene_understanding_loss(output, scene)
+            motion_loss = motion_reconstruction_loss(output, motion)
+
+            total_loss = lm_loss + 0.1 * scene_loss + 0.1 * motion_loss
+            full_optimizer.zero_grad()
+            total_loss.backward()
+            full_optimizer.step()
+
+    # Stage 3: 指令微调
+    print("Stage 3: 指令微调...")
+    from peft import LoraConfig, get_peft_model
+
+    lora_config = LoraConfig(
+        r=16,
+        lora_alpha=32,
+        target_modules=["q_proj", "v_proj"],
+        lora_dropout=0.05,
+        bias="none"
+    )
+    model = get_peft_model(model, lora_config)
+
+    instruction_templates = {
+        'generation': "为此3D场景生成运动 '{}': {}",
+        'completion': "在场景中补全运动 {}: {}",
+        'captioning': "描述场景中的运动 {}: {}",
+        'qa': "回答场景中关于人类的问题: {}"
+    }
+
+    lora_optimizer = torch.optim.Adam(model.parameters(), lr=2e-5)
+
+    for epoch in range(10):
+        for batch in instruction_dataset:
+            task_type = batch['task']
+            template = instruction_templates[task_type]
+
+            # 构建指令
+            instruction = template.format(batch['text'], batch['scene_desc'])
+            target = batch['target']
+
+            # 生成响应
+            response = model.generate(instruction, scene=batch['scene'])
+            loss = instruction_following_loss(response, target)
+
+            lora_optimizer.zero_grad()
+            loss.backward()
+            lora_optimizer.step()
+
+    print("训练完成!")
+    return model
+
+# 使用示例
+if __name__ == "__main__":
+    model = train_his_gpt()
+
+    # 示例推理
+    scene_data = load_3d_scene("living_room.ply")
+    instruction = "一个人走到椅子旁边坐下来"
+
+    motion_sequence = model.generate_motion(scene_data, instruction)
+    print(f"生成了 {motion_sequence.shape[0]} 帧的运动序列")</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/ZJHTerry18/HumanInScene" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

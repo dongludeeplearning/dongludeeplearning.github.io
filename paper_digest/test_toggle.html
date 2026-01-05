@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head><script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+  
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+  
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+</script></head>
+<body>
+<div>
+  <button onclick='toggleLang(this)'>Toggle</button>
+  <div class='lang-en'>English</div>
+  <div class='lang-zh' style='display:none'>中文</div>
+</div>
+</body>
+</html>
+

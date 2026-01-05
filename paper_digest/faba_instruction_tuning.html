@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Facial Affective Behavior Analysis with Instruction Tuning</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Yifan Li, Anh Dao, Wentao Bao, Zhen Tan, Tianlong Chen, Huan Liu, Yu Kong<br>
+        <span style="opacity:0.8">Arizona State University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we harness multi-modal large language models (MLLMs) for facial affective behavior analysis by creating instruction-following datasets and benchmarks that enable both discriminative recognition and generative reasoning?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>我们如何利用多模态大型语言模型（MLLMs）进行面部情感行为分析，通过创建遵循指令的数据集和基准来实现判别性识别和生成性推理？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>FABA-Instruct Dataset:</b> First instruction-following dataset for facial affective behavior analysis, containing 19K in-the-wild face images with 30K fine-grained emotion and AU annotations generated using GPT-4V.</div>
+            <div class="lang-zh" style="display:none"><b>FABA-Instruct数据集：</b>首个用于面部情感行为分析的遵循指令数据集，包含19K张野外面部图像和30K个使用GPT-4V生成的细粒度情感和AU注释。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>FABA-Bench Benchmark:</b> Novel benchmark with REGE metric that evaluates both recognition accuracy and generation quality for MLLMs on facial affective behavior tasks.</div>
+            <div class="lang-zh" style="display:none"><b>FABA-Bench基准：</b>具有REGE指标的新型基准，用于评估MLLMs在面部情感行为任务上的识别准确性和生成质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>EmoLA MLLM:</b> Efficient MLLM for FABA tasks combining LoRA parameter-efficient fine-tuning with facial prior expert module that captures structural facial information complementary to CLIP vision features.</div>
+            <div class="lang-zh" style="display:none"><b>EmoLA MLLM：</b>用于FABA任务的高效MLLM，将LoRA参数高效微调与面部先验专家模块相结合，后者捕获与CLIP视觉特征互补的面部结构信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> EmoLA achieves superior results on FABA-Bench and competitive or better performance than task-specific SOTAs on traditional FER and AUR datasets.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>EmoLA在FABA-Bench上取得了卓越结果，并在传统FER和AUR数据集上取得了与任务特定SOTA相当或更好的性能。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Instruction-Following Data:</b> Traditional FABA datasets lack instruction-following annotations needed for MLLM fine-tuning, with only coarse-grained categorical labels insufficient for generative reasoning tasks.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏遵循指令的数据：</b>传统FABA数据集缺乏MLLM微调所需的遵循指令注释，只有粗粒度分类标签不足以用于生成性推理任务。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>MLLM Evaluation Metrics:</b> Standard MLLM benchmarks focus on general visual understanding but lack specific metrics for FABA tasks that assess both discriminative recognition and generative reasoning capabilities.</div>
+            <div class="lang-zh" style="display:none"><b>MLLM评估指标：</b>标准MLLM基准关注一般视觉理解，但缺乏针对FABA任务的具体指标，这些指标评估判别性识别和生成性推理能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Facial Prior Knowledge:</b> Pre-trained CLIP vision encoders may overlook task-specific facial structural information needed for affective behavior analysis, requiring additional facial prior knowledge integration.</div>
+            <div class="lang-zh" style="display:none"><b>面部先验知识：</b>预训练的CLIP视觉编码器可能忽略情感行为分析所需的任务特定面部结构信息，需要额外面部先验知识整合。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Computational Efficiency:</b> Fine-tuning entire MLLMs with billions of parameters for domain-specific tasks leads to prohibitive computational costs, necessitating parameter-efficient adaptation methods.</div>
+            <div class="lang-zh" style="display:none"><b>计算效率：</b>为特定领域任务微调具有数十亿参数的整个MLLM会导致令人望而却步的计算成本，需要参数高效的自适应方法。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The EmoLA framework introduces a comprehensive approach for instruction-tuned facial affective behavior analysis:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>FABA-Instruct Dataset Construction:</b> Uses GPT-4V to generate fine-grained emotion and AU descriptions from in-the-wild face images, creating instruction-response pairs for emotion recognition and AU detection tasks.</li>
+                <li style="margin-bottom:6px;"><b>FABA-Bench with REGE Metric:</b> Evaluates MLLMs using a combined metric that assesses both recognition accuracy (F1-score for AUR, accuracy for FER) and generation quality (ROUGE scores for textual descriptions).</li>
+                <li style="margin-bottom:6px;"><b>EmoLA Architecture:</b> Builds upon LLaVA-1.5 with additional facial prior expert that extracts landmark features using pre-trained face alignment model, integrated via MLP projector into the multimodal token space.</li>
+                <li style="margin-bottom:6px;"><b>Parameter-Efficient Fine-Tuning:</b> Employs LoRA for efficient adaptation of LLM parameters while keeping vision encoders and most LLM weights frozen, enabling domain-specific learning without catastrophic forgetting.</li>
+                <li style="margin-bottom:6px;"><b>Instruction-Tuned Inference:</b> Generates detailed affective behavior descriptions by following natural language instructions, providing both categorical predictions and explanatory reasoning about facial movements.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>EmoLA框架引入了一种全面的方法，用于指令调优的面部情感行为分析：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>FABA-Instruct数据集构建：</b>使用GPT-4V从野外面部图像生成细粒度的情感和AU描述，为情感识别和AU检测任务创建指令-响应配对。</li>
+                <li style="margin-bottom:6px;"><b>具有REGE指标的FABA-Bench：</b>使用组合指标评估MLLMs，该指标评估识别准确性（AUR的F1分数，FER的准确性）和生成质量（文本描述的ROUGE分数）。</li>
+                <li style="margin-bottom:6px;"><b>EmoLA架构：</b>基于LLaVA-1.5构建，具有额外的面部先验专家，使用预训练的面部对齐模型提取地标特征，并通过MLP投影器集成到多模态令牌空间中。</li>
+                <li style="margin-bottom:6px;"><b>参数高效微调：</b>采用LoRA高效适应LLM参数，同时保持视觉编码器和大多数LLM权重冻结，实现特定领域学习而不会出现灾难性遗忘。</li>
+                <li style="margin-bottom:6px;"><b>指令调优推理：</b>通过遵循自然语言指令生成详细的情感行为描述，提供分类预测和面部运动的解释性推理。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/faba_instruction_tuning_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+            <p style="margin-top:12px;">FABA-Instruct annotations showing fine-grained emotion and AU descriptions with reasoning about facial movements and emotional interpretation.</p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/faba_instruction_tuning_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_faba_instruction_tuning.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_faba_instruction_tuning.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of EmoLA for facial affective behavior analysis stems from its innovative integration of multiple complementary components:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Instruction-Following Data Quality:</b> GPT-4V-generated annotations provide richer semantic understanding compared to traditional categorical labels, enabling MLLMs to learn nuanced facial behavior interpretations beyond simple classification.</li>
+                <li style="margin-bottom:6px;"><b>Multi-Modal Token Integration:</b> Combining CLIP vision features with facial landmark priors creates a more comprehensive representation that captures both general visual semantics and domain-specific facial structure information.</li>
+                <li style="margin-bottom:6px;"><b>Parameter-Efficient Adaptation:</b> LoRA enables fine-tuning large language models for specific domains without the computational burden of full model updates, preserving general capabilities while adding domain expertise.</li>
+                <li style="margin-bottom:6px;"><b>Generative Reasoning Capability:</b> Unlike discriminative models, MLLMs can generate detailed explanations and reasoning about facial movements, providing interpretable insights that traditional classification approaches cannot offer.</li>
+                <li style="margin-bottom:6px;"><b>Unified Evaluation Framework:</b> The REGE metric ensures balanced assessment of both recognition accuracy and generation quality, preventing models that excel in one aspect but fail in others from being overlooked.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>EmoLA在面部情感行为分析方面的成功源于其创新的多组件互补集成：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>遵循指令数据质量：</b>GPT-4V生成的注释与传统分类标签相比提供了更丰富的语义理解，使MLLMs能够学习超越简单分类的面部行为细微解释。</li>
+                <li style="margin-bottom:6px;"><b>多模态令牌集成：</b>将CLIP视觉特征与面部地标先验相结合，创建更全面的表示，既捕获一般视觉语义，又捕获特定领域面部结构信息。</li>
+                <li style="margin-bottom:6px;"><b>参数高效适应：</b>LoRA实现了为特定领域微调大型语言模型，而无需完整模型更新的计算负担，在保留一般能力的同时添加领域专业知识。</li>
+                <li style="margin-bottom:6px;"><b>生成性推理能力：</b>与判别性模型不同，MLLMs可以生成关于面部运动的详细解释和推理，提供传统分类方法无法提供的可解释见解。</li>
+                <li style="margin-bottom:6px;"><b>统一评估框架：</b>REGE指标确保对识别准确性和生成质量的平衡评估，防止擅长一个方面但在其他方面失败的模型被忽视。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This work pioneers the application of instruction tuning to facial affective behavior analysis, establishing foundational infrastructure that bridges the gap between general-purpose MLLMs and domain-specific affective computing. By introducing FABA-Instruct, the first instruction-following dataset for facial emotion and AU analysis, and FABA-Bench with the innovative REGE evaluation metric, the paper provides a comprehensive framework for assessing both recognition and generation capabilities of MLLMs. The EmoLA model demonstrates how facial prior knowledge and parameter-efficient fine-tuning can enhance MLLM performance on FABA tasks, achieving state-of-the-art results while maintaining computational efficiency. This work opens new avenues for affective computing by showing how instruction-tuned MLLMs can provide detailed, interpretable analysis of facial behaviors, going beyond traditional discriminative approaches to enable generative reasoning about emotional states and facial movements.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项工作开创了指令调优在面部情感行为分析中的应用，建立基础架构，弥合通用MLLMs与特定领域情感计算之间的差距。通过引入FABA-Instruct（首个用于面部情感和AU分析的遵循指令数据集）和具有创新REGE评估指标的FABA-Bench，本文提供了全面框架，用于评估MLLMs的识别和生成能力。EmoLA模型展示了面部先验知识和参数高效微调如何增强MLLMs在FABA任务上的性能，在保持计算效率的同时实现最先进的结果。这项工作通过展示指令调优的MLLMs如何提供面部行为的详细、可解释分析，开辟了情感计算的新途径，超越传统判别性方法，实现对情绪状态和面部运动的生成性推理。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2404.05052" style="color:#8bffcf;">2404.05052</a></p>
+          <p><b>Project Page:</b> <a href="https://johnx69.github.io/FABA/" style="color:#8bffcf;">https://johnx69.github.io/FABA/</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/" style="color:#8bffcf;">Code Not Available</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import torch<br>
+import torch.nn as nn<br>
+from transformers import LlamaForCausalLM, CLIPVisionModel, CLIPImageProcessor<br>
+from peft import LoraConfig, get_peft_model<br>
+<br>
+// EmoLA: Facial Affective Behavior Analysis with Instruction Tuning<br>
+class FacialPriorExpert(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, landmark_dim=478):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(FacialPriorExpert, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Pre-trained face alignment model for landmark extraction<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.face_alignment = InsightFaceLandmarkExtractor()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# MLP projector for landmark features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.landmark_projector = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(landmark_dim, 512),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(512, 256)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, image):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract facial landmarks<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;landmarks = self.face_alignment(image)  # (batch_size, 478, 3)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Flatten and project to token space<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;landmarks_flat = landmarks.view(landmarks.size(0), -1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prior_tokens = self.landmark_projector(landmarks_flat)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return prior_tokens<br>
+<br>
+// EmoLA Multi-modal Large Language Model<br>
+class EmoLA(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, num_classes=7):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(EmoLA, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Vision components<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.vision_model = CLIPVisionModel.from_pretrained("openai/clip-vit-large-patch14")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.vision_processor = CLIPImageProcessor.from_pretrained("openai/clip-vit-large-patch14")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Facial prior expert<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.facial_prior = FacialPriorExpert()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Vision projectors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.vision_projector = nn.Linear(1024, 4096)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.prior_projector = nn.Linear(256, 4096)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Language model with LoRA<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.llm = LlamaForCausalLM.from_pretrained("lmsys/vicuna-7b-v1.5")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Configure LoRA<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lora_config = LoraConfig(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r=128,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lora_alpha=256,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target_modules=["q_proj", "v_proj"],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lora_dropout=0.05,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bias="none",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task_type="CAUSAL_LM"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.llm = get_peft_model(self.llm, lora_config)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, images, instructions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Process images<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_inputs = self.vision_processor(images, return_tensors="pt")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vision_outputs = self.vision_model(**image_inputs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vision_tokens = self.vision_projector(vision_outputs.last_hidden_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Process facial priors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prior_tokens = self.facial_prior(images)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prior_tokens = self.prior_projector(prior_tokens)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Concatenate multimodal tokens<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;multimodal_tokens = torch.cat([vision_tokens, prior_tokens], dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Process text instructions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_inputs = self.llm_tokenizer(instructions, return_tensors="pt")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Combine and generate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined_inputs = {**text_inputs, "multimodal_tokens": multimodal_tokens}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs = self.llm.generate(**combined_inputs, max_length=512)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return outputs<br>
+<br>
+// REGE Metric Calculation<br>
+def calculate_rege_score(predictions, references, ground_truth_labels):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Calculate REGE score combining Recognition and GEneneration metrics<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;from rouge_score import rouge_scorer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Recognition score (F1 for AU, Accuracy for emotion)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recognition_score = calculate_recognition_metrics(predictions, ground_truth_labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Generation score (ROUGE)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;generation_scores = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for pred, ref in zip(predictions, references):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scores = scorer.score(ref, pred)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generation_scores.append(scores['rougeL'].fmeasure)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;generation_score = sum(generation_scores) / len(generation_scores)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Combined REGE score<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rege_score = recognition_score + generation_score<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return rege_score<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

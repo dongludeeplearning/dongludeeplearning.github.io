@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Diffusion-based Realistic Listening Head Generation via Hybrid Motion Modeling</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Yinuo Wang, Yanbo Fan, Xuan Wang, Guo Yu, Fei Wang<br>
+        <span style="opacity:0.8">Xi'an Jiaotong University, Ant Group</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate diverse and high-fidelity (512x512) listener reactions given limited listening head data?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在有限的听众数据下，生成多样化且高保真（512x512）的听众反应视频？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hybrid Motion Modeling:</b> Combines explicit 3D motion generation (using 3DMM coefficients) with implicit latent motion refinement to ensure both structural correctness and subtle facial details.</div>
+            <div class="lang-zh" style="display:none"><b>混合动作建模：</b>结合显式 3D 动作生成（使用 3DMM 系数）和隐式潜在动作细化，以确保结构正确性并保留微妙的面部细节。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Diffusion-Based Pipeline:</b> Utilizes diffusion models for both the motion generation stage and the high-quality video rendering stage, surpassing traditional GAN-based or regression-based methods.</div>
+            <div class="lang-zh" style="display:none"><b>全扩散流程：</b>在动作生成阶段和高质量视频渲染阶段均使用扩散模型，超越了传统的基于 GAN 或回归的方法。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Tailored Control Guidance:</b> Develops distinct control strategies for head pose and facial expressions, acknowledging their different intrinsic motion characteristics for more realistic animation.</div>
+            <div class="lang-zh" style="display:none"><b>定制控制引导：</b>针对头部姿态和面部表情开发了不同的控制策略，承认它们不同的内在运动特征，以实现更逼真的动画。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/difflistener_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Scarcity:</b> Unlike talking head generation, listening head datasets are small (few hours), making it hard to train large diffusion models directly from audio-to-video.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>与说话头生成不同，听众数据集很小（仅几小时），难以直接训练从音频到视频的大型扩散模型。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Long-term Dependency:</b> Listener reactions often depend on long contexts of speaker speech, which is computationally expensive to model with standard video diffusion transformers.</div>
+            <div class="lang-zh" style="display:none"><b>长期依赖：</b>听众的反应通常取决于演讲者长期的语音内容，使用标准视频扩散 Transformer 建模计算成本很高。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Explicit Motion Generation:</b> Uses a lightweight diffusion model to predict 3DMM coefficients (pose, expression) from speaker audio, allowing long-term context modeling efficiently.</div>
+            <div class="lang-zh" style="display:none"><b>显式动作生成：</b>使用轻量级扩散模型从演讲者音频预测 3DMM 系数（姿态、表情），从而高效地进行长期上下文建模。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Implicit Motion Refinement:</b> Learns an implicit latent representation to compensate for the lack of fine-grained details in 3DMM parameters (like subtle wrinkles or eye movements).</div>
+            <div class="lang-zh" style="display:none"><b>隐式动作细化：</b>学习隐式潜在表示，以弥补 3DMM 参数中缺乏的细粒度细节（如细微皱纹或眼球运动）。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Video Synthesis:</b> A pre-trained Latent Diffusion Model (LDM) renders the final high-resolution video frames conditioned on the hybrid motion signals.</div>
+            <div class="lang-zh" style="display:none"><b>视频合成：</b>预训练的潜在扩散模型（LDM）以混合动作信号为条件，渲染最终的高分辨率视频帧。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/difflistener_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('difflistener.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('difflistener.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                DiffListener effectively addresses the trade-off between motion expressiveness and visual quality in listening head generation by leveraging a hybrid motion modeling approach.
+            </div>
+            <div class="lang-zh" style="display:none">
+                DiffListener 通过利用混合动作建模方法，有效地解决了听众头部生成中动作表现力和视觉质量之间的权衡。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                It achieves state-of-the-art results, generating high-resolution (512x512) videos with realistic non-verbal reactions, outperforming existing two-stage methods.
+            </div>
+            <div class="lang-zh" style="display:none">
+                它取得了最先进的成果，生成具有逼真非语言反应的高分辨率（512x512）视频，优于现有的两阶段方法。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://nuolwang.github.io/DiffListener/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

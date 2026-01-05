@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • NeurIPS 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">MotionGPT: Human Motion as a Foreign Language</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Biao Jiang, Xin Chen, Wen Liu, Jingyi Yu, Gang Yu, Tao Chen <br>
+        <span style="opacity:0.8">Fudan University & Tencent PCG</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to build a unified model that handles multiple motion-related tasks (generation, captioning, prediction, etc.) by treating human motion as a foreign language?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过将人体运动视为一门外语，构建一个处理多种运动相关任务（生成、描述、预测等）的统一模型？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified Motion-Language Model:</b> Proposed MotionGPT, a unified pre-trained model capable of handling diverse motion tasks (text-to-motion, motion-to-text, prediction, in-betweening) within a single framework.</div>
+            <div class="lang-zh" style="display:none"><b>统一的运动-语言模型：</b>提出了 MotionGPT，这是一个统一的预训练模型，能够在单个框架内处理多种运动任务（文本到运动、运动到文本、预测、中间帧生成）。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion Vocabulary:</b> Introduced a motion tokenizer based on VQ-VAE to discretize 3D motion into motion tokens, effectively treating motion as a "foreign language".</div>
+            <div class="lang-zh" style="display:none"><b>运动词汇表：</b>引入了基于 VQ-VAE 的运动分词器，将 3D 运动离散化为运动 token，有效地将运动视为一种“外语”。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Prompt-Based Instruction Tuning:</b> Utilized prompt learning to unify different tasks into a question-answering format, enabling the model to learn from mixed motion-language data.</div>
+            <div class="lang-zh" style="display:none"><b>基于 Prompt 的指令微调：</b>利用 prompt 学习将不同任务统一为问答格式，使模型能够从混合的运动-语言数据中学习。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/MotionGPT_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Modal Alignment:</b> Aligning the semantic space of human motion (continuous 3D data) with natural language (discrete tokens) is difficult.</div>
+            <div class="lang-zh" style="display:none"><b>多模态对齐：</b>将人体运动（连续 3D 数据）的语义空间与自然语言（离散 token）对齐是困难的。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Task Diversity:</b> Different motion tasks (e.g., generation vs. captioning) have different inputs and outputs, making it hard to solve them with a single model architecture.</div>
+            <div class="lang-zh" style="display:none"><b>任务多样性：</b>不同的运动任务（例如生成 vs. 描述）具有不同的输入和输出，难以用单一的模型架构来解决。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion Tokenizer (VQ-VAE):</b> Train a VQ-VAE on large-scale motion data to convert continuous motion sequences into discrete codebook indices (tokens).</div>
+            <div class="lang-zh" style="display:none"><b>运动分词器 (VQ-VAE)：</b>在大规模运动数据上训练 VQ-VAE，将连续运动序列转换为离散的码本索引（token）。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion-Language Pre-training:</b> Use a T5-based architecture to model the probability of next tokens (both text and motion) in a unified vocabulary space.</div>
+            <div class="lang-zh" style="display:none"><b>运动-语言预训练：</b>使用基于 T5 的架构在统一的词汇空间中对下一个 token（文本和运动）的概率进行建模。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Instruction Tuning:</b> Formulate various tasks as prompt-based instructions (e.g., "Generate motion: [Text]") and fine-tune the model to follow these instructions.</div>
+            <div class="lang-zh" style="display:none"><b>指令微调：</b>将各种任务制定为基于 prompt 的指令（例如，“生成动作：[文本]”），并微调模型以遵循这些指令。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/MotionGPT_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Datasets:</b> Evaluated on HumanML3D and KIT-ML datasets, covering text-motion paired data.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据集：</b>在 HumanML3D 和 KIT-ML 数据集上进行评估，涵盖了文本-运动配对数据。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Text-to-Motion:</b> Achieved SOTA results in FID, R-Precision, and Diversity metrics, outperforming diffusion-based and other transformer-based baselines.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>文本生成运动：</b>在 FID、R-Precision 和多样性指标上取得了 SOTA 结果，优于基于扩散和其他基于 Transformer 的基线。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en"><b>Motion Captioning:</b> Demonstrated superior performance in generating descriptive text for given motion sequences (high BLEU and ROUGE scores).
+            </div>
+            <div class="lang-zh" style="display:none"><b>运动描述：</b>在为给定的运动序列生成描述性文本方面表现出优越的性能（高 BLEU 和 ROUGE 分数）。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Unification Benefit:</b>
+                The "Motion as Language" paradigm allows the model to leverage the vast knowledge and reasoning capabilities inherent in large language models (LLMs) for motion understanding.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>统一的好处：</b>
+                “运动即语言”的范式允许模型利用大型语言模型 (LLMs) 固有的丰富知识和推理能力来进行运动理解。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Zero-Shot Capability:</b>
+                The instruction tuning approach enables the model to generalize to unseen tasks or prompts, demonstrating strong zero-shot capabilities.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>零样本能力：</b>
+                指令微调方法使模型能够泛化到未见过的任务或提示，展示了强大的零样本能力。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MotionGPT works by bridging the gap between two different modalities (motion and text) through a shared discrete representation space. By discretizing motion into tokens, it transforms continuous motion generation into a sequence-to-sequence problem, which Transformers excel at. The unified vocabulary allows the model to learn joint distributions of text and motion, enabling bidirectional generation and understanding within a single model.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MotionGPT 之所以有效，是因为它通过共享的离散表示空间弥合了两种不同模态（运动和文本）之间的差距。通过将运动离散化为 token，它将连续运动生成转换为序列到序列的问题，而这正是 Transformer 擅长的。统一的词汇表允许模型学习文本和运动的联合分布，从而在单个模型中实现双向生成和理解。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.75;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">MotionGPT successfully unifies human motion and language into a single pre-trained model.</div>
+            <div class="lang-zh" style="display:none">MotionGPT 成功地将人体运动和语言统一到一个单一的预训练模型中。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">It achieves state-of-the-art performance on diverse motion tasks, showing the effectiveness of the discrete motion token approach.</div>
+            <div class="lang-zh" style="display:none">它在多种运动任务上取得了最先进的性能，展示了离散运动 token 方法的有效性。</div>
+          </li>
+          <li>
+            <div class="lang-en">The work highlights the potential of treating motion as a foreign language for multi-modal understanding and generation.</div>
+            <div class="lang-zh" style="display:none">这项工作突出了将运动视为一种外语用于多模态理解和生成的潜力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/OpenMotionLab/MotionGPT" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          github.com/OpenMotionLab/MotionGPT
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                The code below illustrates how motion tokens and text tokens are processed in a unified manner using T5.
+            </div>
+            <div class="lang-zh" style="display:none">
+                下方代码展示了如何使用 T5 以统一的方式处理运动 token 和文本 token。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+            <a href="https://github.com/OpenMotionLab/MotionGPT/blob/main/mGPT/models/mGPT.py" target="_blank" style="position:absolute; top:8px; right:8px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#8bffcf; font-size:10px; padding:4px 8px; border-radius:4px; text-decoration:none; font-family:var(--mono);">Link to Code</a>
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">MotionGPT</span>(nn.Module):
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, input_ids, labels):
+        <span style="color:#6a9955;"># input_ids contains both text tokens and motion tokens</span>
+        <span style="color:#6a9955;"># T5Stack processes them in a shared embedding space</span>
+        outputs = self.t5_model(
+            input_ids=input_ids,
+            labels=labels
+        )
+        <span style="color:#569cd6;">return</span> outputs.loss
+
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">generate</span>(self, text_prompt):
+        <span style="color:#6a9955;"># 1. Tokenize text prompt</span>
+        text_tokens = self.tokenizer(text_prompt)
+        
+        <span style="color:#6a9955;"># 2. Autoregressive generation of motion tokens</span>
+        motion_tokens = self.t5_model.generate(text_tokens)
+        
+        <span style="color:#6a9955;"># 3. Decode motion tokens back to 3D motion using VQ-VAE decoder</span>
+        motion = self.vq_decoder(motion_tokens)
+        <span style="color:#569cd6;">return</span> motion
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

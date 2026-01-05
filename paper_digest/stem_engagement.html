@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • Sensors Journal 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">An Experimental Platform for Real-Time Students Engagement Measurements from Video in STEM Classrooms</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Islam Alkabbany, Asem M Ali, Chris Foreman, Thomas Tretter, Nicholas Hindy, Aly Farag<br>
+        <span style="opacity:0.8">University of Louisville, USA</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can biometric sensor networks capture real-time behavioral and emotional engagement of students in STEM classrooms to enable timely educational interventions?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何利用生物识别传感器网络捕获STEM课堂中学生行为的实时参与度和情感参与度，以实现及时的教育干预？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Engagement Platform:</b> Developed a biometric sensor network (BSN) with web cameras, wall-mounted camera, and HPC for capturing head poses, eye gaze, body movements, and facial emotions in real-time STEM classroom environments.</div>
+            <div class="lang-zh" style="display:none"><b>实时参与度平台：</b>开发了生物识别传感器网络（BSN），配备网络摄像头、墙壁安装摄像头和高性能计算，用于实时捕获STEM课堂环境中学生的头部姿势、眼部注视、身体运动和面部情绪。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual Engagement Components:</b> Comprehensive framework measuring both behavioral engagement (head pose, eye gaze, body movements) and emotional engagement (facial expressions) using AI-based models trained on low-level biometric features.</div>
+            <div class="lang-zh" style="display:none"><b>双重参与度组件：</b>全面框架测量行为参与度（头部姿势、眼部注视、身体运动）和情感参与度（面部表情），使用基于AI的模型对低级生物识别特征进行训练。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Demonstrated better accuracy than state-of-the-art frameworks in estimating both behavioral and emotional engagement, with enhanced flexibility for deployment in any educational environment.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在估计行为和情感参与度方面展示了比现有最先进框架更好的准确性，并具有在任何教育环境中部署的增强灵活性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Quantitative Teaching Comparison:</b> Enabled quantitative comparison of different teaching methods through objective engagement measurements, facilitating evidence-based educational interventions.</div>
+            <div class="lang-zh" style="display:none"><b>量化教学比较：</b>通过客观参与度测量实现了不同教学方法的量化比较，促进基于证据的教育干预。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Processing:</b> Capturing and processing multiple biometric signals (head pose, eye gaze, facial expressions, body movements) simultaneously requires high-performance computing infrastructure for real-time analysis in classroom settings.</div>
+            <div class="lang-zh" style="display:none"><b>实时处理：</b>同时捕获和处理多个生物识别信号（头部姿势、眼部注视、面部表情、身体运动）需要在课堂环境中进行实时分析的高性能计算基础设施。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Modal Integration:</b> Combining behavioral (physical movements) and emotional (facial expressions) engagement components requires sophisticated fusion techniques to create unified engagement measurements.</div>
+            <div class="lang-zh" style="display:none"><b>多模态整合：</b>结合行为（身体运动）和情感（面部表情）参与度组件需要复杂的融合技术来创建统一的参与度测量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Privacy and Ethics:</b> Continuous video monitoring of students raises significant privacy concerns and requires careful consideration of data protection, consent, and ethical deployment in educational environments.</div>
+            <div class="lang-zh" style="display:none"><b>隐私和伦理：</b>对学生的持续视频监控引发了重大隐私问题，需要仔细考虑教育环境中的数据保护、同意和道德部署。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Environmental Adaptability:</b> Classroom environments vary significantly in lighting, camera angles, student positioning, and group sizes, requiring robust computer vision algorithms that work across diverse educational settings.</div>
+            <div class="lang-zh" style="display:none"><b>环境适应性：</b>课堂环境在照明、摄像头角度、学生位置和小组规模方面差异很大，需要在不同教育环境中工作的强大计算机视觉算法。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The paper presents a comprehensive biometric sensor network approach for measuring student engagement:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Biometric Sensor Network:</b> Deployed web cameras for individual student monitoring, wall-mounted camera for group behavior capture, and HPC for real-time processing of head poses, eye gaze, body movements, and facial emotions.</li>
+                <li style="margin-bottom:6px;"><b>Behavioral Engagement Features:</b> Extracted head pose angles (pitch, yaw, roll), eye gaze directions, and body movement patterns using computer vision algorithms to quantify physical engagement indicators.</li>
+                <li style="margin-bottom:6px;"><b>Emotional Engagement Features:</b> Analyzed facial expressions through facial Action Units (AUs) and emotion recognition to measure affective states like happiness, sadness, anger, and engagement-related emotions.</li>
+                <li style="margin-bottom:6px;"><b>AI-Based Engagement Model:</b> Trained machine learning models on low-level biometric features to estimate both behavioral and emotional engagement levels, enabling real-time classification and quantification.</li>
+                <li style="margin-bottom:6px;"><b>Comparative Evaluation:</b> Conducted experiments comparing the proposed framework with state-of-the-art methods, demonstrating superior accuracy and flexibility across different educational environments.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>本文提出了一种全面的生物识别传感器网络方法来测量学生参与度：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>生物识别传感器网络：</b>部署网络摄像头用于个别学生监控、墙壁安装摄像头用于群体行为捕获，以及HPC用于实时处理头部姿势、眼部注视、身体运动和面部情绪。</li>
+                <li style="margin-bottom:6px;"><b>行为参与度特征：</b>使用计算机视觉算法提取头部姿势角度（俯仰角、偏航角、滚转角）、眼部注视方向和身体运动模式，以量化身体参与度指标。</li>
+                <li style="margin-bottom:6px;"><b>情感参与度特征：</b>通过面部动作单元（AU）和情绪识别分析面部表情，以测量幸福、悲伤、愤怒等情感状态以及与参与度相关的其他情绪。</li>
+                <li style="margin-bottom:6px;"><b>基于AI的参与度模型：</b>在低级生物识别特征上训练机器学习模型，以估计行为和情感参与度水平，实现实时分类和量化。</li>
+                <li style="margin-bottom:6px;"><b>比较评估：</b>进行实验比较所提出的框架与最先进的方法，展示了在不同教育环境中的卓越准确性和灵活性。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/stem_engagement_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <hr style="border-top: 1px dashed rgba(255,255,255,.1); margin: 20px 0;">
+            <img src="Figures/stem_engagement_intro02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+                 <button onclick="openLocalPdf('Real-Time_Students.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('Real-Time_Students.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+    
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/stem_emgagement_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('Real-Time_Students.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('Real-Time_Students.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of real-time student engagement measurement in STEM classrooms stems from several key technological and methodological innovations:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Comprehensive Biometric Capture:</b> Multi-camera setup with web cameras for individual monitoring and wall-mounted cameras for contextual awareness enables holistic capture of both individual and group-level engagement signals.</li>
+                <li style="margin-bottom:6px;"><b>Dual Engagement Framework:</b> Separating behavioral (observable actions) and emotional (internal states) engagement components provides richer understanding than single-measurement approaches, allowing nuanced assessment of student participation.</li>
+                <li style="margin-bottom:6px;"><b>Real-Time Processing Capability:</b> HPC infrastructure enables immediate analysis and feedback, crucial for timely educational interventions during active learning sessions rather than post-hoc analysis.</li>
+                <li style="margin-bottom:6px;"><b>AI-Driven Feature Integration:</b> Machine learning models effectively fuse low-level biometric signals (head pose, eye gaze, facial expressions) into high-level engagement estimates, learning complex patterns that manual observation cannot detect.</li>
+                <li style="margin-bottom:6px;"><b>Educational Flexibility:</b> Platform adaptability to different classroom configurations and teaching methods enables comparative evaluation of pedagogical approaches, supporting evidence-based educational improvements.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>STEM课堂中实时学生参与度测量的成功源于几个关键的技术和方法创新：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>全面生物识别捕获：</b>多摄像头设置配备网络摄像头用于个人监控和墙壁安装摄像头用于情境意识，能够全面捕获个人和群体水平的参与度信号。</li>
+                <li style="margin-bottom:6px;"><b>双重参与度框架：</b>分离行为（可观察动作）和情感（内部状态）参与度组件提供了比单一测量方法更丰富的理解，允许对学生参与进行细微评估。</li>
+                <li style="margin-bottom:6px;"><b>实时处理能力：</b>HPC基础设施实现了即时分析和反馈，对于在主动学习课程期间进行及时教育干预至关重要，而不是事后分析。</li>
+                <li style="margin-bottom:6px;"><b>AI驱动的特征整合：</b>机器学习模型有效地将低级生物识别信号（头部姿势、眼部注视、面部表情）融合到高级参与度估计中，学习手动观察无法检测的复杂模式。</li>
+                <li style="margin-bottom:6px;"><b>教育灵活性：</b>平台对不同课堂配置和教学方法的适应性能够进行教学方法的比较评估，支持基于证据的教育改进。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This work establishes a groundbreaking real-time platform for measuring student engagement in STEM classrooms through comprehensive biometric sensor networks. By integrating behavioral and emotional engagement components with advanced AI processing, the system provides educators with objective, quantitative measures that were previously unavailable. The superior accuracy and flexibility demonstrated in comparative experiments validate the approach's potential for widespread adoption in educational settings. Beyond immediate engagement monitoring, the platform enables evidence-based comparison of teaching methods and facilitates timely interventions to improve learning outcomes. The integration of multiple biometric signals creates a holistic understanding of student participation that goes beyond traditional observation methods, opening new possibilities for personalized and adaptive educational environments. This research addresses critical challenges in STEM education retention and performance, particularly for at-risk student populations, by providing tools for early identification and intervention.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项工作通过全面的生物识别传感器网络建立了STEM课堂中测量学生参与度的开创性实时平台。通过将行为和情感参与度组件与先进的AI处理相结合，该系统为教育工作者提供了以前无法获得的客观量化测量。在比较实验中展示的卓越准确性和灵活性验证了该方法在教育环境中广泛应用的潜力。除了直接参与度监控，该平台还实现了基于证据的教学方法比较，并促进及时干预以改善学习成果。多个生物识别信号的整合创造了超越传统观察方法的对学生参与的整体理解，为个性化自适应教育环境开辟了新的可能性。这项研究解决了STEM教育保留和表现的关键挑战，特别是针对高风险学生群体，通过提供早期识别和干预的工具。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>DOI:</b> <a href="https://doi.org/10.3390/s23031614" style="color:#8bffcf;">10.3390/s23031614</a></p>
+          <p><b>PMC:</b> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9919426/" style="color:#8bffcf;">PMC9919426</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/" style="color:#8bffcf;">Code Not Available</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import cv2<br>
+import numpy as np<br>
+import torch<br>
+import torch.nn as nn<br>
+from facenet_pytorch import MTCNN<br>
+import mediapipe as mp<br>
+<br>
+// Biometric Sensor Network for Student Engagement<br>
+class BiometricSensorNetwork:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.face_detector = MTCNN()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.pose_estimator = mp.solutions.pose.Pose()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.face_mesh = mp.solutions.face_mesh.FaceMesh()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.engagement_model = EngagementClassifier()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def process_frame(self, frame):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Process single frame for engagement features"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;faces = self.face_detector.detect(frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pose_results = self.pose_estimator.process(frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;face_results = self.face_mesh.process(frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;behavioral_features = self._extract_behavioral_features(faces, pose_results)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emotional_features = self._extract_emotional_features(face_results)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return behavioral_features, emotional_features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _extract_behavioral_features(self, faces, pose_results):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract head pose, eye gaze, body movements"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features = {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if faces[0] is not None:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Head pose estimation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;landmarks = faces[1][0]  # Facial landmarks<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features['head_pose'] = self._calculate_head_pose(landmarks)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features['eye_gaze'] = self._calculate_eye_gaze(landmarks)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if pose_results.pose_landmarks:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Body movement features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features['body_movement'] = self._calculate_body_movement(pose_results.pose_landmarks)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _extract_emotional_features(self, face_results):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract facial expression features"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if face_results.multi_face_landmarks:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;landmarks = face_results.multi_face_landmarks[0]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self._calculate_facial_action_units(landmarks)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _calculate_head_pose(self, landmarks):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Calculate head pose angles (pitch, yaw, roll)"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Simplified implementation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {'pitch': 0.0, 'yaw': 0.0, 'roll': 0.0}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _calculate_eye_gaze(self, landmarks):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Calculate eye gaze direction"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {'horizontal': 0.0, 'vertical': 0.0}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _calculate_body_movement(self, pose_landmarks):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Calculate body movement features"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {'movement_intensity': 0.0}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _calculate_facial_action_units(self, landmarks):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Calculate Facial Action Units"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Simplified AU calculation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {'AU1': 0.0, 'AU2': 0.0, 'AU4': 0.0, 'AU6': 0.0, 'AU12': 0.0}<br>
+<br>
+// Dual Engagement Classifier<br>
+class EngagementClassifier(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, behavioral_dim=10, emotional_dim=15):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(EngagementClassifier, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Behavioral engagement network<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.behavioral_net = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(behavioral_dim, 64),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(64, 32),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(32, 1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Sigmoid()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Emotional engagement network<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.emotional_net = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(emotional_dim, 64),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(64, 32),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(32, 1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Sigmoid()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, behavioral_features, emotional_features):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;behavioral_engagement = self.behavioral_net(behavioral_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emotional_engagement = self.emotional_net(emotional_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return behavioral_engagement, emotional_engagement<br>
+<br>
+// Real-time Processing Pipeline<br>
+class RealTimeEngagementMonitor:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.bsn = BiometricSensorNetwork()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.cap = None<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.is_running = False<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def start_monitoring(self, camera_id=0):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.cap = cv2.VideoCapture(camera_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.is_running = True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while self.is_running:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret, frame = self.cap.read()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ret:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;behavioral, emotional = self.bsn.process_frame(frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;engagement_scores = self.bsn.engagement_model(behavioral, emotional)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Real-time feedback<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._provide_feedback(engagement_scores)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if cv2.waitKey(1) & 0xFF == ord('q'):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.cap.release()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv2.destroyAllWindows()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _provide_feedback(self, engagement_scores):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Provide real-time feedback to educators"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;behavioral_score, emotional_score = engagement_scores<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overall_engagement = (behavioral_score + emotional_score) / 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Real-time Engagement - Behavioral: {behavioral_score:.3f}, Emotional: {emotional_score:.3f}, Overall: {overall_engagement:.3f}")<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

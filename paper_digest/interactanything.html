@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">InteractAnything: Zero-shot Human Object Interaction Synthesis via LLM Feedback and Object Affordance Parsing</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jinlu Zhang, Yixin Chen, Zan Wang, Jie Yang, Yizhou Wang, Siyuan Huang<br>
+        <span style="opacity:0.8">Peking University, BIGAI, Beijing Institute of Technology, CUHK-Shenzhen</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate novel 3D human-object interactions from text descriptions for open-set objects without task-specific training?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从文本描述中为开放集对象生成新颖的3D人类-物体交互，而无需特定任务训练？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>InteractAnything Framework:</b> Zero-shot 3D HOI generation framework that synthesizes diverse, detailed, and novel interactions from text and object meshes without training on specific datasets, leveraging large-scale pre-trained models.</div>
+            <div class="lang-zh" style="display:none"><b>InteractAnything框架：</b>零样本3D HOI生成框架，从文本和物体网格合成多样化、详细和新颖的交互，无需在特定数据集上训练，利用大规模预训练模型。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>LLM-Guided Initialization:</b> Human-level feedback distillation from LLMs to infer precise human-object relations, initializing object properties and guiding optimization with structured reasoning from pre-defined options.</div>
+            <div class="lang-zh" style="display:none"><b>LLM引导初始化：</b>从LLM中蒸馏人类水平反馈，以推理精确的人类-物体关系，使用预定义选项的结构化推理初始化对象属性并引导优化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Open-Set Object Affordance Parsing:</b> Novel approach using pre-trained 2D diffusion models with adaptive inpainting masks to extract contact probabilities and define weighted dynamic contact regions for unseen objects.</div>
+            <div class="lang-zh" style="display:none"><b>开放集物体可及性解析：</b>新颖方法，使用带有自适应inpainting掩码的预训练2D扩散模型来提取接触概率并为未见对象定义加权动态接触区域。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-View SDS with Spatial Constraints:</b> Text and geometry-driven human pose synthesis through multi-hypothesis sampling with multi-view SDS loss, ensuring semantic alignment and spatial plausibility.</div>
+            <div class="lang-zh" style="display:none"><b>带空间约束的多视角SDS：</b>通过多假设采样与多视角SDS损失的文本和几何驱动人类姿态合成，确保语义对齐和空间合理性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Coarse-to-Fine HOI Optimization:</b> Force-closure based optimization pipeline for fine-grained, precise, and natural interactions, enforcing realistic 3D contact between human body parts and objects including grasping hands.</div>
+            <div class="lang-zh" style="display:none"><b>粗到精HOI优化：</b>基于力闭合的优化流水线，用于精细、精确和自然的交互，强制人类身体部位与物体（包括抓握手）之间的真实3D接触。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/interactanything_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Precise Human-Object Relation Reasoning:</b> Inferring complex semantic relationships including relative positions, orientations, and interaction dynamics from simple text descriptions for accurate initialization.</div>
+            <div class="lang-zh" style="display:none"><b>精确人类-物体关系推理：</b>从简单文本描述中推理复杂的语义关系，包括相对位置、方向和交互动力学以实现准确初始化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Open-Set Object Affordance Parsing:</b> Extracting contact information and interaction possibilities from arbitrary 3D objects without prior knowledge or category-specific training data.</div>
+            <div class="lang-zh" style="display:none"><b>开放集物体可及性解析：</b>从未经训练的任意3D对象中提取接触信息和交互可能性，而无需先验知识或类别特定训练数据。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Text-Geometry Aligned Pose Synthesis:</b> Generating human poses that simultaneously respect textual descriptions, object geometry constraints, and maintain physical plausibility across diverse interaction scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>文本-几何对齐姿态合成：</b>生成同时尊重文本描述、物体几何约束并在多样化交互场景中保持物理合理性的人类姿态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Fine-Grained Contact Modeling:</b> Achieving precise 3D contact between human body parts (especially hands) and objects while ensuring natural, expressive, and diverse interaction outcomes.</div>
+            <div class="lang-zh" style="display:none"><b>细粒度接触建模：</b>实现人类身体部位（尤其是手）与物体之间的精确3D接触，同时确保自然、富有表现力和多样化的交互结果。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Zero-Shot Generalization:</b> Developing a framework that works across arbitrary object categories and interaction types without task-specific fine-tuning or dataset curation.</div>
+            <div class="lang-zh" style="display:none"><b>零样本泛化：</b>开发一个适用于任意对象类别和交互类型的框架，无需特定任务微调或数据集整理。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>LLM-Guided Initialization Pipeline:</b> Step-by-step reasoning with LLMs to select from pre-defined options for object properties (rotation, translation, scale, state) and human body parts, mapping semantic feedback to geometric parameters.</div>
+            <div class="lang-zh" style="display:none"><b>LLM引导初始化流水线：</b>与LLM逐步推理，从预定义选项中选择对象属性（旋转、平移、缩放、状态）和人类身体部位，将语义反馈映射到几何参数。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Adaptive Inpainting for Affordance:</b> LLM-guided generation of full-body and body-part inpainting masks, using pre-trained 2D diffusion models to extract contact probabilities and segment weighted dynamic contact regions on 3D meshes.</div>
+            <div class="lang-zh" style="display:none"><b>自适应inpainting用于可及性：</b>LLM引导生成全身和身体部位inpainting掩码，使用预训练2D扩散模型提取接触概率并在3D网格上分割加权动态接触区域。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Hypothesis Pose Sampling:</b> Initial human pose generation through multi-view SDS with spatial constraints, sampling diverse hypotheses that align with text descriptions and object geometry before refinement.</div>
+            <div class="lang-zh" style="display:none"><b>多假设姿态采样：</b>通过带空间约束的多视角SDS生成初始人类姿态，在细化之前采样与文本描述和物体几何对齐的多样化假设。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Coarse-to-Fine HOI Optimization:</b> Three-stage optimization including global HOI optimization for coarse alignment, finer HOI optimization for detailed contact, and expressive HOI optimization for natural and diverse interactions.</div>
+            <div class="lang-zh" style="display:none"><b>粗到精HOI优化：</b>三阶段优化，包括用于粗略对齐的全局HOI优化、用于详细接触的更精细HOI优化，以及用于自然和多样化交互的富有表现力HOI优化。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Force Closure Integration:</b> Physics-based contact modeling ensuring stable grasps and interactions, with multi-objective optimization balancing contact accuracy, pose naturalness, and semantic fidelity.</div>
+            <div class="lang-zh" style="display:none"><b>力闭合集成：</b>基于物理的接触建模确保稳定的抓握和交互，通过多目标优化平衡接触准确性、姿态自然性和语义保真度。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/interactanything_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2505.24315.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2505.24315.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Zero-Shot HOI as Compositional Generation:</b> InteractAnything demonstrates that zero-shot HOI generation is fundamentally a compositional problem, requiring joint optimization of human poses, object states, and semantic constraints without paired training data.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>零样本HOI作为组合生成：</b>InteractAnything证明零样本HOI生成从根本上是一个组合问题，需要在没有配对训练数据的情况下联合优化人类姿态、物体状态和语义约束。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>LLM as Structured Reasoner:</b> Large language models excel at providing structured feedback for geometric reasoning, enabling precise initialization of interaction parameters that traditional approaches struggle to achieve.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>LLM作为结构化推理器：</b>大语言模型擅长为几何推理提供结构化反馈，能够实现传统方法难以达到的交互参数精确初始化。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Diffusion Models for Affordance:</b> Pre-trained 2D diffusion models contain rich interaction priors that can be distilled through inpainting to understand object affordances, bridging 2D image understanding with 3D geometric reasoning.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>扩散模型用于可及性：</b>预训练的2D扩散模型包含丰富的交互先验，可以通过inpainting蒸馏来理解物体可及性，将2D图像理解与3D几何推理连接起来。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because InteractAnything decomposes the complex zero-shot HOI task into manageable components, leveraging complementary strengths of different AI models. LLMs provide semantic reasoning for initialization, diffusion models offer visual priors for affordance parsing, and physics-based optimization ensures geometric accuracy. This multi-modal approach creates a robust pipeline that can handle the combinatorial complexity of human-object interactions without requiring exhaustive training data, demonstrating that zero-shot HOI generation is achievable through strategic knowledge distillation from pre-trained models.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为InteractAnything将复杂的零样本HOI任务分解为可管理的组件，利用不同AI模型的互补优势。LLM提供语义推理用于初始化，扩散模型提供视觉先验用于可及性解析，基于物理的优化确保几何准确性。这种多模态方法创建了一个鲁棒的流水线，能够处理人类-物体交互的组合复杂性，而无需详尽的训练数据，证明通过从预训练模型中进行战略知识蒸馏，零样本HOI生成是可实现的。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This work presents InteractAnything, a comprehensive zero-shot framework for 3D human-object interaction synthesis from text descriptions. By addressing the core challenges of relation reasoning, affordance parsing, and pose synthesis, the framework achieves high-quality, geometrically precise, and semantically consistent HOI generation for open-set objects. The multi-stage approach leverages LLMs for structured initialization, diffusion models for affordance understanding, and physics-based optimization for contact accuracy. Extensive experiments demonstrate superior performance over existing methods, particularly in handling diverse and novel interactions. This work establishes a new paradigm for text-driven HOI synthesis, enabling applications in AR/VR, animation, and robotics without the need for object-specific training data.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本工作提出了InteractAnything，一个从文本描述进行3D人类-物体交互合成的全面零样本框架。通过解决关系推理、可及性解析和姿态合成的核心挑战，该框架实现了针对开放集对象的优质、几何精确和语义一致的HOI生成。多阶段方法利用LLM进行结构化初始化、扩散模型进行可及性理解，以及基于物理的优化进行接触准确性。广泛实验证明了优于现有方法的卓越性能，尤其在处理多样化和新颖交互方面。本工作为文本驱动HOI合成建立了新范式，使AR/VR、动画和机器人应用能够在无需对象特定训练数据的情况下实现。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://jinluzhang.site/projects/interactanything" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+        <a href="https://github.com/jinluzhang/InteractAnything" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

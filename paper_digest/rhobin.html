@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2023 Workshop
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">RHOBIN Challenge: Reconstruction of Human Object Interaction</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xianghui Xie, Xi Wang, Nikos Athanasiou, Bharat Lal Bhatnagar, Chun-Hao P. Huang, Kaichun Mo, Hao Chen, Xia Jia, Zerui Zhang, Liangxian Cui, Xiao Lin, Bingqiao Qian, Jie Xiao, Wenfei Yang, Hyeongjin Nam, Daniel Sungho Jung, Kihoon Kim, Kyoung Mu Lee, Otmar Hilliges, Gerard Pons-Moll<br>
+        <span style="opacity:0.8">University of Tübingen, ETH Zürich, MPI-IS, Meta Reality Labs, NVIDIA, Adobe, USTC, Seoul National University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to bring together the research communities of human reconstruction, object pose estimation, and interaction modeling to advance the challenging task of reconstructing human-object interactions from monocular RGB images?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何将人类重建、物体姿态估计和交互建模的研究社区聚集在一起，推进从单目RGB图像重建人类-物体交互的挑战性任务？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>First RHOBIN Challenge:</b> Pioneering challenge for 3D reconstruction of human-object interactions from monocular RGB images, attracting 100+ participants and 300+ submissions, bridging human reconstruction, object pose estimation, and interaction modeling communities.</div>
+            <div class="lang-zh" style="display:none"><b>首个RHOBIN挑战赛：</b>开创性挑战赛，从单目RGB图像进行3D人类-物体交互重建，吸引了100多名参与者和300多个提交，连接了人类重建、物体姿态估计和交互建模社区。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Three Comprehensive Tracks:</b> Well-designed evaluation framework with three tracks: 3D human reconstruction, 6DoF object pose estimation, and joint reconstruction of humans and objects, using BEHAVE dataset with rigorous metrics and baselines.</div>
+            <div class="lang-zh" style="display:none"><b>三个综合赛道：</b>精心设计的评估框架，包含三个赛道：3D人类重建、6DoF物体姿态估计，以及人类和物体的联合重建，使用BEHAVE数据集和严格的指标及基准。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Winning Method Analysis:</b> Detailed analysis of top-performing methods across all tracks, revealing key insights about 2D-3D correspondence estimation, data augmentation, model ensembling, and optimization strategies for challenging interaction scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>获胜方法分析：</b>对所有赛道顶级方法的详细分析，揭示了2D-3D对应关系估计、数据增强、模型集成以及针对具有挑战性交互场景的优化策略的关键洞察。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>BEHAVE Dataset Benchmarking:</b> Comprehensive benchmarking on the largest available HOI dataset with natural environments, establishing new state-of-the-art performance and providing valuable insights for future HOI reconstruction research.</div>
+            <div class="lang-zh" style="display:none"><b>BEHAVE数据集基准测试：</b>在最大可用HOI数据集上进行全面基准测试，具有自然环境，建立新的最先进性能，并为未来的HOI重建研究提供有价值的洞察。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Community Impact:</b> Successful workshop fostering collaboration between research communities, demonstrating the importance of joint human-object reconstruction approaches and providing roadmap for future advancements in interaction modeling.</div>
+            <div class="lang-zh" style="display:none"><b>社区影响：</b>成功的workshop促进了研究社区之间的合作，展示了联合人类-物体重建方法的重要性，并为交互建模的未来进展提供了路线图。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/rhobin_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <hr style="border-top: 1px dashed rgba(255,255,255,.1); margin: 20px 0;">
+            <img src="Figures/rhobin_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <hr style="border-top: 1px dashed rgba(255,255,255,.1); margin: 20px 0;">
+            <img src="Figures/rhobin_overview03.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2401.04143.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2401.04143.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Heavy Occlusion and Complex Dynamics:</b> Human-object interactions involve severe mutual occlusions and complex spatio-temporal dynamics that require joint understanding of human pose, object pose, and their interactions from single RGB images.</div>
+            <div class="lang-zh" style="display:none"><b>严重遮挡和复杂动力学：</b>人类-物体交互涉及严重的相互遮挡和复杂的时空动力学，需要从单个RGB图像中联合理解人类姿态、物体姿态及其交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Separate Research Communities:</b> Human reconstruction, object pose estimation, and interaction modeling have developed as separate fields, lacking unified approaches and benchmarks for joint reconstruction tasks.</div>
+            <div class="lang-zh" style="display:none"><b>分离的研究社区：</b>人类重建、物体姿态估计和交互建模作为独立领域发展，缺乏针对联合重建任务的统一方法和基准。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Evaluation Benchmarks:</b> Existing datasets and challenges focus on isolated human or object reconstruction, lacking comprehensive evaluation frameworks for realistic interaction scenarios in natural environments.</div>
+            <div class="lang-zh" style="display:none"><b>有限的评估基准：</b>现有数据集和挑战赛专注于孤立的个人或物体重建，缺乏针对自然环境中真实交互场景的全面评估框架。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Monocular RGB Reconstruction:</b> Reconstructing complete 3D human-object interactions from single RGB images requires robust handling of depth ambiguities, scale estimation, and inter-object relationships.</div>
+            <div class="lang-zh" style="display:none"><b>单目RGB重建：</b>从单个RGB图像重建完整3D人类-物体交互需要鲁棒处理深度歧义、尺度估计和物体间关系。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Joint Optimization Challenges:</b> Coordinated reconstruction of humans and objects requires sophisticated optimization strategies that maintain physical plausibility and interaction constraints simultaneously.</div>
+            <div class="lang-zh" style="display:none"><b>联合优化挑战：</b>人类和物体的协调重建需要复杂的优化策略，同时保持物理合理性和交互约束。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>BEHAVE Dataset Benchmarking:</b> Utilizing the largest HOI dataset with natural environments and realistic interactions, featuring 464.4k frames with paired RGB images and 3D ground truth annotations for comprehensive evaluation.</div>
+            <div class="lang-zh" style="display:none"><b>BEHAVE数据集基准测试：</b>利用具有自然环境和真实交互的最大HOI数据集，具有464.4k帧配对RGB图像和3D地面真实标注，用于全面评估。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Three Track Evaluation Framework:</b> Structured evaluation with separate tracks for human reconstruction (SMPL parameters), object pose estimation (6DoF rigid transforms), and joint reconstruction (combined human-object optimization).</div>
+            <div class="lang-zh" style="display:none"><b>三赛道评估框架：</b>结构化评估，具有用于人类重建（SMPL参数）、物体姿态估计（6DoF刚性变换）和联合重建（组合人类-物体优化）的单独赛道。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Rigorous Evaluation Metrics:</b> Comprehensive metric suite including MPJPE, PCK, AUC for human evaluation, MSSD, MSPD, rotation error for object evaluation, and combined metrics for joint reconstruction assessment.</div>
+            <div class="lang-zh" style="display:none"><b>严格的评估指标：</b>全面的指标套件，包括用于人类评估的MPJPE、PCK、AUC，用于物体评估的MSSD、MSPD、旋转误差，以及用于联合重建评估的组合指标。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Winning Method Analysis:</b> Systematic analysis of top-performing approaches revealing key techniques: 2D-3D correspondence estimation via keypoints or dense matching, data augmentation strategies, model ensembling, and optimization layers for joint reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>获胜方法分析：</b>对顶级方法的系统分析揭示关键技术：通过关键点或密集匹配的2D-3D对应关系估计、数据增强策略、模型集成，以及用于联合重建的优化层。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Community Insights and Future Directions:</b> Key observations about task maturity levels, remaining challenges in joint reconstruction, and recommendations for future research focusing on speed-accuracy trade-offs and unified approaches.</div>
+            <div class="lang-zh" style="display:none"><b>社区洞察和未来方向：</b>关于任务成熟度水平的关键观察、联合重建中剩余挑战，以及专注于速度-准确性权衡和统一方法的未来研究建议。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Task Maturity Assessment:</b> Human reconstruction has reached maturity even under heavy occlusion, while object pose estimation shows good progress but joint reconstruction remains the most challenging task requiring significant innovation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>任务成熟度评估：</b>人类重建即使在严重遮挡下也已达到成熟度，而物体姿态估计显示出良好进展，但联合重建仍然是最具挑战性的任务，需要重大创新。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>2D-3D Correspondence as Key Module:</b> All winning methods rely on robust 2D-3D correspondence estimation, whether through dense matching for objects or keypoint detection for humans, highlighting this as the essential foundation for monocular reconstruction.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>2D-3D对应关系作为关键模块：</b>所有获胜方法都依赖于鲁棒的2D-3D对应关系估计，无论是通过密集匹配用于物体还是关键点检测用于人类，这突显了这是单目重建的基本基础。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Data Augmentation and Ensembling:</b> Successful approaches heavily utilize data augmentation strategies and model ensembling techniques to boost performance on challenging interaction scenarios with heavy occlusions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据增强和集成：</b>成功方法大量利用数据增强策略和模型集成技术，以提升在具有严重遮挡的挑战性交互场景上的性能。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because RHOBIN successfully bridged the gap between separate research communities working on human reconstruction, object pose estimation, and interaction modeling. By creating a unified challenge with rigorous evaluation metrics and a challenging benchmark dataset, it forced researchers to develop holistic approaches that consider the complex interdependencies between humans and objects during interactions. The workshop format facilitated direct knowledge exchange, leading to rapid advancements in joint reconstruction techniques that surpass what isolated research efforts could achieve.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为RHOBIN成功弥合了从事人类重建、物体姿态估计和交互建模的分离研究社区之间的差距。通过创建一个具有严格评估指标和具有挑战性基准数据集的统一挑战赛，它迫使研究人员开发考虑交互期间人类和物体之间复杂相互依赖性的整体方法。workshop形式促进了直接知识交流，导致联合重建技术的快速发展，超越了孤立研究工作所能取得的成就。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This technical report presents the RHOBIN Challenge, the first comprehensive benchmark for reconstructing human-object interactions from monocular RGB images. By attracting over 100 participants and receiving more than 300 submissions, the challenge successfully demonstrated the broad interest in this emerging research area and established BEHAVE as the standard benchmark dataset. The detailed analysis of winning methods across three tracks reveals that while human reconstruction has become mature, object pose estimation and particularly joint reconstruction remain challenging tasks requiring further innovation. The challenge successfully bridged research communities and provided valuable insights for future work in human-object interaction modeling, setting the stage for more unified and robust approaches to this fundamental computer vision problem.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本技术报告介绍了RHOBIN挑战赛，这是首个从单目RGB图像重建人类-物体交互的综合基准。通过吸引超过100名参与者和收到300多个提交，该挑战赛成功展示了这一新兴研究领域的广泛兴趣，并将BEHAVE确立为标准基准数据集。对三个赛道获胜方法的详细分析揭示，虽然人类重建已经成熟，但物体姿态估计，特别是联合重建仍然是具有挑战性的任务，需要进一步创新。该挑战赛成功连接了研究社区，并为人类-物体交互建模的未来工作提供了有价值的洞察，为解决这一基本计算机视觉问题铺平了更统一和鲁棒的方法之路。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://rhobin-challenge.github.io/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Challenge Website
+        </a>
+        <a href="https://github.com/facebookresearch/BEHAVE" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          BEHAVE Dataset
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

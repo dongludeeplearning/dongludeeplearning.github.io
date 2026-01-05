@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ACM MM '24
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Towards End-to-End Explainable Facial Action Unit Recognition via Vision-Language Joint Learning</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xuri Ge*, Junchen Fu*, Fuhai Chen†, Shan An, Nicu Sebe, Joemon M. Jose<br>
+        <span style="opacity:0.8">University of Glasgow, Fuzhou University, Tianjin University, University of Trento</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we achieve end-to-end explainable facial action unit recognition by integrating language generation capabilities that provide both accurate AU predictions and interpretable natural language descriptions of facial muscle states?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>我们如何通过整合语言生成能力来实现端到端的可解释面部动作单元识别，既提供准确的AU预测，又提供面部肌肉状态的可解释自然语言描述？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>End-to-End Vision-Language Joint Learning:</b> Pioneered VL-FAU, a novel framework that integrates language generation supervisors within facial AU recognition network for simultaneous AU prediction and explainable language descriptions.</div>
+            <div class="lang-zh" style="display:none"><b>端到端视觉-语言联合学习：</b>开创了VL-FAU，这是一个新颖的框架，将语言生成监督器整合到面部AU识别网络中，实现AU预测和可解释语言描述的同时进行。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual-Level AU Representation Learning:</b> Introduced dual-level attention refinement (DAIR) based on multi-scale combined facial features, providing attention-aware AU representation capabilities through channel and spatial attention mining.</div>
+            <div class="lang-zh" style="display:none"><b>双层AU表示学习：</b>引入了基于多尺度组合面部特征的双层注意力精炼（DAIR），通过通道和空间注意力挖掘提供注意力感知的AU表示能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Local and Global Language Generation:</b> Designed local AU language generation for fine-grained semantic supervision of individual AU branches and global facial language generation for whole-face semantic supervision, enhancing inter-AU discriminability and intra-subject consistency.</div>
+            <div class="lang-zh" style="display:none"><b>局部和全局语言生成：</b>设计了局部AU语言生成用于单个AU分支的细粒度语义监督，以及全局面部语言生成用于整个面部的语义监督，增强了AU间可区分性和主题内一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved superior performance on DISFA and BP4D benchmarks, outperforming existing methods with interpretable language descriptions that provide linguistic semantics beyond classification results.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在DISFA和BP4D基准上实现了卓越性能，超越现有方法，并提供超越分类结果的语言语义的可解释语言描述。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited AU Representation Discriminability:</b> Traditional FAU recognition methods struggle to maintain discriminative features among different AUs while preserving rich semantic representations within individual AUs.</div>
+            <div class="lang-zh" style="display:none"><b>有限的AU表示可区分性：</b>传统的FAU识别方法难以在保持不同AU之间的判别特征的同时保留单个AU内的丰富语义表示。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Explainability:</b> Most FAU recognition approaches only provide classification results without explanations for AU decisions, making it difficult to understand model reasoning and trust predictions.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏可解释性：</b>大多数FAU识别方法只提供分类结果，而不提供AU决策的解释，使得理解模型推理和信任预测变得困难。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Intra- and Inter-Subject Variability:</b> Facial expressions vary significantly between subjects and even within the same subject under different emotional states, requiring robust representation learning across diverse facial appearances.</div>
+            <div class="lang-zh" style="display:none"><b>主题内和主题间变异性：</b>面部表情在不同主题之间以及同一主题在不同情绪状态下变化显著，需要跨不同面部外观的鲁棒表示学习。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Computational Efficiency:</b> Integrating language generation capabilities into FAU recognition while maintaining real-time performance and reasonable computational resource requirements.</div>
+            <div class="lang-zh" style="display:none"><b>计算效率：</b>在将语言生成能力整合到FAU识别中的同时保持实时性能和合理的计算资源需求。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>VL-FAU employs a sophisticated vision-language joint learning framework:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Multi-Scale Facial Feature Extraction:</b> Utilizes Swin-Transformer to extract hierarchical facial representations from different stages, combining them via learnable linear layers for comprehensive face understanding.</li>
+                <li style="margin-bottom:6px;"><b>Dual-Level AU Refinement (DAIR):</b> Implements channel-level and spatial-level attention mechanisms within independent AU branches to enhance attention-aware AU representation mining.</li>
+                <li style="margin-bottom:6px;"><b>Local AU Language Generation:</b> Each AU branch includes an LSTM-based language decoder that generates fine-grained muscle descriptions, providing semantic supervision for individual AU classification.</li>
+                <li style="margin-bottom:6px;"><b>Global Facial Language Generation:</b> Leverages multi-scale facial features to generate descriptions of activated AUs across the entire face, ensuring discriminability between different facial states.</li>
+                <li style="margin-bottom:6px;"><b>Joint Optimization:</b> Trains vision AU recognition and language generation simultaneously with multi-label classification loss, local language generation loss, and global language generation loss.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>VL-FAU采用了一种复杂的视觉-语言联合学习框架：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>多尺度面部特征提取：</b>利用Swin-Transformer从不同阶段提取层次面部表示，通过可学习线性层组合它们以实现全面的面部理解。</li>
+                <li style="margin-bottom:6px;"><b>双层AU精炼（DAIR）：</b>在独立AU分支内实现通道级和空间级注意力机制，以增强注意力感知的AU表示挖掘。</li>
+                <li style="margin-bottom:6px;"><b>局部AU语言生成：</b>每个AU分支包括一个基于LSTM的语言解码器，生成细粒度的肌肉描述，为单个AU分类提供语义监督。</li>
+                <li style="margin-bottom:6px;"><b>全局面部语言生成：</b>利用多尺度面部特征生成整个面部激活AU的描述，确保不同面部状态之间的可区分性。</li>
+                <li style="margin-bottom:6px;"><b>联合优化：</b>使用多标签分类损失、局部语言生成损失和全局语言生成损失同时训练视觉AU识别和语言生成。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/explainable_fau_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('3664647.3681443.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('3664647.3681443.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/explainable_fau_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('3664647.3681443.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('3664647.3681443.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of VL-FAU stems from its innovative multimodal integration:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Semantic Enhancement through Language:</b> Language generation provides explicit semantic supervision that enriches AU representations beyond visual features alone, enabling better discrimination between similar facial expressions.</li>
+                <li style="margin-bottom:6px;"><b>Multi-Level Attention Mining:</b> The dual-level refinement captures both channel-wise and spatial-wise attention patterns, ensuring comprehensive AU feature extraction from multi-scale facial representations.</li>
+                <li style="margin-bottom:6px;"><b>Joint Learning Synergy:</b> Vision and language tasks reinforce each other during training, where AU classification benefits from language semantics and language generation improves through visual grounding.</li>
+                <li style="margin-bottom:6px;"><b>Interpretable by Design:</b> Unlike black-box classifiers, VL-FAU provides natural language explanations that align with FACS definitions, making AU predictions trustworthy and clinically useful.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>VL-FAU的成功源于其创新的多模态整合：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>通过语言的语义增强：</b>语言生成提供了超越单独视觉特征的明确语义监督，使其能够在相似的面部表情之间实现更好的区分。</li>
+                <li style="margin-bottom:6px;"><b>多层注意力挖掘：</b>双层精炼捕获了通道级和空间级的注意力模式，确保从多尺度面部表示中进行全面的AU特征提取。</li>
+                <li style="margin-bottom:6px;"><b>联合学习协同作用：</b>视觉和语言任务在训练期间相互强化，其中AU分类受益于语言语义，语言生成通过视觉 grounding 得到改善。</li>
+                <li style="margin-bottom:6px;"><b>设计上可解释：</b>与黑盒分类器不同，VL-FAU提供了与FACS定义一致的自然语言解释，使AU预测值得信赖且在临床上有用。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>VL-FAU represents a significant advancement in explainable facial action unit recognition by successfully integrating vision and language modalities. The framework achieves state-of-the-art performance on DISFA and BP4D datasets while providing interpretable language descriptions for both individual AU predictions and global facial states. By leveraging dual-level AU representation learning and local-global language generation supervision, VL-FAU addresses the critical challenges of AU discriminability and explainability. The approach opens new avenues for multimodal affective computing applications where both accuracy and interpretability are essential, such as in clinical diagnosis, human-computer interaction, and emotion recognition systems.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>VL-FAU通过成功整合视觉和语言模态，在可解释面部动作单元识别方面取得了重大进展。该框架在DISFA和BP4D数据集上实现了最先进的性能，同时为单个AU预测和全局面部状态提供可解释的语言描述。通过利用双层AU表示学习和局部-全局语言生成监督，VL-FAU解决了AU可区分性和可解释性的关键挑战。该方法为多模态情感计算应用开辟了新途径，在这些应用中准确性和可解释性都是必不可少的，例如临床诊断、人机交互和情感识别系统。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>GitHub:</b> <a href="https://github.com/" style="color:#8bffcf;">Code Not Available</a></p>
+          <p><b>DOI:</b> <a href="https://doi.org/10.1145/3664647.3681443" style="color:#8bffcf;">10.1145/3664647.3681443</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import torch<br>
+import torch.nn as nn<br>
+from transformers import SwinModel<br>
+import torch.nn.functional as F<br>
+<br>
+// VL-FAU: Vision-Language Joint Learning for FAU Recognition<br>
+class VLFAU(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, num_aus=12):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(VLFAU, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Multi-scale Swin-Transformer backbone<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.backbone = SwinModel.from_pretrained('microsoft/swin-tiny-patch4-window7-224')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Multi-scale combination<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.msc_layers = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Conv2d(768, 512, 3, padding=1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Conv2d(768, 512, 3, padding=1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Conv2d(768, 512, 3, padding=1),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Conv2d(768, 512, 3, padding=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.msc_linear = nn.Linear(512*4, 512)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# AU branches with DAIR<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.au_branches = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DualLevelAURefinement() for _ in range(num_aus)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Language decoders<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.local_decoders = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AULanguageDecoder() for _ in range(num_aus)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.global_decoder = GlobalLanguageDecoder()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Multi-label classifier<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.classifier = nn.Linear(512, num_aus)<br>
+<br>
+// Dual-level AU Individual Refinement (DAIR)<br>
+class DualLevelAURefinement(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(DualLevelAURefinement, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Channel attention<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.channel_mlps = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Sequential(nn.Linear(512, 512//16), nn.ReLU(), nn.Linear(512//16, 512))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Spatial attention<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.spatial_conv = nn.Conv2d(2, 1, 3, padding=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, x):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Channel attention<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_c = F.adaptive_max_pool2d(x, 1).squeeze(-1).squeeze(-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;avg_c = F.adaptive_avg_pool2d(x, 1).squeeze(-1).squeeze(-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;channel_attn = torch.sigmoid(self.channel_mlps[0](max_c) + self.channel_mlps[1](avg_c))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = x * channel_attn.unsqueeze(-1).unsqueeze(-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Spatial attention<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_s = torch.max(x, dim=1, keepdim=True)[0]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;avg_s = torch.mean(x, dim=1, keepdim=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spatial_attn = torch.sigmoid(self.spatial_conv(torch.cat([max_s, avg_s], dim=1)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = x * spatial_attn<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x<br>
+<br>
+// AU Language Decoder<br>
+class AULanguageDecoder(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, vocab_size=1000, hidden_size=512):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(AULanguageDecoder, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.lstm = nn.LSTM(hidden_size, hidden_size, batch_first=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.attention = nn.Linear(hidden_size * 2, 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.output = nn.Linear(hidden_size, vocab_size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, visual_features, captions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# LSTM decoding with attention<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs, _ = self.lstm(captions)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Attention mechanism<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attn_weights = F.softmax(self.attention(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torch.cat([outputs.unsqueeze(1).expand(-1, visual_features.size(1), -1, -1), <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visual_features.unsqueeze(2).expand(-1, -1, outputs.size(1), -1)], dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;).squeeze(-1), dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context = torch.sum(attn_weights.unsqueeze(-1) * visual_features, dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;predictions = self.output(outputs + context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return predictions<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

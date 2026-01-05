@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ACM MM 2022 Workshop
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Perceptual Conversational Head Generation with Regularized Driver and Enhanced Renderer</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Ailin Huang*, Zhewei Huang*, Shuchang Zhou<br>
+        <span style="opacity:0.8">Megvii Research, Wuhan University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate perceptually impressive conversational head videos for both talking and listening scenarios using limited training data in the ViCo challenge?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在使用有限训练数据的情况下，在 ViCo 挑战赛中为说话和倾听场景生成感知上令人印象深刻的对话头部视频？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Regularized Audio-to-Head Driver:</b> Applies neural network regularization techniques (Dropout, Batch Normalization) and ensemble learning to improve generalization on limited ViCo dataset.</div>
+            <div class="lang-zh" style="display:none"><b>正则化的音频到头部驱动器：</b>应用神经网络正则化技术（Dropout、批归一化）和集成学习来改善在有限 ViCo 数据集上的泛化能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Enhanced PIRenderer Assembly:</b> Fine-tunes PIRenderer and implements foreground-background fusion for perceptually superior video generation with better identity preservation.</div>
+            <div class="lang-zh" style="display:none"><b>增强的 PIRenderer 组装：</b>对 PIRenderer 进行微调并实现前景-背景融合，以生成具有更好身份保持的感知上优越的视频。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>ViCo Challenge Success:</b> Won 1st place in listening head generation and 2nd place in talking head generation tracks on the official ViCo 2022 leaderboard.</div>
+            <div class="lang-zh" style="display:none"><b>ViCo 挑战赛成功：</b>在官方 ViCo 2022 排行榜上获得倾听头部生成赛道第1名和说话头部生成赛道第2名。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/perceptual_head_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Training Data:</b> The ViCo challenge requires effective model training with limited conversational head video data, making generalization challenging.</div>
+            <div class="lang-zh" style="display:none"><b>有限的训练数据：</b>ViCo 挑战赛需要使用有限的对话头部视频数据进行有效的模型训练，这使得泛化具有挑战性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Dual Task Complexity:</b> Need to handle both talking head generation (speaker's expressions and lip sync) and listening head generation (responsive listening behaviors) in a unified framework.</div>
+            <div class="lang-zh" style="display:none"><b>双任务复杂性：</b>需要在统一框架中处理说话头部生成（说话者的表情和唇同步）和倾听头部生成（响应式倾听行为）。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Regularized LSTM Driver:</b> Trains an LSTM-based audio-to-3DMM driver with Dropout, Batch Normalization, and ensemble learning to predict expression, pose, and crop parameters from audio sequences.</div>
+            <div class="lang-zh" style="display:none"><b>正则化 LSTM 驱动器：</b>使用 Dropout、批归一化和集成学习训练基于 LSTM 的音频到 3DMM 驱动器，以从音频序列预测表情、姿态和裁剪参数。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Enhanced PIRenderer:</b> Fine-tunes the pre-trained PIRenderer model specifically for the ViCo challenge to generate high-quality video frames from 3DMM parameters and reference images.</div>
+            <div class="lang-zh" style="display:none"><b>增强的 PIRenderer：</b>专门为 ViCo 挑战赛微调预训练的 PIRenderer 模型，以从 3DMM 参数和参考图像生成高质量的视频帧。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Foreground-Background Fusion:</b> Implements post-processing with foreground-background fusion to enhance visual stability, reduce artifacts, and improve overall perceptual quality of generated videos.</div>
+            <div class="lang-zh" style="display:none"><b>前景-背景融合：</b>实现前景-背景融合的后处理，以增强视觉稳定性、减少 artifacts 并改善生成视频的整体感知质量。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/perceptual_head_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2206.12837.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2206.12837.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The framework demonstrates that regularization techniques (Dropout, BN) and ensemble learning can effectively train robust audio-driven head generation models on limited data.
+            </div>
+            <div class="lang-zh" style="display:none">
+                该框架证明，正则化技术（Dropout、BN）和集成学习可以在有限数据上有效训练鲁棒的音频驱动头部生成模型。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The enhanced PIRenderer with foreground-background fusion produces perceptually superior results, enabling high-quality conversational head video generation for both talking and listening scenarios.
+            </div>
+            <div class="lang-zh" style="display:none">
+                增强的 PIRenderer 配合前景-背景融合产生了感知上优越的结果，能够为说话和倾听场景生成高质量的对话头部视频。
+            </div>
+          </li>
+          <li>
+            <div class="lang-en">
+                The approach achieved top performance in ViCo 2022 challenge, validating the effectiveness of the proposed techniques for conversational head generation with limited training data.
+            </div>
+            <div class="lang-zh" style="display:none">
+                该方法在 ViCo 2022 挑战赛中取得了顶级性能，验证了所提出的技术在有限训练数据下进行对话头部生成的有效性。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/megvii-research/MM2022-ViCoPerceptualHeadGeneration" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

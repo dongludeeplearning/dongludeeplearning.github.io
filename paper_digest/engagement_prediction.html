@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • Computers and Education: Artificial Intelligence 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Predicting learners' engagement and help-seeking behaviors in an e-learning environment by using facial and head pose features</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Guan-Yun Wang*, Yasuhiro Hatori, Yoshiyuki Sato, Chia-Huei Tseng, Satoshi Shioiri<br>
+        <span style="opacity:0.8">Tohoku University, Fu Jen Catholic University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we automatically predict learners' mental states of engagement and help-seeking in e-learning environments using only webcam facial videos and machine learning techniques?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>我们如何仅使用网络摄像头面部视频和机器学习技术自动预测在线学习环境中学习者的参与度和求助心理状态？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Feature Extraction:</b> Utilized OpenFace 2.2.0 to extract Action Units (AUs) and head pose parameters, creating three feature sets (Basic AUs, Head Pose, Co-occurring AUs) with statistical measures over 0.5s time windows for robust facial behavior analysis.</div>
+            <div class="lang-zh" style="display:none"><b>全面特征提取：</b>使用OpenFace 2.2.0提取动作单元(AUs)和头部姿势参数，在0.5秒时间窗口上创建三个特征集（基本AUs、头部姿势、共现AUs），具有统计度量，用于强大的面部行为分析。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Machine Learning Pipeline:</b> Implemented LightGBM and SVM classifiers achieving 0.69-0.93 accuracy in predicting engagement and help-seeking states, with LightGBM outperforming SVM using 5-fold cross-validation on 9 participants' data.</div>
+            <div class="lang-zh" style="display:none"><b>机器学习管道：</b>实现LightGBM和SVM分类器，在预测参与度和求助状态时达到0.69-0.93的准确率，使用5折交叉验证在9名参与者的数据上LightGBM优于SVM。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Feature Importance Analysis:</b> Applied SHAP analysis to identify key facial features - AU02 (outer brow raiser), AU23 (lip tightener), and AU04 (brow lowerer) for engagement prediction; AU04, AU23, and AU14 (dimpler) for help-seeking prediction.</div>
+            <div class="lang-zh" style="display:none"><b>特征重要性分析：</b>应用SHAP分析来识别关键面部特征 - AU02（外眉上扬）、AU23（唇紧缩）和AU04（眉下垂）用于参与度预测；AU04、AU23和AU14（酒窝）用于求助预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ITS Integration Framework:</b> Developed a web-based intelligent tutoring system prototype that can detect mental states and provide timely hints without verbal requests, using only webcam input for non-intrusive monitoring.</div>
+            <div class="lang-zh" style="display:none"><b>ITS集成框架：</b>开发了一个基于网络的智能辅导系统原型，可以检测心理状态并在没有口头请求的情况下提供及时提示，仅使用网络摄像头输入进行非侵入式监控。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Individual Variability:</b> Significant individual differences in facial expressions and head movements across participants, requiring personalized model adaptation rather than pooled training data.</div>
+            <div class="lang-zh" style="display:none"><b>个体差异：</b>参与者之间面部表情和头部运动的显著个体差异，需要个性化模型适应而不是池化训练数据。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Annotation Reliability:</b> Low inter-rater agreement (Kendall's W = 0.04) among human annotators for engagement labeling, necessitating careful annotation protocols and rater selection.</div>
+            <div class="lang-zh" style="display:none"><b>注释可靠性：</b>人类注释者对参与度标注的低一致性（Kendall's W = 0.04），需要仔细的注释协议和评分者选择。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Imbalance:</b> Limited dataset size (9 participants) and imbalanced samples between engagement states (65.6% high, 34.4% low), affecting model generalization.</div>
+            <div class="lang-zh" style="display:none"><b>数据不平衡：</b>有限的数据集大小（9名参与者）和参与度状态之间的样本不平衡（65.6%高，34.4%低），影响模型泛化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-time Processing:</b> Need for lightweight, fast models suitable for real-time ITS applications, balancing accuracy with computational efficiency for webcam-based monitoring.</div>
+            <div class="lang-zh" style="display:none"><b>实时处理：</b>需要轻量级、快速的模型适用于实时ITS应用，在网络摄像头监控中平衡准确性和计算效率。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The study employed a comprehensive methodology combining computer vision and machine learning techniques:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Data Collection:</b> Recruited 9 university students to solve linguistic problems on a custom ITS webpage with hint functionality, recording facial videos, clicks, and answers.</li>
+                <li style="margin-bottom:6px;"><b>Facial Feature Extraction:</b> Used OpenFace 2.2.0 to extract 18 AUs and head pose parameters (pitch, yaw, roll, x/y/z coordinates) from each video frame.</li>
+                <li style="margin-bottom:6px;"><b>Feature Engineering:</b> Created three feature sets with statistical measures (mean, median, std, min, max, range) over 0.5s time windows, resulting in 210 AU features and 36 head pose features.</li>
+                <li style="margin-bottom:6px;"><b>Classification Models:</b> Trained LightGBM and SVM models using 5-fold cross-validation for predicting engagement and help-seeking states separately.</li>
+                <li style="margin-bottom:6px;"><b>Interpretability:</b> Applied SHAP (Shapley Additive exPlanations) analysis to evaluate the importance of Basic AUs and Head Pose features in model predictions.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>本研究结合计算机视觉和机器学习技术采用了全面的方法：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>数据收集：</b>招募9名大学生在自定义的ITS网页上解决语言问题，网页具有提示功能，记录面部视频、点击和答案。</li>
+                <li style="margin-bottom:6px;"><b>面部特征提取：</b>使用OpenFace 2.2.0从每个视频帧提取18个AU和头部姿势参数（俯仰角、偏航角、滚转角、x/y/z坐标）。</li>
+                <li style="margin-bottom:6px;"><b>特征工程：</b>在0.5秒时间窗口上创建三个特征集，具有统计度量（均值、中位数、标准差、最小值、最大值、范围），产生210个AU特征和36个头部姿势特征。</li>
+                <li style="margin-bottom:6px;"><b>分类模型：</b>使用5折交叉验证训练LightGBM和SVM模型，分别预测参与度和求助状态。</li>
+                <li style="margin-bottom:6px;"><b>可解释性：</b>应用SHAP（Shapley Additive exPlanations）分析来评估基本AUs和头部姿势特征在模型预测中的重要性。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/engagement_prediction_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('1-s2.0-S2666920X2500027X-main.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('1-s2.0-S2666920X2500027X-main.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/engagement_prediction_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('1-s2.0-S2666920X2500027X-main.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('1-s2.0-S2666920X2500027X-main.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of this approach lies in several key factors:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Facial Expression Reliability:</b> Action Units provide standardized, anatomically-based measurements of facial muscle activity that correlate with cognitive and emotional states during learning.</li>
+                <li style="margin-bottom:6px;"><b>Head Pose Complementarity:</b> Head movements add contextual information about attention and concentration levels, with pitch movements indicating engagement and yaw movements signaling help-seeking.</li>
+                <li style="margin-bottom:6px;"><b>Machine Learning Effectiveness:</b> LightGBM's ability to handle complex feature interactions combined with SHAP's interpretability ensures both high accuracy and model transparency.</li>
+                <li style="margin-bottom:6px;"><b>Non-intrusive Monitoring:</b> Webcam-based approach requires no specialized equipment, enabling practical deployment in existing e-learning platforms.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这种方法成功的关键在于几个因素：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>面部表情可靠性：</b>动作单元提供基于解剖学的标准化面部肌肉活动测量，在学习过程中与认知和情绪状态相关。</li>
+                <li style="margin-bottom:6px;"><b>头部姿势互补性：</b>头部运动增加了注意力水平和专注度的上下文信息，俯仰运动表示参与度，偏航运动表示求助。</li>
+                <li style="margin-bottom:6px;"><b>机器学习有效性：</b>LightGBM处理复杂特征交互的能力结合SHAP的可解释性确保了高准确率和模型透明度。</li>
+                <li style="margin-bottom:6px;"><b>非侵入式监控：</b>基于网络摄像头的方案不需要专门设备，能够在现有在线学习平台中实际部署。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This research demonstrates the feasibility of using facial expressions and head poses to automatically predict learners' engagement and help-seeking behaviors in e-learning environments. The study achieved high accuracy (0.69-0.93) using LightGBM classifiers with OpenFace-extracted features. Key findings include the importance of eye-related AUs (AU02, AU04) for engagement detection and mouth-related AUs (AU14, AU23) for help-seeking prediction. The approach provides a foundation for developing more responsive and personalized intelligent tutoring systems that can intervene before students become frustrated or disengaged, ultimately improving learning outcomes in online education.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项研究证明了使用面部表情和头部姿势来自动预测学习者在在线学习环境中的参与度和求助行为的可能性。研究使用LightGBM分类器和OpenFace提取的特征实现了高准确率（0.69-0.93）。关键发现包括眼睛相关AU（AU02、AU04）对参与度检测的重要性以及嘴巴相关AU（AU14、AU23）对求助预测的重要性。该方法为开发更响应性和个性化的智能辅导系统奠定了基础，这些系统可以在学生感到沮丧或脱离接触之前进行干预，最终改善在线教育的学习成果。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>GitHub:</b> <a href="https://github.com/" style="color:#8bffcf;">Code Not Available</a></p>
+          <p><b>DOI:</b> <a href="https://doi.org/10.1016/j.caeai.2025.100387" style="color:#8bffcf;">10.1016/j.caeai.2025.100387</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import openface<br>
+import lightgbm as lgb<br>
+import numpy as np<br>
+from sklearn.model_selection import cross_val_score<br>
+import shap<br>
+<br>
+// Feature extraction using OpenFace<br>
+def extract_facial_features(video_path):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Extract AUs and head pose features from video"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;face_analyzer = openface.OpenFace()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Process video frame by frame<br>
+&nbsp;&nbsp;&nbsp;&nbsp;features = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for frame in video_frames:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract Action Units (0-17 AUs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aus = face_analyzer.get_action_units(frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract head pose (pitch, yaw, roll, x, y, z)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;head_pose = face_analyzer.get_head_pose(frame)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Combine features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frame_features = aus + head_pose<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features.append(frame_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return np.array(features)<br>
+<br>
+// LightGBM classification for engagement prediction<br>
+def train_engagement_model(features, labels):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Train LightGBM model for engagement classification"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Prepare dataset<br>
+&nbsp;&nbsp;&nbsp;&nbsp;X = features  # Shape: (n_samples, n_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;y = labels    # Binary: 0=low engagement, 1=high engagement<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# LightGBM parameters<br>
+&nbsp;&nbsp;&nbsp;&nbsp;params = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'objective': 'binary',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'metric': 'binary_logloss',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'boosting_type': 'gbdt',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'num_leaves': 31,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'learning_rate': 0.05,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'feature_fraction': 0.9<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# 5-fold cross-validation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cv_scores = cross_val_score(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lgb.LGBMClassifier(**params),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X, y,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv=5,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scoring='accuracy'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return cv_scores.mean()<br>
+<br>
+// SHAP analysis for feature importance<br>
+def explain_model_predictions(model, X_test):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Use SHAP to explain model predictions"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Create SHAP explainer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;explainer = shap.TreeExplainer(model)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Calculate SHAP values<br>
+&nbsp;&nbsp;&nbsp;&nbsp;shap_values = explainer.shap_values(X_test)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return shap_values
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

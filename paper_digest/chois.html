@@ -1,0 +1,448 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ECCV 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Controllable Human-Object Interaction Synthesis</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jiaman Li, Alexander Clegg, Roozbeh Mottaghi, Jiajun Wu, Xavier Puig, C. Karen Liu<br>
+        <span style="opacity:0.8">Stanford University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate synchronized human-object interactions in 3D scenes guided by language descriptions, initial states, and sparse object waypoints?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在3D场景中生成由语言描述、初始状态和稀疏对象路径点引导的同步人-物交互？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>CHOIS Framework:</b> A conditional diffusion model that simultaneously generates synchronized object motion and human motion guided by language descriptions and sparse object waypoints.</div>
+            <div class="lang-zh" style="display:none"><b>CHOIS 框架：</b>一个条件扩散模型，同时生成由语言描述和稀疏对象路径点引导的同步对象运动和人类运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Object Geometry Loss:</b> Additional supervision during training to improve alignment between generated object motion and input waypoints.</div>
+            <div class="lang-zh" style="display:none"><b>对象几何损失：</b>训练期间的额外监督，以改善生成的对象运动与输入路径点之间的对齐。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Contact Constraints Guidance:</b> Guidance terms during sampling to enforce realistic hand-object and human-floor contact constraints.</div>
+            <div class="lang-zh" style="display:none"><b>接触约束引导：</b>采样过程中的引导项，以强制执行真实的手-物和人-地面接触约束。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Planning Integration:</b> Seamless integration with path planning modules to enable generation of long-term interactions in 3D environments.</div>
+            <div class="lang-zh" style="display:none"><b>规划集成：</b>与路径规划模块的无缝集成，以实现3D环境中长期交互的生成。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/chois_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Synchronized Motion Generation:</b> Generating coherent human and object motions that are temporally aligned and semantically meaningful.</div>
+            <div class="lang-zh" style="display:none"><b>同步运动生成：</b>生成时间对齐且语义有意义的连贯人类和对象运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Waypoint Adherence:</b> Ensuring generated object motion accurately follows sparse input waypoints while maintaining natural motion trajectories.</div>
+            <div class="lang-zh" style="display:none"><b>路径点遵循：</b>确保生成的对象运动准确遵循稀疏输入路径点，同时保持自然的运动轨迹。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Contact Constraints:</b> Enforcing realistic physical constraints for hand-object contact and human-floor interaction during motion synthesis.</div>
+            <div class="lang-zh" style="display:none"><b>接触约束：</b>在运动合成期间强制执行手-物接触和人-地面交互的真实物理约束。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Long-horizon Synthesis:</b> Extending interaction synthesis from short clips to long-term sequences that maintain coherence across multiple actions.</div>
+            <div class="lang-zh" style="display:none"><b>长时程合成：</b>将交互合成从短片段扩展到保持跨多个动作一致性的长期序列。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Conditional Diffusion Model:</b> Jointly models human and object motion conditioned on language descriptions, initial states, and sparse object waypoints.</div>
+            <div class="lang-zh" style="display:none"><b>条件扩散模型：</b>联合建模人类和对象运动，以语言描述、初始状态和稀疏对象路径点为条件。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Object Geometry Loss:</b> During training, adds supervision to minimize distance between generated object positions and input waypoints at specified timestamps.</div>
+            <div class="lang-zh" style="display:none"><b>对象几何损失：</b>在训练期间，添加监督以最小化生成的对象位置与指定时间戳的输入路径点之间的距离。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Contact Guidance:</b> During sampling, applies classifier-free guidance to enforce hand-object contact and prevent foot-floor penetration.</div>
+            <div class="lang-zh" style="display:none"><b>接触引导：</b>在采样期间，应用无分类器引导来强制执行手-物接触并防止脚-地面穿透。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Planning Integration:</b> Combines with high-level path planning to generate waypoint sequences, enabling long-term interaction synthesis in complex 3D environments.</div>
+            <div class="lang-zh" style="display:none"><b>规划集成：</b>与高层路径规划相结合以生成路径点序列，实现复杂3D环境中长期交互合成的能力。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/chois_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2312.03913.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2312.03913.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                CHOIS enables controllable synthesis of human-object interactions in 3D scenes, adhering to language descriptions and sparse waypoint constraints.
+            </div>
+            <div class="lang-zh" style="display:none">
+                CHOIS 实现了3D场景中人-物交互的可控合成，遵循语言描述和稀疏路径点约束。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The combination of object geometry loss and contact guidance ensures realistic physical interactions while maintaining semantic coherence.
+            </div>
+            <div class="lang-zh" style="display:none">
+                对象几何损失和接触引导的结合确保了真实的物理交互同时保持语义连贯性。
+            </div>
+          </li>
+          <li>
+            <div class="lang-en">
+                Integration with planning systems enables long-horizon interaction synthesis, opening possibilities for interactive virtual environments and robotics applications.
+            </div>
+            <div class="lang-zh" style="display:none">
+                与规划系统的集成实现了长时程交互合成，为交互式虚拟环境和机器人应用开辟了可能性。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="font-family:ui-monospace,monospace;font-size:13px;color:rgba(232,236,255,.8);background:rgba(0,0,0,.3);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,.05);">
+          <div class="lang-en">
+            <pre><code># CHOIS: Conditional Diffusion Model for Human-Object Interaction
+import torch
+import torch.nn as nn
+from diffusion_model import ConditionalDiffusion
+
+class CHOIS(nn.Module):
+    def __init__(self, human_dim=135, object_dim=9, cond_dim=512):
+        super().__init__()
+        self.diffusion = ConditionalDiffusion(human_dim + object_dim)
+        self.text_encoder = TextEncoder()  # CLIP or similar
+        self.waypoint_encoder = WaypointEncoder()
+        self.contact_predictor = ContactPredictor()
+
+    def forward(self, text, waypoints, human_init, object_init, timesteps):
+        # Encode conditions
+        text_emb = self.text_encoder(text)  # [B, cond_dim]
+        waypoint_emb = self.waypoint_encoder(waypoints)  # [B, T, cond_dim]
+
+        # Concatenate conditions
+        conditions = torch.cat([text_emb, waypoint_emb], dim=-1)
+
+        # Joint human-object motion
+        joint_motion = torch.cat([human_init, object_init], dim=-1)
+
+        # Denoising step
+        noise_pred = self.diffusion(joint_motion, conditions, timesteps)
+
+        return noise_pred
+
+    def sample_with_guidance(self, text, waypoints, num_steps=100):
+        # Initial noise
+        joint_noise = torch.randn(batch_size, seq_len, human_dim + object_dim)
+
+        for t in reversed(range(num_steps)):
+            # Predict noise
+            noise_pred = self(joint_noise, text, waypoints, t)
+
+            # Contact guidance (classifier-free guidance)
+            contact_score = self.contact_predictor(joint_noise)
+            guidance_scale = 1.5
+            noise_pred = noise_pred + guidance_scale * contact_score
+
+            # Geometry guidance for waypoints
+            waypoint_loss = self.compute_waypoint_loss(joint_noise, waypoints, t)
+            noise_pred = noise_pred - 0.1 * waypoint_loss
+
+            # Update
+            joint_noise = self.diffusion.update_sample(joint_noise, noise_pred, t)
+
+        return joint_noise
+
+    def compute_waypoint_loss(self, pred_motion, waypoints, t):
+        # Extract object motion from joint prediction
+        obj_motion = pred_motion[..., -object_dim:]
+
+        # Compute distance to waypoints at specific timestamps
+        waypoint_timestamps = torch.linspace(0, seq_len-1, num_waypoints, dtype=int)
+        pred_positions = obj_motion[:, waypoint_timestamps]
+        waypoint_positions = waypoints
+
+        return torch.mean((pred_positions - waypoint_positions)**2)
+
+# Training with object geometry loss
+def train_step(model, batch):
+    text, waypoints, human_gt, object_gt = batch
+
+    # Joint ground truth
+    joint_gt = torch.cat([human_gt, object_gt], dim=-1)
+
+    # Add noise
+    noise = torch.randn_like(joint_gt)
+    timesteps = torch.randint(0, 1000, (batch_size,))
+    noisy_joint = model.diffusion.add_noise(joint_gt, noise, timesteps)
+
+    # Predict noise
+    noise_pred = model(text, waypoints, noisy_joint, timesteps)
+
+    # Diffusion loss
+    diffusion_loss = nn.MSELoss()(noise_pred, noise)
+
+    # Object geometry loss (additional supervision)
+    with torch.no_grad():
+        pred_clean = model.diffusion.predict_clean(noisy_joint, noise_pred, timesteps)
+        geom_loss = model.compute_waypoint_loss(pred_clean, waypoints, timesteps)
+
+    total_loss = diffusion_loss + 0.1 * geom_loss
+    return total_loss
+
+# Integration with planning system
+class CHOISPlanner:
+    def __init__(self, chois_model, path_planner):
+        self.chois = chois_model
+        self.planner = path_planner
+
+    def generate_long_term_interaction(self, scene, start_human, start_objects, goal_description):
+        # High-level planning for object waypoints
+        waypoints = self.planner.plan_path(scene, start_objects, goal_description)
+
+        # Generate interaction sequence
+        interaction_sequence = []
+        current_human = start_human
+        current_objects = start_objects
+
+        for i, waypoint_set in enumerate(waypoints):
+            # Generate segment with CHOIS
+            text_prompt = f"human interacts with object moving to {waypoint_set}"
+            segment = self.chois.sample_with_guidance(text_prompt, waypoint_set)
+
+            # Update states for next segment
+            current_human = segment['human'][-1]
+            current_objects = segment['objects'][-1]
+
+            interaction_sequence.append(segment)
+
+        return interaction_sequence</code></pre>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <pre><code># CHOIS: 人-物交互条件扩散模型
+import torch
+import torch.nn as nn
+from diffusion_model import ConditionalDiffusion
+
+class CHOIS(nn.Module):
+    def __init__(self, human_dim=135, object_dim=9, cond_dim=512):
+        super().__init__()
+        self.diffusion = ConditionalDiffusion(human_dim + object_dim)  # 联合建模人+物运动
+        self.text_encoder = TextEncoder()  # 文本编码器 (CLIP等)
+        self.waypoint_encoder = WaypointEncoder()  # 路径点编码器
+        self.contact_predictor = ContactPredictor()  # 接触预测器
+
+    def forward(self, text, waypoints, joint_motion, timesteps):
+        # 编码条件信息
+        text_emb = self.text_encoder(text)  # 文本嵌入
+        waypoint_emb = self.waypoint_encoder(waypoints)  # 路径点嵌入
+
+        # 拼接条件
+        conditions = torch.cat([text_emb, waypoint_emb], dim=-1)
+
+        # 去噪预测
+        noise_pred = self.diffusion(joint_motion, conditions, timesteps)
+        return noise_pred
+
+    def sample_with_guidance(self, text, waypoints, num_steps=100):
+        # 初始化噪声
+        joint_noise = torch.randn(batch_size, seq_len, human_dim + object_dim)
+
+        for t in reversed(range(num_steps)):
+            # 预测噪声
+            noise_pred = self(joint_noise, text, waypoints, t)
+
+            # 接触约束引导 (无分类器引导)
+            contact_score = self.contact_predictor(joint_noise)
+            guidance_scale = 1.5
+            noise_pred = noise_pred + guidance_scale * contact_score
+
+            # 几何引导用于路径点
+            waypoint_loss = self.compute_waypoint_loss(joint_noise, waypoints, t)
+            noise_pred = noise_pred - 0.1 * waypoint_loss
+
+            # 更新样本
+            joint_noise = self.diffusion.update_sample(joint_noise, noise_pred, t)
+
+        return joint_noise
+
+    def compute_waypoint_loss(self, pred_motion, waypoints, t):
+        # 从联合预测中提取物体运动
+        obj_motion = pred_motion[..., -object_dim:]
+
+        # 计算到路径点的距离
+        waypoint_timestamps = torch.linspace(0, seq_len-1, num_waypoints, dtype=int)
+        pred_positions = obj_motion[:, waypoint_timestamps]
+
+        return torch.mean((pred_positions - waypoints)**2)
+
+# 带对象几何损失的训练
+def train_step(model, batch):
+    text, waypoints, human_gt, object_gt = batch
+
+    # 联合真实数据
+    joint_gt = torch.cat([human_gt, object_gt], dim=-1)
+
+    # 添加噪声
+    noise = torch.randn_like(joint_gt)
+    timesteps = torch.randint(0, 1000, (batch_size,))
+    noisy_joint = model.diffusion.add_noise(joint_gt, noise, timesteps)
+
+    # 预测噪声
+    noise_pred = model(text, waypoints, noisy_joint, timesteps)
+
+    # 扩散损失
+    diffusion_loss = nn.MSELoss()(noise_pred, noise)
+
+    # 对象几何损失 (额外监督)
+    with torch.no_grad():
+        pred_clean = model.diffusion.predict_clean(noisy_joint, noise_pred, timesteps)
+        geom_loss = model.compute_waypoint_loss(pred_clean, waypoints, timesteps)
+
+    total_loss = diffusion_loss + 0.1 * geom_loss
+    return total_loss
+
+# 与规划系统的集成
+class CHOISPlanner:
+    def __init__(self, chois_model, path_planner):
+        self.chois = chois_model
+        self.planner = path_planner
+
+    def generate_long_term_interaction(self, scene, start_human, start_objects, goal_description):
+        # 高层规划物体路径点
+        waypoints = self.planner.plan_path(scene, start_objects, goal_description)
+
+        # 生成交互序列
+        interaction_sequence = []
+        current_human = start_human
+        current_objects = start_objects
+
+        for waypoint_set in waypoints:
+            # 使用CHOIS生成片段
+            text_prompt = f"human interacts with object moving to {waypoint_set}"
+            segment = self.chois.sample_with_guidance(text_prompt, waypoint_set)
+
+            # 为下一片段更新状态
+            current_human = segment['human'][-1]
+            current_objects = segment['objects'][-1]
+
+            interaction_sequence.append(segment)
+
+        return interaction_sequence</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://lijiaman.github.io/projects/chois/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

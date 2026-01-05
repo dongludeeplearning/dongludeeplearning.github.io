@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • NeurIPS 2022
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">HUMANISE: Language-conditioned Human Motion Generation in 3D Scenes</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zan Wang, Yixin Chen, Tengyu Liu, Yixin Zhu, Wei Liang, Siyuan Huang<br>
+        <span style="opacity:0.8">Beijing Institute of Technology, BIGAI, Peking University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate diverse, scene-aware, and goal-oriented human motions in 3D scenes conditioned on natural language descriptions?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何基于自然语言描述在3D场景中生成多样化、场景感知和目标导向的人类运动？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>HUMANISE Dataset Creation:</b> Large-scale synthetic HSI dataset containing 19.6k motion sequences in 643 indoor scenes, created by aligning high-quality AMASS motions with ScanNet scenes using collision and contact constraints.</div>
+            <div class="lang-zh" style="display:none"><b>HUMANISE数据集创建：</b>大规模合成HSI数据集，包含643个室内场景中的19.6k运动序列，通过使用碰撞和接触约束将高质量AMASS运动与ScanNet场景对齐创建。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Automatic Language Annotation:</b> Template-based automatic generation of language descriptions depicting action types and interacting objects, enabling semantic understanding of human-scene interactions.</div>
+            <div class="lang-zh" style="display:none"><b>自动语言标注：</b>基于模板的自动生成描述动作类型和交互对象的语言描述，实现对人类-场景交互的语义理解。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Language-Conditioned Motion Generation Task:</b> Novel task requiring joint modeling of 3D scenes, human motions, and natural language, with challenges in multi-modal understanding and physical plausibility.</div>
+            <div class="lang-zh" style="display:none"><b>语言条件运动生成任务：</b>新颖任务需要联合建模3D场景、人类运动和自然语言，面临多模态理解和物理合理性的挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene-and-Language Conditioned Model:</b> cVAE-based generative model with condition module for joint embedding of scenes and language, motion encoder/decoder for sequence generation, and auxiliary tasks for object grounding and action recognition.</div>
+            <div class="lang-zh" style="display:none"><b>场景和语言条件模型：</b>基于cVAE的生成模型，具有用于场景和语言联合嵌入的条件模块、用于序列生成的运动编码器/解码器，以及用于对象定位和动作识别的辅助任务。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Diverse Affordance Modeling:</b> Framework that handles diverse human-object interactions including unconventional cases (e.g., lying on office tables, sitting on toilets), encoding meaningful scene affordances for realistic HSI generation.</div>
+            <div class="lang-zh" style="display:none"><b>多样化可及性建模：</b>处理多样化人类-物体交互的框架，包括非常规情况（例如躺在办公桌上、坐在马桶上），为真实HSI生成编码有意义的场景可及性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/humanise_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Scale and Quality of HSI Datasets:</b> Existing datasets like PROX and GTA-IM have small scale, low quality, and lack semantic annotations for instruction-aware motion generation.</div>
+            <div class="lang-zh" style="display:none"><b>HSI数据集的规模和质量有限：</b>现有数据集如PROX和GTA-IM规模小、质量低，并且缺乏用于指令感知运动生成的语义标注。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Modal Joint Modeling:</b> Difficulty in simultaneously understanding and integrating 3D scene geometry, human motion dynamics, and natural language semantics for coherent generation.</div>
+            <div class="lang-zh" style="display:none"><b>多模态联合建模：</b>难以同时理解和整合3D场景几何、人体运动动力学和自然语言语义以实现连贯生成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Language Grounding in 3D Scenes:</b> Challenge of precisely locating and grounding target objects in complex 3D environments based on referential language descriptions with spatial relations.</div>
+            <div class="lang-zh" style="display:none"><b>3D场景中的语言定位：</b>基于具有空间关系的指称性语言描述，在复杂3D环境中精确定位和定位目标对象的挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Physical Plausibility with Semantic Consistency:</b> Ensuring generated motions are both physically realistic within 3D scenes and semantically faithful to specified actions and object interactions.</div>
+            <div class="lang-zh" style="display:none"><b>语义一致性的物理合理性：</b>确保生成的运动在3D场景中物理上真实，同时对指定的动作和物体交互语义上忠实。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Diverse Affordance Handling:</b> Modeling unconventional human-object interactions that go beyond typical daily activities, requiring understanding of object affordances and interaction possibilities.</div>
+            <div class="lang-zh" style="display:none"><b>多样化可及性处理：</b>建模超越典型日常活动的非常规人类-物体交互，需要理解物体可及性和交互可能性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion-Scene Alignment Pipeline:</b> Automatic synthesis of HSI by sampling interacting objects, positions, and valid transformations using collision constraints (k-d tree distance checking) and action-specific contact constraints for realistic interactions.</div>
+            <div class="lang-zh" style="display:none"><b>运动-场景对齐流水线：</b>通过采样交互对象、位置和有效变换，使用碰撞约束（k-d树距离检查）和动作特定接触约束自动合成HSI，实现真实交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Template-Based Language Generation:</b> Compositional templates following Sr3D format to generate language descriptions with action, target object, and optional spatial relations to uniquely refer to interacting objects in scenes.</div>
+            <div class="lang-zh" style="display:none"><b>基于模板的语言生成：</b>遵循Sr3D格式的组合模板，生成包含动作、目标对象和可选空间关系的语言描述，以唯一指代场景中的交互对象。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>cVAE Framework with Condition Module:</b> Conditional VAE architecture with joint embedding of 3D scenes (Point Transformer) and language (BERT) through self-attention fusion for multi-modal conditional generation.</div>
+            <div class="lang-zh" style="display:none"><b>带条件模块的cVAE框架：</b>条件VAE架构，通过自注意力融合将3D场景（Point Transformer）和语言（BERT）联合嵌入，用于多模态条件生成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion Encoder-Decoder with SMPL-X:</b> Bidirectional GRU encoder for sequence features and transformer decoder for generating SMPL-X parameters (translation, rotation, joint rotations) conditioned on latent and conditional embeddings.</div>
+            <div class="lang-zh" style="display:none"><b>带SMPL-X的运动编码器-解码器：</b>双向GRU编码器用于序列特征，transformer解码器用于基于潜在嵌入和条件嵌入生成SMPL-X参数（平移、旋转、关节旋转）。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Auxiliary Tasks for Grounding:</b> Additional losses for 3D object location grounding (predicting target object positions) and action recognition (classifying action types) to enhance semantic consistency and spatial understanding.</div>
+            <div class="lang-zh" style="display:none"><b>定位辅助任务：</b>用于3D对象位置定位（预测目标对象位置）和动作识别（分类动作类型）的额外损失，以增强语义一致性和空间理解。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/humanise_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2210.09729.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2210.09729.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Dataset Quality vs. Synthetic Generation:</b> HUMANISE bridges the gap between data quality and scale by leveraging high-fidelity MoCap data and realistic scanned scenes, providing a cost-effective alternative to expensive real-world capture while maintaining semantic richness.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据集质量与合成生成：</b>HUMANISE通过利用高保真MoCap数据和真实扫描场景，弥合数据质量和规模之间的差距，为昂贵的真实世界捕获提供具有成本效益的替代方案，同时保持语义丰富性。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Language as Structured Interface:</b> Template-based language generation provides structured yet flexible descriptions that enable precise grounding of actions and objects, facilitating learning of semantic-scene-motion relationships.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>语言作为结构化接口：</b>基于模板的语言生成提供结构化但灵活的描述，能够精确定位动作和对象，促进语义-场景-运动关系的学习。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>cVAE for Conditional Generation:</b> The conditional VAE framework effectively handles multi-modal conditioning by learning joint embeddings, enabling coherent generation across scene geometry, motion dynamics, and linguistic semantics.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>cVAE用于条件生成：</b>条件VAE框架通过学习联合嵌入有效地处理多模态条件，实现跨场景几何、运动动力学和语言语义的连贯生成。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because HUMANISE addresses the fundamental data limitation in HSI research by creating a synthetic dataset that combines the best of both worlds: high-quality motion capture data with diverse real-world scenes. The key insight is that language provides a natural interface for specifying complex human-scene interactions, and by jointly modeling scenes, motions, and language in a conditional generative framework, the model learns to generate physically plausible and semantically meaningful behaviors. The auxiliary grounding tasks ensure the model doesn't just memorize patterns but truly understands the relationships between linguistic descriptions, 3D geometry, and human motion.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为HUMANISE通过创建一个结合两全其美的合成数据集来解决HSI研究中的基本数据限制：高质量运动捕获数据与多样化真实世界场景。关键洞察是语言为指定复杂人类-场景交互提供了自然接口，通过在条件生成框架中联合建模场景、运动和语言，模型学会生成物理上合理且语义上有意义的行为。辅助定位任务确保模型不仅仅记忆模式，而是真正理解语言描述、3D几何和人类运动之间的关系。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This work introduces HUMANISE, a comprehensive framework for language-conditioned human motion generation in 3D scenes. By addressing the critical limitations of existing HSI datasets through large-scale synthetic data generation, the work enables a new generation task that requires joint understanding of scenes, motions, and language. The proposed cVAE-based model with auxiliary grounding tasks demonstrates superior performance in generating diverse, physically plausible, and semantically consistent human motions. Through extensive experiments and ablation studies, the framework shows significant improvements over baselines and proves the value of multi-modal conditional generation for HSI tasks. The HUMANISE dataset and model establish a new benchmark for language-guided human-scene interaction research, paving the way for more natural and intuitive human-AI interaction in virtual environments. Future work could extend this framework to handle more complex multi-agent scenarios and temporal language understanding.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本工作介绍了HUMANISE，一个用于3D场景中语言条件人类运动生成的综合框架。通过大规模合成数据生成解决现有HSI数据集的关键限制，该工作实现了一个需要联合理解场景、运动和语言的新生成任务。提出的基于cVAE的模型与辅助定位任务展示了在生成多样化、物理上合理和语义上一致的人类运动方面的卓越性能。通过广泛的实验和消融研究，该框架显示出对基线的显著改进，并证明了多模态条件生成对HSI任务的价值。HUMANISE数据集和模型为语言引导的人类-场景交互研究建立了新的基准，为虚拟环境中更自然和直观的人机交互铺平了道路。未来工作可以扩展此框架以处理更复杂的多智能体场景和时间语言理解。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/silverster98/HUMANISE" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+        <a href="https://silverster98.github.io/HUMANISE/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

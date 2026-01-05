@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">GenZI: Zero-Shot 3D Human-Scene Interaction Generation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Lei Li, Angela Dai<br>
+        <span style="opacity:0.8">Technical University of Munich</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> Can we synthesize 3D humans interacting with scenes without learning from any 3D human-scene interaction data?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>我们能否在不学习任何3D人类-场景交互数据的情况下合成与场景交互的3D人类？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>GenZI Framework:</b> Pioneering zero-shot approach for 3D human-scene interaction generation that requires no 3D interaction training data, distilling priors from vision-language models to enable flexible synthesis across diverse scenes and actions.</div>
+            <div class="lang-zh" style="display:none"><b>GenZI框架：</b>开创性的零样本方法，用于3D人类-场景交互生成，不需要任何3D交互训练数据，从视觉-语言模型中提取先验知识，从而在多样化场景和动作中实现灵活合成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Masked Inpainting:</b> Automated inpainting scheme that dynamically adapts masks through diffusion process using cross-attention maps, enabling synthesis of plausible 2D human-scene compositions without manual mask specifications.</div>
+            <div class="lang-zh" style="display:none"><b>动态掩码修复：</b>自动化修复方案，通过扩散过程使用交叉注意力图动态调整掩码，实现2D人类-场景组合的合理合成，无需手动掩码指定。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Robust 3D Lifting Optimization:</b> View-consistent 3D pose optimization with robust kernel and view selection weights to handle inconsistent 2D pose hypotheses, incorporating multiple regularization terms for natural and physically plausible interactions.</div>
+            <div class="lang-zh" style="display:none"><b>鲁棒3D提升优化：</b>视图一致的3D姿态优化，使用鲁棒核和视图选择权重来处理不一致的2D姿态假设，结合多个正则化项以实现自然且物理上合理的交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Iterative Refinement:</b> Multi-stage optimization approach combining VLM-based 2D inpainting with 3D lifting, iteratively improving interaction consistency and quality through silhouette-guided refinement.</div>
+            <div class="lang-zh" style="display:none"><b>迭代优化：</b>多阶段优化方法，将基于VLM的2D修复与3D提升相结合，通过轮廓引导的优化迭代提高交互一致性和质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Evaluation:</b> Extensive validation on diverse indoor and outdoor scenes demonstrating high flexibility and generality, with user study showing preference over existing methods and quantitative analysis of physical plausibility.</div>
+            <div class="lang-zh" style="display:none"><b>全面评估：</b>在多样室内和室外场景上的广泛验证，展示了高灵活性和通用性，用户研究显示优于现有方法，并对物理合理性进行定量分析。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/genzi_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2311.17737.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2311.17737.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/genzi_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2311.17737.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2311.17737.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Scarcity:</b> Existing supervised approaches require expensive and difficult-to-capture 3D human-scene interaction datasets, limiting scalability and generalization to arbitrary scenes and actions.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>现有的监督方法需要昂贵且难以捕获的3D人类-场景交互数据集，限制了对任意场景和动作的可扩展性和泛化能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Generalization:</b> Learning-based methods are constrained to in-domain synthesis with specific objects and arrangements, failing to handle diverse indoor and outdoor environments with arbitrary configurations.</div>
+            <div class="lang-zh" style="display:none"><b>有限泛化：</b>基于学习的方法受限于特定对象和排列的域内合成，无法处理具有任意配置的多样室内和室外环境。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Manual Control Requirements:</b> Traditional approaches require precise manual specifications for human inpainting regions and interaction constraints, limiting usability for casual users.</div>
+            <div class="lang-zh" style="display:none"><b>手动控制要求：</b>传统方法需要精确的手动指定人类修复区域和交互约束，限制了普通用户的可用性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-view Consistency:</b> Aggregating 2D pose hypotheses from different views requires robust handling of inconsistencies arising from stochastic generative models and varying viewpoints.</div>
+            <div class="lang-zh" style="display:none"><b>多视图一致性：</b>从不同视图聚合2D姿态假设需要鲁棒处理由于随机生成模型和不同视点而产生的不一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Physical Plausibility:</b> Generated interactions must maintain physical constraints including contact relations, collision avoidance, and self-penetrations while appearing natural and semantically meaningful.</div>
+            <div class="lang-zh" style="display:none"><b>物理合理性：</b>生成的交互必须保持物理约束，包括接触关系、碰撞避免和自我穿透，同时看起来自然和语义上有意义。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>VLM-based Interaction Distillation:</b> Distill interaction priors from large vision-language models that have learned rich 2D human-scene semantic spaces, enabling zero-shot synthesis without 3D training data requirements.</div>
+            <div class="lang-zh" style="display:none"><b>基于VLM的交互提取：</b>从已学习丰富的2D人类-场景语义空间的大型视觉-语言模型中提取交互先验知识，实现无需3D训练数据的零样本合成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Masked Inpainting:</b> Automate 2D human insertion into multi-view rendered scene images using cross-attention maps from diffusion models to dynamically generate inpainting masks, avoiding manual specifications.</div>
+            <div class="lang-zh" style="display:none"><b>动态掩码修复：</b>使用扩散模型的交叉注意力图自动生成修复掩码，实现多视图渲染场景图像中的2D人类插入，避免手动指定。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Robust Multi-view 3D Lifting:</b> Optimize SMPL-X parameters through robust pose fitting with Geman-McClure kernel and view selection weights, incorporating multiple regularization terms for natural poses, plausible shapes, and physical constraints.</div>
+            <div class="lang-zh" style="display:none"><b>鲁棒多视图3D提升：</b>通过使用Geman-McClure核和视图选择权重的鲁棒姿态拟合优化SMPL-X参数，结合多个正则化项以实现自然姿态、合理形状和物理约束。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Iterative Refinement Pipeline:</b> Alternate between VLM-based 2D inpainting and 3D optimization stages, using rendered human silhouettes as improved masks to progressively enhance interaction consistency and quality.</div>
+            <div class="lang-zh" style="display:none"><b>迭代优化管道：</b>在基于VLM的2D修复和3D优化阶段之间交替，使用渲染的人类轮廓作为改进的掩码，逐步增强交互一致性和质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Optimization Objective:</b> Multi-term energy function combining pose fitting, view selection, body pose/shape priors, scene penetration avoidance, and self-penetration prevention for physically plausible 3D interactions.</div>
+            <div class="lang-zh" style="display:none"><b>综合优化目标：</b>多项能量函数结合姿态拟合、视图选择、身体姿态/形状先验、场景穿透避免和自我穿透预防，以实现物理上合理的3D交互。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Zero-Shot Paradigm Shift:</b> GenZI demonstrates that powerful 2D generative models can enable sophisticated 3D synthesis tasks without domain-specific 3D training data, opening new possibilities for data-efficient computer vision and graphics.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>零样本范式转变：</b>GenZI证明强大的2D生成模型可以实现复杂的3D合成任务而无需特定领域的3D训练数据，为数据高效的计算机视觉和图形学开辟了新的可能性。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Dynamic Masking Innovation:</b> The cross-attention driven masking approach provides a general solution for automated region selection in diffusion-based image editing, potentially applicable to broader inpainting and image manipulation tasks.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>动态掩码创新：</b>交叉注意力驱动的掩码方法为基于扩散的图像编辑中的自动化区域选择提供了通用解决方案，可能适用于更广泛的修复和图像处理任务。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Robust Optimization Framework:</b> The combination of robust kernels, view selection, and comprehensive regularization terms creates a reliable pipeline for lifting 2D hypotheses to 3D, handling the inherent uncertainties in generative approaches.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>鲁棒优化框架：</b>鲁棒核、视图选择和全面正则化项的结合为将2D假设提升到3D创建了一个可靠的管道，处理生成方法固有的不确定性。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because GenZI leverages the rich semantic understanding embedded in large vision-language models to bridge the gap between 2D generative capabilities and 3D geometric reasoning. By formulating interaction synthesis as a distillation and lifting problem, the approach circumvents the data bottleneck that has historically limited 3D human-scene interaction research, enabling flexible and generalizable synthesis through principled optimization that respects both semantic and physical constraints.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为GenZI利用嵌入在大规模视觉-语言模型中的丰富语义理解来弥合2D生成能力和3D几何推理之间的差距。通过将交互合成定义为提取和提升问题，该方法绕过了历史上限制3D人类-场景交互研究的數據瓶颈，通过尊重语义和物理约束的原理优化实现灵活且可泛化的合成。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper presents GenZI, the first zero-shot approach for generating 3D human-scene interactions without requiring any 3D interaction training data. By distilling interaction priors from large vision-language models, GenZI leverages dynamic masked inpainting to create plausible 2D human-scene compositions and robust 3D lifting optimization to synthesize physically consistent 3D interactions. The framework demonstrates high flexibility and generality across diverse indoor and outdoor scenes, controlled through simple text prompts and point locations. Extensive experiments and user studies show that GenZI produces more natural and physically plausible interactions compared to existing methods, while being applicable to arbitrary 3D environments without the constraints of supervised learning approaches. This work establishes a new paradigm for data-efficient 3D human-scene interaction synthesis that leverages advances in 2D generative models.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了GenZI，这是首个无需任何3D交互训练数据即可生成3D人类-场景交互的零样本方法。通过从大型视觉-语言模型中提取交互先验，GenZI利用动态掩码修复创建合理的2D人类-场景组合，并通过鲁棒3D提升优化合成物理一致的3D交互。该框架展示了在多样室内和室外场景中的高灵活性和通用性，通过简单的文本提示和点位置进行控制。广泛的实验和用户研究表明，与现有方法相比，GenZI产生了更自然和物理上合理的交互，同时适用于任意3D环境而无需监督学习方法的约束。本工作为利用2D生成模型进步的数据高效3D人类-场景交互合成建立了新的范式。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://craigleili.github.io/projects/genzi/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

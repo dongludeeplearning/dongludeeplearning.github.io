@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV Workshop 2021
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Student Engagement Dataset</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Kevin Delgado, Juan Manuel Origgi, Tania Hasanpoor, Hao Yu, Danielle Allessio, William Lee, Beverly Woolf, Ivon Arroyo, Margrit Betke, Sarah Adel Bargal<br>
+        <span style="opacity:0.8">Boston University, University of Massachusetts Amherst</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create a comprehensive dataset and computer vision models that can accurately detect student engagement and wandering behaviors in real-time online learning environments to support personalized interventions?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建全面的数据集和计算机视觉模型，能够在实时在线学习环境中准确检测学生参与度和漫游行为，以支持个性化干预？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Student Engagement Dataset:</b> Created a comprehensive video dataset of 19 consenting college students solving math problems on MathSpring.org, containing 400 videos with frame-by-frame annotations of engagement states (looking at screen, looking at paper, or wandering) using crowdsourced labeling via Amazon Mechanical Turk.</div>
+            <div class="lang-zh" style="display:none"><b>学生参与度数据集：</b>创建了一个全面的视频数据集，包含19名同意的大学生在MathSpring.org上解决数学问题，包含400个视频，通过亚马逊Mechanical Turk使用众包标注对参与状态（看着屏幕、看着纸或漫游）进行逐帧标注。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-World Learning Environment:</b> Collected data in an authentic online learning setting with an intelligent tutoring system that adapts problem difficulty based on student performance, providing time-series data of student head poses synchronized with learning activities and problem-solving logs.</div>
+            <div class="lang-zh" style="display:none"><b>真实学习环境：</b>在真实的在线学习环境中收集数据，使用基于学生表现调整问题难度的智能辅导系统，提供与学习活动和问题解决日志同步的学生头部姿势的时间序列数据。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Computer Vision Baselines:</b> Developed and evaluated multiple baseline models for engagement detection including state-of-the-art deep learning architectures (MobileNet, VGG16, Xception) achieving up to 94% accuracy, and traditional head pose estimation methods using FSA-Net with conditional and logistic regression classifiers.</div>
+            <div class="lang-zh" style="display:none"><b>计算机视觉基线：</b>开发并评估了多个参与度检测基线模型，包括最先进的深度学习架构（MobileNet、VGG16、Xception）达到高达94%的准确率，以及使用FSA-Net与条件和逻辑回归分类器的传统头部姿势估计方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>MathSpring Integration:</b> Integrated gaze-based attention tracking into the MathSpring intelligent tutoring system to provide real-time interventions (focus circles, animated characters, messages) when students are detected as wandering, with ongoing evaluation of intervention effectiveness in Summer 2021.</div>
+            <div class="lang-zh" style="display:none"><b>MathSpring集成：</b>将基于注视的注意力跟踪集成到MathSpring智能辅导系统中，在检测到学生漫游时提供实时干预（焦点圆圈、动画角色、信息），并在2021年夏季持续评估干预的有效性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/student_engagement_dataset_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('student_engagement_dataset_iccv2021.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('student_engagement_dataset_iccv2021.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/student_engagement_dataset_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('student_engagement_dataset_iccv2021.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('student_engagement_dataset_iccv2021.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Collection in Authentic Learning Settings:</b> Capturing natural student behaviors during actual learning activities rather than simulated or laboratory conditions, while ensuring privacy and obtaining informed consent from participants.</div>
+            <div class="lang-zh" style="display:none"><b>真实学习环境中的数据收集：</b>在实际学习活动中捕捉自然的学生行为，而不是模拟或实验室条件，同时确保隐私并获得参与者的知情同意。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Fine-Grained Engagement Annotation:</b> Developing reliable annotation protocols for temporal engagement states that require understanding of student attention patterns across time, rather than single-frame or whole-video labeling approaches.</div>
+            <div class="lang-zh" style="display:none"><b>细粒度参与度标注：</b>开发可靠的标注协议，用于理解跨时间的学生注意力模式的时序参与状态，而不是单帧或整个视频标注方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Intervention Integration:</b> Seamlessly integrating computer vision models into existing educational platforms to provide immediate, personalized interventions without disrupting the learning flow or requiring significant technical modifications.</div>
+            <div class="lang-zh" style="display:none"><b>实时干预集成：</b>无缝地将计算机视觉模型集成到现有教育平台中，以提供即时、个性化的干预，而不中断学习流程或需要重大技术修改。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Handling Class Imbalance:</b> Managing severely imbalanced datasets where certain engagement states (like 'wandering') occur much less frequently than others ('looking at screen'), requiring specialized sampling and weighting strategies.</div>
+            <div class="lang-zh" style="display:none"><b>处理类别不平衡：</b>管理严重不平衡的数据集，其中某些参与状态（如'漫游'）比其他状态（'看着屏幕'）出现频率低得多，需要专门的采样和加权策略。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Cross-Subject Generalization:</b> Ensuring models trained on data from specific student populations generalize well to diverse learners with different backgrounds, learning styles, and engagement patterns.</div>
+            <div class="lang-zh" style="display:none"><b>跨主体泛化：</b>确保在特定学生群体数据上训练的模型很好地泛化到具有不同背景、学习风格和参与模式的多样化学习者。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Authentic Data Collection:</b> Recorded 19 consenting college students solving adaptive math problems on MathSpring.org using front-facing webcams, collecting 400 videos with synchronized facial expressions, gestures, and learning activity logs in a real educational setting.</div>
+            <div class="lang-zh" style="display:none"><b>真实数据收集：</b>使用前置摄像头记录了19名同意的大学生在MathSpring.org上解决自适应数学问题，在真实的教学环境中收集了400个视频，其中包含同步的面部表情、手势和学习活动日志。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Crowdsourced Frame Annotation:</b> Used Amazon Mechanical Turk to annotate 18,721 video frames at 1 FPS sampling rate with three engagement categories ('looking at screen', 'looking at paper', 'wandering'), employing majority voting from three annotators per frame to ensure annotation reliability.</div>
+            <div class="lang-zh" style="display:none"><b>众包帧标注：</b>使用亚马逊Mechanical Turk以1 FPS采样率标注18,721个视频帧，具有三个参与类别（'看着屏幕'、'看着纸'、'漫游'），对每个帧使用三个标注者的多数投票来确保标注可靠性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dataset Balancing and Splitting:</b> Created balanced training and testing splits by down-sampling the majority class and ensuring no student appears in both sets, resulting in 1,973 balanced samples distributed across three engagement categories for robust model evaluation.</div>
+            <div class="lang-zh" style="display:none"><b>数据集平衡和分割：</b>通过下采样多数类并确保没有学生同时出现在两个集合中创建平衡的训练和测试分割，最终在三个参与类别中分布1,973个平衡样本，用于稳健的模型评估。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Deep Learning Baselines:</b> Trained multiple convolutional neural networks (MobileNet, VGG16, Xception) pre-trained on ImageNet with fine-tuning, achieving up to 94% accuracy for engagement classification, significantly outperforming traditional head pose estimation approaches.</div>
+            <div class="lang-zh" style="display:none"><b>深度学习基线：</b>训练了多个在ImageNet上预训练的卷积神经网络（MobileNet、VGG16、Xception）并进行微调，在参与分类中达到高达94%的准确率，显著优于传统的头部姿势估计方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><div class="lang-en"><b>Head Pose Estimation Baselines:</b> Implemented traditional computer vision approaches using FSA-Net for head pose estimation combined with conditional rules and logistic regression classifiers, achieving 55-60% accuracy to serve as comparative baselines against deep learning methods.</div>
+            <div class="lang-zh" style="display:none"><b>头部姿势估计基线：</b>使用FSA-Net实现传统计算机视觉方法进行头部姿势估计，结合条件规则和逻辑回归分类器，达到55-60%的准确率，作为与深度学习方法比较的基准。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Authentic Learning vs. Simulated Environments:</b> The dataset collected in MathSpring provides a significant advantage over synthetic datasets by capturing real student behaviors during actual learning activities, enabling more accurate and ecologically valid engagement detection models.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>真实学习 vs. 模拟环境：</b>在MathSpring中收集的数据集通过在实际学习活动中捕捉真实的学生行为，比合成数据集提供了显著优势，能够实现更准确和生态有效的参与度检测模型。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Temporal Engagement Dynamics:</b> The time-series analysis of head pose data synchronized with problem-solving activities reveals complex patterns of student engagement that static frame-based approaches cannot capture, highlighting the importance of temporal context.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>时序参与动态：</b>与问题解决活动同步的头部姿势数据的时序分析揭示了静态基于帧的方法无法捕捉的学生参与的复杂模式，突显了时间上下文的重要性。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Intervention Integration Challenges:</b> Successfully integrating real-time computer vision into existing educational platforms requires careful consideration of user experience, ensuring interventions enhance rather than disrupt the learning process.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>干预集成挑战：</b>成功地将实时计算机视觉集成到现有教育平台中需要仔细考虑用户体验，确保干预增强而不是破坏学习过程。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because it combines authentic data collection in real learning environments with rigorous computer vision methodologies, creating a bridge between educational research and AI that enables personalized, real-time support for student engagement and learning outcomes.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为它将真实学习环境中的真实数据收集与严格的计算机视觉方法相结合，在教育研究和AI之间创建了一座桥梁，能够为学生参与度和学习成果提供个性化、实时的支持。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces the Student Engagement Dataset, collected from 19 college students solving math problems on MathSpring.org, providing 18,721 annotated video frames for engagement detection. The dataset includes temporal head pose data synchronized with learning activities and serves as a benchmark for developing computer vision models. Deep learning baselines achieve up to 94% accuracy, significantly outperforming traditional head pose estimation methods. The work integrates gaze tracking into MathSpring for real-time interventions and establishes a foundation for personalized online learning support.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了学生参与度数据集，从19名大学生在MathSpring.org上解决数学问题中收集，提供18,721个标注的视频帧用于参与度检测。该数据集包括与学习活动同步的时间头部姿势数据，并作为开发计算机视觉模型的基准。深度学习基线实现高达94%的准确率，显著优于传统的头部姿势估计方法。该工作将注视跟踪集成到MathSpring中用于实时干预，并为个性化在线学习支持奠定了基础。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://openaccess.thecvf.com/content/ICCV2021W/ABAW/papers/Delgado_Student_Engagement_Dataset_ICCVW_2021_paper.pdf" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          CVF
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

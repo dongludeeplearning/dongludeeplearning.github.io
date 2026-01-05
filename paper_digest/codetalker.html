@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">CodeTalker: Speech-Driven 3D Facial Animation with Discrete Motion Prior</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jinbo Xing, Menghan Xia, Yuechen Zhang, Xiaodong Cun, Jue Wang, Tien-Tsin Wong <br>
+        <span style="opacity:0.8">CUHK, Tencent AI Lab</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to overcome the over-smoothing problem in speech-driven 3D facial animation caused by regression-to-mean, and instead generate vivid and realistic facial motions?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何克服由回归均值效应导致的语音驱动 3D 面部动画中的过平滑问题，并生成生动逼真的面部动作？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Discrete Motion Prior:</b> Proposed learning a discrete codebook of facial motion priors (VQ-VAE), transforming the task from continuous regression to discrete code query.</div>
+            <div class="lang-zh" style="display:none"><b>离散动作先验：</b>提出学习面部动作先验的离散码本（VQ-VAE），将任务从连续回归转换为离散代码查询。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Code Query Paradigm:</b> Reformulated speech-driven animation as predicting a sequence of discrete motion codes, reducing mapping uncertainty and over-smoothing.</div>
+            <div class="lang-zh" style="display:none"><b>代码查询范式：</b>将语音驱动动画重新表述为预测离散动作代码序列，减少了映射不确定性和过平滑。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Vividness & Realism:</b> Achieved significantly more vivid and expressive facial animations compared to regression-based methods like FaceFormer and MeshTalk.</div>
+            <div class="lang-zh" style="display:none"><b>生动性与真实感：</b>与 FaceFormer 和 MeshTalk 等基于回归的方法相比，实现了更加生动和富有表现力的面部动画。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/codetalker_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Over-Smoothing:</b> Traditional regression-based methods tend to output "mean" or average facial poses to minimize error, resulting in dampened, lifeless expressions.</div>
+            <div class="lang-zh" style="display:none"><b>过平滑：</b>传统的基于回归的方法倾向于输出“平均”面部姿态以最小化误差，导致表情僵硬、缺乏生气。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Cross-Modal Uncertainty:</b> The mapping from speech to facial motion is one-to-many and highly non-linear, making direct continuous prediction difficult and prone to artifacts.</div>
+            <div class="lang-zh" style="display:none"><b>跨模态不确定性：</b>从语音到面部动作的映射是一对多且高度非线性的，使得直接连续预测变得困难且容易产生伪影。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Stage 1: Codebook Learning (VQ-VAE):</b> A Vector Quantized Variational Autoencoder (VQ-VAE) is trained on 3D facial motion data to learn a discrete codebook that encapsulates realistic facial priors.</div>
+            <div class="lang-zh" style="display:none"><b>阶段 1：码本学习 (VQ-VAE)：</b>在 3D 面部动作数据上训练矢量量化变分自编码器 (VQ-VAE)，以学习封装真实面部先验的离散码本。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Stage 2: Code Prediction:</b> A Transformer-based autoregressive model predicts the sequence of discrete code indices from audio features (wav2vec 2.0).</div>
+            <div class="lang-zh" style="display:none"><b>阶段 2：代码预测：</b>基于 Transformer 的自回归模型从音频特征 (wav2vec 2.0) 预测离散代码索引序列。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Decoding:</b> The predicted code sequence is decoded by the VQ-VAE decoder to generate the final continuous 3D facial motion sequence.</div>
+            <div class="lang-zh" style="display:none"><b>解码：</b>预测的代码序列由 VQ-VAE 解码器解码，以生成最终的连续 3D 面部动作序列。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/codetalker_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2301.02379.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2301.02379.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Quantitative:</b> Outperformed FaceFormer and MeshTalk in Lip Vertex Error (LVE) and Frechet Inception Distance (FID), indicating better lip-sync and motion quality.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>定量：</b>在唇部顶点误差 (LVE) 和 Frechet 起始距离 (FID) 方面优于 FaceFormer 和 MeshTalk，表明具有更好的口型同步和动作质量。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>User Study:</b> Participants significantly preferred CodeTalker results for realism and expressiveness, validating the benefits of the discrete prior.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>用户研究：</b>参与者在真实感和表现力方面显著更喜欢 CodeTalker 的结果，验证了离散先验的优势。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Discrete vs. Continuous:</b> The shift from continuous regression to discrete code prediction is pivotal. By limiting the output space to a finite set of "valid" motion codes, the model avoids generating averaged, unnatural poses, resulting in sharper and more confident facial movements.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>离散与连续：</b>从连续回归到离散代码预测的转变至关重要。通过将输出空间限制为一组有限的“有效”动作代码，模型避免了生成平均、不自然的姿态，从而产生更清晰、更自信的面部运动。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                CodeTalker works by constraining the "solution space" of facial animation. Instead of asking the model to invent a face shape from scratch (which is hard and leads to safe, blurry predictions), it asks the model to pick the best matching "puzzle piece" (code) from a pre-learned set of realistic facial parts. This classification task is easier for the network to learn confidently than regression.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                CodeTalker 的工作原理是约束面部动画的“解空间”。它不是要求模型从头开始发明面部形状（这很难并且导致安全、模糊的预测），而是要求模型从预先学习的一组真实面部部件中挑选最佳匹配的“拼图块”（代码）。对于网络来说，这个分类任务比回归更容易自信地学习。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/Doubiiu/CodeTalker" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual discrete code prediction logic.
+            </div>
+            <div class="lang-zh" style="display:none">
+                概念离散代码预测逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Code Prediction (Autoregressive)</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, audio, past_codes):
+    <span style="color:#6a9955;"># 1. Encode Audio</span>
+    audio_feat = self.audio_encoder(audio)
+    
+    <span style="color:#6a9955;"># 2. Predict Next Code Probabilities</span>
+    <span style="color:#6a9955;"># Output shape: [Batch, Time, Codebook_Size]</span>
+    logits = self.transformer(audio_feat, past_codes)
+    
+    <span style="color:#6a9955;"># 3. Sample / Argmax to get Discrete Code</span>
+    pred_code = torch.argmax(logits, dim=-1)
+    
+    <span style="color:#6a9955;"># 4. Decode to 3D Mesh</span>
+    mesh = self.vqvae_decoder(pred_code)
+    <span style="color:#569cd6;">return</span> mesh
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

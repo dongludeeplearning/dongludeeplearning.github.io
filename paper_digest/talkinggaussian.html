@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ECCV 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">TalkingGaussian: Structure-Persistent 3D Talking Head Synthesis via Gaussian Splatting</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jiahe Li, Jiawei Zhang, Xiao Bai, Jin Zheng, Xin Ning, Jun Zhou, Lin Gu<br>
+        <span style="opacity:0.8">Beihang University, Chinese Academy of Sciences, Griffith University, RIKEN AIP, The University of Tokyo</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to achieve high-fidelity 3D talking head synthesis that avoids facial distortions caused by difficult appearance changes while maintaining accurate lip synchronization and real-time rendering performance?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何实现高保真3D说话头部合成，避免由困难的外观变化引起的面部扭曲，同时保持准确的唇同步和实时渲染性能？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Deformation-Based Talking Head Synthesis:</b> Introduced TalkingGaussian, a novel deformation-based framework for 3D talking head synthesis using Gaussian Splatting, which avoids facial distortions by representing motions through smooth deformations of persistent primitives rather than difficult appearance changes.</div>
+            <div class="lang-zh" style="display:none"><b>基于变形的说话头部合成：</b>引入了TalkingGaussian，一个新颖的基于变形的3D说话头部合成框架，使用高斯点云，通过对持久原语的平滑变形而不是困难的外观变化来表示运动，从而避免面部扭曲。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Face-Mouth Decomposition:</b> Proposed a decomposition strategy that separates face and mouth regions into individual branches, addressing motion inconsistency between facial regions and enabling accurate reconstruction of delicate mouth motions and lip synchronization.</div>
+            <div class="lang-zh" style="display:none"><b>面部-嘴巴分解：</b>提出了一种分解策略，将面部和嘴巴区域分离到各个分支中，解决面部区域之间的运动不一致性，并实现对精细嘴巴运动和唇同步的准确重建。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Deformable Gaussian Fields:</b> Developed a framework combining persistent Gaussian primitives for stable head structure with grid-based motion fields for continuous deformation representation, enabling precise facial motion synthesis without appearance modification artifacts.</div>
+            <div class="lang-zh" style="display:none"><b>可变形高斯场：</b>开发了一个框架，将用于稳定头部结构的持久高斯原语与用于连续变形表示的基于网格的运动场相结合，实现精确的面部运动合成而无外观修改伪影。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Incremental Sampling Strategy:</b> Implemented an incremental sampling approach guided by facial action units to facilitate smooth learning of complex facial motions, preventing gradient vanishing and ensuring realistic talking head generation.</div>
+            <div class="lang-zh" style="display:none"><b>增量采样策略：</b>实现了由面部动作单元引导的增量采样方法，以促进复杂面部运动的平滑学习，防止梯度消失并确保逼真的说话头部生成。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/talkinggaussian_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('talkinggaussian_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('talkinggaussian_arxiv2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/talkinggaussian_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('talkinggaussian_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('talkinggaussian_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Appearance Change Distortions:</b> Traditional NeRF-based methods suffer from facial distortions when attempting to model rapidly changing appearance during talking, as continuous neural fields struggle to accurately fit discontinuous color and density variations.</div>
+            <div class="lang-zh" style="display:none"><b>外观变化扭曲：</b>传统的基于NeRF的方法在尝试建模说话期间快速变化的外观时遭受面部扭曲，因为连续神经场难以准确拟合不连续的颜色和密度变化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Face-Mouth Motion Inconsistency:</b> Facial and mouth regions exhibit different motion patterns that are spatially close but semantically distinct, making it challenging to represent their motions coherently in a unified deformation field.</div>
+            <div class="lang-zh" style="display:none"><b>面部-嘴巴运动不一致性：</b>面部和嘴巴区域表现出空间上接近但语义上不同的不同运动模式，使得在统一的变形场中一致地表示它们的运动具有挑战性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Rendering Constraints:</b> Achieving high-fidelity talking head synthesis with accurate lip synchronization while maintaining real-time rendering speeds, surpassing the slow inference bottleneck of NeRF-based approaches.</div>
+            <div class="lang-zh" style="display:none"><b>实时渲染约束：</b>在保持准确唇同步的同时实现高保真说话头部合成，并维持超越基于NeRF方法慢速推理瓶颈的实时渲染速度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Complex Facial Motion Learning:</b> Learning to generate diverse and accurate facial motions from monocular speech videos, including subtle expressions and mouth articulations, without overfitting to training data or losing generalization.</div>
+            <div class="lang-zh" style="display:none"><b>复杂面部运动学习：</b>从单目语音视频学习生成多样化和准确的面部运动，包括微妙的表情和嘴巴发音，而不过度拟合训练数据或失去泛化能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Stable 3D Structure Maintenance:</b> Preserving consistent 3D head geometry and structure across different facial expressions while allowing for natural deformations during speech articulation.</div>
+            <div class="lang-zh" style="display:none"><b>稳定3D结构维护：</b>在不同面部表情中保持一致的3D头部几何和结构，同时允许在语音发音期间进行自然变形。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Deformable Gaussian Fields:</b> Established a dual-field representation combining persistent Gaussian primitives for stable head structure with grid-based motion fields for continuous deformation, enabling pure deformation-based facial motion synthesis without appearance modification.</div>
+            <div class="lang-zh" style="display:none"><b>可变形高斯场：</b>建立了一种双场表示，将用于稳定头部结构的持久高斯原语与用于连续变形的基于网格的运动场相结合，实现基于纯变形的面部运动合成而无需外观修改。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Face-Mouth Decomposition:</b> Implemented separate branches for face and mouth regions using semantic segmentation masks, allowing independent modeling of their distinct motion patterns while ensuring proper fusion for complete head rendering.</div>
+            <div class="lang-zh" style="display:none"><b>面部-嘴巴分解：</b>使用语义分割掩码为面部和嘴巴区域实现单独分支，允许独立建模它们的独特运动模式，同时确保完整头部渲染的适当融合。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Incremental Sampling Strategy:</b> Developed a progressive training approach using facial action units to guide the learning of increasingly complex motions, preventing gradient vanishing and ensuring smooth convergence to realistic facial animations.</div>
+            <div class="lang-zh" style="display:none"><b>增量采样策略：</b>开发了一种渐进训练方法，使用面部动作单元来指导日益复杂的运动学习，防止梯度消失并确保平滑收敛到逼真的面部动画。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Audio-Conditioned Deformation:</b> Integrated audio features with tri-plane hash encoding and region-aware attention mechanisms to predict point-wise deformations that accurately capture speech-driven facial motions including lip movements and expressions.</div>
+            <div class="lang-zh" style="display:none"><b>音频条件变形：</b>将音频特征与三平面哈希编码和区域感知注意力机制集成，以预测点-wise变形，准确捕捉包括唇部运动和表情在内的语音驱动面部运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Training Pipeline:</b> Employed a three-stage training process including static initialization, motion learning with deformation, and fine-tuning for fusion, ensuring stable optimization and high-quality talking head synthesis.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段训练管道：</b>采用包括静态初始化、带变形的运动学习和融合微调在内的三阶段训练过程，确保稳定优化和高品质说话头部合成。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Deformation vs. Appearance Modification:</b> Deformation provides a more stable and anatomically-plausible approach to facial animation compared to appearance modification, avoiding artifacts from discontinuous neural field fitting while enabling precise geometric control.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>变形 vs. 外观修改：</b>变形为面部动画提供了比外观修改更稳定和解剖学上合理的途径，避免了不连续神经场拟合的伪影，同时实现精确的几何控制。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Region-Specific Motion Modeling:</b> Face-mouth decomposition addresses the fundamental challenge of modeling spatially proximate but semantically distinct facial regions, enabling accurate reconstruction of both coarse facial expressions and fine mouth articulations.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>区域特定运动建模：</b>面部-嘴巴分解解决了建模空间上接近但语义上不同的面部区域的基本挑战，实现对粗糙面部表情和精细嘴巴发音的准确重建。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>3DGS for Dynamic Scenes:</b> The explicit point-based representation of 3DGS enables direct deformation manipulation while maintaining real-time rendering capabilities, providing a superior alternative to implicit NeRF representations for talking head synthesis.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>3DGS for Dynamic Scenes:</b>3DGS的显式基于点的表示允许直接变形操纵同时保持实时渲染能力，为说话头部合成提供优于隐式NeRF表示的卓越替代方案。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because TalkingGaussian addresses the core limitation of appearance-based facial animation by using deformation, which is more anatomically consistent and easier to learn. The face-mouth decomposition further simplifies the learning task, enabling accurate reconstruction of complex mouth motions while maintaining overall facial coherence.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为TalkingGaussian通过使用变形解决了基于外观的面部动画的核心局限性，变形在解剖学上更一致且更容易学习。面部-嘴巴分解进一步简化了学习任务，实现对复杂嘴巴运动的准确重建同时保持整体面部连贯性。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces TalkingGaussian, a deformation-based framework for high-fidelity 3D talking head synthesis using Gaussian Splatting. By maintaining a persistent head structure and representing facial motions through smooth deformations rather than difficult appearance changes, the method avoids facial distortions common in NeRF-based approaches. The face-mouth decomposition strategy addresses motion inconsistencies between facial regions, enabling accurate reconstruction of both coarse expressions and fine mouth articulations. Extensive experiments demonstrate superior performance in image quality, lip synchronization, and rendering speed compared to state-of-the-art methods, achieving 108 FPS rendering with high visual fidelity.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了TalkingGaussian，一个使用高斯点云进行高保真3D说话头部合成的基于变形的框架。通过保持持久的头部结构并通过平滑变形而不是困难的外观变化来表示面部运动，该方法避免了基于NeRF方法中常见的面部扭曲。面部-嘴巴分解策略解决了面部区域之间的运动不一致性，实现对粗糙表情和精细嘴巴发音的准确重建。广泛的实验证明了在图像质量、唇同步和渲染速度方面优于最先进的方法，实现108 FPS渲染和高视觉保真度。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://fictionarry.github.io/TalkingGaussian/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

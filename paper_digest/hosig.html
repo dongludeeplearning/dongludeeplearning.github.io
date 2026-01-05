@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • AAAI 2026
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">HOSIG: Full-Body Human-Object-Scene Interaction Generation with Hierarchical Scene Perception</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Wei Yao<sup>1</sup>, Yunlian Sun<sup>1*</sup>, Hongwen Zhang<sup>2</sup>, Yebin Liu<sup>3</sup>, Jinhui Tang<sup>4*</sup> <br>
+        <span style="opacity:0.8">
+            <sup>1</sup>Nanjing University of Science and Technology, 
+            <sup>2</sup>Beijing Normal University, <br>
+            <sup>3</sup>Tsinghua University, 
+            <sup>4</sup>Nanjing Forestry University
+        </span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate high-fidelity, long-horizon full-body human interactions (including navigation and dexterous manipulation) within complex dynamic object and static scene environments?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在复杂的动态物体和静态场景环境中，生成高保真、长时程的全身交互（包括导航和灵巧操作）？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hierarchical Framework:</b> Proposed HOSIG, a novel framework that decouples interaction into scene-aware grasping, heuristic navigation, and motion diffusion.</div>
+            <div class="lang-zh" style="display:none"><b>分层框架：</b>提出了 HOSIG，一种新颖的框架，将交互解耦为场景感知抓取、启发式导航和运动扩散。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified Navigation & Manipulation:</b> Bridged the gap between scene-aware navigation and dexterous object manipulation, enabling unlimited motion length via autoregressive generation.</div>
+            <div class="lang-zh" style="display:none"><b>统一导航与操作：</b>弥合了场景感知导航和灵巧物体操作之间的差距，通过自回归生成支持无限的运动长度。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>High Fidelity:</b> Achieved collision-free postures with precise hand-object contact and finger-level accuracy in trajectory-controlled motions.</div>
+            <div class="lang-zh" style="display:none"><b>高保真度：</b>在轨迹控制运动中实现了无碰撞姿态，并具有精确的手-物接触和指尖级精度。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/HOSIG_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene Context Neglect:</b> Existing HOI methods often ignore scene context, causing penetrations, while HSI methods struggle with fine-grained manipulation.</div>
+            <div class="lang-zh" style="display:none"><b>忽视场景上下文：</b>现有的 HOI 方法通常忽略场景上下文，导致穿透，而 HSI 方法难以处理精细操作。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Coordination Complexity:</b> Coordinating long-range navigation (obstacle avoidance) with fine-grained object manipulation (dexterous grasping) is difficult.</div>
+            <div class="lang-zh" style="display:none"><b>协调复杂性：</b>协调长距离导航（避障）与精细物体操作（灵巧抓取）非常困难。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene-Aware Grasp Generator:</b> Generates collision-free whole-body postures with precise hand-object contact by integrating local geometry constraints.</div>
+            <div class="lang-zh" style="display:none"><b>场景感知抓取生成器：</b>通过整合局部几何约束，生成具有精确手-物接触的无碰撞全身姿态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Heuristic Navigation:</b> Plans obstacle-avoiding paths in complex indoor environments using compressed 2D floor maps and dual-component spatial reasoning.</div>
+            <div class="lang-zh" style="display:none"><b>启发式导航：</b>使用压缩的 2D 平面图和双组件空间推理，在复杂的室内环境中规划避障路径。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Scene-Guided Motion Diffusion:</b> Generates trajectory-controlled, full-body motions with finger-level accuracy using spatial anchors and dual-space classifier-free guidance.</div>
+            <div class="lang-zh" style="display:none"><b>场景引导运动扩散：</b>使用空间锚点和双空间无分类器引导，生成具有指尖级精度的轨迹控制全身运动。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method Explanation (Detailed)</h2>
+        <div style="font-size:13px; color:rgba(232,236,255,.7); margin-bottom:12px; line-height:1.5;">
+            <div class="lang-en">
+                <b>Overview:</b> HOSIG employs a hierarchical approach to synthesize full-body interactions, ensuring both local dexterity and global navigation capability.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>概述：</b> HOSIG 采用分层方法合成全身交互，确保局部灵活性和全局导航能力。
+            </div>
+        </div>
+
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>1. Scene-Aware Grasp Pose Generation:</b><br>
+                This module focuses on generating a static, collision-free full-body pose for grasping. It integrates local object geometry to ensure precise hand-object contact while accounting for the surrounding scene to avoid collisions. This provides a high-quality target state for the motion generation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>1. 场景感知抓取姿态生成：</b><br>
+                该模块专注于生成用于抓取的静态、无碰撞全身姿态。它整合了局部物体几何结构以确保精确的手-物接触，同时考虑周围场景以避免碰撞。这为运动生成提供了高质量的目标状态。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>2. Heuristic Navigation on 2D Obstacle-Aware Map:</b><br>
+                To handle complex indoor environments, the system projects the 3D scene into a 2D occupancy map. A heuristic path planning algorithm (like A*) is then used to find a collision-free trajectory from the start point to the interaction target, ensuring long-range navigation capability.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>2. 二维障碍感知地图上的启发式导航：</b><br>
+                为了处理复杂的室内环境，系统将 3D 场景投影为 2D 占用地图。然后使用启发式路径规划算法（如 A*）找到从起点到交互目标的无碰撞轨迹，确保长距离导航能力。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>3. Scene-Guided Controllable Motion Generation:</b><br>
+                This is the core motion synthesis engine. It uses a diffusion model conditioned on the planned trajectory and the target grasp pose. It generates smooth, natural transitions from locomotion to manipulation, handling the coordination of full-body movements.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>3. 场景引导的可控运动生成：</b><br>
+                这是核心运动合成引擎。它使用以规划轨迹和目标抓取姿态为条件的扩散模型。它生成从移动到操作的平滑、自然过渡，处理全身运动的协调。
+            </div>
+          </li>
+          <li>
+             <div class="lang-en">
+                 <b>4. Joint & Scene Guidance:</b><br>
+                 To improve generation quality, the model uses dual-space classifier-free guidance. "Joint Guidance" ensures the motion adheres to biomechanical constraints and the target pose, while "Scene Guidance" ensures the motion remains collision-free with the static environment throughout the sequence.
+             </div>
+             <div class="lang-zh" style="display:none">
+                 <b>4. 关节与场景引导：</b><br>
+                 为了提高生成质量，模型使用双空间无分类器引导。“关节引导”确保运动符合生物力学约束和目标姿态，而“场景引导”确保运动在整个序列中与静态环境保持无碰撞。
+             </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/HOSIG_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Dataset:</b> Evaluated on the TRUMANS dataset.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据集：</b>在 TRUMANS 数据集上进行了评估。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Performance:</b> Demonstrated superior performance over state-of-the-art methods in terms of plausibility and accuracy.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>性能：</b>在合理性和准确性方面表现优于现有最先进的方法。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Hierarchical Perception:</b>
+                The key to success lies in the hierarchical perception of the scene, allowing for focused processing of local geometry for grasping and global layout for navigation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>分层感知：</b>
+                成功的关键在于对场景的分层感知，允许针对抓取处理局部几何结构，针对导航处理全局布局。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Dual-Space Guidance:</b>
+                The use of dual-space classifier-free guidance in the diffusion model effectively balances the constraints of trajectory control and interaction fidelity.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>双空间引导：</b>
+                在扩散模型中使用双空间无分类器引导有效地平衡了轨迹控制和交互保真度的约束。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                HOSIG works by breaking down the complex problem of full-body interaction into manageable sub-problems: static pose generation, path planning, and dynamic motion synthesis. By solving these sequentially and integrating them with scene-aware constraints, it avoids the pitfalls of end-to-end approaches that often fail to capture both global navigation and local manipulation details simultaneously.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                HOSIG 通过将全身交互的复杂问题分解为可管理的子问题：静态姿态生成、路径规划和动态运动合成。通过顺序解决这些问题并将其与场景感知约束集成，它避免了端到端方法通常无法同时捕捉全局导航和局部操作细节的缺陷。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/yw0208/HOSIG" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Placeholder for core implementation details (e.g., dual-space guidance).
+            </div>
+            <div class="lang-zh" style="display:none">
+                核心实现细节占位符（例如，双空间引导）。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Heuristic Navigation Logic</span>
+<span style="color:#569cd6;">import</span> heapq
+<span style="color:#569cd6;">import</span> numpy <span style="color:#569cd6;">as</span> np
+
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">create_occupancy_map</span>(point_cloud, grid_size, map_size):
+    <span style="color:#6a9955;"># Project 3D point cloud to 2D occupancy grid</span>
+    width, height = map_size
+    occupancy_map = np.zeros((height, width), dtype=np.int8)
+    <span style="color:#569cd6;">for</span> point <span style="color:#569cd6;">in</span> point_cloud:
+        x, y, z = point
+        grid_x, grid_y = <span style="color:#569cd6;">int</span>(x // grid_size), <span style="color:#569cd6;">int</span>(y // grid_size)
+        <span style="color:#569cd6;">if</span> 0 <= grid_x < width <span style="color:#569cd6;">and</span> 0 <= grid_y < height:
+            occupancy_map[grid_y, grid_x] = 1  <span style="color:#6a9955;"># Mark as occupied</span>
+    <span style="color:#569cd6;">return</span> occupancy_map
+
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">a_star_planning</span>(occupancy_map, start, end):
+    <span style="color:#6a9955;"># Standard A* algorithm for collision-free path finding</span>
+    open_list = []
+    heapq.heappush(open_list, (0, start))
+    came_from = {}
+    cost_so_far = {start: 0}
+    
+    <span style="color:#569cd6;">while</span> open_list:
+        _, current = heapq.heappop(open_list)
+        <span style="color:#569cd6;">if</span> current == end: <span style="color:#569cd6;">break</span>
+        
+        <span style="color:#569cd6;">for</span> dx, dy <span style="color:#569cd6;">in</span> [(-1,0), (1,0), (0,-1), (0,1)]:  <span style="color:#6a9955;"># 4-connectivity</span>
+            next_node = (current[0] + dx, current[1] + dy)
+            <span style="color:#569cd6;">if</span> is_valid(next_node, occupancy_map):
+                new_cost = cost_so_far[current] + 1
+                <span style="color:#569cd6;">if</span> next_node <span style="color:#569cd6;">not in</span> cost_so_far <span style="color:#569cd6;">or</span> new_cost < cost_so_far[next_node]:
+                    cost_so_far[next_node] = new_cost
+                    priority = new_cost + heuristic(next_node, end)
+                    heapq.heappush(open_list, (priority, next_node))
+                    came_from[next_node] = current
+    <span style="color:#569cd6;">return</span> reconstruct_path(came_from, start, end)
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

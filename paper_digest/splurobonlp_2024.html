@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ACL SpLU-RoboNLP 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Language-Guided World Models
+        A Model-Based Approach to AI Control</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Alex Zhang, Khanh Nguyen, Jens Tuyls, Albert Lin, Karthik Narasimhan<br>
+        <span style="opacity:0.8">Princeton University, UC Berkeley, USC</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we build world models that can be effectively controlled and adapted through natural language descriptions, enabling safer and more transparent AI agents that can plan and revise behaviors based on human verbal feedback?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何构建能够通过自然语言描述进行有效控制和适应的世界模型，实现更安全、更透明的AI代理，能够基于人类的语言反馈来规划和修改行为？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Language-Guided World Models:</b> Introduced LWMs, a new class of world models that can be controlled through natural language descriptions, enabling more efficient and human-friendly adaptation of agent behaviors.</div>
+            <div class="lang-zh" style="display:none"><b>语言引导世界模型：</b>引入了LWMs，这是一种新的世界模型类别，能够通过自然语言描述进行控制，实现更高效和人性化的代理行为适应。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>MESSENGER Benchmark:</b> Developed a challenging benchmark based on the MESSENGER game with three levels of compositional generalization difficulty, testing the ability to simulate environments with novel combinations of entity attributes.</div>
+            <div class="lang-zh" style="display:none"><b>MESSENGER基准：</b>基于MESSENGER游戏开发了一个具有挑战性的基准，具有三个级别的组合泛化难度，测试模拟具有实体属性新组合的环境的能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>EMMA Attention Mechanism:</b> Proposed EMMA-LWM, a model that fuses the EMMA attention mechanism with Transformers to effectively ground language descriptions to environmental dynamics, achieving strong compositional generalization.</div>
+            <div class="lang-zh" style="display:none"><b>EMMA注意力机制：</b>提出了EMMA-LWM模型，该模型将EMMA注意力机制与Transformer融合，以有效将语言描述 grounding 到环境动态，实现强大的组合泛化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Plan Discussion Framework:</b> Demonstrated a practical application where LWMs enable agents to generate visual plans for human review and revision, improving AI safety and transparency through language-guided policy adaptation.</div>
+            <div class="lang-zh" style="display:none"><b>计划讨论框架：</b>展示了实际应用，其中LWMs使代理能够生成可视化计划供人类审查和修改，通过语言引导的策略适应来提高AI安全性和透明度。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Language Grounding to Dynamics:</b> Bridging the gap between rich, complex natural language descriptions and environmental transition functions requires sophisticated grounding mechanisms that can handle abstract concepts like entity identities, roles, and behaviors.</div>
+            <div class="lang-zh" style="display:none"><b>语言到动态的grounding：</b>弥合丰富、复杂的自然语言描述与环境转移函数之间的差距需要复杂的grounding机制，能够处理实体身份、角色和行为等抽象概念。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Compositional Generalization:</b> Building models that can generalize to compositionally novel combinations of seen concepts (e.g., "fleeing mage" when only "chasing mage" was seen in training) requires overcoming limitations of standard Transformer architectures.</div>
+            <div class="lang-zh" style="display:none"><b>组合泛化：</b>构建能够泛化到所见概念组合新颖组合的模型（例如，当训练中只见过"chasing mage"时泛化到"fleeing mage"）需要克服标准Transformer架构的局限性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Model Interpretability:</b> Ensuring that language-guided adaptations lead to interpretable and predictable agent behaviors, avoiding unintended consequences when humans provide ambiguous or incomplete descriptions.</div>
+            <div class="lang-zh" style="display:none"><b>模型可解释性：</b>确保语言引导的适应导致可解释和可预测的代理行为，避免当人类提供模糊或不完整的描述时产生意外后果。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Human-Agent Communication:</b> Developing effective protocols for agents to present plans to humans, receive feedback, and incorporate language-based corrections without requiring extensive interactive experience collection.</div>
+            <div class="lang-zh" style="display:none"><b>人机通信：</b>开发有效协议，使代理能够向人类展示计划、接收反馈，并纳入基于语言的修正，而无需收集大量的交互经验。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>LWMs extend traditional world models by incorporating language descriptions to guide environment simulation:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Language-Conditioned Environments:</b> Define environments E(v) parameterized by vectors v, where each parameter corresponds to attributes of entities, accompanied by natural language manuals ℓ describing these parameters.</li>
+                <li style="margin-bottom:6px;"><b>MESSENGER Benchmark:</b> Create a grid-world game environment with entities having identities, roles, and movement patterns, testing three levels of compositional generalization difficulty (NewCombo, NewAttr, NewAll).</li>
+                <li style="margin-bottom:6px;"><b>EMMA Attention Mechanism:</b> Implement a two-step reasoning process that first identifies entity identities in descriptions, then extracts relevant attribute words, fusing this with Transformer cross-attention for robust language grounding.</li>
+                <li style="margin-bottom:6px;"><b>Plan Discussion Protocol:</b> Enable agents to generate execution trajectories, present them visually to humans, and incorporate language feedback to revise world models and policies without additional environment interactions.</li>
+                <li style="margin-bottom:6px;"><b>Evaluation Framework:</b> Assess models on ground-truth trajectory prediction and imaginary trajectory generation, measuring both simulation accuracy and ability to generalize to compositionally novel scenarios.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>LWMs通过纳入语言描述来指导环境模拟，从而扩展传统世界模型：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>语言条件环境：</b>定义由向量v参数化的环境E(v)，其中每个参数对应实体的属性，并附带描述这些参数的自然语言手册ℓ。</li>
+                <li style="margin-bottom:6px;"><b>MESSENGER基准：</b>创建一个具有实体身份、角色和移动模式的网格世界游戏环境，测试三个级别的组合泛化难度（NewCombo、NewAttr、NewAll）。</li>
+                <li style="margin-bottom:6px;"><b>EMMA注意力机制：</b>实现两步推理过程，首先识别描述中的实体身份，然后提取相关的属性词，将此与Transformer交叉注意力融合以实现强大的语言grounding。</li>
+                <li style="margin-bottom:6px;"><b>计划讨论协议：</b>使代理能够生成执行轨迹，将其可视化呈现给人类，并纳入语言反馈来修改世界模型和策略，而无需额外的环境交互。</li>
+                <li style="margin-bottom:6px;"><b>评估框架：</b>评估模型在ground-truth轨迹预测和虚构轨迹生成上的表现，测量模拟准确性和泛化到组合新颖场景的能力。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/splurobonlp_2024_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/splurobonlp_2024_overview00.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/splurobonlp_2024_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+           
+            <p>EMMA-LWM architecture fuses EMMA attention with Transformers for robust compositional generalization in language-guided world modeling.</p>
+            <p>Note: The model achieves superior performance on MESSENGER benchmark, enabling agents to plan with humans and revise behaviors through natural language feedback, improving AI safety and transparency.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('acl_splurobonlp_2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('acl_splurobonlp_2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Language-Guided World Models succeed by bridging human language with machine learning through careful architectural design:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>EMMA Reasoning Process:</b> The two-step attention mechanism mimics human-like reasoning by first identifying entities, then extracting their attributes, enabling more robust language grounding than standard cross-attention.</li>
+                <li style="margin-bottom:6px;"><b>Compositional Structure:</b> By modeling environments as collections of independent yet interacting entities with orthogonal attributes, the framework can generalize to novel combinations not seen during training.</li>
+                <li style="margin-bottom:6px;"><b>Human-in-the-Loop Planning:</b> The plan discussion protocol allows agents to leverage human expertise through natural language, reducing the need for extensive trial-and-error learning in the real world.</li>
+                <li style="margin-bottom:6px;"><b>Modular Control:</b> Separating world model adaptation from policy optimization enables more efficient and targeted updates, where language feedback can directly modify environmental understanding.</li>
+                <li style="margin-bottom:6px;"><b>Safety through Transparency:</b> By requiring agents to present plans visually and accept language-based revisions, the framework promotes safer AI deployment through increased human oversight and control.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>语言引导世界模型通过精心设计的架构将人类语言与机器学习相结合而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>EMMA推理过程：</b>两步注意力机制模仿人类推理，首先识别实体，然后提取它们的属性，实现比标准交叉注意力更强大的语言grounding。</li>
+                <li style="margin-bottom:6px;"><b>组合结构：</b>通过将环境建模为独立但相互作用的实体集合，具有正交属性，该框架可以泛化到训练中未见的新颖组合。</li>
+                <li style="margin-bottom:6px;"><b>人机协同规划：</b>计划讨论协议允许代理通过自然语言利用人类专业知识，减少在现实世界中进行大量试错学习的需求。</li>
+                <li style="margin-bottom:6px;"><b>模块化控制：</b>将世界模型适应与策略优化分离，实现更高效和有针对性的更新，其中语言反馈可以直接修改环境理解。</li>
+                <li style="margin-bottom:6px;"><b>通过透明度实现安全：</b>通过要求代理可视化展示计划并接受基于语言的修改，该框架通过增加人类监督和控制来促进更安全的AI部署。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work introduces Language-Guided World Models, a paradigm shift toward more controllable and human-aligned artificial agents. By enabling world models to be steered through natural language descriptions, the authors address fundamental limitations of traditional observational world models, which could only be adapted through costly data collection. The EMMA-LWM architecture demonstrates remarkable compositional generalization capabilities on the challenging MESSENGER benchmark, outperforming baseline approaches by substantial margins. The plan discussion framework showcases a practical pathway toward safer AI deployment, where agents can present execution trajectories to human supervisors for validation and refinement through verbal communication. This work establishes a new research direction at the intersection of language understanding, world modeling, and human-AI interaction, with profound implications for building AI systems that are not only capable but also transparent, controllable, and aligned with human values. The modular approach suggests that future AI architectures could benefit from designing components that are directly modifiable through natural language, potentially revolutionizing how humans interact with and control complex artificial systems.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了语言引导世界模型，这是一个朝着更可控和人类对齐的人工代理的范式转变。通过使世界模型能够通过自然语言描述进行引导，作者解决了传统观察世界模型的基本限制，这些模型只能通过昂贵的数据收集进行适应。EMMA-LWM架构在具有挑战性的MESSENGER基准上展示了卓越的组合泛化能力，大幅优于基线方法。计划讨论框架展示了一个实际途径来实现更安全的AI部署，其中代理可以向人类监督者展示执行轨迹，通过口头沟通进行验证和改进。这项工作在语言理解、世界建模和人机交互的交叉点建立了新的研究方向，对构建不仅有能力而且透明、可控并与人类价值观对齐的AI系统具有深远影响。模块化方法表明，未来的AI架构可以通过设计能够直接通过自然语言修改的组件而受益，这可能彻底改变人类与复杂人工系统交互和控制的方式。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ACL Anthology:</b> <a href="https://aclanthology.org/2024.splurobonlp-1.1.pdf" target="_blank" style="color:#8bffcf;">2024.splurobonlp-1.1</a></p>
+          <p><b>Project Site:</b> <a href="https://language-guided-world-model.github.io" target="_blank" style="color:#8bffcf;">https://language-guided-world-model.github.io</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Language-Guided World Models Implementation<br>
+<br>
+// EMMA Attention Mechanism for language grounding<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">EMMA_Attention</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""EMMA attention for grounding language to entities"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, hidden_dim):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.key_proj = nn.Linear(hidden_dim, 1)  <span style="color:#6a9955;"># For identity extraction</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.val_proj = nn.Linear(hidden_dim, 1)  <span style="color:#6a9955;"># For attribute extraction</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, entity_tokens, description_embeddings):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entity_tokens: [batch, seq_len, hidden_dim]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description_embeddings: [batch, num_descriptions, desc_len, hidden_dim]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 1: Extract identity-aware keys and attribute-aware values</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkey = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mval = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> desc_emb <span style="color:#569cd6;">in</span> description_embeddings:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_weights = F.softmax(self.key_proj(desc_emb), dim=-1)  <span style="color:#6a9955;"># [desc_len, 1]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkey_emb = torch.sum(key_weights * desc_emb, dim=-2)  <span style="color:#6a9955;"># [hidden_dim]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val_weights = F.softmax(self.val_proj(desc_emb), dim=-1)  <span style="color:#6a9955;"># [desc_len, 1]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mval_emb = torch.sum(val_weights * desc_emb, dim=-2)  <span style="color:#6a9955;"># [hidden_dim]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkey.append(mkey_emb)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mval.append(mval_emb)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkey = torch.stack(mkey, dim=0)  <span style="color:#6a9955;"># [num_descriptions, hidden_dim]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mval = torch.stack(mval, dim=0)  <span style="color:#6a9955;"># [num_descriptions, hidden_dim]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 2: Cross-attend entity tokens with description representations</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attn_scores = torch.matmul(entity_tokens, mkey.transpose(-2, -1))  <span style="color:#6a9955;"># [batch, seq_len, num_descriptions]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attn_weights = F.softmax(attn_scores, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grounded_features = torch.matmul(attn_weights, mval)  <span style="color:#6a9955;"># [batch, seq_len, hidden_dim]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> grounded_features<br>
+<br>
+// Language-Guided World Model<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">LanguageGuidedWorldModel</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""World model that conditions on language descriptions"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, vocab_size, hidden_dim, num_entities):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.description_encoder = BertModel.from_pretrained(<span style="color:#ce9178;">'bert-base-uncased'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.emma_attention = EMMA_Attention(hidden_dim)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.transformer = TransformerDecoder(hidden_dim, num_layers=4)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.output_head = nn.Linear(hidden_dim, vocab_size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_entities = num_entities<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, trajectory_prefix, language_descriptions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trajectory_prefix: tokenized partial trajectory<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;language_descriptions: list of text descriptions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Encode language descriptions</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc_embeddings = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> desc <span style="color:#569cd6;">in</span> language_descriptions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emb = self.description_encoder(desc)[<span style="color:#b5cea8;">'last_hidden_state'</span>]  <span style="color:#6a9955;"># [desc_len, hidden_dim]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc_embeddings.append(emb)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc_embeddings = torch.stack(desc_embeddings, dim=0)  <span style="color:#6a9955;"># [num_entities, desc_len, hidden_dim]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Apply EMMA attention to ground language to trajectory</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grounded_trajectory = self.emma_attention(trajectory_prefix, desc_embeddings)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate next trajectory tokens</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decoder_output = self.transformer(grounded_trajectory)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next_token_logits = self.output_head(decoder_output[:, -1, :])  <span style="color:#6a9955;"># Predict next token</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> next_token_logits<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

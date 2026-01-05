@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">AiOS: All-in-One-Stage Expressive Human Pose and Shape Estimation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Qingping Sun, Yanjun Wang, Ailing Zeng, Wanqi Yin, Chen Wei, Wenjia Wang, Haiyi Mei, Chi-Sing Leung, Ziwei Liu, Lei Yang, Zhongang Cai<br>
+        <span style="opacity:0.8">SenseTime Research, City University of Hong Kong, IDEA, Nanyang Technological University, Shanghai AI Laboratory</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to develop an end-to-end framework for expressive human pose and shape estimation that eliminates the need for multi-stage processing and bounding box detection, while maintaining high accuracy in crowded scenes and handling complex interactions between body parts and multiple people?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何开发一个端到端的表达性人类姿势和形状估计框架，消除多阶段处理和边界框检测的需求，同时在拥挤场景中保持高准确性并处理身体部位之间以及多人之间的复杂交互？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>All-in-One-Stage Framework:</b> Introduced AiOS, the first end-to-end framework for expressive human pose and shape estimation that eliminates multi-stage processing and bounding box detection requirements, enabling direct prediction from full-frame images.</div>
+            <div class="lang-zh" style="display:none"><b>全一体阶段框架：</b>引入了AiOS，这是第一个用于表达性人类姿势和形状估计的端到端框架，消除了多阶段处理和边界框检测需求，实现从完整帧图像的直接预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Human-as-Tokens Design:</b> Pioneered a novel approach conceptualizing humans as collections of box tokens and joint tokens within a DETR-based architecture, enabling progressive set prediction for multi-person whole-body mesh recovery.</div>
+            <div class="lang-zh" style="display:none"><b>Human-as-Tokens设计：</b>开创了一种新颖的方法，在基于DETR的架构中将人类概念化为框令牌和关节令牌的集合，实现多人整体身体网格恢复的渐进集合预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Level Feature Integration:</b> Developed a hierarchical decoder structure that combines global and local feature representations through location-aware queries and cross-attention mechanisms, enabling accurate regression in crowded and occlusion-heavy environments.</div>
+            <div class="lang-zh" style="display:none"><b>多级特征集成：</b>开发了分层解码器结构，通过位置感知查询和交叉注意力机制结合全局和局部特征表示，实现拥挤和遮挡严重环境中的准确回归。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved superior results with 9% NMVE reduction on AGORA, 30% PVE reduction on EHF, 10% PVE reduction on ARCTIC, and 3% PVE reduction on EgoBody, demonstrating robust performance in diverse scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>实现了卓越结果，在AGORA上NMVE降低9%，在EHF上PVE降低30%，在ARCTIC上PVE降低10%，在EgoBody上PVE降低3%，展示了在不同场景中的强大性能。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/aios_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('aios_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('aios_cvpr2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/aios_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('aios_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('aios_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Processing Complexity:</b> Traditional approaches require separate detection, cropping, and individual body part regression stages, leading to increased computational costs, inconsistent poses at joint connections, and blocking of inter-part and inter-human associations.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段处理复杂性：</b>传统方法需要单独的检测、裁剪和各个身体部位回归阶段，导致计算成本增加、关节连接处姿势不一致以及阻碍部件间和人际关联。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Contextual Information Loss:</b> Cropping operations discard valuable global contextual information including inter-person relationships, scene layout, and location cues, significantly degrading performance especially in crowded scenes with occlusions.</div>
+            <div class="lang-zh" style="display:none"><b>上下文信息丢失：</b>裁剪操作丢弃了有价值的全局上下文信息，包括人际关系、场景布局和位置线索，特别是在具有遮挡的拥挤场景中显著降低性能。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Bounding Box Dependency:</b> Reliance on external detectors or ground-truth bounding boxes creates practical limitations, as accurate boxes are unavailable in real-world scenarios and noisy boxes cause significant performance degradation.</div>
+            <div class="lang-zh" style="display:none"><b>边界框依赖性：</b>依赖外部检测器或地面真实边界框会产生实际限制，因为准确的框在现实世界场景中不可用，而有噪声的框会导致显著的性能下降。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified Feature Representation:</b> Existing one-stage methods for human pose estimation lack effective mechanisms to integrate global scene understanding with local part-wise features, making them insufficient for expressive whole-body mesh recovery requiring fine-grained details.</div>
+            <div class="lang-zh" style="display:none"><b>统一特征表示：</b>现有的人体姿势估计单阶段方法缺乏将全局场景理解与局部部件特征集成的有效机制，使它们不足以进行需要细粒度细节的表达性整体身体网格恢复。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Person Interaction Handling:</b> Complex scenarios with multiple overlapping people require sophisticated attention mechanisms to establish correct associations between body parts and individuals, which traditional approaches struggle to maintain.</div>
+            <div class="lang-zh" style="display:none"><b>多人交互处理：</b>具有多个重叠人员的复杂场景需要复杂的注意力机制来建立身体部位和个人之间的正确关联，而传统方法难以维持这一点。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>DETR-Based Progressive Set Prediction:</b> Extended DETR architecture to treat multi-person whole-body mesh recovery as a progressive set prediction problem, enabling end-to-end detection and regression without external bounding boxes.</div>
+            <div class="lang-zh" style="display:none"><b>基于DETR的渐进集合预测：</b>将DETR架构扩展到将多人整体身体网格恢复视为渐进集合预测问题，实现无需外部边界框的端到端检测和回归。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Human-as-Tokens Paradigm:</b> Conceptualized humans as collections of box tokens and joint tokens that aggregate both global and local features through cross-attention mechanisms, enabling robust handling of complex multi-person scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>Human-as-Tokens范式：</b>将人类概念化为框令牌和关节令牌的集合，通过交叉注意力机制聚合全局和局部特征，实现对复杂多人场景的鲁棒处理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hierarchical Decoder Structure:</b> Implemented three-stage progressive decoding: body localization, body refinement with joint tokens, and whole-body refinement, allowing the model to first establish person identities then refine detailed pose and shape parameters.</div>
+            <div class="lang-zh" style="display:none"><b>分层解码器结构：</b>实现了三阶段渐进解码：身体定位、带关节令牌的身体细化和整体身体细化，允许模型首先建立人员身份然后细化详细的姿势和形状参数。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Location-Aware Feature Aggregation:</b> Used position queries and deformable attention to probe relevant features from full-frame images, enabling precise localization and feature extraction without cropping operations that lose contextual information.</div>
+            <div class="lang-zh" style="display:none"><b>位置感知特征聚合：</b>使用位置查询和可变形注意力从完整帧图像中探测相关特征，实现无需裁剪操作（会丢失上下文信息）的精确定位和特征提取。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inter-Part and Inter-Person Attention:</b> Employed self-attention and cross-attention with specialized masks to establish relationships between different body parts within individuals and between multiple people in crowded scenes.</div>
+            <div class="lang-zh" style="display:none"><b>部件间和人际注意力：</b>使用自注意力和交叉注意力以及专用掩码来建立个人内部不同身体部位之间以及拥挤场景中多人之间的关系。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>End-to-End Paradigm Shift:</b> AiOS represents a fundamental shift from multi-stage pipelines to truly end-to-end processing, eliminating the dependency on external detectors and enabling direct processing of full-frame images with preserved contextual information.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>端到端范式转变：</b>AiOS代表了从多阶段管道到真正端到端处理的根本转变，消除了对外部检测器的依赖，并实现了对保留上下文信息的完整帧图像的直接处理。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Unified Feature Representation:</b> The Human-as-Tokens approach provides a coherent framework for integrating global scene understanding with local part-wise features, enabling more accurate and robust expressive human pose and shape estimation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>统一特征表示：</b>Human-as-Tokens方法为将全局场景理解与局部部件特征集成提供了连贯框架，实现更准确和鲁棒的表达性人类姿势和形状估计。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Attention-Based Relationship Modeling:</b> By leveraging transformer attention mechanisms to model inter-part and inter-person relationships, AiOS can effectively handle complex scenarios that were previously challenging for traditional approaches.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>基于注意力的关系建模：</b>通过利用变换器注意力机制来建模部件间和人际关系，AiOS可以有效地处理传统方法以前具有挑战性的复杂场景。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because AiOS addresses the core limitations of multi-stage approaches by enabling direct processing of full-frame images with preserved contextual information. The progressive token-based architecture allows for sophisticated relationship modeling between body parts and individuals, while the unified framework eliminates the artifacts and inconsistencies introduced by separate processing stages.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为AiOS通过实现对保留上下文信息的完整帧图像的直接处理来解决多阶段方法的核心限制。渐进令牌基础架构允许对身体部位和个人之间的复杂关系建模，而统一框架消除了由单独处理阶段引入的伪影和不一致性。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces AiOS, the first all-in-one-stage framework for expressive human pose and shape estimation that eliminates the need for multi-stage processing and external detection. Built upon DETR with a novel Human-as-Tokens design, AiOS treats multi-person whole-body mesh recovery as a progressive set prediction problem, enabling direct regression from full-frame images. The framework combines global scene understanding with local part-wise features through sophisticated attention mechanisms, achieving superior performance with 9% NMVE reduction on AGORA, 30% PVE reduction on EHF, 10% PVE reduction on ARCTIC, and 3% PVE reduction on EgoBody. By preserving contextual information and establishing proper inter-part and inter-person relationships, AiOS demonstrates robust performance in crowded scenes and sets a new standard for end-to-end expressive human pose and shape estimation.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了AiOS，这是第一个用于表达性人类姿势和形状估计的全一体阶段框架，消除了多阶段处理和外部检测的需求。以DETR为基础并采用新颖的Human-as-Tokens设计，AiOS将多人整体身体网格恢复视为渐进集合预测问题，实现从完整帧图像的直接回归。该框架通过复杂的注意力机制将全局场景理解与局部部件特征相结合，在AGORA上实现NMVE降低9%，在EHF上PVE降低30%，在ARCTIC上PVE降低10%，在EgoBody上PVE降低3%。通过保留上下文信息并建立适当的部件间和人际关系，AiOS在拥挤场景中展示了鲁棒性能，并为端到端表达性人类姿势和形状估计设定了新标准。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://ttxskk.github.io/AiOS/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

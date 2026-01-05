@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent; /* Parent index.html handles the background visual, but iframe needs something. */
+    /* Actually, for iframe, we should set the background to match or be transparent. */
+    background-color: var(--bg); /* Fallback */
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  /* Scrollbar styling to match if possible */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Adding Conditional Control to Text-to-Image Diffusion Models (ControlNet)</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Lvmin Zhang, Anyi Rao, Maneesh Agrawala <br>
+        <span style="opacity:0.8">Stanford University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to add spatially localized, conditional control to large, pre-trained text-to-image diffusion models without retraining them from scratch or degrading their quality?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在不破坏预训练模型（如 Stable Diffusion）生成能力的前提下，为其添加精细的空间条件控制（如边缘、姿态、深度图）？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Neural Network Architecture:</b> We present ControlNet, an architecture that locks original model parameters and reuses its encoder as a trainable copy to enable conditional control.</div>
+            <div class="lang-zh" style="display:none">提出 <b>ControlNet</b> 架构，通过锁定原始模型参数并复用其编码器作为可训练副本，实现了对大型预训练扩散模型的条件控制扩展。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Zero Convolution:</b> We introduce "zero convolution" layers (initialized with zeros) to connect the network blocks, ensuring no noise is added at the start of finetuning and preserving original quality.</div>
+            <div class="lang-zh" style="display:none">引入 <b>零卷积 (Zero Convolution)</b> 机制，通过零初始化的 1x1 卷积层连接网络，确保微调初期没有任何噪声干扰，从而保留了原模型的生成质量。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Extensive Validation:</b> We validate the method with various conditions (Canny edges, depth, pose, segmentation), showing robustness even with small training datasets.</div>
+            <div class="lang-zh" style="display:none">验证了该方法在多种条件（Canny 边缘、深度图、人体姿态、语义分割等）下的有效性，证明了其在小数据集上训练的鲁棒性和高效性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/controlnet_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Catastrophic Forgetting:</b> Direct finetuning of large pre-trained models can lead to the loss of rich prior knowledge learned during pre-training.</div>
+            <div class="lang-zh" style="display:none">直接微调大型预训练模型容易导致 <b>灾难性遗忘 (Catastrophic Forgetting)</b>，即模型丢失了原本学习到的丰富先验知识。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Specific Spatial Constraints:</b> It is difficult to flexibly introduce specific spatial constraints (like sketches or skeletons) without significant computational cost or altering the model architecture.</div>
+            <div class="lang-zh" style="display:none">现有方法难以在不显著增加计算成本的情况下，灵活地引入各种特定的空间约束条件（如草图或骨架）。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hypernetwork Structure:</b> We lock the original diffusion model parameters and create a trainable copy of the encoding layers to learn conditional features.</div>
+            <div class="lang-zh" style="display:none"><b>Hypernetwork 结构设计：</b> 锁定原始扩散模型的 Encoder Block，同时创建一个权值共享或独立的“可训练副本”来处理额外的条件输入。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Zero Convolution Connection:</b> The trainable copy is connected to the locked model via zero-initialized convolutions. This ensures the model behaves exactly like the original at the start of training.</div>
+            <div class="lang-zh" style="display:none"><b>Zero Convolution 连接：</b> 在可训练副本与原始模型之间使用全零初始化的卷积层。这使得在训练第一步时，ControlNet 的输出为零，模型的行为与原始预训练模型完全一致。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Condition Injection:</b> Spatial conditions (e.g., edge maps) are encoded and injected into the trainable copy, which adds residuals to the locked model's decoder.</div>
+            <div class="lang-zh" style="display:none"><b>条件注入：</b> 将空间条件（如边缘图）经过简单的卷积网络编码后，注入到 ControlNet 的可训练副本中，最终通过残差连接叠加到原始模型的 Decoder Block 中。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+          <img src="Figures/controlnet_overview01.png" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.12);margin-bottom:12px;" />
+          <img src="Figures/controlnet_overview02.png" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.12)" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Qualitative Results with Various Conditions:</b>
+                The paper demonstrates ControlNet's versatility by training separate models for diverse conditions: Canny edges, Hough lines, HED boundaries, user scribbles, human pose (OpenPose), semantic segmentation (ADE20K), and depth maps. All models successfully generate high-quality images aligned with the given conditions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>多种条件的定性结果:</b>
+                文章展示了 ControlNet 的通用性，针对多种条件训练了不同的模型：Canny 边缘、Hough 直线、HED 边界、用户涂鸦、人体姿态 (OpenPose)、语义分割 (ADE20K) 和深度图。所有模型都能成功生成与给定条件高度对齐的高质量图像。
+            </div>
+          </li>
+
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Ablation Study on Model Architecture:</b>
+                The authors analyzed the importance of the "locked copy" and "zero convolution". Replacing zero convolutions with standard Gaussian-initialized layers led to training collapse or slow convergence. The "trainable copy" design was shown to be crucial for preserving the pre-trained model's capabilities while learning new controls.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>模型架构的消融实验:</b>
+                作者分析了“锁定副本”和“零卷积”的重要性。将零卷积替换为标准的高斯初始化层会导致训练崩溃或收敛缓慢。实验表明，“可训练副本”的设计对于在学习新控制的同时保留预训练模型的能力至关重要。
+            </div>
+          </li>
+
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Quantitative Evaluation (FID & User Study):</b>
+                ControlNet was compared against existing methods like Paint-with-words and various image-to-image baselines. It achieved significantly better (lower) FID scores and higher user preference rates in user studies, indicating both higher image realism and better condition fidelity.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>定量评估 (FID 与 用户研究):</b>
+                ControlNet 与 Paint-with-words 及多种图像到图像的基线方法进行了比较。它取得了显著更好（更低）的 FID 分数，并在用户研究中获得了更高的用户偏好率，表明其图像逼真度和条件保真度都更高。
+            </div>
+          </li>
+
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Comparison to Light-weight Fine-tuning:</b>
+                Compared to standard full-finetuning or light-weight adapters, ControlNet converges much faster and requires less data to learn robust spatial controls. The sudden convergence phenomenon (sudden drop in loss) suggests the pre-trained features are efficiently reused via the Zero Convolution connection.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>与轻量级微调的比较:</b>
+                与标准的全量微调或轻量级适配器相比，ControlNet 收敛速度快得多，并且需要的数据更少就能学到鲁棒的空间控制。突然收敛现象（损失突然下降）表明预训练特征通过零卷积连接得到了有效复用。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Sudden Convergence Phenomenon:</b>
+                The authors observed a "sudden convergence" during training, where the model initially generates random structures but then abruptly learns to follow the control map perfectly. This suggests that the Zero Convolution layer acts as a gate that, once opened by gradients, allows the pre-trained features to be rapidly adapted.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>突然收敛现象:</b>
+                作者观察到训练过程中存在“突然收敛”现象，即模型最初生成的结构是随机的，但在某一时刻突然学会了完美地遵循控制图。这表明零卷积层充当了一个门控，一旦被梯度打开，预训练的特征就能被迅速适配。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Generalization vs. Specificity:</b>
+                While specific dataset training (e.g., COCO) works well, the model shows surprising generalization to out-of-domain sketches or poses. However, the discussion notes that when semantic meaning contradicts the spatial guide (e.g., asking for a "dog" but drawing a "bird"), the model struggles, highlighting the tension between text prompts and spatial controls.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>泛化性与特异性:</b>
+                虽然特定数据集（如 COCO）的训练效果很好，但模型对域外草图或姿态表现出惊人的泛化能力。然而讨论指出，当语义含义与空间引导相矛盾时（例如要求画“狗”但画的是“鸟”的形状），模型会感到困惑，凸显了文本提示与空间控制之间的张力。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                The core success of ControlNet lies in <b>"Protection via Isolation"</b>. By locking the original weights, we treat the massive pre-trained model as a fixed "renderer" library. The trainable copy acts as a lightweight "interpreter" that translates diverse user inputs (edges, poses) into the latent feature space the renderer understands. The <b>Zero Convolution</b> is the critical bridge that guarantees the training starts from a valid state (identity mapping), preventing the "interpreter" from feeding noise to the "renderer" at the beginning, which would otherwise destroy the gradients.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                ControlNet 成功的核心在于<b>“通过隔离进行保护”</b>。通过锁定原始权重，我们将庞大的预训练模型视为一个固定的“渲染器”库。可训练副本充当一个轻量级的“解释器”，将各种用户输入（边缘、姿态）转化为渲染器能理解的潜在特征空间。<b>零卷积</b>是关键的桥梁，它保证训练从一个有效状态（恒等映射）开始，防止“解释器”在初期向“渲染器”输入噪声，从而避免了梯度的破坏。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.75;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">ControlNet effectively solves the problem of adding fine-grained spatial control to diffusion models without expensive retraining.</div>
+            <div class="lang-zh" style="display:none">ControlNet 有效地解决了在不进行昂贵重训的情况下，向扩散模型添加精细空间控制的问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">By using zero convolutions and a locked-copy mechanism, it preserves the generative quality of models like Stable Diffusion.</div>
+            <div class="lang-zh" style="display:none">通过使用零卷积和锁定副本机制，它保留了如 Stable Diffusion 等模型的生成质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">It enables efficient control via various conditions such as edges, poses, segmentation maps, and depth.</div>
+            <div class="lang-zh" style="display:none">它实现了通过边缘、姿态、分割图和深度等多种条件的高效控制。</div>
+          </li>
+          <li>
+            <div class="lang-en">This work marks a significant step in customizable generative AI, lowering the barrier for specific image generation tasks.</div>
+            <div class="lang-zh" style="display:none">这项工作标志着可定制生成式 AI 迈出了重要一步，降低了特定图像生成任务的门槛。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/lllyasviel/ControlNet" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          github.com/lllyasviel/ControlNet
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Below shows how <b>Zero Convolution</b> is implemented and how <b>ControlNet</b> copies weights from the pre-trained SD model.
+            </div>
+            <div class="lang-zh" style="display:none">
+                下方展示了 <b>零卷积 (Zero Convolution)</b> 的实现方式，以及 <b>ControlNet</b> 如何从预训练的 SD 模型复制权重。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+            <a href="https://github.com/lllyasviel/ControlNet/blob/main/cldm/cldm.py#L13-L85" target="_blank" style="position:absolute; top:8px; right:8px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#8bffcf; font-size:10px; padding:4px 8px; border-radius:4px; text-decoration:none; font-family:var(--mono);">Line 13 - 85</a>
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">zero_module</span>(module):
+    <span style="color:#6a9955;">"""
+    Zero out the parameters of a module and return it.
+    """</span>
+    <span style="color:#569cd6;">for</span> p <span style="color:#569cd6;">in</span> module.parameters():
+        p.detach().zero_()
+    <span style="color:#569cd6;">return</span> module
+
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">ControlNet</span>(nn.Module):
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, control_stage_config):
+        <span style="color:#569cd6;">super</span>().__init__()
+        <span style="color:#6a9955;"># 1. Create Trainable Copy (reusing SD Encoder)</span>
+        self.control_model = InstantiateConfig(control_stage_config) 
+        
+        <span style="color:#6a9955;"># 2. Zero Convolutions for Connection</span>
+        self.zero_convs = nn.ModuleList([
+            zero_module(nn.Conv2d(c, c, <span style="color:#b5cea8;">1</span>)) 
+            <span style="color:#569cd6;">for</span> c <span style="color:#569cd6;">in</span> self.control_model.output_channels
+        ])
+
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, x, hint, ...):
+        <span style="color:#6a9955;"># Inject condition (hint) into Trainable Copy</span>
+        control_out = self.control_model(x, hint)
+        
+        <span style="color:#6a9955;"># Pass through Zero Conv before adding to Locked SD</span>
+        outputs = []
+        <span style="color:#569cd6;">for</span> h, zero_conv <span style="color:#569cd6;">in</span> <span style="color:#dcdcaa;">zip</span>(control_out, self.zero_convs):
+            outputs.append(zero_conv(h))
+            
+        <span style="color:#569cd6;">return</span> outputs
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      // Find the parent container
+      const container = btn.closest('div');
+      
+      // Toggle visibility of English and Chinese sections
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        if (el.style.display === 'none') {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+      });
+      
+      zhElements.forEach(el => {
+        if (el.style.display === 'none') {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

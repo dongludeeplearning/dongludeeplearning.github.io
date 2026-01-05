@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • NeurIPS 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">SnapMoGen: Human Motion Generation from Expressive Texts</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Chuan Guo<sup>1†</sup>, Inwoo Hwang<sup>2</sup>, Jian Wang<sup>1</sup>, Bing Zhou<sup>1†</sup> <br>
+        <span style="opacity:0.8"><sup>1</sup>Snap Inc., <sup>2</sup>Seoul National University</span><br>
+        <span style="opacity:0.6; font-size:11px;"><sup>†</sup>Project Lead</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> Current text-to-motion datasets lack fine-grained, expressive descriptions and long-term continuity, limiting the generation of complex motions from casual user prompts.
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>当前的文本到动作数据集缺乏细粒度的、富有表现力的描述和长期连续性，限制了从随意的用户提示生成复杂动作的能力。
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SnapMoGen Dataset:</b> Introduced a large-scale dataset with 20K motion clips and 122K expressive text descriptions (avg. 48 words vs 12 in HumanML3D), preserving original temporal continuity.</div>
+            <div class="lang-zh" style="display:none"><b>SnapMoGen 数据集：</b>引入了一个大规模数据集，包含 20K 动作片段和 122K 富有表现力的文本描述（平均 48 个词 vs HumanML3D 的 12 个词），保留了原始的时间连续性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>MoMask++:</b> Enhanced generative masked modeling by transforming motion into multi-scale token sequences and using a single unified transformer for all scales.</div>
+            <div class="lang-zh" style="display:none"><b>MoMask++：</b>通过将动作转换为多尺度 token 序列并使用单个统一的 Transformer 处理所有尺度，增强了生成式掩码建模。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Casual Prompt Handling:</b> Demonstrated a pipeline using LLMs to reformat casual user prompts to align with the expressive narration style of SnapMoGen.</div>
+            <div class="lang-zh" style="display:none"><b>随意提示处理：</b>展示了一个使用 LLM 重新格式化随意用户提示的流程，以使其与 SnapMoGen 的表达性叙述风格保持一致。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/Snapmogen_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dataset Constraints:</b> Existing datasets contain short, clipped motions with simple descriptions, which hinders the model's ability to learn fine-grained control and long-term planning.</div>
+            <div class="lang-zh" style="display:none"><b>数据集限制：</b>现有的数据集包含简短的、剪辑过的动作和简单的描述，这阻碍了模型学习细粒度控制和长期规划的能力。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Model Capacity:</b> Previous multi-stage generation (like MoMask) uses separate transformers, which might be inefficient for capturing multi-scale dependencies.</div>
+            <div class="lang-zh" style="display:none"><b>模型容量：</b>之前的多阶段生成（如 MoMask）使用单独的 Transformer，这在捕捉多尺度依赖关系方面可能效率低下。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Scale Tokenization:</b> Represent motion as a sequence of tokens across multiple scales (coarse to fine) instead of separate residual layers.</div>
+            <div class="lang-zh" style="display:none"><b>多尺度分词：</b>将动作表示为跨越多个尺度（从粗到细）的 token 序列，而不是单独的残差层。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified Generative Masked Transformer:</b> A single transformer model learns to generate tokens at all scales simultaneously using a specific masking strategy.</div>
+            <div class="lang-zh" style="display:none"><b>统一生成式掩码 Transformer：</b>单个 Transformer 模型使用特定的掩码策略同时学习生成所有尺度的 token。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>LLM Refinement:</b> Use Large Language Models to rewrite short user prompts into detailed, expressive narratives that match the training data distribution.</div>
+            <div class="lang-zh" style="display:none"><b>LLM 优化：</b>使用大型语言模型将简短的用户提示重写为详细、富有表现力的叙述，以匹配训练数据分布。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/Snapmogen_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Performance:</b> MoMask++ achieves state-of-the-art results on both HumanML3D and the new SnapMoGen benchmark.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>性能：</b>MoMask++ 在 HumanML3D 和新的 SnapMoGen 基准测试中均取得了最先进的结果。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Long-term Generation:</b>
+                The model effectively generates long, coherent motion sequences, benefiting from the dataset's preserved temporal continuity.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>长期生成：</b>
+                得益于数据集保留的时间连续性，该模型能够有效地生成长而连贯的动作序列。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Data-Centric AI:</b>
+                The significant improvement highlights the importance of data quality (expressive text, continuous motion) over purely architectural changes.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>以数据为中心的 AI：</b>
+                显著的改进凸显了数据质量（富有表现力的文本、连续动作）比纯粹的架构变更更为重要。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                SnapMoGen works by closing the gap between the complexity of human language and the complexity of human motion. By providing richer textual descriptions, the model learns a more robust mapping between semantics and kinematics. The unified MoMask++ architecture then efficiently models this relationship across different levels of motion detail, allowing for the generation of intricate and long-duration movements that were previously difficult to synthesize.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                SnapMoGen 通过弥合人类语言复杂性与人体运动复杂性之间的差距而发挥作用。通过提供更丰富的文本描述，模型学习了语义和运动学之间更稳健的映射。统一的 MoMask++ 架构随后有效地在不同级别的运动细节上对这种关系进行建模，从而允许生成以前难以合成的复杂和长时间的运动。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/snap-research/SnapMoGen" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          github.com/snap-research/SnapMoGen
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual implementation of <b>MoMask++</b> showing multi-scale token handling in a single transformer.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>MoMask++</b> 的概念实现，展示了单个 Transformer 中的多尺度 token 处理。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">MoMaskPlusPlus</span>(nn.Module):
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, motion_ids, text_embed):
+        <span style="color:#6a9955;"># motion_ids: [Batch, Scales, SeqLen] (Multi-scale tokens)</span>
+        
+        <span style="color:#6a9955;"># 1. Flatten and Embed all scales</span>
+        x = self.token_emb(motion_ids.flatten(1, 2)) 
+        
+        <span style="color:#6a9955;"># 2. Add Scale-Aware Positional Embeddings</span>
+        x = x + self.scale_pos_emb
+        
+        <span style="color:#6a9955;"># 3. Unified Transformer Processing</span>
+        x = torch.cat([text_embed, x], dim=1)
+        output = self.transformer(x)
+        
+        <span style="color:#6a9955;"># 4. Predict tokens for all scales simultaneously</span>
+        logits = self.head(output)
+        
+        <span style="color:#569cd6;">return</span> logits
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

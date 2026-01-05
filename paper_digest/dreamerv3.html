@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2023 • Nature 2025 April
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Mastering Diverse Domains through World Models</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Danijar Hafner, Jurgis Pasukonis, Jimmy Ba, Timothy Lillicrap<br>
+        <span style="opacity:0.8">Google DeepMind, University of Toronto</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we develop a single reinforcement learning algorithm that learns to solve diverse tasks across domains ranging from video games to robotics, without requiring domain-specific hyperparameter tuning or human expertise?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何开发一个单一的强化学习算法，能够学习解决从视频游戏到机器人技术的各种领域中的多样化任务，而无需领域特定的超参数调整或人工专业知识？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>DreamerV3 Algorithm:</b> Introduced the third generation of Dreamer, a general RL algorithm that learns world models and uses imagination for planning, achieving state-of-the-art performance across 150+ diverse tasks with fixed hyperparameters.</div>
+            <div class="lang-zh" style="display:none"><b>DreamerV3算法：</b>引入了Dreamer的第三代，这是一种通用的RL算法，通过学习世界模型并使用想象进行规划，以固定超参数在150多种多样化任务上实现了最先进的性能。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Minecraft Diamond Collection:</b> First algorithm to collect diamonds in Minecraft from scratch without human data or curricula, solving a long-standing challenge in AI that requires farsighted strategies, exploration, and sparse rewards in an open world.</div>
+            <div class="lang-zh" style="display:none"><b>Minecraft钻石收集：</b>第一个从零开始在Minecraft中收集钻石的算法，无需人类数据或课程，解决了AI中的一个长期挑战，需要在开放世界中进行远见策略、探索和稀疏奖励。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Robustness Techniques:</b> Developed normalization, balancing, and transformation techniques that enable stable learning across domains with different signal magnitudes, reward scales, and data distributions.</div>
+            <div class="lang-zh" style="display:none"><b>鲁棒性技术：</b>开发了归一化、平衡和变换技术，使算法能够在具有不同信号幅度、奖励规模和数据分布的领域中进行稳定的学习。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalable Architecture:</b> Demonstrated that Dreamer scales predictably with model size and computational resources, enabling practitioners to improve performance by simply increasing compute without algorithm redesign.</div>
+            <div class="lang-zh" style="display:none"><b>可扩展架构：</b>证明了Dreamer可以与模型大小和计算资源进行可预测的扩展，使从业者能够通过简单增加计算资源来提高性能，而无需重新设计算法。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Domain Generalization:</b> Traditional RL algorithms require extensive hyperparameter tuning and domain expertise for each new application, making them brittle and expensive to apply broadly.</div>
+            <div class="lang-zh" style="display:none"><b>领域泛化：</b>传统的RL算法需要为每个新应用进行大量的超参数调整和领域专业知识，使其脆弱且难以广泛应用。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>World Model Learning:</b> Robustly learning and leveraging world models for planning requires overcoming challenges in prediction accuracy, representation quality, and balancing reconstruction vs. control objectives.</div>
+            <div class="lang-zh" style="display:none"><b>世界模型学习：</b>为了规划而稳健地学习和利用世界模型需要克服预测准确性、表示质量以及平衡重建与控制目标方面的挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scale and Stability:</b> Ensuring stable learning across domains with vastly different reward scales, observation types, and computational requirements while maintaining efficiency.</div>
+            <div class="lang-zh" style="display:none"><b>规模和稳定性：</b>确保在具有截然不同的奖励规模、观测类型和计算要求的领域中进行稳定的学习，同时保持效率。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Open-World Exploration:</b> Developing agents that can explore and learn long-term strategies in open-ended environments with sparse rewards and procedural generation.</div>
+            <div class="lang-zh" style="display:none"><b>开放世界探索：</b>开发能够在具有稀疏奖励和程序生成的开放式环境中探索和学习长期策略的代理。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>DreamerV3 learns a world model and uses imagination for planning, with robustness techniques enabling generalization across domains:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>World Model Architecture:</b> Recurrent State-Space Model (RSSM) that encodes observations, predicts future states via sequence modeling, and reconstructs inputs to ensure informative representations.</li>
+                <li style="margin-bottom:6px;"><b>Actor-Critic Learning:</b> Actor selects actions while critic predicts value distributions using imagined trajectories generated by the world model, with concurrent training of all components.</li>
+                <li style="margin-bottom:6px;"><b>Robustness Techniques:</b> Symlog transformations for handling large/small values, KL balancing with free bits for stable representation learning, return normalization for scale invariance, and twohot regression for multi-modal distributions.</li>
+                <li style="margin-bottom:6px;"><b>Scalable Implementation:</b> Fixed hyperparameters across domains, predictable scaling with model size and compute, enabling practitioners to improve performance by simply increasing resources.</li>
+                <li style="margin-bottom:6px;"><b>Imagination-Based Planning:</b> Generates imagined trajectories by sampling from the world model to learn policies without requiring additional environment interactions beyond training data.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>DreamerV3学习世界模型并使用想象进行规划，具有鲁棒性技术实现跨领域泛化：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>世界模型架构：</b>循环状态-空间模型(RSSM)，对观测进行编码，通过序列建模预测未来状态，并重建输入以确保信息丰富的表示。</li>
+                <li style="margin-bottom:6px;"><b>Actor-Critic学习：</b>Actor选择动作而Critic预测价值分布，使用世界模型生成的想象轨迹，同时训练所有组件。</li>
+                <li style="margin-bottom:6px;"><b>鲁棒性技术：</b>Symlog变换用于处理大/小值，KL平衡与自由bits用于稳定的表示学习，返回归一化用于规模不变性，以及twohot回归用于多模态分布。</li>
+                <li style="margin-bottom:6px;"><b>可扩展实现：</b>跨领域固定超参数，可预测地随模型大小和计算扩展，使从业者能够通过简单增加资源来提高性能。</li>
+                <li style="margin-bottom:6px;"><b>基于想象的规划：</b>通过从世界模型采样生成想象轨迹，在无需训练数据之外额外环境交互的情况下学习策略。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/dreamerv3_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/dreamerv3_overview_00.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/dreamerv3_overview_01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <p>DreamerV3's world model learns to predict future observations and rewards, enabling imagination-based planning that generalizes across diverse domains with fixed hyperparameters.</p>
+            <p>Note: DreamerV3 achieves state-of-the-art performance on Atari, ProcGen, DMLab, and Minecraft, including the first solution to collect diamonds in Minecraft from scratch without human data.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_dreamerv3.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_dreamerv3.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>DreamerV3's success stems from principled design choices that enable robust learning across diverse domains:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>World Model as Abstraction:</b> The RSSM provides a compressed, Markovian representation that filters out irrelevant details while preserving task-relevant information, enabling efficient planning in imagination.</li>
+                <li style="margin-bottom:6px;"><b>Concurrent Learning:</b> Training world model, actor, and critic simultaneously allows each component to benefit from the others' improvements, creating a virtuous cycle of better representations and policies.</li>
+                <li style="margin-bottom:6px;"><b>Robust Loss Functions:</b> Symlog transformations and twohot regression handle the wide range of reward scales and distributions across domains, preventing gradient instability and ensuring stable optimization.</li>
+                <li style="margin-bottom:6px;"><b>KL Balancing:</b> Free bits and KL coefficient clipping prevent the world model from becoming overly conservative or unstable, enabling consistent representation learning across different data distributions.</li>
+                <li style="margin-bottom:6px;"><b>Scale Invariance:</b> Return normalization and exploration entropy scaling ensure that the algorithm explores appropriately regardless of reward magnitude or density, enabling consistent performance across sparse and dense reward settings.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>DreamerV3的成功源于原则性设计选择，使其能够在多样化领域中进行鲁棒学习：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>世界模型作为抽象：</b>RSSM提供压缩的马尔可夫表示，过滤掉无关细节同时保留任务相关信息，实现想象中的高效规划。</li>
+                <li style="margin-bottom:6px;"><b>并发学习：</b>同时训练世界模型、Actor和Critic，使每个组件都能从其他组件的改进中受益，创造更好的表示和策略的良性循环。</li>
+                <li style="margin-bottom:6px;"><b>鲁棒损失函数：</b>Symlog变换和twohot回归处理跨领域的广泛奖励规模和分布，防止梯度不稳定并确保稳定的优化。</li>
+                <li style="margin-bottom:6px;"><b>KL平衡：</b>自由bits和KL系数裁剪防止世界模型变得过于保守或不稳定，实现跨不同数据分布的一致表示学习。</li>
+                <li style="margin-bottom:6px;"><b>规模不变性：</b>返回归一化和探索熵缩放确保算法无论奖励大小或密度如何都进行适当探索，实现跨稀疏和密集奖励设置的一致性能。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This landmark work presents DreamerV3, a transformative reinforcement learning algorithm that achieves unprecedented generalization across diverse domains with fixed hyperparameters. By learning world models that enable imagination-based planning, DreamerV3 overcomes the fundamental brittleness of traditional RL approaches, eliminating the need for domain-specific tuning and human expertise. The algorithm's remarkable achievement of collecting diamonds in Minecraft from scratch—without human data, curricula, or domain knowledge—demonstrates the power of world model-based learning to tackle complex, open-ended problems that have long challenged the field of artificial intelligence. Through carefully engineered robustness techniques including symlog transformations, KL balancing, and return normalization, DreamerV3 provides a stable and predictable path to scaling RL performance simply by increasing computational resources. The work establishes world models as a cornerstone of general-purpose reinforcement learning, showing that learning to simulate and plan in imagination can be more powerful than direct interaction with the environment. DreamerV3 represents a significant step toward making reinforcement learning a truly general tool for solving real-world problems, with the potential to accelerate progress in robotics, game AI, and beyond. The algorithm's success across 150+ diverse tasks—from Atari games and robotic control to the complex open world of Minecraft—validates the world model approach and opens new avenues for developing more capable and adaptable artificial agents.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项里程碑式工作提出了DreamerV3，这是一种变革性的强化学习算法，以固定超参数实现了跨多样化领域前所未有的泛化。通过学习能够实现基于想象规划的世界模型，DreamerV3克服了传统RL方法的根本脆弱性，消除了对领域特定调整和人工专业知识的需求。该算法在Minecraft中从零开始收集钻石的显著成就——无需人类数据、课程或领域知识——证明了基于世界模型的学习解决复杂、开放式问题的强大能力。通过精心设计的鲁棒性技术，包括symlog变换、KL平衡和返回归一化，DreamerV3提供了一条稳定且可预测的路径，通过简单增加计算资源来扩展RL性能。这项工作将世界模型确立为通用强化学习的基础，表明学习在想象中模拟和规划可能比直接与环境交互更强大。DreamerV3代表了使强化学习成为解决现实世界问题的真正通用工具的重要一步，有潜力加速机器人、游戏AI等领域的发展。该算法在150多种多样化任务上的成功——从Atari游戏和机器人控制到Minecraft的复杂开放世界——验证了世界模型方法，并为开发更强大和更具适应性的AI代理开辟了新途径。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2301.04104" target="_blank" style="color:#8bffcf;">2301.04104</a></p>
+          <p><b>Project Site:</b> <a href="https://danijar.com/dreamerv3" target="_blank" style="color:#8bffcf;">https://danijar.com/dreamerv3</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# DreamerV3 World Model Implementation<br>
+<br>
+// Recurrent State-Space Model (RSSM)<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">RSSM</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""World model that learns to predict future states and rewards"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, hidden_dim, stochastic_dim, deterministic_dim):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.encoder = Encoder()  <span style="color:#6a9955;"># CNN for image inputs</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.decoder = Decoder()  <span style="color:#6a9955;"># Decoder for reconstruction</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.sequence_model = GRUCell(hidden_dim, deterministic_dim)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.dynamics_predictor = Linear(deterministic_dim, stochastic_dim * 2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.reward_predictor = Linear(deterministic_dim + stochastic_dim, reward_bins)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.continue_predictor = Linear(deterministic_dim + stochastic_dim, 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, obs, action, prev_state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Predict next state, reward, and continuation"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stochastic_prev, deterministic_prev = prev_state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Encode observation</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encoded_obs = self.encoder(obs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stochastic_posterior = self._sample_posterior(encoded_obs, deterministic_prev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Predict next deterministic state</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deterministic_next = self.sequence_model(stochastic_prev, action, deterministic_prev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Predict next stochastic state (dynamics)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stochastic_prior = self._sample_prior(deterministic_next)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Predict reward and continuation</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state_combined = torch.cat([deterministic_next, stochastic_prior], dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reward_logits = self.reward_predictor(state_combined)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue_logits = self.continue_predictor(state_combined)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> (stochastic_posterior, deterministic_next), reward_logits, continue_logits<br>
+<br>
+// Symlog Transformation for Robust Predictions<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">symlog</span>(x):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Symmetric logarithmic transformation for handling large/small values"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> torch.sign(x) * torch.log(torch.abs(x) + 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">symexp</span>(x):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Inverse of symlog transformation"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> torch.sign(x) * (torch.exp(torch.abs(x)) - 1)<br>
+<br>
+// Twohot Regression for Multi-modal Value Distributions<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">TwohotPredictor</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Predicts value distributions using twohot encoding over exponentially spaced bins"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, bins=255):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.bins = bins<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.bin_centers = symexp(torch.linspace(-20, 20, bins))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, x):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Predict logits over bins"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logits = self.network(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;probs = F.softmax(logits, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = torch.sum(probs * self.bin_centers, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> value, logits<br>
+<br>
+// Imagination-based Actor-Critic Training<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">DreamerV3</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Complete DreamerV3 algorithm with world model and actor-critic"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__self, world_model, actor, critic, imagination_horizon=15):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.world_model = world_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.actor = actor<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.critic = critic<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.horizon = imagination_horizon<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">imagine_trajectory</span>(self, initial_state, actions):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Generate imagined trajectory using world model"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;states = [initial_state]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continues = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> action <span style="color:#569cd6;">in</span> actions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next_state, reward_logits, continue_logits = self.world_model(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;states[-1][0], action, states[-1])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;states.append(next_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards.append(reward_logits)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continues.append(continue_logits)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> states, rewards, continues<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">compute_lambda_returns</span>(self, rewards, continues, values):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute λ-returns with discount γ and λ parameters"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gamma, lam = 0.997, 0.95<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> t <span style="color:#569cd6;">in</span> reversed(range(len(rewards))):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> t == len(rewards) - 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next_return = values[t+1]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">else</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next_return = returns[0]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return_t = rewards[t] + gamma * continues[t] * (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1 - lam) * values[t] + lam * next_return)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns.insert(0, return_t)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> returns<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

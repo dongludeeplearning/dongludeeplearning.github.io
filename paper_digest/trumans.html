@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR24 (highlight)
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Scaling Up Dynamic Human-Scene Interaction Modeling</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Nan Jiang, Zhiyuan Zhang, Hongjie Li, Xiaoxuan Ma, Zan Wang, Yixin Chen, Tengyu Liu, Yixin Zhu, Siyuan Huang<br>
+        <span style="opacity:0.8">University of Toronto</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to scale up human-scene interaction (HSI) modeling to overcome data scarcity and enable advanced motion synthesis for realistic human-scene interactions?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何扩展人-场景交互（HSI）建模规模，以克服数据稀缺并实现高级运动合成，从而生成真实的人-场景交互？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>TRUMANS Dataset:</b> The most comprehensive motion-captured HSI dataset with 15+ hours of human interactions across 100 indoor scenes, capturing whole-body human motions and part-level object dynamics with realistic contact modeling.</div>
+            <div class="lang-zh" style="display:none"><b>TRUMANS 数据集：</b>最全面的运动捕捉HSI数据集，包含100个室内场景中15+小时的人类交互，捕捉全身人类运动和部分级对象动态，具有真实的接触建模。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Augmentation Pipeline:</b> Transforms physical environments into virtual models and applies extensive augmentations to appearance and motion for both humans and objects while maintaining interaction fidelity.</div>
+            <div class="lang-zh" style="display:none"><b>数据增强管道：</b>将物理环境转换为虚拟模型，并对人类和对象的表观和运动应用广泛增强，同时保持交互保真度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Diffusion-based Autoregressive Model:</b> An efficient model that generates HSI sequences of any length, conditioned on scene context and intended actions, with remarkable zero-shot generalizability across 3D scene datasets.</div>
+            <div class="lang-zh" style="display:none"><b>基于扩散的自回归模型：</b>一个高效模型，能够生成任意长度的HSI序列，以场景上下文和预期动作为条件，在3D场景数据集上具有显著的零样本泛化能力。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Comprehensive Evaluation:</b> Demonstrates state-of-the-art performance on PROX, Replica, ScanNet, and ScanNet++ datasets through quantitative experiments and human studies.</div>
+            <div class="lang-zh" style="display:none"><b>全面评估：</b>通过定量实验和人类研究，在PROX、Replica、ScanNet和ScanNet++数据集上展示了最先进的性能。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/trumans_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Scarcity:</b> Lack of large-scale, high-quality datasets capturing realistic human-scene interactions with both human motion and object dynamics.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>缺乏大规模、高质量的数据集，能够捕捉包含人类运动和对象动态的真实人-场景交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Interaction Fidelity:</b> Maintaining realistic physical contact and object dynamics while allowing for appearance and motion variations during data augmentation.</div>
+            <div class="lang-zh" style="display:none"><b>交互保真度：</b>在允许表观和运动变化的数据增强过程中，保持真实的物理接触和对象动态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Long-sequence Generation:</b> Efficiently generating arbitrarily long HSI sequences while maintaining temporal coherence and scene awareness.</div>
+            <div class="lang-zh" style="display:none"><b>长序列生成：</b>高效生成任意长度的HSI序列，同时保持时间连贯性和场景感知。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Zero-shot Generalization:</b> Enabling models trained on specific scenes to generalize to unseen 3D environments without fine-tuning.</div>
+            <div class="lang-zh" style="display:none"><b>零样本泛化：</b>使在特定场景上训练的模型能够在未见过的3D环境中泛化，而无需微调。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>TRUMANS Dataset Collection:</b> Captured 15+ hours of motion data across 100 indoor scenes using professional motion capture systems, focusing on realistic human-scene contact and object dynamics.</div>
+            <div class="lang-zh" style="display:none"><b>TRUMANS 数据集收集：</b>使用专业运动捕捉系统在100个室内场景中捕获15+小时的运动数据，重点关注真实的人-场景接触和对象动态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Virtual Scene Reconstruction:</b> Transformed physical environments into exact virtual 3D models and applied extensive augmentations to human/object appearance and motion while preserving interaction constraints.</div>
+            <div class="lang-zh" style="display:none"><b>虚拟场景重建：</b>将物理环境转换为精确的虚拟3D模型，并对人类/对象表观和运动应用广泛增强，同时保持交互约束。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Diffusion Autoregressive Model:</b> Designed an efficient autoregressive diffusion model that generates HSI sequences conditioned on scene geometry and intended actions, using temporal attention for long-range dependencies.</div>
+            <div class="lang-zh" style="display:none"><b>扩散自回归模型：</b>设计了一个高效的自回归扩散模型，以场景几何和预期动作为条件生成HSI序列，使用时间注意力处理长程依赖。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Zero-shot Adaptation:</b> Leveraged scene-agnostic representations and cross-scene training to enable zero-shot generalization to unseen environments like PROX, Replica, ScanNet datasets.</div>
+            <div class="lang-zh" style="display:none"><b>零样本适应：</b>利用场景无关表示和跨场景训练，实现对PROX、Replica、ScanNet等未见环境的零样本泛化。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/trumans_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2403.08629.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2403.08629.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                TRUMANS dataset and the diffusion-based autoregressive model provide a comprehensive solution for scaling up dynamic human-scene interaction modeling, overcoming data scarcity challenges.
+            </div>
+            <div class="lang-zh" style="display:none">
+                TRUMANS数据集和基于扩散的自回归模型为扩展动态人-场景交互建模提供了全面解决方案，克服了数据稀缺挑战。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The approach achieves remarkable zero-shot generalizability across diverse 3D scene datasets, enabling realistic human-scene interactions in previously unseen environments.
+            </div>
+            <div class="lang-zh" style="display:none">
+                该方法在多样化的3D场景数据集上实现了显著的零样本泛化能力，能够在以前未见过的环境中生成真实的人-场景交互。
+            </div>
+          </li>
+          <li>
+            <div class="lang-en">
+                Extensive quantitative experiments and human studies validate the superiority of the generated motions in mimicking real motion-captured sequences with proper scene awareness and contact realism.
+            </div>
+            <div class="lang-zh" style="display:none">
+                广泛的定量实验和人类研究验证了生成运动在模仿真实运动捕捉序列方面的优越性，具有适当的场景感知和接触真实性。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/jnnan/trumans_utils" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo 
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

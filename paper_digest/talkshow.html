@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Generating Holistic 3D Human Motion from Speech</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Hongwei Yi<sup>1*</sup>, Hualin Liang<sup>2*</sup>, Yifei Liu<sup>2*</sup>, Qiong Cao<sup>3†</sup>, Yandong Wen<sup>1</sup>, Timo Bolkart<sup>1</sup>, Dacheng Tao<sup>3</sup>, Michael J. Black<sup>1†</sup> <br>
+        <span style="opacity:0.8"><sup>1</sup>Max Planck Institute for Intelligent Systems, Tübingen, Germany, <sup>2</sup>South China University of Technology, <sup>3</sup>JD Explore Academy</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate realistic and diverse 3D holistic body motions (face, body, hands) synchronously from human speech?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从人类语音同步生成逼真且多样化的3D全身动作（面部、身体、手部）？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>TalkShow Dataset:</b> Built a high-quality dataset of 3D holistic body meshes with synchronous speech, addressing the lack of paired data.</div>
+            <div class="lang-zh" style="display:none"><b>TalkShow 数据集：</b>构建了一个包含同步语音的高质量3D全身网格数据集，解决了配对数据缺乏的问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Separated Modeling Framework:</b> Proposed a framework that models face, body, and hands separately to account for their different correlations with speech.</div>
+            <div class="lang-zh" style="display:none"><b>分离建模框架：</b>提出了一个分别对面部、身体和手部进行建模的框架，以考虑它们与语音的不同相关性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Compositional VQ-VAE:</b> Employed a compositional VQ-VAE for body and hand motions to enable diverse result generation.</div>
+            <div class="lang-zh" style="display:none"><b>组合式 VQ-VAE：</b>采用组合式 VQ-VAE 来处理身体和手部动作，以实现多样化的结果生成。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/talkshow_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Scarcity:</b> Lack of high-quality, synchronized 3D holistic body motion and speech datasets.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>缺乏高质量、同步的3D全身动作和语音数据集。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Correlation Discrepancy:</b> Face articulation is strongly correlated with speech, while body and hand motions are less correlated and more diverse.</div>
+            <div class="lang-zh" style="display:none"><b>相关性差异：</b>面部运动与语音密切相关，而身体和手部动作相关性较低且更具多样性。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Separate Modeling:</b> Face motions are modeled with an autoencoder, while body/hand motions use a VQ-VAE to handle different speech correlations.</div>
+            <div class="lang-zh" style="display:none"><b>分离建模：</b>面部动作使用自编码器建模，而身体/手部动作使用 VQ-VAE 来处理不同的语音相关性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Cross-Conditional Autoregressive Model:</b> Generates body poses and hand gestures conditioned on speech and past motions to ensure coherence.</div>
+            <div class="lang-zh" style="display:none"><b>交叉条件自回归模型：</b>以语音和过去动作为条件生成身体姿势和手势，以确保连贯性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Holistic Integration:</b> Combines generated face, body, and hand motions into a unified SMPL-X mesh sequence.</div>
+            <div class="lang-zh" style="display:none"><b>整体集成：</b>将生成的面部、身体和手部动作组合成统一的 SMPL-X 网格序列。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/talkshow_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2212.04420.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2212.04420.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Qualitative:</b> Generated motions are more realistic and synchronized with speech compared to baselines.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>定性：</b>与基线相比，生成的动作更逼真，并且与语音更同步。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Quantitative:</b> Achieved state-of-the-art performance metrics on the TalkShow dataset.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>定量：</b>在 TalkShow 数据集上达到了最先进的性能指标。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Holistic Generation:</b>
+                Simultaneously generating face, body, and hands is crucial for realistic human communication synthesis.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>整体生成：</b>
+                同时生成面部、身体和手部对于逼真的人类交流合成至关重要。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Diversity vs. Determinism:</b>
+                Speech strongly dictates lip motion (deterministic) but only weakly influences body pose (probabilistic), necessitating different modeling approaches.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>多样性与确定性：</b>
+                语音强烈决定嘴唇动作（确定性），但仅微弱影响身体姿势（概率性），因此需要不同的建模方法。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                The key insight is to respect the different nature of correlation between speech and different body parts. By using a VQ-VAE for the body/hands, the model learns a discrete codebook of plausible poses, allowing it to sample diverse motions that are consistent with the speech rhythm without being overly constrained to a single deterministic output.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                核心见解是尊重语音与不同身体部位之间相关性的不同性质。通过对身体/手部使用 VQ-VAE，模型学习了合理姿势的离散码本，使其能够采样与语音节奏一致的多样化动作，而不会过度受限于单一的确定性输出。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/yhw-yhw/TalkSHOW" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual VQ-VAE training step.
+            </div>
+            <div class="lang-zh" style="display:none">
+                概念性 VQ-VAE 训练步骤。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Placeholder for VQ-VAE logic</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward_vqvae</span>(x):
+    z_e = encoder(x)
+    z_q, loss_vq, _ = quantizer(z_e)
+    x_recon = decoder(z_q)
+    <span style="color:#569cd6;">return</span> x_recon, loss_vq
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

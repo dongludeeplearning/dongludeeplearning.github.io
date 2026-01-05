@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • NeurIPS 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Tree of Thoughts: Deliberate Problem Solving with Large Language Models</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, Karthik Narasimhan<br>
+        <span style="opacity:0.8">Princeton University, Google DeepMind</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we enable large language models to perform deliberate decision-making by exploring multiple reasoning paths over coherent units of text (thoughts) in a tree structure, rather than just generating token-level, left-to-right sequences?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何让大型语言模型通过在树结构中探索多个推理路径上的连贯文本单元（思想）来进行深思熟虑的决策，而不是仅仅生成token级别的从左到右序列？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Tree of Thoughts Framework:</b> Introduced ToT, a novel paradigm that generalizes Chain-of-Thought prompting by allowing LMs to explore multiple reasoning paths over coherent thoughts in a tree structure, enabling deliberate decision-making with backtracking and lookahead.</div>
+            <div class="lang-zh" style="display:none"><b>Tree of Thoughts框架：</b>引入了ToT，这是一种新颖的范式，通过允许LM在树结构中探索连贯思想上的多个推理路径，推广了Chain-of-Thought提示，从而实现具有回溯和前瞻的深思熟虑决策。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Search Algorithms Integration:</b> Combined breadth-first search (BFS) and depth-first search (DFS) with LM-based thought generation and evaluation, providing flexible and adaptable search mechanisms for different problem types.</div>
+            <div class="lang-zh" style="display:none"><b>搜索算法集成：</b>将广度优先搜索（BFS）和深度优先搜索（DFS）与基于LM的思想生成和评估相结合，为不同问题类型提供灵活和可适应的搜索机制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved remarkable improvements on challenging tasks: 74% success rate on Game of 24 (vs. 4% with CoT), 78% letter-level accuracy on Mini Crosswords, and better coherency in Creative Writing, demonstrating ToT's effectiveness on tasks requiring planning and search.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在具有挑战性的任务上取得了显著改进：在Game of 24上达到74%的成功率（对比CoT的4%），在Mini Crosswords上达到78%的字母级准确率，在Creative Writing中实现更好的连贯性，证明了ToT在需要规划和搜索的任务上的有效性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Modular and Generalizable:</b> Designed a modular framework where thought decomposition, generation, evaluation, and search algorithms can be independently varied and adapted to different problem domains without requiring model fine-tuning.</div>
+            <div class="lang-zh" style="display:none"><b>模块化和可泛化：</b>设计了一个模块化框架，其中思想分解、生成、评估和搜索算法可以独立变化并适应不同的问题领域，而无需进行模型微调。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Token-Level Limitations:</b> Current LMs are confined to token-level, left-to-right decision-making during inference, making them inadequate for tasks requiring exploration, strategic lookahead, or where initial decisions have significant downstream consequences.</div>
+            <div class="lang-zh" style="display:none"><b>Token级别限制：</b>当前的LM在推理过程中被限制在token级别、从左到右的决策制定，使它们不足以处理需要探索、战略前瞻或初始决策具有重大下游后果的任务。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Deliberation:</b> Existing prompting methods like Chain-of-Thought lack mechanisms for exploring alternative reasoning paths, evaluating progress, or backtracking when encountering dead ends.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏深思熟虑：</b>像Chain-of-Thought这样的现有提示方法缺乏探索替代推理路径、评估进展或在遇到死胡同时回溯的机制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Search Complexity:</b> Implementing effective search algorithms over thought spaces requires careful design of thought decomposition, generation strategies, and evaluation heuristics that work well with LM capabilities.</div>
+            <div class="lang-zh" style="display:none"><b>搜索复杂性：</b>在思想空间上实现有效的搜索算法需要仔细设计思想分解、生成策略和与LM能力配合良好的评估启发式。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Computational Cost:</b> Tree-based search approaches inherently require more computational resources than simple prompting methods, necessitating careful optimization of search depth, breadth, and evaluation frequency.</div>
+            <div class="lang-zh" style="display:none"><b>计算成本：</b>基于树的搜索方法本质上需要比简单提示方法更多的计算资源，需要仔细优化搜索深度、广度和评估频率。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The Tree of Thoughts framework enables deliberate problem solving by structuring reasoning as tree search over thoughts:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Thought Decomposition:</b> Break down the problem-solving process into coherent units of text (thoughts) that represent meaningful intermediate steps, such as equations in math problems or paragraphs in writing tasks.</li>
+                <li style="margin-bottom:6px;"><b>Thought Generation:</b> Use LM prompts to generate multiple candidate thoughts from each state, either by sampling independently or proposing thoughts sequentially while maintaining diversity.</li>
+                <li style="margin-bottom:6px;"><b>State Evaluation:</b> Evaluate the quality and progress of different thought states using LM-based heuristics, either by valuing states independently or voting across states to determine the most promising paths.</li>
+                <li style="margin-bottom:6px;"><b>Search Algorithms:</b> Apply BFS for shallow, breadth-focused exploration or DFS for deep, depth-focused exploration with pruning and backtracking capabilities.</li>
+                <li style="margin-bottom:6px;"><b>Integration:</b> Combine all components into a cohesive framework where thoughts serve as nodes in a tree, and the LM provides both generation and evaluation capabilities for deliberate decision-making.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>Tree of Thoughts框架通过将推理结构化为思想上的树搜索来实现深思熟虑的问题解决：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>思想分解：</b>将问题解决过程分解为连贯的文本单元（思想），这些单元代表有意义的中间步骤，例如数学问题中的方程或写作任务中的段落。</li>
+                <li style="margin-bottom:6px;"><b>思想生成：</b>使用LM提示从每个状态生成多个候选思想，通过独立采样或顺序提出思想来保持多样性。</li>
+                <li style="margin-bottom:6px;"><b>状态评估：</b>使用基于LM的启发式评估不同思想状态的质量和进展，通过独立评估状态或跨状态投票来确定最有前景的路径。</li>
+                <li style="margin-bottom:6px;"><b>搜索算法：</b>应用BFS进行浅层、广度优先探索，或应用具有剪枝和回溯能力的DFS进行深度优先探索。</li>
+                <li style="margin-bottom:6px;"><b>集成：</b>将所有组件集成到一个连贯的框架中，其中思想作为树中的节点，LM为深思熟虑的决策提供生成和评估能力。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/tree_of_thoughts_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/tree_of_thoughts_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/tree_of_thoughts_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>Tree of Thoughts enables deliberate problem solving by exploring multiple reasoning paths in a tree structure, with thought generation, evaluation, and search algorithms working together to find optimal solutions.</p>
+            <p>Note: The framework generalizes Chain-of-Thought prompting by allowing exploration of diverse reasoning paths with backtracking and lookahead, achieving significant improvements on tasks requiring planning and search like Game of 24 and Mini Crosswords.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_tree_of_thoughts.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_tree_of_thoughts.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Tree of Thoughts succeeds by bridging the gap between fast System 1 and deliberate System 2 thinking in language models:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Multi-Path Exploration:</b> Unlike linear Chain-of-Thought, ToT explores multiple reasoning trajectories simultaneously, allowing the model to discover diverse approaches and avoid getting stuck in suboptimal paths.</li>
+                <li style="margin-bottom:6px;"><b>Self-Evaluation and Deliberation:</b> The framework incorporates LM-based evaluation mechanisms that enable the model to assess its own progress and make informed decisions about which paths to pursue or abandon.</li>
+                <li style="margin-bottom:6px;"><b>Search Algorithm Integration:</b> By combining classical search algorithms (BFS/DFS) with LM capabilities, ToT provides systematic exploration with backtracking, enabling the model to handle complex problems that require planning and strategic thinking.</li>
+                <li style="margin-bottom:6px;"><b>Thought-Level Reasoning:</b> Operating at the level of coherent thoughts rather than individual tokens allows for more meaningful decision-making and evaluation, capturing higher-level reasoning patterns.</li>
+                <li style="margin-bottom:6px;"><b>Adaptive Problem Solving:</b> The modular design allows ToT to adapt to different problem types by varying thought decomposition, generation strategies, and search algorithms, making it applicable across diverse domains.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>Tree of Thoughts通过弥合语言模型中快速System 1思维和深思熟虑System 2思维之间的差距而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>多路径探索：</b>与线性的Chain-of-Thought不同，ToT同时探索多个推理轨迹，允许模型发现多样化的方法并避免陷入次优路径。</li>
+                <li style="margin-bottom:6px;"><b>自我评估和深思熟虑：</b>该框架包含基于LM的评估机制，使模型能够评估自己的进展并就继续或放弃哪些路径做出明智决定。</li>
+                <li style="margin-bottom:6px;"><b>搜索算法集成：</b>通过将经典搜索算法（BFS/DFS）与LM能力相结合，ToT提供了具有回溯的系统探索，使模型能够处理需要规划和战略思维的复杂问题。</li>
+                <li style="margin-bottom:6px;"><b>思想级别推理：</b>在连贯思想而不是单个token的级别上操作，允许更有意义的决策制定和评估，捕捉更高级别的推理模式。</li>
+                <li style="margin-bottom:6px;"><b>适应性问题解决：</b>模块化设计允许ToT通过变化思想分解、生成策略和搜索算法来适应不同问题类型，使其适用于各种领域。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work introduces Tree of Thoughts, a revolutionary framework that transforms language models from mere text generators into deliberate problem solvers capable of strategic planning and search. By conceptualizing problem solving as tree search over coherent units of text (thoughts), the authors bridge the gap between classical artificial intelligence approaches and modern language models, enabling LMs to perform the kind of systematic exploration and decision-making previously only possible with specialized algorithms. The framework's modular design—allowing independent variation of thought decomposition, generation, evaluation, and search algorithms—provides unprecedented flexibility and adaptability across diverse problem domains. Experimental results on three challenging tasks demonstrate the framework's power: achieving a 74% success rate on Game of 24 where Chain-of-Thought failed at 4%, solving Mini Crosswords with 78% letter-level accuracy, and generating more coherent creative writing. ToT represents a fundamental advancement in how we interact with and deploy language models, opening new possibilities for complex reasoning, planning, and decision-making applications. The work establishes a new paradigm for language model inference that combines the creativity and knowledge of LMs with the systematicity and deliberation of classical search algorithms, potentially enabling more sophisticated AI systems that can tackle problems requiring genuine intelligence and strategic thinking.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了Tree of Thoughts，这是一个革命性的框架，将语言模型从单纯的文本生成器转变为能够进行战略规划和搜索的深思熟虑问题解决者。通过将问题解决概念化为连贯文本单元（思想）上的树搜索，作者们弥合了经典人工智能方法与现代语言模型之间的差距，使LM能够执行以前只有专用算法才能实现的系统探索和决策制定。该框架的模块化设计——允许独立变化思想分解、生成、评估和搜索算法——为跨不同问题领域提供了前所未有的灵活性和适应性。在三个具有挑战性的任务上的实验结果证明了该框架的力量：在Chain-of-Thought失败于4%的情况下，在Game of 24上达到74%的成功率，以78%的字母级准确率解决Mini Crosswords，并生成更连贯的创意写作。ToT代表了我们与语言模型交互和部署方式的根本进步，为需要复杂推理、规划和决策的应用开辟了新的可能性。该工作建立了一个新的语言模型推理范式，将LM的创造力和知识与经典搜索算法的系统性和深思熟虑相结合，可能实现能够处理需要真正智能和战略思维的问题的更复杂AI系统。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2305.10601" target="_blank" style="color:#8bffcf;">2305.10601</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/princeton-nlp/tree-of-thought-llm" target="_blank" style="color:#8bffcf;">https://github.com/princeton-nlp/tree-of-thought-llm</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Tree of Thoughts Implementation<br>
+<br>
+// BFS search algorithm with thought generation and evaluation<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">tot_bfs</span>(problem, lm, thought_generator, state_evaluator, max_steps=3, beam_width=5):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Tree of Thoughts with Breadth-First Search"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;root_state = (problem, [])  <span style="color:#6a9955;"># (current_problem, thought_history)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;queue = [root_state]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> step <span style="color:#569cd6;">in</span> range(max_steps):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;candidates = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate thoughts for each state in current level</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> state <span style="color:#569cd6;">in</span> queue:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_thoughts = thought_generator.generate(state, num_candidates=beam_width)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;candidates.extend([(state, thought) <span style="color:#569cd6;">for</span> thought <span style="color:#569cd6;">in</span> new_thoughts])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Evaluate all candidate states</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evaluated_states = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> state, thought <span style="color:#569cd6;">in</span> candidates:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_state = (update_problem(state[0], thought), state[1] + [thought])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score = state_evaluator.evaluate(new_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evaluated_states.append((new_state, score))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Keep top beam_width states for next level</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evaluated_states.sort(key=<span style="color:#569cd6;">lambda</span> x: x[1], reverse=<span style="color:#569cd6;">True</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue = [state <span style="color:#569cd6;">for</span> state, _ <span style="color:#569cd6;">in</span> evaluated_states[:beam_width]]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Return the best final state</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;best_state = max(queue, key=<span style="color:#569cd6;">lambda</span> s: state_evaluator.evaluate(s))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> extract_solution(best_state)<br>
+<br>
+// DFS search with pruning and backtracking<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">tot_dfs</span>(state, step, max_steps, thought_generator, state_evaluator, threshold=0.3):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Tree of Thoughts with Depth-First Search"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> step >= max_steps:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> extract_solution(state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;candidates = thought_generator.generate(state, num_candidates=5)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> thought <span style="color:#569cd6;">in</span> candidates:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_state = (update_problem(state[0], thought), state[1] + [thought])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score = state_evaluator.evaluate(new_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Prune if state evaluation below threshold</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> score < threshold:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Recurse deeper</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result = tot_dfs(new_state, step + 1, max_steps, thought_generator, state_evaluator, threshold)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> result <span style="color:#569cd6;">is</span> <span style="color:#569cd6;">not</span> <span style="color:#569cd6;">None</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> <span style="color:#569cd6;">None</span>  <span style="color:#6a9955;"># No solution found</span><br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

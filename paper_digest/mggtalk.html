@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Monocular and Generalizable Gaussian Talking Head Animation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Shengjie Gong, Haojie Li, Jiapeng Tang, Dongming Hu, Shuangping Huang, Hao Chen, Tianshui Chen, Zhuoman Liu<br>
+        <span style="opacity:0.8">South China University of Technology, Technical University of Munich, Pazhou Laboratory, Guangdong University of Technology, The Hong Kong Polytechnic University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to achieve monocular and generalizable 3D Gaussian talking head animation that requires only monocular datasets for training and generalizes to unseen identities without personalized re-training, while maintaining real-time performance and multi-view consistency?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何实现单目和可泛化的3D高斯说话头部动画，只需要单目数据集进行训练，能够泛化到未见身份而无需个性化重新训练，同时保持实时性能和多视图一致性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Monocular Generalizable Framework:</b> Introduced MGGTalk, the first framework trained exclusively on monocular datasets that generalizes to unseen identities without personalized re-training, enabling practical and broader applications compared to methods requiring multi-view or person-specific training data.</div>
+            <div class="lang-zh" style="display:none"><b>单目可泛化框架：</b>引入了MGGTalk，这是第一个完全在单目数据集上训练的框架，能够泛化到未见身份而无需个性化重新训练，与需要多视图或特定人员训练数据的方法相比，实现了更实用和更广泛的应用。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Depth-Aware Symmetric Geometry Reconstruction:</b> Developed DSGR module that leverages monocular depth estimation and facial symmetry priors to construct complete 3D facial geometry from single images, addressing the incompleteness of geometric and appearance information in monocular settings.</div>
+            <div class="lang-zh" style="display:none"><b>深度感知对称几何重建：</b>开发了DSGR模块，利用单目深度估计和面部对称先验从单张图像构建完整的3D面部几何，解决了单目设置中几何和外观信息不完整的问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Symmetric Gaussian Prediction:</b> Designed SGP module with a two-stage strategy that first predicts Gaussian parameters for visible facial regions and then uses symmetric priors to guide prediction for non-visible regions, ensuring complete and precise Gaussian parameters for high-quality rendering.</div>
+            <div class="lang-zh" style="display:none"><b>对称高斯预测：</b>设计了SGP模块采用两阶段策略，首先预测可见面部区域的高斯参数，然后使用对称先验指导非可见区域的预测，确保完整和精确的高斯参数以实现高质量渲染。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Achieved state-of-the-art results in both video-driven and audio-driven talking head generation, surpassing previous methods in image quality, lip synchronization, and expression control while maintaining real-time inference (>40 FPS) and multi-view consistency.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在视频驱动和音频驱动的说话头部生成中都取得了最先进的结果，在图像质量、唇同步和表情控制方面超越了以前的方法，同时保持实时推理（>40 FPS）和多视图一致性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/mggtalk_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('mggtalk_cvpr2025.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('mggtalk_cvpr2025.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/mggtalk_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('mggtalk_cvpr2025.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('mggtalk_cvpr2025.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Monocular Data Limitations:</b> Traditional 3DGS methods rely on multi-view datasets or personalized training to obtain complete geometric and appearance information, but monocular data lacks depth cues and occlusion information, making it challenging to reconstruct complete 3D facial representations.</div>
+            <div class="lang-zh" style="display:none"><b>单目数据局限性：</b>传统的3DGS方法依赖多视图数据集或个性化训练来获得完整的几何和外观信息，但单目数据缺乏深度线索和遮挡信息，使得重建完整的3D面部表示具有挑战性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Generalization to Unseen Identities:</b> Existing monocular methods often require person-specific training or fine-tuning for each new identity, limiting scalability and practical deployment in real-world applications where identities are unknown in advance.</div>
+            <div class="lang-zh" style="display:none"><b>泛化到未见身份：</b>现有的单目方法通常需要为每个新身份进行特定人员训练或微调，限制了可扩展性和实际部署在提前未知身份的现实世界应用中的能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Geometric Completeness:</b> Single images cannot capture the complete facial geometry, especially occluded or invisible regions, requiring innovative approaches to supplement missing information while maintaining anatomical plausibility and multi-view consistency.</div>
+            <div class="lang-zh" style="display:none"><b>几何完整性：</b>单张图像无法捕获完整的面部几何，特别是遮挡或不可见区域，需要创新方法来补充缺失信息同时保持解剖学合理性和多视图一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Parameter Prediction for Invisible Regions:</b> Gaussian parameters for facial regions not visible in the source image are difficult to predict accurately due to lack of supervision, requiring sophisticated strategies to leverage symmetry priors and visible region information.</div>
+            <div class="lang-zh" style="display:none"><b>不可见区域的参数预测：</b>源图像中不可见的面部区域的高斯参数由于缺乏监督而难以准确预测，需要复杂的策略来利用对称先验和可见区域信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Performance:</b> Achieving high-quality talking head animation with multi-view consistency while maintaining real-time inference speeds, balancing computational efficiency with rendering fidelity for interactive applications.</div>
+            <div class="lang-zh" style="display:none"><b>实时性能：</b>在保持多视图一致性的同时实现高质量的说话头部动画，并维持实时推理速度，为交互式应用平衡计算效率和渲染保真度。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Depth-Aware Symmetric Geometry Reconstruction:</b> Implemented DSGR module that uses monocular depth estimation to extract pixel-wise geometric information, applies surface reconstruction and refinement, and utilizes facial symmetry priors with voxel-based filtering to construct complete 3D point clouds for both visible and invisible facial regions.</div>
+            <div class="lang-zh" style="display:none"><b>深度感知对称几何重建：</b>实现了DSGR模块，使用单目深度估计提取像素-wise几何信息，应用表面重建和细化，并利用面部对称先验与基于体素的过滤来构建可见和不可见面部区域的完整3D点云。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Symmetric Gaussian Prediction:</b> Developed SGP module with a two-stage approach that first predicts complete Gaussian parameters for visible facial regions using identity encoding and point clouds, then utilizes symmetric priors to guide prediction for invisible regions, ensuring comprehensive parameter coverage.</div>
+            <div class="lang-zh" style="display:none"><b>对称高斯预测：</b>开发了SGP模块采用两阶段方法，首先使用身份编码和点云预测可见面部区域的完整高斯参数，然后利用对称先验指导不可见区域的预测，确保全面的参数覆盖。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Expression-Driven Deformation:</b> Incorporated a deformation network that takes expression features from driving sources (audio or video) and applies point-wise deformations to the reconstructed point clouds, enabling dynamic facial animations while preserving geometric consistency.</div>
+            <div class="lang-zh" style="display:none"><b>表情驱动变形：</b>纳入了一个变形网络，从驱动源（音频或视频）获取表情特征，并对重建的点云应用点-wise变形，实现动态面部动画同时保持几何一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Training with Densification:</b> Employed a three-stage training pipeline including static initialization, motion learning with deformation, and fine-tuning, combined with parent-child Gaussian densification to enhance rendering quality and handle sparsity issues.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段训练与致密化：</b>采用包括静态初始化、带变形的运动学习和微调在内的三阶段训练管道，结合父子高斯致密化来增强渲染质量并处理稀疏问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><div class="lang-en"><b>Real-Time Rendering Pipeline:</b> Integrated the complete framework with efficient 3DGS rasterization and inpainting for torso-background completion, achieving real-time inference speeds exceeding 40 FPS while maintaining multi-view consistency and high visual fidelity.</div>
+            <div class="lang-zh" style="display:none"><b>实时渲染管道：</b>将完整框架与高效的3DGS光栅化和躯干背景补全集成，实现超过40 FPS的实时推理速度，同时保持多视图一致性和高视觉保真度。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Monocular vs. Multi-View Training:</b> MGGTalk breaks the dependency on expensive multi-view datasets by exploiting facial symmetry and depth priors, enabling practical deployment with only monocular data while achieving comparable performance to multi-view methods.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>单目 vs. 多视图训练：</b>MGGTalk通过利用面部对称和深度先验打破了对昂贵多视图数据集的依赖，只需单目数据就能实现与多视图方法相当的性能，实现实用部署。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Symmetry Priors for Completeness:</b> The strategic use of facial symmetry in both geometry reconstruction and parameter prediction addresses the fundamental challenge of incomplete information in single-image settings, providing a biologically-inspired solution for robust 3DGS reconstruction.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>完整性的对称先验：</b>在几何重建和参数预测中战略性地使用面部对称解决了单图像设置中信息不完整的基本挑战，为强大的3DGS重建提供了生物学启发的解决方案。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Generalization through Priors:</b> By leveraging universal facial characteristics rather than identity-specific training, MGGTalk achieves true generalization to unseen identities, making it more scalable and applicable to real-world scenarios with diverse populations.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>通过先验的泛化：</b>通过利用普遍的面部特征而不是身份特定训练，MGGTalk实现了对未见身份的真正泛化，使其更具可扩展性并适用于具有多样化人群的现实世界场景。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because MGGTalk addresses the core limitations of monocular data by systematically leveraging facial depth and symmetry priors across geometry reconstruction and parameter prediction stages, enabling complete 3D representation from single images while maintaining generalization capabilities.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为MGGTalk通过在几何重建和参数预测阶段系统地利用面部深度和对称先验解决了单目数据核心局限性，实现从单张图像的完整3D表示同时保持泛化能力。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper presents MGGTalk, a novel framework for monocular and generalizable 3D Gaussian talking head animation. By exploring depth and symmetric facial characteristics, MGGTalk constructs complete 3D Gaussian facial attributes from single images trained on monocular datasets. The framework achieves superior performance in both video-driven and audio-driven talking head generation, surpassing state-of-the-art methods across various metrics while maintaining real-time inference speeds exceeding 40 FPS. MGGTalk enables practical applications by eliminating the need for multi-view datasets or personalized training, opening new possibilities for scalable talking head animation systems.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文提出了MGGTalk，一个新颖的单目和可泛化的3D高斯说话头部动画框架。通过探索深度和对称面部特征，MGGTalk从在单目数据集上训练的单张图像构建完整的3D高斯面部属性。该框架在视频驱动和音频驱动的说话头部生成中都实现了卓越性能，在各种指标上超越了最先进的方法，同时保持超过40 FPS的实时推理速度。MGGTalk通过消除对多视图数据集或个性化训练的需求实现了实际应用，为可扩展的说话头部动画系统开辟了新的可能性。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://scut-mmpr.github.io/MGGTalk-Homepage/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • NeurIPS 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Describe, Explain, Plan and Select: Interactive Planning with Large Language Models Enables Open-World Multi-Task Agents</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zihao Wang, Shaofei Cai, Guanzhou Chen, Anji Liu, Xiaojian Ma, Yitao Liang<br>
+        <span style="opacity:0.8">Peking University, BUPT, UCLA, BIGAI</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we develop interactive planning approaches using large language models to enable robust multi-task agents in open-world environments with complex task dependencies and state-dependent feasibility constraints?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何开发使用大型语言模型的交互式规划方法，以实现开放世界环境中具有复杂任务依赖关系和状态相关可行性约束的鲁棒多任务代理？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>DEPS Framework:</b> Introduced Describe, Explain, Plan and Select (DEPS), an interactive planning framework that uses LLMs to generate, correct, and optimize plans through iterative feedback loops in open-world environments.</div>
+            <div class="lang-zh" style="display:none"><b>DEPS框架：</b>引入了描述、解释、规划和选择(DEPS)，这是一个交互式规划框架，使用LLM通过开放世界环境中的迭代反馈循环来生成、纠正和优化计划。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Error Correction through Interaction:</b> Developed a descriptor-explainer-replanner pipeline that provides contextual feedback when plans fail, enabling LLMs to self-correct through multi-step reasoning about execution errors and plan flaws.</div>
+            <div class="lang-zh" style="display:none"><b>通过交互进行错误纠正：</b>开发了一个描述者-解释者-重新规划者管道，在计划失败时提供上下文反馈，使LLM能够通过关于执行错误和计划缺陷的多步推理来进行自我纠正。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Goal Selector with Horizon Prediction:</b> Implemented a trainable goal selector that ranks parallel sub-goals based on predicted completion horizons, optimizing plan efficiency by selecting the most accessible sub-tasks given the current agent state.</div>
+            <div class="lang-zh" style="display:none"><b>具有地平线预测的目标选择器：</b>实现了一个可训练的目标选择器，根据预测的完成地平线对并行子目标进行排序，通过根据当前代理状态选择最可访问的子任务来优化计划效率。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Zero-Shot Multi-Task Success:</b> Achieved the first zero-shot multi-task agent capable of robustly accomplishing 70+ Minecraft tasks, nearly doubling performance over existing LLM-based planners and setting new benchmarks in ObtainDiamond challenge.</div>
+            <div class="lang-zh" style="display:none"><b>零样本多任务成功：</b>实现了第一个能够鲁棒地完成70多项Minecraft任务的零样本多任务代理，比现有基于LLM的规划者性能几乎翻倍，并在ObtainDiamond挑战中设定了新的基准。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Complex Task Dependencies:</b> Open-world environments require plans with long sequences of interdependent sub-goals, where errors in early steps can cascade and invalidate entire execution paths.</div>
+            <div class="lang-zh" style="display:none"><b>复杂任务依赖关系：</b>开放世界环境需要具有长序列相互依赖子目标的计划，其中早期步骤的错误可能级联并使整个执行路径无效。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-Dependent Feasibility:</b> The feasibility of sub-goals depends on the agent's current state and environment configuration, requiring dynamic plan adaptation rather than static planning.</div>
+            <div class="lang-zh" style="display:none"><b>状态相关可行性：</b>子目标的可行性取决于代理的当前状态和环境配置，需要动态计划适应而不是静态规划。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Parallel Goal Ordering:</b> When multiple sub-goals can be executed in parallel, the planner must consider execution efficiency and select the optimal ordering based on current agent capabilities and environmental constraints.</div>
+            <div class="lang-zh" style="display:none"><b>并行目标排序：</b>当多个子目标可以并行执行时，规划者必须考虑执行效率，并根据当前代理能力和环境约束选择最佳排序。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Interactive Error Recovery:</b> Traditional planners fail catastrophically when encountering execution errors; robust agents need interactive mechanisms to diagnose failures and adapt plans dynamically.</div>
+            <div class="lang-zh" style="display:none"><b>交互式错误恢复：</b>传统规划者在遇到执行错误时会灾难性失败；鲁棒代理需要交互机制来诊断失败并动态适应计划。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>DEPS addresses open-world planning challenges through interactive LLM-based planning:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Descriptor Module:</b> Summarizes execution state and failure contexts when sub-goals cannot be completed, providing rich feedback to guide plan correction.</li>
+                <li style="margin-bottom:6px;"><b>Explainer Module:</b> Uses LLM reasoning to diagnose why plans fail by analyzing execution feedback and identifying missing prerequisites or incorrect assumptions.</li>
+                <li style="margin-bottom:6px;"><b>Re-Planner Module:</b> Generates corrected plans by incorporating descriptor feedback and explainer insights, enabling iterative plan refinement through multiple rounds.</li>
+                <li style="margin-bottom:6px;"><b>Goal Selector:</b> Learns to predict completion horizons for parallel sub-goals and selects the most efficient execution order based on current agent state and environmental constraints.</li>
+                <li style="margin-bottom:6px;"><b>Integration Pipeline:</b> Combines all modules in a hierarchical architecture where initial plans are iteratively refined through execution feedback and efficiency optimization.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>DEPS通过基于LLM的交互式规划来解决开放世界规划挑战：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>描述者模块：</b>当子目标无法完成时总结执行状态和失败上下文，为指导计划纠正提供丰富反馈。</li>
+                <li style="margin-bottom:6px;"><b>解释者模块：</b>使用LLM推理来诊断计划失败的原因，通过分析执行反馈并识别缺失的前提条件或错误假设。</li>
+                <li style="margin-bottom:6px;"><b>重新规划者模块：</b>通过纳入描述者反馈和解释者洞见来生成纠正计划，实现通过多个轮次进行迭代计划完善。</li>
+                <li style="margin-bottom:6px;"><b>目标选择器：</b>学习预测并行子目标的完成地平线，并根据当前代理状态和环境约束选择最有效的执行顺序。</li>
+                <li style="margin-bottom:6px;"><b>集成管道：</b>在层次架构中组合所有模块，其中初始计划通过执行反馈和效率优化进行迭代完善。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/deps_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/deps_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>DEPS integrates descriptor, explainer, replanner, and goal selector modules for robust interactive planning in open-world environments like Minecraft.</p>
+            <p>Note: The framework achieves zero-shot success on 70+ Minecraft tasks, nearly doubling performance over existing LLM planners and advancing the ObtainDiamond challenge.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('neurips_deps.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('neurips_deps.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of DEPS stems from principled integration of interactive planning with LLM capabilities:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Interactive Error Correction:</b> The descriptor-explainer-replanner loop provides a systematic way to diagnose and fix plan failures, leveraging LLM's reasoning capabilities to understand complex execution contexts.</li>
+                <li style="margin-bottom:6px;"><b>State-Aware Goal Selection:</b> The horizon-predictive selector learns practical experience about task completion difficulty, enabling efficient parallel goal ordering that adapts to current environmental constraints.</li>
+                <li style="margin-bottom:6px;"><b>Multi-Round Refinement:</b> Allowing multiple rounds of plan correction enables progressive improvement, where each iteration builds on the insights gained from previous execution attempts.</li>
+                <li style="margin-bottom:6px;"><b>Hierarchical Architecture:</b> Separating high-level planning (LLM-based) from low-level execution (goal-conditioned controllers) allows each component to specialize while maintaining overall system coherence.</li>
+                <li style="margin-bottom:6px;"><b>Zero-Shot Generalization:</b> The framework's reliance on LLM's general knowledge and interactive learning enables strong performance without task-specific fine-tuning or demonstrations.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>DEPS的成功源于将交互式规划与LLM能力原则性整合：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>交互式错误纠正：</b>描述者-解释者-重新规划者循环提供了一种系统性的方法来诊断和修复计划失败，利用LLM的推理能力来理解复杂的执行上下文。</li>
+                <li style="margin-bottom:6px;"><b>状态感知目标选择：</b>地平线预测选择器学习关于任务完成难度的实践经验，实现适应当前环境约束的有效的并行目标排序。</li>
+                <li style="margin-bottom:6px;"><b>多轮完善：</b>允许多轮计划纠正实现渐进改进，其中每次迭代都建立在从先前执行尝试中获得的洞见之上。</li>
+                <li style="margin-bottom:6px;"><b>层次架构：</b>将高层规划（基于LLM）与低层执行（目标条件控制器）分离，使每个组件能够专业化，同时保持整体系统一致性。</li>
+                <li style="margin-bottom:6px;"><b>零样本泛化：</b>框架对LLM一般知识和交互学习的依赖实现无需任务特定微调或演示的强大性能。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work establishes DEPS as a foundational framework for interactive planning with large language models, enabling robust multi-task agents in open-world environments. By identifying and addressing two critical challenges—complex task dependencies and state-dependent feasibility—DEPS achieves unprecedented performance on the Minecraft benchmark, marking the first zero-shot multi-task agent capable of accomplishing 70+ diverse tasks. The innovative integration of descriptor, explainer, replanner, and goal selector modules creates a powerful feedback loop that allows agents to learn from execution failures and optimize plan efficiency dynamically. The framework's success in nearly doubling performance over existing LLM-based planners while maintaining zero-shot capabilities demonstrates the transformative potential of interactive planning approaches. Beyond Minecraft, DEPS shows strong generalization to other embodied domains including ALFWorld and tabletop manipulation, suggesting broad applicability across the spectrum of embodied AI challenges. The work advances the frontier of open-world agent capabilities, particularly in the legendary ObtainDiamond challenge, where DEPS achieves promising results without the human demonstrations and domain-specific heuristics required by previous approaches. By demonstrating that LLMs can effectively reason about and adapt plans through interactive execution feedback, DEPS opens new avenues for developing more autonomous and capable artificial agents. The framework's emphasis on interactive learning and state-aware planning represents a significant step toward creating agents that can operate robustly in the complex, unpredictable environments of the real world.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作将DEPS确立为与大型语言模型进行交互式规划的基础框架，实现开放世界环境中鲁棒的多任务代理。通过识别和解决两个关键挑战——复杂的任务依赖关系和状态相关可行性——DEPS在Minecraft基准上实现了前所未有的性能，标志着第一个能够完成70多项多样化任务的零样本多任务代理。描述者、解释者、重新规划者和目标选择器模块的创新集成创造了一个强大的反馈循环，允许代理从执行失败中学习并动态优化计划效率。该框架在保持零样本能力的同时几乎将性能比现有基于LLM的规划者翻倍，证明了交互式规划方法的变革潜力。除了Minecraft之外，DEPS在其他具身领域显示出强大的泛化能力，包括ALFWorld和桌面操作，表明在具身AI挑战谱中具有广泛适用性。这项工作推进了开放世界代理能力的边界，特别是在传奇的ObtainDiamond挑战中，DEPS在无需先前方法所需的人类演示和领域特定启发式的情况下取得了有前景的结果。通过证明LLM能够通过交互式执行反馈有效地推理和适应计划，DEPS为开发更自主和更具能力的AI代理开辟了新途径。该框架对交互学习和状态感知规划的强调代表了朝着创建能够在现实世界的复杂、不可预测环境中鲁棒操作的代理的重要一步。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>NeurIPS 2023:</b> <a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/6b8dfb8c0c12e6fafc6c256cb08a5ca7-Paper-Conference.pdf" target="_blank" style="color:#8bffcf;">Paper PDF</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/CraftJarvis/MC-Planner" target="_blank" style="color:#8bffcf;">CraftJarvis/MC-Planner</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# DEPS Interactive Planning Framework<br>
+<br>
+// Descriptor Module - Provides execution feedback<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">ExecutionDescriptor</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Summarizes current execution state and failure contexts"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">describe_failure</span>(self, current_plan, failed_step, inventory, environment_state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Generate textual description of execution failure"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description = <span style="color:#ce9178;">f"I failed on step {failed_step}: {current_plan[failed_step]}. "</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description += <span style="color:#ce9178;">f"My inventory now has {inventory}. "</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description += <span style="color:#ce9178;">f"Environment state: {environment_state}"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> description<br>
+<br>
+// Explainer Module - Diagnoses plan failures<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">FailureExplainer</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Uses LLM to diagnose why plans fail"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">explain_failure</span>(self, failure_description, task_goal):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Analyze failure and identify root causes"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt = <span style="color:#ce9178;">f"Task: {task_goal}\nFailure: {failure_description}\nWhy did this fail?"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;explanation = self.llm.generate(prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.extract_root_cause(explanation)<br>
+<br>
+// Re-Planner Module - Generates corrected plans<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">InteractiveRePlanner</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Generates corrected plans using feedback and explanations"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">replan</span>(self, original_plan, failure_explanation, current_inventory):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Create improved plan based on failure analysis"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt = <span style="color:#ce9178;">f"""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ce9178;">Original plan failed. Reason: {failure_explanation}</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ce9178;">Current inventory: {current_inventory}</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ce9178;">Please fix the plan and provide corrected steps.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ce9178;">"""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_plan = self.llm.generate_code_plan(prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> new_plan<br>
+<br>
+// Goal Selector with Horizon Prediction<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">HorizonPredictiveSelector</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Learns to predict and rank completion horizons for parallel goals"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, state_dim, goal_dim):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.predictor = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(state_dim + goal_dim, 256),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(256, 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">predict_horizon</span>(self, state, goal):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Predict steps needed to complete goal from current state"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined = torch.cat([state, goal], dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;horizon = self.predictor(combined)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> torch.exp(horizon)  <span style="color:#6a9955;"># Ensure positive horizon</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">select_best_goal</span>(self, state, candidate_goals):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Select goal with minimal predicted horizon"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;horizons = [self.predict_horizon(state, goal) <span style="color:#569cd6;">for</span> goal <span style="color:#569cd6;">in</span> candidate_goals]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best_idx = torch.argmin(torch.tensor(horizons))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> candidate_goals[best_idx]<br>
+<br>
+// Complete DEPS Framework<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">DEPS_Planner</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Describe, Explain, Plan and Select framework for open-world planning"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, llm_model, goal_selector, max_rounds=5):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.descriptor = ExecutionDescriptor()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.explainer = FailureExplainer(llm_model)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.replanner = InteractiveRePlanner(llm_model)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.selector = goal_selector<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.max_rounds = max_rounds<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">plan_and_execute</span>(self, task, initial_state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Main DEPS planning and execution loop"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_plan = self.generate_initial_plan(task)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> round_num <span style="color:#569cd6;">in</span> range(self.max_rounds):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Execute plan with goal selection</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;success, failed_step, current_state = self.execute_with_selection(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_plan, initial_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> success:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> current_plan, current_state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Interactive correction process</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failure_desc = self.descriptor.describe_failure(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_plan, failed_step, current_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;explanation = self.explainer.explain_failure(failure_desc, task)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_plan = self.replanner.replan(current_plan, explanation, current_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> current_plan, current_state  <span style="color:#6a9955;"># Return best plan found</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">execute_with_selection</span>(self, plan, state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Execute plan while using selector for parallel goals"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parallel_goals = self.identify_parallel_goals(plan)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> parallel_goals:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best_goal = self.selector.select_best_goal(state, parallel_goals)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Reorder plan to execute best_goal first</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&span style="color:#569cd6;">return</span> self.execute_plan(plan, state)<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

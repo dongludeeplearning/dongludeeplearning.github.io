@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">CustomListener: Text-guided Responsive Interaction for User-friendly Listening Head Generation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xi Liu*, Ying Guo*, Cheng Zhen, Tong Li, Yingying Ao, Pengfei Yan†<br>
+        <span style="opacity:0.8">Vision AI Department, Meituan</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to enable user-friendly, text-guided controllable listening head generation that maintains speaker-listener coordination and coherence across segments?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何实现用户友好的文本引导的可控倾听头部生成，同时保持说话者-倾听者协调性和跨段落一致性？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>CustomListener Framework:</b> A text-guided framework that enables free-form control of listener head motions beyond simple emotional labels, allowing users to customize listener identity, personality, and behavioral habits.</div>
+            <div class="lang-zh" style="display:none"><b>CustomListener 框架：</b>一个文本引导的框架，能够超越简单情感标签，实现倾听者头部动作的自由形式控制，允许用户自定义倾听者的身份、个性和行为习惯。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Static to Dynamic Portrait (SDP):</b> Transforms static text priors into dynamic portrait tokens that interact with speaker information to achieve coordination in timing, rhythm, and amplitude of listener responses.</div>
+            <div class="lang-zh" style="display:none"><b>静态到动态肖像 (SDP)：</b>将静态文本先验转换为动态肖像令牌，与说话者信息交互，实现倾听者响应的时机、节奏和幅度协调。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Past Guided Generation (PGG):</b> Maintains coherence across segments by generating motion priors that preserve customized listener attributes and ensure smooth transitions between different text-conditioned segments.</div>
+            <div class="lang-zh" style="display:none"><b>过去引导生成 (PGG)：</b>通过生成运动先验来保持跨段落一致性，保留自定义的倾听者属性，并确保不同文本条件段落之间的平滑过渡。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Text-Annotated Datasets:</b> Constructed two datasets based on ViCo and RealTalk with text-video paired labels for training and evaluation of text-guided listening head generation.</div>
+            <div class="lang-zh" style="display:none"><b>文本标注数据集：</b>基于 ViCo 和 RealTalk 构建了两个带有文本-视频配对标签的数据集，用于训练和评估文本引导的倾听头部生成。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/customlistener_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Control Granularity:</b> Existing methods can only manipulate listener motions through simple emotional labels, lacking the ability to customize detailed listener attributes like identity and personality.</div>
+            <div class="lang-zh" style="display:none"><b>控制粒度有限：</b>现有方法只能通过简单的情感标签操纵倾听者动作，缺乏自定义详细倾听者属性（如身份和个性）的能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Speaker-Listener Coordination:</b> Text-guided generation must account for speaker information to adjust response timing, rhythm, and amplitude while maintaining emotional empathy.</div>
+            <div class="lang-zh" style="display:none"><b>说话者-倾听者协调：</b>文本引导生成必须考虑说话者信息，以调整响应时机、节奏和幅度，同时保持情感共鸣。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Inter-Segment Coherence:</b> Long video generation requires maintaining consistency of customized listener attributes across different text-conditioned segments with smooth transitions.</div>
+            <div class="lang-zh" style="display:none"><b>段间一致性：</b>长视频生成需要在不同文本条件段落之间保持自定义倾听者属性的一致性，并实现平滑过渡。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Text Prior Generation:</b> Uses chain-of-thought prompting with GPT to generate detailed listener descriptions combining speaker content with user-customized attributes (identity, personality, behavioral habits).</div>
+            <div class="lang-zh" style="display:none"><b>文本先验生成：</b>使用思维链提示与 GPT 生成详细的倾听者描述，将说话者内容与用户自定义属性（身份、个性、行为习惯）相结合。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Static to Dynamic Portrait (SDP):</b> Transforms static text priors into dynamic portrait tokens that interact with speaker audio to obtain time-dependent completion timing and rhythm information.</div>
+            <div class="lang-zh" style="display:none"><b>静态到动态肖像 (SDP)：</b>将静态文本先验转换为动态肖像令牌，与说话者音频交互以获得时间相关的完成时机和节奏信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Past Guided Generation (PGG):</b> Generates motion priors based on similarity between adjacent segments' dynamic portrait tokens to maintain behavioral consistency across segments.</div>
+            <div class="lang-zh" style="display:none"><b>过去引导生成 (PGG)：</b>基于相邻段落动态肖像令牌之间的相似性生成运动先验，以保持跨段落的行为一致性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Diffusion-based Generation:</b> Uses a diffusion model conditioned on dynamic portrait tokens and motion priors with fixed noise at segment connections to ensure controllable and coherent generation.</div>
+            <div class="lang-zh" style="display:none"><b>基于扩散的生成：</b>使用基于扩散的模型，以动态肖像令牌和运动先验为条件，在段落连接处使用固定噪声以确保可控和连贯的生成。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/customlistener_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2403.00274.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2403.00274.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                CustomListener enables free-form text-guided control of listening head generation, allowing users to customize detailed listener attributes beyond simple emotional labels.
+            </div>
+            <div class="lang-zh" style="display:none">
+                CustomListener 实现了倾听头部生成的自由形式文本引导控制，允许用户超越简单情感标签来自定义详细的倾听者属性。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The SDP and PGG modules effectively solve speaker-listener coordination and inter-segment coherence challenges, enabling realistic and controllable conversational interactions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                SDP 和 PGG 模块有效地解决了说话者-倾听者协调性和段间一致性挑战，实现了真实且可控的对话交互。
+            </div>
+          </li>
+          <li>
+            <div class="lang-en">
+                Extensive experiments on ViCo and RealTalk datasets demonstrate state-of-the-art performance in generating responsive and natural listening head motions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                在 ViCo 和 RealTalk 数据集上的大量实验证明了在生成响应性和自然倾听头部动作方面的最先进性能。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://customlistener.github.io/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

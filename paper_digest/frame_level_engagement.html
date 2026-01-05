@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • Applied Intelligence 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Enhancing frame-level student engagement classification through knowledge transfer techniques</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Riju Das*, Soumyabrata Dev<br>
+        <span style="opacity:0.8">University College Dublin, ADAPT SFI Research Centre</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we improve frame-level student engagement classification by leveraging knowledge transfer from labeled image datasets to unlabeled video datasets, overcoming the challenge of limited labeled frame-level engagement data?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>我们如何通过利用从标记图像数据集到未标记视频数据集的知识转移来改善帧级学生参与度分类，克服有限标记帧级参与度数据的挑战？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Frame-Level Engagement Classification:</b> Pioneered a novel approach for classifying student engagement at the frame level rather than video level, enabling instructors to identify specific moments of disengagement or high engagement for targeted interventions.</div>
+            <div class="lang-zh" style="display:none"><b>帧级参与度分类：</b>开创了一种新颖的方法，用于帧级而非视频级分类学生参与度，使教师能够识别脱离参与或高度参与的具体时刻，以便进行针对性干预。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Knowledge Transfer Framework:</b> Developed a sophisticated knowledge transfer technique that pretrains deep learning models on labeled image-based engagement datasets (WACV) and fine-tunes them on unlabeled video datasets (DAiSEE), overcoming the scarcity of frame-level labeled data.</div>
+            <div class="lang-zh" style="display:none"><b>知识转移框架：</b>开发了一种复杂的知识转移技术，在标记的基于图像的参与度数据集（WACV）上预训练深度学习模型，并在未标记的视频数据集（DAiSEE）上进行微调，克服帧级标记数据稀缺的问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Cross-Domain Adaptation:</b> Successfully adapted models trained on image data to video data through domain adaptation techniques, demonstrating that facial features learned from static images can effectively classify engagement in dynamic video sequences.</div>
+            <div class="lang-zh" style="display:none"><b>跨域适应：</b>通过域适应技术成功将图像数据训练的模型适应到视频数据，证明从静态图像学习的面部特征可以有效分类动态视频序列中的参与度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Granular Engagement Insights:</b> Provided educators with more detailed and actionable insights into student engagement patterns, enabling precise identification of engagement fluctuations throughout instructional videos.</div>
+            <div class="lang-zh" style="display:none"><b>细粒度参与洞察：</b>为教育工作者提供了更详细和可操作的学生参与模式洞察，使其能够在整个教学视频中精确识别参与度波动。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Frame-Level Labels:</b> Traditional engagement datasets provide video-level labels rather than frame-level annotations, making it challenging to train models that can classify engagement at a granular temporal resolution.</div>
+            <div class="lang-zh" style="display:none"><b>有限的帧级标签：</b>传统参与度数据集提供视频级标签而不是帧级注释，使得训练能够在细粒度时间分辨率下分类参与度的模型具有挑战性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Domain Gap Between Images and Videos:</b> Models trained on static images struggle to generalize to dynamic video sequences due to differences in temporal patterns, motion cues, and contextual information between the two domains.</div>
+            <div class="lang-zh" style="display:none"><b>图像和视频之间的域差距：</b>在静态图像上训练的模型由于两个域之间的时间模式、运动线索和上下文信息差异而难以推广到动态视频序列。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Annotation Scalability:</b> Manually annotating engagement at the frame level is extremely time-consuming and labor-intensive, requiring scalable solutions for large-scale video datasets.</div>
+            <div class="lang-zh" style="display:none"><b>注释可扩展性：</b>手动在帧级注释参与度非常耗时且劳动密集，需要针对大规模视频数据集的可扩展解决方案。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Temporal Consistency:</b> Ensuring that engagement classifications remain temporally consistent across consecutive frames while still capturing rapid changes in student attention and focus.</div>
+            <div class="lang-zh" style="display:none"><b>时间一致性：</b>确保参与度分类在连续帧中保持时间一致性，同时仍然捕捉学生注意力和专注力的快速变化。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The study employed a sophisticated knowledge transfer approach for frame-level engagement classification:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Dataset Preparation:</b> Used WACV dataset (labeled image-based engagement data) as the source domain and DAiSEE dataset (unlabeled video-based) as the target domain for knowledge transfer.</li>
+                <li style="margin-bottom:6px;"><b>Pretraining Phase:</b> Trained deep learning models on the labeled WACV dataset to learn engagement classification from static facial images and expressions.</li>
+                <li style="margin-bottom:6px;"><b>Knowledge Transfer:</b> Applied transfer learning techniques to adapt the pretrained model from image domain to video domain, leveraging learned facial feature representations.</li>
+                <li style="margin-bottom:6px;"><b>Fine-tuning Phase:</b> Fine-tuned the transferred model on unlabeled DAiSEE video frames, using unsupervised or weakly supervised learning approaches to adapt to video-specific temporal patterns.</li>
+                <li style="margin-bottom:6px;"><b>Frame-Level Classification:</b> Classified each individual frame for engagement levels, providing granular temporal analysis of student engagement throughout videos.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>本研究采用了一种复杂的知识转移方法来进行帧级参与度分类：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>数据集准备：</b>使用WACV数据集（标记的基于图像的参与度数据）作为源域，DAiSEE数据集（未标记的基于视频的）作为目标域进行知识转移。</li>
+                <li style="margin-bottom:6px;"><b>预训练阶段：</b>在标记的WACV数据集上训练深度学习模型，从静态面部图像和表情中学习参与度分类。</li>
+                <li style="margin-bottom:6px;"><b>知识转移：</b>应用迁移学习技术将预训练模型从图像域适应到视频域，利用学习的面部特征表示。</li>
+                <li style="margin-bottom:6px;"><b>微调阶段：</b>在未标记的DAiSEE视频帧上微调转移的模型，使用无监督或弱监督学习方法适应视频特定的时间模式。</li>
+                <li style="margin-bottom:6px;"><b>帧级分类：</b>对每个单独帧进行参与度级别分类，在整个视频中提供学生参与度的细粒度时间分析。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/frame_level_engagement_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>Figure 5: Results showing improved frame-level engagement classification performance through knowledge transfer from WACV to DAiSEE datasets.</p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of this knowledge transfer approach lies in several key factors:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Feature Generalization:</b> Facial features learned from static images generalize well to dynamic video sequences, as fundamental facial expressions and engagement indicators remain consistent across domains.</li>
+                <li style="margin-bottom:6px;"><b>Temporal Adaptation:</b> The fine-tuning process successfully adapts image-trained models to capture temporal patterns in videos, enabling frame-level classification that static models cannot achieve.</li>
+                <li style="margin-bottom:6px;"><b>Data Efficiency:</b> Knowledge transfer overcomes the need for extensive labeled video data by leveraging existing labeled image datasets, making the approach scalable and practical.</li>
+                <li style="margin-bottom:6px;"><b>Granular Insights:</b> Frame-level analysis provides educators with precise temporal information about engagement changes, enabling more targeted and effective teaching interventions.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这种知识转移方法成功的关键在于几个因素：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>特征泛化：</b>从静态图像学习的面部特征很好地泛化到动态视频序列，因为基本的面部表情和参与度指标在域间保持一致。</li>
+                <li style="margin-bottom:6px;"><b>时间适应：</b>微调过程成功地将图像训练的模型适应到捕捉视频中的时间模式，实现静态模型无法实现的帧级分类。</li>
+                <li style="margin-bottom:6px;"><b>数据效率：</b>知识转移通过利用现有的标记图像数据集克服了对大量标记视频数据的需要，使该方法可扩展且实用。</li>
+                <li style="margin-bottom:6px;"><b>细粒度洞察：</b>帧级分析为教育工作者提供了关于参与度变化的精确时间信息，使其能够进行更有针对性和有效的教学干预。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This research successfully demonstrates that knowledge transfer techniques can significantly enhance frame-level student engagement classification. By leveraging labeled image datasets for pretraining and adapting to unlabeled video datasets through fine-tuning, the approach overcomes the critical challenge of limited frame-level engagement annotations. The method provides educators with granular insights into student engagement patterns, enabling precise identification of engagement fluctuations throughout instructional videos. This work advances the field of affective computing in education by offering a scalable solution for detailed engagement analysis that can inform teaching strategies and improve learning outcomes.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项研究成功证明知识转移技术可以显著增强帧级学生参与度分类。通过利用标记图像数据集进行预训练并通过微调适应未标记视频数据集，该方法克服了有限帧级参与度注释的关键挑战。该方法为教育工作者提供了对学生参与模式细粒度的洞察，能够精确识别整个教学视频中的参与度波动。这项工作通过提供可扩展的详细参与度分析解决方案，促进了教育情感计算领域的发展，该解决方案可以为教学策略提供信息并改善学习成果。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>GitHub:</b> <a href="https://github.com/rijju-das/Frame-level-student-engagement" style="color:#8bffcf;">https://github.com/rijju-das/Frame-level-student-engagement</a></p>
+          <p><b>DOI:</b> <a href="https://doi.org/10.1007/s10489-023-05256-2" style="color:#8bffcf;">10.1007/s10489-023-05256-2</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import torch<br>
+import torch.nn as nn<br>
+import torchvision.models as models<br>
+from torch.utils.data import DataLoader<br>
+import torch.optim as optim<br>
+<br>
+// Knowledge Transfer for Frame-Level Engagement Classification<br>
+class EngagementClassifier(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, num_classes=3):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(EngagementClassifier, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Use pre-trained ResNet as backbone<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.backbone = models.resnet50(pretrained=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Replace final layer for engagement classification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.backbone.fc = nn.Linear(2048, num_classes)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, x):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.backbone(x)<br>
+<br>
+// Pretraining on WACV dataset (source domain)<br>
+def pretrain_on_wacv(model, wacv_loader, num_epochs=10):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Pretrain model on labeled image engagement dataset"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;criterion = nn.CrossEntropyLoss()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;optimizer = optim.Adam(model.parameters(), lr=1e-4)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for epoch in range(num_epochs):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for images, labels in wacv_loader:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizer.zero_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs = model(images)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss = criterion(outputs, labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss.backward()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizer.step()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return model<br>
+<br>
+// Fine-tuning on DAiSEE dataset (target domain)<br>
+def finetune_on_daisee(model, daisee_loader, num_epochs=5):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Fine-tune transferred model on unlabeled video frames"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Freeze backbone layers except final classification layer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for param in model.backbone.parameters():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;param.requires_grad = False<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Use pseudo-labeling or weak supervision for unlabeled data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;criterion = nn.CrossEntropyLoss()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;optimizer = optim.Adam(model.backbone.fc.parameters(), lr=1e-5)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for epoch in range(num_epochs):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for frames, pseudo_labels in daisee_loader:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizer.zero_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs = model(frames)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss = criterion(outputs, pseudo_labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss.backward()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizer.step()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return model<br>
+<br>
+// Frame-level engagement prediction<br>
+def predict_frame_engagement(model, video_frames):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Predict engagement for each frame in video"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;model.eval()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;engagements = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;with torch.no_grad():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for frame in video_frames:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = model(frame.unsqueeze(0))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_, predicted = torch.max(output, 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;engagements.append(predicted.item())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return engagements<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2025 (Oral)
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">MaskControl: Spatio-Temporal Control for Masked Motion Synthesis</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Ekkasit Pinyoanuntapong, Muhammad Usama Saleem, Korrawe Karunratanakul, et al. <br>
+        <span style="opacity:0.8">University of Central Florida & Snap Inc.</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> Existing motion diffusion models struggle to achieve high-precision spatial control while maintaining high motion quality; how to introduce precise controllability to generative masked motion models?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>现有的动作扩散模型难以在保持高质量动作的同时实现高精度的空间控制；如何将精确的可控性引入生成式掩码动作模型？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Logits Regularizer:</b> Implicitly aligns motion token distribution with controlled joint positions during training, ensuring high-fidelity generation.</div>
+            <div class="lang-zh" style="display:none"><b>Logits 正则化器：</b>在训练期间隐式对齐动作 token 分布与受控关节位置，确保高保真生成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Logit Optimization:</b> Explicitly optimizes predicted logits during inference to reshape token distribution, forcing generated motion to strictly align with control signals.</div>
+            <div class="lang-zh" style="display:none"><b>Logit 优化：</b>在推理期间显式优化预测的 logits 以重塑 token 分布，强制生成的动作严格与控制信号对齐。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Differentiable Expectation Sampling (DES):</b> Introduced a differentiable sampling process to handle the non-differentiable nature of discrete token prediction.</div>
+            <div class="lang-zh" style="display:none"><b>可微期望采样 (DES)：</b>引入了一种可微采样过程，以处理离散 token 预测的不可微性质。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/MaskControl_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Discrete Sampling is Non-Differentiable:</b> Standard masked generative models output discrete tokens, making it impossible to directly backpropagate control errors (e.g., joint position distance) to update the logits.</div>
+            <div class="lang-zh" style="display:none"><b>离散采样不可微：</b>标准的掩码生成模型输出离散 token，使得无法直接反向传播控制误差（例如关节位置距离）来更新 logits。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Trade-off between Control and Quality:</b> Simply guiding the model often breaks the manifold of natural motion, leading to artifacts or jittery movements.</div>
+            <div class="lang-zh" style="display:none"><b>控制与质量的权衡：</b>简单地引导模型往往会破坏自然动作的流形，导致伪影或抖动。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Differentiable Expectation Sampling (DES):</b> Replace discrete sampling with a weighted sum of codebook entries (soft approximation) during optimization steps, allowing gradient flow.</div>
+            <div class="lang-zh" style="display:none"><b>可微期望采样 (DES)：</b>在优化步骤中用码本条目的加权和（软近似）替换离散采样，允许梯度流动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inference-Time Logit Optimization:</b> Treat the logits as learnable parameters. For each generation step, iteratively update logits to minimize the distance between generated joints and target joints.</div>
+            <div class="lang-zh" style="display:none"><b>推理时 Logit 优化：</b>将 logits 视为可学习参数。对于每个生成步骤，迭代更新 logits 以最小化生成关节与目标关节之间的距离。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Logits Regularizer (Training):</b> Add a regularization loss that encourages the model to output logits that are "compatible" with spatial controls, pre-aligning the model.</div>
+            <div class="lang-zh" style="display:none"><b>Logits 正则化器（训练）：</b>添加正则化损失，鼓励模型输出与空间控制“兼容”的 logits，从而预先对齐模型。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/MaskControl_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Motion Quality (FID):</b>
+                MaskControl achieved an FID decrease of ~77% compared to state-of-the-art methods, indicating vastly superior motion realism.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>动作质量 (FID)：</b>
+                与最先进的方法相比，MaskControl 的 FID 降低了约 77%，表明动作真实感大大提高。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Control Precision:</b>
+                Achieved lower average error (0.91 vs 1.08) in aligning with spatial constraints compared to previous diffusion-based control methods.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>控制精度：</b>
+                与之前的基于扩散的控制方法相比，在对齐空间约束方面实现了更低的平均误差 (0.91 vs 1.08)。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en"><b>Diverse Applications:</b>
+                Demonstrated success in Any-Joint-Any-Frame control, body-part timeline control, and zero-shot objective control.
+            </div>
+            <div class="lang-zh" style="display:none"><b>多样化应用：</b>
+                在任意关节任意帧控制、身体部位时间轴控制和零样本目标控制方面取得了成功。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Masked Generative Models for Control:</b>
+                This work proves that masked generative models (like MoMask) can be as controllable as diffusion models, potentially offering a better balance of speed and quality.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>用于控制的掩码生成模型：</b>
+                这项工作证明了掩码生成模型（如 MoMask）可以像扩散模型一样可控，可能在速度和质量之间提供更好的平衡。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MaskControl overcomes the discrete nature of token-based generation by introducing a differentiable "soft" token representation (DES). This bridges the gap between discrete tokens and continuous spatial constraints. By optimizing the logits directly at inference time, it acts like "gradient descent on thought vectors," gently nudging the model's probabilistic output to satisfy physical constraints without breaking the learned motion prior.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MaskControl 通过引入可微的“软”token 表示 (DES)，克服了基于 token 生成的离散性质。这弥合了离散 token 和连续空间约束之间的差距。通过在推理时直接优化 logits，它就像“思维向量上的梯度下降”，温和地推动模型的概率输出以满足物理约束，而不会破坏学习到的动作先验。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/Exitudio/ControlMM" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          github.com/Exitudio/ControlMM
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Simplified logic of <b>Logit Optimization</b> during inference using Differentiable Expectation Sampling (DES).
+            </div>
+            <div class="lang-zh" style="display:none">
+                推理过程中使用可微期望采样 (DES) 进行 <b>Logit 优化</b> 的简化逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+            <a href="https://github.com/Exitudio/ControlMM/blob/main/codes/models/transformer.py" target="_blank" style="position:absolute; top:8px; right:8px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#8bffcf; font-size:10px; padding:4px 8px; border-radius:4px; text-decoration:none; font-family:var(--mono);">Link to Code</a>
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">optimize_logits</span>(self, logits, target_joints, joint_indices):
+    <span style="color:#6a9955;"># logits: [Batch, Seq, Vocab] (Predicted distribution)</span>
+    <span style="color:#6a9955;"># target_joints: [Batch, Seq, 3] (Constraint)</span>
+    
+    <span style="color:#569cd6;">for</span> i <span style="color:#569cd6;">in</span> <span style="color:#dcdcaa;">range</span>(self.opt_steps):
+        <span style="color:#6a9955;"># 1. Differentiable Expectation Sampling (DES)</span>
+        <span style="color:#6a9955;"># Soft approximation of motion tokens</span>
+        probs = F.softmax(logits, dim=-1)
+        z_soft = probs @ self.codebook.weight 
+        
+        <span style="color:#6a9955;"># 2. Decode to motion (joints)</span>
+        pred_joints = self.decoder(z_soft)
+        
+        <span style="color:#6a9955;"># 3. Calculate spatial loss</span>
+        loss = F.mse_loss(pred_joints[:, joint_indices], target_joints)
+        
+        <span style="color:#6a9955;"># 4. Update logits via backprop</span>
+        grad = torch.autograd.grad(loss, logits)[0]
+        logits = logits - self.lr * grad
+        
+    <span style="color:#569cd6;">return</span> logits
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

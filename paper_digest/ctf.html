@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Improving Autoregressive Image Generation through Coarse-to-Fine Token Prediction</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Ziyao Guo, Kaipeng Zhang, Michael Qizhe Shieh<br>
+        <span style="opacity:0.8">National University of Singapore, Shanghai AI Lab</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to leverage large codebooks for high-quality image reconstruction in autoregressive generation while avoiding the vocabulary complexity that makes token prediction difficult?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在自回归图像生成中利用大型代码本实现高质量图像重建，同时避免使令牌预测变得困难的词汇复杂性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>CTF Framework:</b> Pioneering coarse-to-fine token prediction approach that alleviates vocabulary redundancy in autoregressive image generation by first predicting coarse cluster labels and then fine-grained token indices.</div>
+            <div class="lang-zh" style="display:none"><b>CTF框架：</b>开创性的粗到细令牌预测方法，通过首先预测粗聚类标签然后预测细粒度令牌索引，来缓解自回归图像生成中的词汇冗余。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Codeword Clustering:</b> Systematic method using k-means clustering on codebook vectors to group visually similar tokens, reducing effective vocabulary from tens of thousands to hundreds while preserving reconstruction quality.</div>
+            <div class="lang-zh" style="display:none"><b>码字聚类：</b>使用k-means聚类对代码本向量进行系统分组，将视觉相似的令牌分组，从而将有效词汇从数万个减少到数百个，同时保持重建质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Generation:</b> Hierarchical prediction pipeline where autoregressive model predicts coarse labels sequentially and auxiliary model predicts fine labels simultaneously, enabling both improved performance and computational efficiency.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段生成：</b>分层预测管道，其中自回归模型顺序预测粗标签，辅助模型同时预测细标签，从而实现性能提升和计算效率。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Achieves up to 1-point FID reduction and 59-point average Inception Score improvement on ImageNet, outperforming state-of-the-art autoregressive methods while maintaining faster sampling speeds.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在ImageNet上实现高达1点的FID降低和59点的平均Inception Score提升，在保持更快采样速度的同时超越最先进的自回归方法。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/ctf_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2503.16194.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2503.16194.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Vocabulary Complexity:</b> Large codebooks improve reconstruction quality but exponentially increase vocabulary size, making autoregressive token prediction extremely difficult and degrading overall generation performance.</div>
+            <div class="lang-zh" style="display:none"><b>词汇复杂性：</b>大型代码本提高了重建质量，但呈指数级增加词汇大小，使得自回归令牌预测变得极其困难并降低整体生成性能。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Token Redundancy:</b> Within large codebooks, many distinct tokens produce nearly identical visual effects, yet current methods treat them as entirely separate classes, creating unnecessary complexity without proportional quality gains.</div>
+            <div class="lang-zh" style="display:none"><b>令牌冗余：</b>在大代码本中，许多不同令牌产生几乎相同的视觉效果，但当前方法将它们视为完全独立的类别，创造不必要的复杂性而没有成比例的质量提升。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Trade-off Dilemma:</b> The desire for high-fidelity reconstruction (requiring large codebooks) conflicts with the need for manageable autoregressive modeling complexity, creating an inherent tension in current approaches.</div>
+            <div class="lang-zh" style="display:none"><b>权衡困境：</b>对高保真重建的需求（需要大型代码本）与对可管理自回归建模复杂性的需求相冲突，在当前方法中创造了一种固有的紧张关系。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Low Token Accuracy:</b> State-of-the-art autoregressive models achieve less than 7% token prediction accuracy, indicating that exact token-level discrimination may not be essential for visual quality in image generation.</div>
+            <div class="lang-zh" style="display:none"><b>低令牌准确性：</b>最先进的自回归模型实现小于7%的令牌预测准确性，表明在图像生成中精确的令牌级区分可能对视觉质量不是必需的。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inference Efficiency:</b> While large codebooks improve reconstruction, they slow down autoregressive inference due to increased vocabulary complexity, hindering practical deployment.</div>
+            <div class="lang-zh" style="display:none"><b>推理效率：</b>虽然大型代码本提高了重建质量，但由于词汇复杂性增加，它们减缓了自回归推理，阻碍了实际部署。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Codeword Clustering:</b> Apply k-means clustering to group visually similar codewords in the VQ-VAE codebook, assigning each cluster a coarse label to reduce vocabulary from K tokens to M clusters (M ≪ K).</div>
+            <div class="lang-zh" style="display:none"><b>码字聚类：</b>应用k-means聚类对VQ-VAE代码本中的视觉相似码字进行分组，为每个聚类分配粗标签，将词汇从K个令牌减少到M个聚类（M ≪ K）。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Stage 1 - Coarse Prediction:</b> Train autoregressive model to sequentially predict coarse labels (cluster indices) for each token position, simplifying the prediction task while capturing essential structural information.</div>
+            <div class="lang-zh" style="display:none"><b>阶段1 - 粗预测：</b>训练自回归模型顺序预测每个令牌位置的粗标签（聚类索引），简化预测任务同时捕获基本结构信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Stage 2 - Fine Prediction:</b> Use auxiliary full-attention transformer to simultaneously predict fine-grained token indices for all positions, conditioned on the complete coarse label sequence.</div>
+            <div class="lang-zh" style="display:none"><b>阶段2 - 细预测：</b>使用辅助全注意力变换器同时预测所有位置的细粒度令牌索引，以完整粗标签序列为条件。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Independent Training:</b> Train Stage 1 and Stage 2 models independently, allowing parallel training and flexible integration with various autoregressive architectures.</div>
+            <div class="lang-zh" style="display:none"><b>独立训练：</b>独立训练阶段1和阶段2模型，允许并行训练和与各种自回归架构的灵活集成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hierarchical Generation:</b> Generate coarse labels autoregressively first, then refine to fine labels in a single step, achieving both improved quality and faster sampling compared to direct token prediction.</div>
+            <div class="lang-zh" style="display:none"><b>分层生成：</b>首先自回归生成粗标签，然后在单一步骤中细化为细标签，与直接令牌预测相比，实现质量提升和更快的采样。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Vocabulary Redundancy Resolution:</b> CTF directly addresses the fundamental issue of token redundancy in large codebooks, demonstrating that visual similarity between tokens can be exploited to simplify autoregressive modeling without sacrificing reconstruction quality.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>词汇冗余解决：</b>CTF直接解决了大型代码本中令牌冗余的基本问题，证明令牌之间的视觉相似性可以被利用来简化自回归建模，而不牺牲重建质量。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Hierarchical Prediction Advantage:</b> The coarse-to-fine approach provides a natural hierarchy for token prediction, where structural information is captured first and then refined, leading to more coherent and controllable generation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>分层预测优势：</b>粗到细方法为令牌预测提供了自然的层次结构，首先捕获结构信息然后细化，从而实现更连贯和可控的生成。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Efficiency Gains:</b> Despite adding an inference step, the reduced vocabulary complexity leads to faster overall generation, demonstrating that hierarchical approaches can outperform flat prediction methods.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>效率提升：</b>尽管添加了推理步骤，减少的词汇复杂性导致更快的整体生成，证明分层方法可以胜过平面预测方法。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because CTF exploits the inherent redundancy in large codebooks by recognizing that visual similarity between tokens is more important than exact token identity. By first establishing coarse structural relationships and then refining them, the approach achieves superior generation quality while maintaining computational efficiency, effectively bridging the gap between high-fidelity reconstruction and tractable autoregressive modeling.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为CTF通过认识到令牌之间的视觉相似性比精确令牌身份更重要来利用大型代码本中的固有冗余。通过首先建立粗结构关系然后细化它们，该方法实现了卓越的生成质量同时保持计算效率，有效弥合了高保真重建和易处理自回归建模之间的差距。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces CTF, a coarse-to-fine token prediction framework that addresses the vocabulary complexity challenge in autoregressive image generation. By leveraging k-means clustering to group visually similar tokens and employing a two-stage prediction process, CTF maintains the benefits of large codebooks for high-quality reconstruction while significantly simplifying the autoregressive modeling task. Extensive experiments demonstrate superior performance on ImageNet, with up to 1-point FID reduction and 59-point Inception Score improvement, while achieving faster sampling speeds despite the additional inference step. The framework's modular design enables seamless integration with various autoregressive architectures, establishing a new paradigm for efficient and high-quality image generation.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了CTF，一个粗到细令牌预测框架，解决了自回归图像生成中的词汇复杂性挑战。通过利用k-means聚类对视觉相似的令牌进行分组，并采用两阶段预测过程，CTF保持了大型代码本的高质量重建优势，同时显著简化了自回归建模任务。广泛实验展示了在ImageNet上的卓越性能，高达1点的FID降低和59点的Inception Score提升，同时尽管增加了推理步骤但实现了更快的采样速度。该框架的模块化设计实现了与各种自回归架构的无缝集成，为高效高质量图像生成建立了新范式。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/GzyAftermath/CTF" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repository
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

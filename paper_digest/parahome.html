@@ -1,0 +1,830 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">ParaHome: Parameterizing Everyday Home Activities Towards 3D Generative Modeling of Human-Object Interactions</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jeonghwan Kim, Jisoo Kim, Jeonghyeon Na, Hanbyul Joo<br>
+        <span style="opacity:0.8">Seoul National University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to capture high-quality, natural 3D human-object interactions in everyday home environments for generative modeling?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在日常家庭环境中捕获高质量、自然的3D人类-物体交互以进行生成建模？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ParaHome Capture System:</b> Multi-view setup with 70 synchronized RGB cameras combined with IMU-based body suit and hand motion capture gloves for robust 3D HOI capture in natural home environments, handling severe occlusions and multiple scales.</div>
+            <div class="lang-zh" style="display:none"><b>ParaHome捕获系统：</b>70个同步RGB相机的多视角设置，结合IMU-based身体套装和手部运动捕捉手套，用于在自然家庭环境中进行鲁棒的3D HOI捕获，处理严重遮挡和多尺度问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Large-Scale ParaHome Dataset:</b> Comprehensive dataset with 486 minutes of sequences across 207 captures from 38 participants, featuring full-body motion, dexterous hand manipulation, multiple object interactions, sequential/concurrent manipulations with text descriptions, and articulated objects with 3D parametric models.</div>
+            <div class="lang-zh" style="display:none"><b>大规模ParaHome数据集：</b>全面数据集，包含来自38个参与者的207个捕获中的486分钟序列，具有全身运动、灵巧手部操作、多物体交互、配对文本描述的顺序/并发操作，以及具有3D参数化模型的关节物体。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3D Parametric Representation:</b> Unified parameterization of human motions (body, hands), object motions (rigid and articulated), and spatio-temporal relations in common 3D spaces, enabling detailed modeling of complex HOI dynamics.</div>
+            <div class="lang-zh" style="display:none"><b>3D参数化表示：</b>在公共3D空间中统一参数化人类运动（身体、手部）、物体运动（刚性和关节），以及时空关系，实现对复杂HOI动力学的详细建模。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>System Design Justifications:</b> Hardware and algorithmic solutions for spatial alignment of heterogeneous systems, robust marker-based object tracking, and calibration protocols ensuring accurate reconstruction of human-object interactions.</div>
+            <div class="lang-zh" style="display:none"><b>系统设计理由：</b>异构系统的空间对齐、鲁棒的基于标记的物体跟踪以及校准协议的硬件和算法解决方案，确保人类-物体交互的准确重建。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Generative Modeling Demonstrations:</b> Text-conditioned and object-guided motion synthesis experiments showcasing the dataset's potential for advancing 3D HOI generative modeling with realistic, natural interactions.</div>
+            <div class="lang-zh" style="display:none"><b>生成建模演示：</b>文本条件和物体引导的运动合成实验，展示了数据集在推进具有真实、自然交互的3D HOI生成建模方面的潜力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/parahome_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Scale Motion Capture:</b> Simultaneous capture of large-scale body movements across rooms and subtle hand manipulations requires heterogeneous systems that can handle different scales and severe occlusions during interactions.</div>
+            <div class="lang-zh" style="display:none"><b>多尺度运动捕获：</b>同时捕获房间范围内的全身大尺度运动和手部细微操作，需要能够处理不同尺度和交互期间严重遮挡的异构系统。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Spatial Alignment of Systems:</b> Integrating multi-camera RGB system with wearable IMU devices requires robust calibration and alignment protocols to establish common 3D spatiotemporal coordinates for accurate interaction reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>系统空间对齐：</b>将多相机RGB系统与穿戴式IMU设备集成需要鲁棒的校准和对齐协议，以建立公共3D时空坐标系，实现准确的交互重建。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Articulated Object Tracking:</b> Capturing dynamic motions of articulated objects with multiple moving parts requires sophisticated marker designs and tracking algorithms that work under severe occlusions during manipulation.</div>
+            <div class="lang-zh" style="display:none"><b>关节物体跟踪：</b>捕获具有多个移动部件的关节物体的动态运动，需要在操作期间严重遮挡下工作的复杂标记设计和跟踪算法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Natural Interaction Diversity:</b> Collecting diverse, natural human-object interactions in home environments requires capture protocols that encourage casual, sequential, and concurrent manipulations while maintaining data quality and annotations.</div>
+            <div class="lang-zh" style="display:none"><b>自然交互多样性：</b>在家庭环境中收集多样化、自然的人类-物体交互需要鼓励随意、顺序和并发操作的捕获协议，同时保持数据质量和标注。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Unified Parameterization:</b> Creating consistent 3D parametric representations for heterogeneous data sources (human motions, object states, articulations) to enable joint modeling and generative synthesis of complex HOI scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>统一参数化：</b>为异构数据源（人类运动、物体状态、关节）创建一致的3D参数化表示，以实现复杂HOI场景的联合建模和生成合成。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-View Camera System:</b> 70 synchronized RGB industrial cameras covering 12.4m² area to capture full-body motions, subtle hand manipulations, and 3D object movements with reduced occlusion issues.</div>
+            <div class="lang-zh" style="display:none"><b>多视角相机系统：</b>70个同步RGB工业相机覆盖12.4m²区域，以捕获全身运动、细微手部操作和3D物体运动，减少遮挡问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Wearable Motion Capture:</b> IMU-based Xsens body suit and Manus hand gloves for occlusion-robust capture of human motions, with spatial alignment protocols to integrate with camera system coordinates.</div>
+            <div class="lang-zh" style="display:none"><b>穿戴式运动捕获：</b>基于IMU的Xsens身体套装和Manus手套用于遮挡鲁棒的人类运动捕获，具有空间对齐协议以集成相机系统坐标。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3D ArUco Marker System:</b> Robust 3D marker design with markers attached to all cube faces for reliable object tracking during severe occlusions, enabling capture of both rigid and articulated object motions.</div>
+            <div class="lang-zh" style="display:none"><b>3D ArUco标记系统：</b>鲁棒的3D标记设计，将标记附着在所有立方体面上，用于在严重遮挡期间可靠的物体跟踪，实现刚性和关节物体运动的捕获。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>System Calibration Protocols:</b> Body alignment using attached markers and hand calibration using structured touch protocols to spatially align wearable capture with multi-camera system in common 3D coordinates.</div>
+            <div class="lang-zh" style="display:none"><b>系统校准协议：</b>使用附着标记的身体对齐和使用结构化触摸协议的手部校准，将穿戴式捕获与多相机系统在公共3D坐标中进行空间对齐。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Parametric Representation:</b> Unified 3D parameterization capturing human status (body, hands), environment status (object positions, orientations, articulations), and language descriptions for comprehensive HOI modeling.</div>
+            <div class="lang-zh" style="display:none"><b>参数化表示：</b>统一的3D参数化，捕获人类状态（身体、手部）、环境状态（物体位置、方向、关节）和语言描述，用于全面的HOI建模。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/parahome_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2401.10232.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2401.10232.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Scalability vs. Naturalness Trade-off:</b> ParaHome demonstrates that combining multi-view cameras with wearable devices can capture natural, unconstrained interactions at scale, providing a foundation for generative models that understand real-world HOI dynamics.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>可扩展性与自然性的权衡：</b>ParaHome证明了将多视角相机与穿戴设备相结合可以大规模捕获自然、不受约束的交互，为理解真实世界HOI动态的生成模型提供基础。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Multi-Modal Integration:</b> The system's ability to jointly capture visual, inertial, and parametric data creates rich multi-modal representations essential for understanding the complex relationships between human intentions, physical constraints, and object affordances.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>多模态集成：</b>系统同时捕获视觉、惯性和参数化数据的能力，创建了丰富的多模态表示，对于理解人类意图、物理约束和物体可及性之间的复杂关系至关重要。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Occlusion-Robust Capture:</b> The hybrid approach of cameras and IMUs provides complementary strengths, enabling capture of interactions that would be impossible with single-modality systems due to occlusions and scale differences.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>遮挡鲁棒捕获：</b>相机和IMU的混合方法提供了互补优势，能够捕获由于遮挡和尺度差异而无法用单模态系统实现的交互。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because ParaHome addresses the fundamental capture challenges in natural HOI scenarios by integrating complementary sensing modalities. The multi-view camera system handles visual reconstruction while wearable devices provide occlusion-robust motion capture, creating a comprehensive 3D parametric space that captures the full complexity of human-object interactions. By parameterizing everyday activities with detailed spatio-temporal relationships, the system enables generative models to learn realistic interaction patterns that go beyond simple grasping to include complex sequential and concurrent manipulations in natural home environments.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为ParaHome通过集成互补的传感模态来解决自然HOI场景中的基本捕获挑战。多视角相机系统处理视觉重建，而穿戴设备提供遮挡鲁棒的运动捕获，创建一个捕获人类-物体交互完整复杂性的全面3D参数空间。通过用详细的时空关系参数化日常活动，该系统使生成模型能够学习超越简单抓取的真实交互模式，包括自然家庭环境中的复杂顺序和并发操作。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This work presents ParaHome, a comprehensive capture system and dataset for 3D human-object interactions in natural home environments. By integrating multi-view cameras with wearable motion capture devices and developing sophisticated calibration protocols, the system overcomes fundamental challenges in capturing complex, multi-scale interactions. The resulting dataset with 486 minutes of parameterized sequences provides unprecedented detail and naturalness for HOI research. Through detailed design justifications and generative modeling experiments, ParaHome establishes a new benchmark for capturing and modeling everyday human-object interactions, enabling future advances in embodied AI, robotics, and computer vision applications that require understanding of natural human behavior in physical environments.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本工作提出了ParaHome，一个用于自然家庭环境中3D人类-物体交互的综合捕获系统和数据集。通过将多视角相机与穿戴式运动捕获设备集成，并开发复杂的校准协议，该系统克服了捕获复杂、多尺度交互的基本挑战。由此产生的包含486分钟参数化序列的数据集为HOI研究提供了前所未有的细节和自然性。通过详细的设计理由和生成建模实验，ParaHome为捕获和建模日常人类-物体交互建立了新的基准，使未来在需要理解物理环境中自然人类行为的具身AI、机器人和计算机视觉应用方面取得进展。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="font-family:ui-monospace,monospace;font-size:13px;color:rgba(232,236,255,.8);background:rgba(0,0,0,.3);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,.05);">
+          <div class="lang-en">
+            <pre><code>import numpy as np
+import torch
+import torch.nn as nn
+from scipy.spatial import KDTree
+from smplx import SMPLH, SMPLX
+
+class ParaHomeCaptureSystem:
+    """Multi-view capture system for natural HOI in home environments"""
+
+    def __init__(self, num_cameras=70, body_markers=11, hand_calibration_points=6):
+        self.num_cameras = num_cameras
+        self.body_markers = body_markers
+        self.hand_calibration_points = hand_calibration_points
+
+        # Initialize capture devices
+        self.camera_system = MultiViewCameraSystem(num_cameras)
+        self.imu_body_suit = XsensBodySuit()
+        self.hand_gloves = ManusHandGloves()
+
+        # 3D parametric models
+        self.smplh_model = SMPLH()
+        self.smplx_model = SMPLX()
+
+    def capture_hoi_sequence(self, participant_id, activity_type):
+        """Main capture pipeline for HOI sequences"""
+        # 1. System calibration
+        body_transform = self.calibrate_body_alignment()
+        hand_transform = self.calibrate_hand_alignment()
+
+        # 2. Multi-view capture
+        frames_data = []
+        for frame_idx in range(self.capture_duration):
+            # Capture multi-view images
+            multi_view_images = self.camera_system.capture_frame()
+
+            # Capture IMU data
+            body_imu_data = self.imu_body_suit.get_pose()
+            hand_imu_data = self.hand_gloves.get_pose()
+
+            # Process frame
+            frame_data = self.process_frame(
+                multi_view_images, body_imu_data, hand_imu_data,
+                body_transform, hand_transform
+            )
+            frames_data.append(frame_data)
+
+        return self.postprocess_sequence(frames_data)
+
+    def calibrate_body_alignment(self):
+        """Body calibration using attached markers"""
+        print("Performing body alignment calibration...")
+
+        # Capture calibration sequence with visible markers
+        calibration_frames = []
+        for _ in range(100):  # Capture calibration motions
+            multi_view_images = self.camera_system.capture_frame()
+            body_imu_data = self.imu_body_suit.get_pose()
+
+            # Extract marker positions from images
+            camera_markers = self.extract_markers_from_images(multi_view_images)
+            # Get IMU-based marker predictions
+            imu_markers = self.predict_markers_from_imu(body_imu_data)
+
+            calibration_frames.append((camera_markers, imu_markers))
+
+        # Optimize transformation between camera and IMU spaces
+        body_transform = self.optimize_body_transform(calibration_frames)
+
+        return body_transform
+
+    def calibrate_hand_alignment(self):
+        """Hand calibration using structured touch protocol"""
+        print("Performing hand alignment calibration...")
+
+        # Define calibration structure vertices
+        calibration_vertices = self.define_calibration_structure()
+
+        calibration_frames = []
+        for vertex in calibration_vertices:
+            print(f"Touch calibration point {len(calibration_frames)+1}/6")
+
+            # Participant touches the calibration point
+            multi_view_images = self.camera_system.capture_frame()
+            hand_imu_data = self.hand_gloves.get_pose()
+
+            # Extract fingertip positions from images
+            camera_fingertips = self.extract_fingertips_from_images(multi_view_images)
+            # Get IMU-based fingertip predictions
+            imu_fingertips = self.predict_fingertips_from_imu(hand_imu_data)
+
+            calibration_frames.append((camera_fingertips, imu_fingertips, vertex))
+
+        # Optimize hand transformation
+        hand_transform = self.optimize_hand_transform(calibration_frames)
+
+        return hand_transform
+
+    def process_frame(self, multi_view_images, body_imu_data, hand_imu_data,
+                     body_transform, hand_transform):
+        """Process single frame data"""
+        # 1. Extract 3D markers and objects from multi-view images
+        markers_3d, objects_3d = self.reconstruct_3d_from_multiview(multi_view_images)
+
+        # 2. Fuse IMU and camera data for human pose
+        human_pose = self.fuse_imu_camera_data(
+            body_imu_data, hand_imu_data, markers_3d,
+            body_transform, hand_transform
+        )
+
+        # 3. Track and parameterize objects
+        object_params = self.track_objects(objects_3d)
+
+        # 4. Create parametric representation
+        frame_data = {
+            'human_pose': human_pose,  # SMPL-H parameters
+            'object_params': object_params,  # Rigid + articulated params
+            'markers_3d': markers_3d,  # 3D marker positions
+            'timestamp': self.get_timestamp()
+        }
+
+        return frame_data
+
+    def reconstruct_3d_from_multiview(self, multi_view_images):
+        """Reconstruct 3D scene from multi-view images"""
+        markers_3d = []
+        objects_3d = []
+
+        # Extract 2D detections from each view
+        all_detections = []
+        for view_idx, image in enumerate(multi_view_images):
+            detections = self.detect_markers_and_objects(image, view_idx)
+            all_detections.append(detections)
+
+        # Triangulate 3D positions
+        for marker_id in range(self.get_total_markers()):
+            marker_2d_points = []
+            camera_indices = []
+
+            for view_idx, detections in enumerate(all_detections):
+                if marker_id in detections['markers']:
+                    marker_2d_points.append(detections['markers'][marker_id])
+                    camera_indices.append(view_idx)
+
+            if len(marker_2d_points) >= 2:  # Need at least 2 views
+                marker_3d = self.triangulate_point(marker_2d_points, camera_indices)
+                markers_3d.append(marker_3d)
+
+        # Similar process for objects
+        for obj_id in self.object_ids:
+            obj_2d_detections = []
+            for view_idx, detections in enumerate(all_detections):
+                if obj_id in detections['objects']:
+                    obj_2d_detections.append((detections['objects'][obj_id], view_idx))
+
+            if len(obj_2d_detections) >= 2:
+                obj_3d = self.reconstruct_object_3d(obj_2d_detections)
+                objects_3d.append(obj_3d)
+
+        return markers_3d, objects_3d
+
+    def fuse_imu_camera_data(self, body_imu, hand_imu, markers_3d,
+                           body_transform, hand_transform):
+        """Fuse IMU predictions with camera observations"""
+        # Apply transformations to IMU data
+        body_imu_transformed = self.apply_transform(body_imu, body_transform)
+        hand_imu_transformed = self.apply_transform(hand_imu, hand_transform)
+
+        # Use markers for refinement
+        refined_pose = self.refine_pose_with_markers(
+            body_imu_transformed, hand_imu_transformed, markers_3d
+        )
+
+        return refined_pose
+
+    def track_objects(self, objects_3d):
+        """Track and parameterize 3D objects"""
+        object_params = {}
+
+        for obj_3d in objects_3d:
+            obj_id = obj_3d['id']
+
+            # Rigid transformation
+            rigid_transform = self.compute_rigid_transform(obj_3d)
+
+            # Articulated parameters (if applicable)
+            articulated_params = self.compute_articulated_params(obj_3d)
+
+            object_params[obj_id] = {
+                'rigid': rigid_transform,  # [R, t, scale]
+                'articulated': articulated_params,  # Joint angles/states
+                'type': obj_3d['type']  # chair, laptop, etc.
+            }
+
+        return object_params
+
+    def optimize_body_transform(self, calibration_frames):
+        """Optimize transformation between IMU and camera spaces"""
+        def objective(transform):
+            total_error = 0
+            for camera_markers, imu_markers in calibration_frames:
+                # Transform IMU markers to camera space
+                transformed_imu = self.apply_transform_to_points(imu_markers, transform)
+
+                # Compute alignment error
+                error = np.mean(np.linalg.norm(camera_markers - transformed_imu, axis=1))
+                total_error += error
+
+            return total_error
+
+        # Optimize using gradient-based method
+        from scipy.optimize import minimize
+        initial_transform = np.eye(4)  # Initial rigid transform
+        result = minimize(objective, initial_transform.flatten(),
+                         method='L-BFGS-B')
+
+        return result.x.reshape(4, 4)
+
+    def optimize_hand_transform(self, calibration_frames):
+        """Optimize hand transformation using calibration protocol"""
+        def objective(transform):
+            total_error = 0
+            for camera_fingertips, imu_fingertips, target_point in calibration_frames:
+                # Transform IMU fingertips to camera space
+                transformed_imu = self.apply_transform_to_points(imu_fingertips, transform)
+
+                # Error between transformed fingertips and target point
+                error = np.mean(np.linalg.norm(camera_fingertips - target_point, axis=1))
+                total_error += error
+
+            return total_error
+
+        # Similar optimization as body transform
+        initial_transform = np.eye(4)
+        result = minimize(objective, initial_transform.flatten(),
+                         method='L-BFGS-B')
+
+        return result.x.reshape(4, 4)
+
+    def postprocess_sequence(self, frames_data):
+        """Post-process captured sequence"""
+        # Temporal smoothing
+        smoothed_frames = self.temporal_smooth(frames_data)
+
+        # Physical constraint checking
+        validated_frames = self.validate_physics_constraints(smoothed_frames)
+
+        # Create final HOI dataset entry
+        hoi_sequence = {
+            'participant_id': self.current_participant,
+            'activity_type': self.current_activity,
+            'frames': validated_frames,
+            'metadata': {
+                'duration': len(frames_data) / 30.0,  # Assuming 30fps
+                'objects_present': list(set([obj for frame in frames_data
+                                           for obj in frame['object_params'].keys()])),
+                'quality_score': self.compute_sequence_quality(validated_frames)
+            }
+        }
+
+        return hoi_sequence
+
+# Usage example
+if __name__ == "__main__":
+    # Initialize ParaHome system
+    parahome = ParaHomeCaptureSystem(num_cameras=70)
+
+    # Capture HOI sequences
+    activities = ["making_coffee", "setting_table", "folding_laundry"]
+
+    for participant_id in range(1, 39):  # 38 participants
+        for activity in activities:
+            print(f"Capturing participant {participant_id}, activity: {activity}")
+
+            # Perform system calibration
+            body_transform = parahome.calibrate_body_alignment()
+            hand_transform = parahome.calibrate_hand_alignment()
+
+            # Capture sequence
+            hoi_sequence = parahome.capture_hoi_sequence(participant_id, activity)
+
+            # Save to dataset
+            save_to_dataset(hoi_sequence)
+
+    print("ParaHome capture completed!")</code></pre>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <pre><code>import numpy as np
+import torch
+import torch.nn as nn
+from scipy.spatial import KDTree
+from smplx import SMPLH, SMPLX
+
+class ParaHomeCaptureSystem:
+    """家庭环境中自然HOI的多视角捕获系统"""
+
+    def __init__(self, num_cameras=70, body_markers=11, hand_calibration_points=6):
+        self.num_cameras = num_cameras
+        self.body_markers = body_markers
+        self.hand_calibration_points = hand_calibration_points
+
+        # 初始化捕获设备
+        self.camera_system = MultiViewCameraSystem(num_cameras)
+        self.imu_body_suit = XsensBodySuit()
+        self.hand_gloves = ManusHandGloves()
+
+        # 3D参数化模型
+        self.smplh_model = SMPLH()
+        self.smplx_model = SMPLX()
+
+    def capture_hoi_sequence(self, participant_id, activity_type):
+        """HOI序列的主要捕获流水线"""
+        # 1. 系统校准
+        body_transform = self.calibrate_body_alignment()
+        hand_transform = self.calibrate_hand_alignment()
+
+        # 2. 多视角捕获
+        frames_data = []
+        for frame_idx in range(self.capture_duration):
+            # 捕获多视角图像
+            multi_view_images = self.camera_system.capture_frame()
+
+            # 捕获IMU数据
+            body_imu_data = self.imu_body_suit.get_pose()
+            hand_imu_data = self.hand_gloves.get_pose()
+
+            # 处理帧
+            frame_data = self.process_frame(
+                multi_view_images, body_imu_data, hand_imu_data,
+                body_transform, hand_transform
+            )
+            frames_data.append(frame_data)
+
+        return self.postprocess_sequence(frames_data)
+
+    def calibrate_body_alignment(self):
+        """使用附着标记的身体校准"""
+        print("执行身体对齐校准...")
+
+        # 使用可见标记捕获校准序列
+        calibration_frames = []
+        for _ in range(100):  # 捕获校准动作
+            multi_view_images = self.camera_system.capture_frame()
+            body_imu_data = self.imu_body_suit.get_pose()
+
+            # 从图像中提取标记位置
+            camera_markers = self.extract_markers_from_images(multi_view_images)
+            # 获取基于IMU的标记预测
+            imu_markers = self.predict_markers_from_imu(body_imu_data)
+
+            calibration_frames.append((camera_markers, imu_markers))
+
+        # 优化相机和IMU空间之间的变换
+        body_transform = self.optimize_body_transform(calibration_frames)
+
+        return body_transform
+
+    def calibrate_hand_alignment(self):
+        """使用结构化触摸协议的手部校准"""
+        print("执行手部对齐校准...")
+
+        # 定义校准结构顶点
+        calibration_vertices = self.define_calibration_structure()
+
+        calibration_frames = []
+        for vertex in calibration_vertices:
+            print(f"触摸校准点 {len(calibration_frames)+1}/6")
+
+            # 参与者触摸校准点
+            multi_view_images = self.camera_system.capture_frame()
+            hand_imu_data = self.hand_gloves.get_pose()
+
+            # 从图像中提取指尖位置
+            camera_fingertips = self.extract_fingertips_from_images(multi_view_images)
+            # 获取基于IMU的指尖预测
+            imu_fingertips = self.predict_fingertips_from_imu(hand_imu_data)
+
+            calibration_frames.append((camera_fingertips, imu_fingertips, vertex))
+
+        # 优化手部变换
+        hand_transform = self.optimize_hand_transform(calibration_frames)
+
+        return hand_transform
+
+    def process_frame(self, multi_view_images, body_imu_data, hand_imu_data,
+                     body_transform, hand_transform):
+        """处理单帧数据"""
+        # 1. 从多视角图像中提取3D标记和物体
+        markers_3d, objects_3d = self.reconstruct_3d_from_multiview(multi_view_images)
+
+        # 2. 为人类姿态融合IMU和相机数据
+        human_pose = self.fuse_imu_camera_data(
+            body_imu_data, hand_imu_data, markers_3d,
+            body_transform, hand_transform
+        )
+
+        # 3. 跟踪和参数化物体
+        object_params = self.track_objects(objects_3d)
+
+        # 4. 创建参数化表示
+        frame_data = {
+            'human_pose': human_pose,  # SMPL-H参数
+            'object_params': object_params,  # 刚性 + 关节参数
+            'markers_3d': markers_3d,  # 3D标记位置
+            'timestamp': self.get_timestamp()
+        }
+
+        return frame_data
+
+    def reconstruct_3d_from_multiview(self, multi_view_images):
+        """从多视角图像重建3D场景"""
+        markers_3d = []
+        objects_3d = []
+
+        # 从每个视图提取2D检测
+        all_detections = []
+        for view_idx, image in enumerate(multi_view_images):
+            detections = self.detect_markers_and_objects(image, view_idx)
+            all_detections.append(detections)
+
+        # 三角测量3D位置
+        for marker_id in range(self.get_total_markers()):
+            marker_2d_points = []
+            camera_indices = []
+
+            for view_idx, detections in enumerate(all_detections):
+                if marker_id in detections['markers']:
+                    marker_2d_points.append(detections['markers'][marker_id])
+                    camera_indices.append(view_idx)
+
+            if len(marker_2d_points) >= 2:  # 需要至少2个视图
+                marker_3d = self.triangulate_point(marker_2d_points, camera_indices)
+                markers_3d.append(marker_3d)
+
+        # 类似过程用于物体
+        for obj_id in self.object_ids:
+            obj_2d_detections = []
+            for view_idx, detections in enumerate(all_detections):
+                if obj_id in detections['objects']:
+                    obj_2d_detections.append((detections['objects'][obj_id], view_idx))
+
+            if len(obj_2d_detections) >= 2:
+                obj_3d = self.reconstruct_object_3d(obj_2d_detections)
+                objects_3d.append(obj_3d)
+
+        return markers_3d, objects_3d
+
+    def fuse_imu_camera_data(self, body_imu, hand_imu, markers_3d,
+                           body_transform, hand_transform):
+        """融合IMU预测和相机观测"""
+        # 应用变换到IMU数据
+        body_imu_transformed = self.apply_transform(body_imu, body_transform)
+        hand_imu_transformed = self.apply_transform(hand_imu, hand_transform)
+
+        # 使用标记进行细化
+        refined_pose = self.refine_pose_with_markers(
+            body_imu_transformed, hand_imu_transformed, markers_3d
+        )
+
+        return refined_pose
+
+    def track_objects(self, objects_3d):
+        """跟踪和参数化3D物体"""
+        object_params = {}
+
+        for obj_3d in objects_3d:
+            obj_id = obj_3d['id']
+
+            # 刚性变换
+            rigid_transform = self.compute_rigid_transform(obj_3d)
+
+            # 关节参数（如果适用）
+            articulated_params = self.compute_articulated_params(obj_3d)
+
+            object_params[obj_id] = {
+                'rigid': rigid_transform,  # [R, t, scale]
+                'articulated': articulated_params,  # 关节角度/状态
+                'type': obj_3d['type']  # 椅子、笔记本电脑等
+            }
+
+        return object_params
+
+    def optimize_body_transform(self, calibration_frames):
+        """优化IMU和相机空间之间的变换"""
+        def objective(transform):
+            total_error = 0
+            for camera_markers, imu_markers in calibration_frames:
+                # 将IMU标记变换到相机空间
+                transformed_imu = self.apply_transform_to_points(imu_markers, transform)
+
+                # 计算对齐误差
+                error = np.mean(np.linalg.norm(camera_markers - transformed_imu, axis=1))
+                total_error += error
+
+            return total_error
+
+        # 使用基于梯度的方法优化
+        from scipy.optimize import minimize
+        initial_transform = np.eye(4)  # 初始刚性变换
+        result = minimize(objective, initial_transform.flatten(),
+                         method='L-BFGS-B')
+
+        return result.x.reshape(4, 4)
+
+    def optimize_hand_transform(self, calibration_frames):
+        """使用校准协议优化手部变换"""
+        def objective(transform):
+            total_error = 0
+            for camera_fingertips, imu_fingertips, target_point in calibration_frames:
+                # 将IMU指尖变换到相机空间
+                transformed_imu = self.apply_transform_to_points(imu_fingertips, transform)
+
+                # 变换后指尖与目标点之间的误差
+                error = np.mean(np.linalg.norm(camera_fingertips - target_point, axis=1))
+                total_error += error
+
+            return total_error
+
+        # 与身体变换类似的优化
+        initial_transform = np.eye(4)
+        result = minimize(objective, initial_transform.flatten(),
+                         method='L-BFGS-B')
+
+        return result.x.reshape(4, 4)
+
+    def postprocess_sequence(self, frames_data):
+        """后处理捕获序列"""
+        # 时间平滑
+        smoothed_frames = self.temporal_smooth(frames_data)
+
+        # 物理约束检查
+        validated_frames = self.validate_physics_constraints(smoothed_frames)
+
+        # 创建最终HOI数据集条目
+        hoi_sequence = {
+            'participant_id': self.current_participant,
+            'activity_type': self.current_activity,
+            'frames': validated_frames,
+            'metadata': {
+                'duration': len(frames_data) / 30.0,  # 假设30fps
+                'objects_present': list(set([obj for frame in frames_data
+                                           for obj in frame['object_params'].keys()])),
+                'quality_score': self.compute_sequence_quality(validated_frames)
+            }
+        }
+
+        return hoi_sequence
+
+# 使用示例
+if __name__ == "__main__":
+    # 初始化ParaHome系统
+    parahome = ParaHomeCaptureSystem(num_cameras=70)
+
+    # 捕获HOI序列
+    activities = ["making_coffee", "setting_table", "folding_laundry"]
+
+    for participant_id in range(1, 39):  # 38个参与者
+        for activity in activities:
+            print(f"捕获参与者 {participant_id}, 活动: {activity}")
+
+            # 执行系统校准
+            body_transform = parahome.calibrate_body_alignment()
+            hand_transform = parahome.calibrate_hand_alignment()
+
+            # 捕获序列
+            hoi_sequence = parahome.capture_hoi_sequence(participant_id, activity)
+
+            # 保存到数据集
+            save_to_dataset(hoi_sequence)
+
+    print("ParaHome捕获完成!")</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://jlogkim.github.io/parahome" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+        <a href="https://github.com/jlogkim/parahome" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

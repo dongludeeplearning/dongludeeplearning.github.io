@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">HUGS: Human Gaussian Splats</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Muhammed Kocabas, Jen-Hao Rick Chang, James Gabriel, Oncel Tuzel, Anurag Ranjan<br>
+        <span style="opacity:0.8">Apple, Max Planck Institute for Intelligent Systems, ETH Zurich</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create animatable human avatars from monocular videos that enable both novel pose synthesis and novel view synthesis of humans in scenes, while achieving orders of magnitude faster training and rendering compared to NeRF-based methods?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从单目视频创建可动画的人类头像，实现人类在新姿势合成和场景中新视图合成，同时比基于NeRF的方法实现数量级更快的训练和渲染？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Human Gaussian Splats Framework:</b> Introduced HUGS, a novel representation that uses 3D Gaussians to model both animatable humans and static scenes, enabling simultaneous novel-pose synthesis of humans and novel-view synthesis of both humans and scenes from monocular videos.</div>
+            <div class="lang-zh" style="display:none"><b>人类高斯点云框架：</b>引入了HUGS，这是一种新颖的表示，使用3D高斯来建模可动画的人类和静态场景，从单目视频实现人类的同步新姿势合成和人类及场景的新视图合成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Forward Deformation with LBS:</b> Developed a forward deformation module that represents humans in canonical space using 3D Gaussians and animates them to novel poses using jointly optimized Linear Blend Skinning (LBS) weights, ensuring coordinated movement of individual Gaussians during articulation.</div>
+            <div class="lang-zh" style="display:none"><b>带LBS的前向变形：</b>开发了一个前向变形模块，使用3D高斯在规范空间表示人类，并使用联合优化的线性混合蒙皮(LBS)权重将它们动画化到新姿势，确保在关节运动期间单个高斯的协调运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Efficient Training and Rendering:</b> Achieved state-of-the-art reconstruction quality with 100× faster training (30 minutes) and 60 FPS rendering speed compared to NeRF-based methods, by training on monocular videos with only 50-100 frames and leveraging explicit Gaussian representations.</div>
+            <div class="lang-zh" style="display:none"><b>高效训练和渲染：</b>通过在只有50-100帧的单目视频上训练并利用显式高斯表示，与基于NeRF的方法相比实现了最先进的重建质量和100倍更快的训练（30分钟）和60 FPS渲染速度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene-Human Disentanglement:</b> Enabled automatic disentanglement of static scenes and fully animatable human avatars, allowing composition of humans in different scenes and supporting flexible animation techniques including skeletal animation, blend shapes, and mesh editing.</div>
+            <div class="lang-zh" style="display:none"><b>场景-人类解耦：</b>实现了静态场景和完全可动画人类头像的自动解耦，允许在不同场景中合成人类，并支持灵活的动画技术，包括骨骼动画、混合形状和网格编辑。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/hugs_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('hugs_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('hugs_cvpr2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/hugs_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('hugs_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('hugs_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Monocular Video Constraints:</b> Training high-quality animatable avatars from monocular videos with limited viewpoint variations and depth cues, requiring methods to handle incomplete geometric information while maintaining photorealistic rendering quality.</div>
+            <div class="lang-zh" style="display:none"><b>单目视频约束：</b>从具有有限视点变化和深度线索的单目视频训练高质量的可动画头像，需要方法处理不完整的几何信息同时保持逼真的渲染质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Human Articulation Coordination:</b> Ensuring coordinated movement of individual Gaussians during complex human articulations to avoid artifacts like holes or popping, while maintaining surface integrity and natural deformations.</div>
+            <div class="lang-zh" style="display:none"><b>人类关节协调：</b>确保在复杂的人类关节运动期间单个高斯的协调运动，避免孔洞或弹出等伪影，同时保持表面完整性和自然变形。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene-Human Disentanglement:</b> Automatically separating static background elements from moving human subjects in complex scenes, enabling independent manipulation and composition of humans in different environments.</div>
+            <div class="lang-zh" style="display:none"><b>场景-人类解耦：</b>在复杂场景中自动分离静态背景元素和移动人类主体，实现人类在不同环境中的独立操纵和合成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Efficiency Trade-offs:</b> Balancing rendering quality with computational efficiency, achieving real-time performance while surpassing the slow training and rendering speeds of NeRF-based methods for dynamic human modeling.</div>
+            <div class="lang-zh" style="display:none"><b>效率权衡：</b>平衡渲染质量与计算效率，实现实时性能同时超越NeRF-based方法在动态人类建模方面的慢训练和渲染速度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Detail Preservation Beyond Parametric Models:</b> Capturing fine geometric and appearance details like clothing wrinkles, hair, and accessories that parametric body models (SMPL) cannot represent, while maintaining animatable deformations.</div>
+            <div class="lang-zh" style="display:none"><b>超越参数模型的细节保留：</b>捕捉参数身体模型(SMPL)无法表示的精细几何和外观细节，如衣服皱纹、头发和配饰，同时保持可动画变形。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Canonical Space Representation:</b> Represented humans in a canonical pose space using 3D Gaussians initialized from SMPL body model, allowing Gaussians to deviate from the parametric mesh to capture details like clothing and hair beyond SMPL capabilities.</div>
+            <div class="lang-zh" style="display:none"><b>规范空间表示：</b>使用从SMPL身体模型初始化的3D高斯在规范姿势空间表示人类，允许高斯偏离参数网格以捕捉超越SMPL能力的细节，如衣服和头发。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Forward Deformation Module:</b> Implemented forward deformation that predicts mean shifts, rotations, and scales for 3D Gaussians in canonical space, using Linear Blend Skinning weights to animate Gaussians from canonical poses to target poses with coordinated movements.</div>
+            <div class="lang-zh" style="display:none"><b>前向变形模块：</b>实现了前向变形，为规范空间中的3D高斯预测平均位移、旋转和缩放，使用线性混合蒙皮权重将高斯从规范姿势动画化到目标姿势，并协调运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Triplane Feature Encoding:</b> Employed a triplane feature representation with three MLPs to encode spatial properties of Gaussians, enabling efficient prediction of appearance, geometry, and deformation parameters for each Gaussian in the canonical space.</div>
+            <div class="lang-zh" style="display:none"><b>三平面特征编码：</b>使用带有三个MLP的三平面特征表示来编码高斯的空间属性，实现对规范空间中每个高斯的外观、几何和变形参数的高效预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Joint LBS Weight Optimization:</b> Optimized LBS weights jointly with Gaussian parameters during training to coordinate the movement of individual Gaussians during animation, preventing artifacts and ensuring surface integrity during complex articulations.</div>
+            <div class="lang-zh" style="display:none"><b>联合LBS权重优化：</b>在训练期间联合优化LBS权重和高斯参数，以协调动画期间单个高斯的运动，防止伪影并确保在复杂关节运动期间的表面完整性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><div class="lang-en"><b>Adaptive Density Control:</b> Applied Gaussian cloning, splitting, and pruning operations based on loss gradients and opacity, enabling adaptive density control to capture fine details in texture-rich regions while maintaining efficiency.</div>
+            <div class="lang-zh" style="display:none"><b>自适应密度控制：</b>基于损失梯度和不透明度应用高斯克隆、分割和修剪操作，实现自适应密度控制以在纹理丰富的区域捕捉精细细节同时保持效率。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Explicit vs. Implicit Human Modeling:</b> HUGS demonstrates that explicit Gaussian representations can achieve superior efficiency and quality for dynamic human modeling compared to implicit NeRF approaches, while enabling direct manipulation and animation control.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>显式 vs. 隐式人类建模：</b>HUGS证明了显式高斯表示可以比隐式NeRF方法实现更优的效率和质量用于动态人类建模，同时实现直接操纵和动画控制。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Monocular Training Limitations:</b> The method successfully addresses monocular training challenges by leveraging parametric body priors and allowing Gaussian deviations, achieving quality comparable to multi-view methods despite limited input data.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>单目训练局限性：</b>该方法通过利用参数身体先验和允许高斯偏差成功解决了单目训练挑战，尽管输入数据有限，但实现了与多视图方法相当的质量。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Animation Coherence:</b> Joint optimization of LBS weights ensures coherent Gaussian movements during articulation, solving the coordination problem that arises when applying deformation to explicit point-based representations.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>动画连贯性：</b>LBS权重的联合优化确保了在关节运动期间高斯的连贯运动，解决了将变形应用于显式基于点的表示时出现的协调问题。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because HUGS combines the efficiency of explicit Gaussian representations with the deformation control of parametric body models, enabling fast training and rendering while solving the coordination challenges through joint LBS weight optimization.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为HUGS将显式高斯表示的效率与参数身体模型的变形控制相结合，通过联合LBS权重优化解决协调挑战，同时实现快速训练和渲染。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces HUGS, a novel framework for creating animatable human avatars from monocular videos using 3D Gaussian Splatting. By representing humans and scenes as explicit Gaussians with joint LBS weight optimization for deformation control, HUGS achieves state-of-the-art rendering quality while being 100× faster to train and 60 FPS faster to render than previous NeRF-based methods. The approach enables novel pose synthesis and scene composition with only 50-100 frames of monocular video input.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了HUGS，一个使用3D高斯点云从单目视频创建可动画人类头像的新颖框架。通过将人类和场景表示为带有联合LBS权重优化的显式高斯用于变形控制，HUGS实现了最先进的渲染质量，同时训练速度比之前的NeRF-based方法快100倍，渲染速度快60 FPS。该方法仅使用50-100帧单目视频输入实现新姿势合成和场景合成。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://github.com/apple/ml-hugs" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

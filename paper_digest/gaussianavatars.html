@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">GaussianAvatars: Photorealistic Head Avatars with Rigged 3D Gaussians</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Shenhan Qian, Tobias Kirschstein, Simon Giebenhain, Liam Schoneveld, Davide Davoli, Matthias Nießner<br>
+        <span style="opacity:0.8">Technical University of Munich, Woven by Toyota, Toyota Motor Europe</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create fully controllable photorealistic head avatars that can be animated with precise expression, pose, and viewpoint control while overcoming the limitations of traditional radiance field methods in capturing dynamic facial details and ensuring animation fidelity?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建完全可控的逼真头部头像，可以通过精确的表情、姿势和视点控制进行动画，同时克服传统辐射场方法在捕捉动态面部细节和确保动画保真度方面的局限性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Rigged 3D Gaussian Splatting:</b> Introduced GaussianAvatars, a novel method for creating animatable head avatars by rigging 3D Gaussian splats to parametric morphable face models, enabling photorealistic rendering with precise animation control through underlying parametric models.</div>
+            <div class="lang-zh" style="display:none"><b>Rigged 3D高斯点云：</b>引入了GaussianAvatars，一种创建可动画头部头像的新方法，通过将3D高斯点云rig到参数化morphable面部模型，实现逼真渲染和通过底层参数化模型进行精确动画控制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Binding Inheritance Strategy:</b> Designed a binding inheritance mechanism to support adding and removing 3D Gaussians without losing controllability, enabling adaptive density control while maintaining consistent triangle-Gaussian relationships throughout optimization.</div>
+            <div class="lang-zh" style="display:none"><b>绑定继承策略：</b>设计了一种绑定继承机制，支持在不丢失可控性的情况下添加和删除3D高斯点云，实现自适应密度控制同时在整个优化过程中保持一致的三角形-高斯关系。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Local Coordinate Parameterization:</b> Parameterized each splat by a local coordinate frame of its parent triangle with explicit displacement offsets, enabling accurate geometric representation and adaptive scaling relative to triangle size for robust animation.</div>
+            <div class="lang-zh" style="display:none"><b>本地坐标参数化：</b>通过父三角形的本地坐标框架和显式位移偏移对每个splat进行参数化，实现准确的几何表示和相对于三角形大小的自适应缩放，以实现鲁棒的动画。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>End-to-End Joint Optimization:</b> Developed a unified framework that jointly optimizes morphable model parameters and Gaussian splat parameters, enabling mesh refinement through consistent splat-triangle correspondences and superior performance in reenactment tasks.</div>
+            <div class="lang-zh" style="display:none"><b>端到端联合优化：</b>开发了一个统一框架，联合优化morphable模型参数和高斯splat参数，通过一致的splat-三角形对应关系实现网格细化，并在重新演绎任务中实现卓越性能。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/gaussianavatars_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('gaussianavatars_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('gaussianavatars_cvpr2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/gaussianavatars_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('gaussianavatars_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('gaussianavatars_cvpr2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Facial Detail Capture:</b> Capturing extreme expressions, facial wrinkles, mouth interior, and hair strands with high fidelity while maintaining photorealistic rendering quality across different viewpoints and animation states.</div>
+            <div class="lang-zh" style="display:none"><b>动态面部细节捕捉：</b>以高保真度捕捉极端表情、面部皱纹、口腔内部和发丝，同时在不同视点和动画状态下保持逼真渲染质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Precise Animation Control:</b> Achieving precise controllability over expression, pose, and viewpoint while ensuring the avatar generalizes well to novel poses and expressions beyond the training distribution.</div>
+            <div class="lang-zh" style="display:none"><b>精确动画控制：</b>实现对表情、姿势和视点的精确可控性，同时确保头像能够很好地泛化到超出训练分布的新姿势和表情。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Morphable Model Limitations:</b> Overcoming the limitations of parametric morphable models (like FLAME) that cannot accurately represent certain visual elements, requiring compensation mechanisms to capture fine details not covered by the underlying mesh.</div>
+            <div class="lang-zh" style="display:none"><b>Morphable模型局限性：</b>克服参数化morphable模型（如FLAME）的局限性，这些模型无法准确表示某些视觉元素，需要补偿机制来捕捉底层网格未覆盖的细粒度细节。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Adaptive Density Management:</b> Dynamically managing the number and positioning of 3D primitives during optimization while maintaining consistent rigging relationships between Gaussians and mesh triangles.</div>
+            <div class="lang-zh" style="display:none"><b>自适应密度管理：</b>在优化过程中动态管理3D原语的数量和定位，同时保持高斯点云和网格三角形之间的一致rigging关系。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Geometric-Photometric Alignment:</b> Ensuring proper alignment between the geometric mesh representation and photometric radiance field while preventing artifacts during novel expression animation.</div>
+            <div class="lang-zh" style="display:none"><b>几何-光度对齐：</b>确保几何网格表示和光度辐射场之间的正确对齐，同时防止在新表情动画期间出现伪影。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3D Gaussian Rigging to Parametric Models:</b> Established a dynamic 3D representation by rigging 3D Gaussian splats to FLAME mesh triangles, where each Gaussian moves with its parent triangle while forming a radiance field that compensates for mesh inaccuracies.</div>
+            <div class="lang-zh" style="display:none"><b>3D高斯rig到参数化模型：</b>通过将3D高斯splats rig到FLAME网格三角形来建立动态3D表示，其中每个高斯与其父三角形一起移动，同时形成补偿网格不准确性的辐射场。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Local Coordinate Frame Parameterization:</b> Parameterized each Gaussian by a local coordinate frame derived from its parent triangle, enabling explicit displacement offsets and adaptive scaling relative to triangle size for accurate geometric representation.</div>
+            <div class="lang-zh" style="display:none"><b>本地坐标框架参数化：</b>通过从其父三角形导出的本地坐标框架对每个高斯进行参数化，实现显式位移偏移和相对于三角形大小的自适应缩放，以获得准确的几何表示。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Binding Inheritance Strategy:</b> Implemented an inheritance mechanism for Gaussian-triangle bindings during adaptive density control operations, ensuring that newly added Gaussians maintain rigging relationships and controllability.</div>
+            <div class="lang-zh" style="display:none"><b>绑定继承策略：</b>在自适应密度控制操作期间实现了高斯-三角形绑定的继承机制，确保新添加的高斯保持rigging关系和可控性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Joint Optimization Framework:</b> Developed an end-to-end optimization approach that simultaneously optimizes FLAME parameters and Gaussian splat parameters, enabling mesh refinement through consistent splat-triangle correspondences.</div>
+            <div class="lang-zh" style="display:none"><b>联合优化框架：</b>开发了一种端到端优化方法，同时优化FLAME参数和高斯splat参数，通过一致的splat-三角形对应关系实现网格细化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Regularization for Animation Stability:</b> Introduced position and scaling regularization losses to prevent artifacts during novel expression animation, ensuring Gaussian splats remain properly aligned with the underlying mesh surface.</div>
+            <div class="lang-zh" style="display:none"><b>动画稳定性正则化：</b>引入位置和缩放正则化损失以防止在新表情动画期间出现伪影，确保高斯splats与底层网格表面保持适当对齐。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Geometric-Photometric Integration:</b> The combination of explicit geometric rigging with implicit radiance field representation provides a powerful framework for capturing both coarse mesh deformations and fine photometric details, enabling superior avatar reconstruction and animation quality.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>几何-光度集成：</b>显式几何rigging与隐式辐射场表示的结合为捕捉粗糙网格变形和精细光度细节提供了强大的框架，实现卓越的头像重建和动画质量。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Adaptive Representation Learning:</b> The binding inheritance strategy enables dynamic adjustment of representation complexity while maintaining controllability, allowing the system to adapt to different facial regions and animation requirements.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>自适应表示学习：</b>绑定继承策略能够在保持可控性的同时动态调整表示复杂性，允许系统适应不同的面部区域和动画要求。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Mesh-Gaussian Synergy:</b> By allowing Gaussians to deviate from the mesh surface while maintaining rigging relationships, the method achieves a synergistic combination where the mesh provides animation control and Gaussians provide rendering fidelity.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>网格-高斯协同：</b>通过允许高斯偏离网格表面同时保持rigging关系，该方法实现了协同组合，其中网格提供动画控制，高斯提供渲染保真度。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because GaussianAvatars bridges the gap between controllable parametric models and high-fidelity radiance field rendering by establishing explicit geometric correspondences while allowing photometric freedom. The binding inheritance ensures scalability and the regularization prevents artifacts during animation, resulting in photorealistic avatars with precise control.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为GaussianAvatars通过建立显式几何对应关系同时允许光度自由弥合了可控参数化模型和高保真辐射场渲染之间的差距。绑定继承确保可扩展性，正则化防止动画期间出现伪影，从而产生具有精确控制的逼真头像。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper presents GaussianAvatars, a novel method for creating photorealistic head avatars using 3D Gaussian splats rigged to parametric morphable face models. The approach enables full control over expression, pose, and viewpoint while achieving superior rendering quality and animation fidelity. By establishing explicit geometric correspondences between Gaussians and mesh triangles, and implementing a binding inheritance strategy for adaptive density control, the method overcomes the limitations of traditional radiance field approaches. Extensive experiments demonstrate significant improvements over state-of-the-art methods in both novel-view synthesis and reenactment tasks, establishing GaussianAvatars as a new standard for controllable photorealistic avatar creation.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文提出了GaussianAvatars，一种使用rig到参数化morphable面部模型的3D高斯splats创建逼真头部头像的新方法。该方法实现了对表情、姿势和视点的完全控制，同时实现卓越的渲染质量和动画保真度。通过在高斯和网格三角形之间建立显式几何对应关系，并为自适应密度控制实施绑定继承策略，该方法克服了传统辐射场方法的局限性。广泛的实验证明了在新型视图合成和重新演绎任务中相对于最先进方法的显著改进，将GaussianAvatars确立为可控逼真头像创建的新标准。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://github.com/ShenhanQian/GaussianAvatars" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

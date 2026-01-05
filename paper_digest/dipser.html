@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • arXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">DIPSER: A Dataset for In-Person Student Engagement Recognition in the Wild</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Luis Marquez-Carpintero, Sergio Suescun-Ferrandiz, Carolina Lorenzo Álvarez, Jorge Fernandez-Herrero, Diego Viejo, Rosabel Roig-Vila, Miguel Cazorla<br>
+        <span style="opacity:0.8">University of Alicante, Spain</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create a comprehensive multimodal dataset that captures authentic in-person student engagement in real classroom environments, combining RGB cameras, smartwatch sensors, and expert annotations to enable accurate attention and emotion recognition?</div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建一个全面的多模态数据集，在真实课堂环境中捕捉真实的面对面学生参与度，结合RGB摄像头、智能手表传感器和专家标注，以实现准确的注意力和情绪识别？</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Multimodal Dataset:</b> Introduced DIPSER, the most comprehensive dataset for in-person student engagement recognition, combining RGB camera data (facial expressions and posture), smartwatch IMU sensors (heart rate, accelerometer, gyroscope), and environmental context cameras across nine diverse educational scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>全面多模态数据集：</b>引入了DIPSER，这是目前最全面的面对面学生参与度识别数据集，结合RGB摄像头数据（面部表情和姿势）、智能手表IMU传感器（心率、加速度计、陀螺仪）和环境上下文摄像头，涵盖九种不同的教育场景。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-World In-Person Setting:</b> Collected data in authentic classroom environments at the University of Alicante with 54 Caucasian students across three groups (undergraduate and master's levels), providing ecologically valid engagement data that overcomes limitations of online-only datasets and laboratory settings.</div>
+            <div class="lang-zh" style="display:none"><b>真实世界面对面环境：</b>在阿利坎特大学真实课堂环境中收集数据，涵盖三个群体（本科和硕士水平）的54名高加索学生，提供生态有效的参与度数据，克服了仅在线数据集和实验室设置的局限性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Labeling Strategy:</b> Implemented rigorous labeling with five evaluators per student (four experts + self-report) providing attention labels (5-level scale) and emotion labels (9 categories), ensuring reliable ground truth for training and validating engagement recognition models.</div>
+            <div class="lang-zh" style="display:none"><b>全面标注策略：</b>实施严格的标注，每名学生五名评估者（四名专家+自我报告）提供注意力标签（5级尺度）和情绪标签（9个类别），确保训练和验证参与度识别模型的可靠地面真相。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Advanced Data Processing:</b> Provided pre-processed data including bounding boxes, facial landmarks, pose estimation, and demographic information using state-of-the-art tools (MediaPipe, MiVOLO, DeepFace), facilitating advanced multimodal analysis for researchers in affective computing and educational technology.</div>
+            <div class="lang-zh" style="display:none"><b>先进数据处理：</b>使用最先进的工具（MediaPipe、MiVOLO、DeepFace）提供预处理数据，包括边界框、面部地标、姿态估计和人口统计信息，促进情感计算和教育技术领域研究者的先进多模态分析。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <p>Figure shows examples of individual and contextual camera captures from the DIPSER dataset, demonstrating the multimodal nature of the data collection including RGB images and sensor data.</p>
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('dipser_arxiv2025.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('dipser_arxiv2025.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multimodal Data Synchronization:</b> Coordinating multiple data streams (RGB cameras, smartwatch sensors, contextual cameras) with precise temporal alignment across distributed embedded devices in dynamic classroom environments.</div>
+            <div class="lang-zh" style="display:none"><b>多模态数据同步：</b>在动态课堂环境中，通过分布式嵌入式设备精确协调多个数据流（RGB摄像头、智能手表传感器、上下文摄像头）的时序对齐。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Ecological Validity in Data Collection:</b> Capturing authentic student behaviors in real classroom settings while ensuring participant privacy, obtaining informed consent, and maintaining naturalistic interactions without disrupting the educational process.</div>
+            <div class="lang-zh" style="display:none"><b>数据收集的生态有效性：</b>在真实课堂环境中捕捉真实的学生行为，同时确保参与者隐私、获得知情同意，并在不中断教育过程的情况下保持自然互动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Subjective Labeling Reliability:</b> Establishing consistent and reliable annotation protocols for subjective constructs like engagement and emotion, combining expert evaluations with self-reports while minimizing inter-rater variability.</div>
+            <div class="lang-zh" style="display:none"><b>主观标注可靠性：</b>为参与度和情绪等主观结构建立一致且可靠的标注协议，结合专家评估和自我报告，同时最小化评估者间变异性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Diverse Scenario Coverage:</b> Designing educational activities that elicit varied engagement states across different teaching methodologies while ensuring sufficient data balance for training robust machine learning models.</div>
+            <div class="lang-zh" style="display:none"><b>多样化场景覆盖：</b>设计教育活动，在不同教学方法中引发各种参与状态，同时确保训练稳健机器学习模型的足够数据平衡。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Privacy-Preserving Multimodal Analysis:</b> Balancing the need for comprehensive behavioral data with ethical considerations, implementing anonymization techniques while preserving analytical utility for attention and emotion research.</div>
+            <div class="lang-zh" style="display:none"><b>隐私保护多模态分析：</b>平衡对全面行为数据的需要与伦理考虑，实现匿名化技术，同时保持注意力和情绪研究的分析效用。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Distributed Capture Infrastructure:</b> Deployed Raspberry Pi-based system with 20 Logitech cameras and Samsung Galaxy Watch 5 smartwatches, utilizing Wi-Fi synchronization and centralized server control for coordinated multimodal data collection across classroom environments.</div>
+            <div class="lang-zh" style="display:none"><b>分布式捕获基础设施：</b>部署基于Raspberry Pi的系统，配备20个Logitech摄像头和Samsung Galaxy Watch 5智能手表，利用Wi-Fi同步和集中式服务器控制，在课堂环境中进行协调的多模态数据收集。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Nine Educational Scenarios:</b> Designed structured experiments including news reading, brainstorming, lectures, information organization, assessments, presentations, and robotics activities to elicit diverse engagement and emotional states across undergraduate and master's students.</div>
+            <div class="lang-zh" style="display:none"><b>九种教育场景：</b>设计结构化实验，包括新闻阅读、头脑风暴、讲座、信息组织、评估、演示和机器人活动，以在本科生和硕士生中引发多样化的参与度和情绪状态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multimodal Data Streams:</b> Captured 1,311,761 high-resolution images with individual facial cameras (640×480px) and contextual cameras (1280×720px), combined with smartwatch sensor data including heart rate, accelerometer, gyroscope, and light sensors sampled at 1-100 Hz.</div>
+            <div class="lang-zh" style="display:none"><b>多模态数据流：</b>捕获1,311,761张高分辨率图像，包括个体面部摄像头（640×480像素）和上下文摄像头（1280×720像素），结合智能手表传感器数据，包括以1-100 Hz采样的心率、加速度计、陀螺仪和光传感器。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><div class="lang-en"><b>Comprehensive Annotation Pipeline:</b> Implemented five-labeler system (four experts + self-report) providing attention ratings (1-5 scale) and emotion classifications (9 categories: enjoyment, hope, pride, relief, anger, anxiety, shame, despair, boredom) with temporal resolution at one-second intervals.</div>
+            <div class="lang-zh" style="display:none"><b>全面标注管道：</b>实施五标注者系统（四名专家+自我报告），提供注意力评分（1-5尺度）和情绪分类（9个类别：享受、希望、自豪、宽慰、生气、焦虑、羞愧、绝望、无聊），以一秒间隔的时序分辨率。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Bridging Online and In-Person Learning Analytics:</b> DIPSER addresses the critical gap between online learning datasets and authentic classroom environments, providing multimodal data that enables more accurate and ecologically valid student engagement analysis for real-world educational applications.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>弥合在线和面对面学习分析：</b>DIPSER解决了在线学习数据集与真实课堂环境之间的关键差距，提供多模态数据，使真实世界教育应用能够进行更准确和生态有效的学生参与度分析。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Multimodal Sensor Integration:</b> The combination of visual, physiological, and contextual data provides a holistic view of student engagement, enabling correlations between observable behaviors, internal physiological states, and environmental factors that single-modality approaches cannot capture.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>多模态传感器集成：</b>视觉、生理和上下文数据的结合提供了学生参与度的整体视图，能够关联单模态方法无法捕捉的可观察行为、内部生理状态和环境因素。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Ethical and Privacy-First Design:</b> The dataset demonstrates how comprehensive educational data collection can be conducted ethically, with robust anonymization, informed consent protocols, and adherence to international research standards while maximizing research utility.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>伦理和隐私优先设计：</b>该数据集展示了如何在伦理上进行全面的教育数据收集，包括强大的匿名化、知情同意协议和遵守国际研究标准，同时最大化研究效用。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because DIPSER combines authentic real-world data collection with rigorous multimodal annotation and processing, creating a comprehensive resource that bridges the gap between controlled research settings and actual classroom dynamics for more accurate and actionable student engagement analysis.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为DIPSER将真实世界数据收集与严格的多模态标注和处理相结合，创建一个全面的资源，弥合受控研究设置与实际课堂动态之间的差距，实现更准确和可操作的学生参与度分析。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces DIPSER, a comprehensive multimodal dataset for in-person student engagement recognition in authentic classroom settings. The dataset encompasses 1,311,761 images from RGB cameras, smartwatch sensor data from 54 students across nine educational scenarios, and comprehensive attention/emotion labels from expert and self-report annotations. DIPSER uniquely combines facial, postural, physiological, and contextual data in real-world settings, providing the most extensive resource currently available for advancing research in affective computing and educational technology. The dataset is publicly available under ethical guidelines to catalyze development of more accurate and ecologically valid student engagement analysis systems.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了DIPSER，一个用于真实课堂环境中面对面学生参与度识别的全面多模态数据集。该数据集包含来自RGB摄像头的1,311,761张图像、来自九种教育场景中54名学生的智能手表传感器数据，以及来自专家和自我报告标注的全面注意力和情绪标签。DIPSER独特地结合了真实环境中的面部、姿态、生理和上下文数据，是目前可用的最广泛资源，用于推进情感计算和教育技术领域的研究。该数据集在伦理准则下公开可用，以催化开发更准确和生态有效的学生参与度分析系统。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://arxiv.org/abs/2502.20209" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          arXiv
+        </a>
+        <a href="https://bitbucket.org/rovitlib/dipser/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Code Repository
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

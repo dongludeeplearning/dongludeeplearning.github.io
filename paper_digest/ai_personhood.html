@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">A Pragmatic View of AI Personhood</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Joel Z. Leibo, Alexander Sasha Vezhnevets, William A. Cunningham, Stanley M. Bileschi<br>
+        <span style="opacity:0.8">Google DeepMind, University of Toronto</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we pragmatically navigate the emerging diversity of AI personhood by treating it not as a metaphysical essence to be discovered, but as a flexible bundle of obligations that societies can confer for solving concrete governance problems?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过将AI人格视为一个灵活的权利和责任束而不是形而上的本质来务实地应对AI人格多样性的出现，从而解决具体的治理问题？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Pragmatic Framework for AI Personhood:</b> Introduced a pragmatic framework that treats personhood not as a metaphysical property to be discovered, but as a flexible bundle of obligations (rights and responsibilities) that societies confer upon entities to solve concrete governance problems.</div>
+            <div class="lang-zh" style="display:none"><b>AI人格的务实框架：</b>引入了一个务实框架，将人格视为不是要发现的形而上的属性，而是社会赋予实体的灵活权利和责任束，以解决具体的治理问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unbundling Personhood:</b> Proposed that the traditional personhood bundle can be unbundled into components, allowing for bespoke solutions where different combinations of rights and responsibilities can be assigned to different AI systems in different contexts.</div>
+            <div class="lang-zh" style="display:none"><b>人格解绑：</b>提出传统人格束可以解绑为组件，允许定制解决方案，其中不同权利和责任的组合可以在不同上下文中分配给不同的AI系统。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Theory of Appropriateness:</b> Developed a theory of appropriateness that models norms as contingent social technologies that evolve to resolve fundamental political questions about how societies can live together with AI agents.</div>
+            <div class="lang-zh" style="display:none"><b>适当性理论：</b>发展了一个适当性理论，将规范建模为或有的社会技术，这些技术演化以解决社会如何与AI代理共同生活的基本政治问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual Perspective on Personhood:</b> Examined both 'personhood as a problem' (where design choices create dark patterns exploiting human social heuristics) and 'personhood as a solution' (where conferring obligations ensures accountability and prevents conflict).</div>
+            <div class="lang-zh" style="display:none"><b>人格的双重视角：</b>考察了"人格作为问题"（设计选择创建利用人类社会启发式的黑暗模式）和"人格作为解决方案"（赋予义务确保问责制和防止冲突）。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Anti-Foundationalist Approach:</b> Rejected foundationalist quests for a single essential definition of personhood based on consciousness or rationality, offering instead a flexible, context-dependent approach to integrating AI agents into society.</div>
+            <div class="lang-zh" style="display:none"><b>反基础主义方法：</b>拒绝基于意识或理性的单一本质人格定义的基础主义追求，而是提供了一种灵活的、情境依赖的方法来将AI代理整合到社会中。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Metaphysical Debates:</b> Avoiding intractable debates about AI consciousness and rationality that cannot be resolved empirically and may hinder practical governance solutions.</div>
+            <div class="lang-zh" style="display:none"><b>形而上学辩论：</b>避免关于AI意识和理性的难以解决的辩论，这些辩论无法经验性地解决，并可能阻碍实际的治理解决方案。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>All-or-Nothing Classification:</b> Moving beyond the rigid binary of treating entities as either full persons with all human rights or mere objects, to allow nuanced governance frameworks.</div>
+            <div class="lang-zh" style="display:none"><b>全有或全无分类：</b>超越将实体视为拥有所有人权的全人或仅仅是对象的僵化二分法，以允许细致的治理框架。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dark Patterns in Design:</b> Preventing design choices that exploit human social heuristics, such as creating overly anthropomorphic AI companions that manipulate emotional attachments.</div>
+            <div class="lang-zh" style="display:none"><b>设计中的黑暗模式：</b>防止利用人类社会启发式的设计选择，如创建过度拟人化的AI伴侣来操纵情感依恋。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Accountability Gaps:</b> Ensuring AI systems can be held accountable through mechanisms like sanctionability and contracting without requiring full consciousness attribution.</div>
+            <div class="lang-zh" style="display:none"><b>问责制空白：</b>确保AI系统可以通过制裁和契约等机制被追究责任，而无需完全的意识归属。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Temporal and Cultural Dynamics:</b> Accounting for how personhood concepts evolve over time and vary across cultures, requiring flexible frameworks that can adapt to changing social norms.</div>
+            <div class="lang-zh" style="display:none"><b>时间和文化动态：</b>考虑人格概念如何随时间演化和跨文化变化，需要能够适应变化的社会规范的灵活框架。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The paper proposes a pragmatic framework for AI personhood that shifts focus from metaphysical questions to practical governance:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Personhood as Bundle of Obligations:</b> Treating personhood not as an essential property but as a flexible bundle of rights and responsibilities that societies confer to solve governance problems.</li>
+                <li style="margin-bottom:6px;"><b>Unbundling for Bespoke Solutions:</b> Breaking apart the traditional personhood bundle to create context-specific combinations, such as sanctionability without suffrage or culpability without consciousness attribution.</li>
+                <li style="margin-bottom:6px;"><b>Theory of Appropriateness:</b> Modeling norms as contingent social technologies that evolve to resolve political questions about living together, with personhood as one such technology.</li>
+                <li style="margin-bottom:6px;"><b>Dual Problem-Solution Analysis:</b> Examining both 'personhood as a problem' (dark patterns exploiting social heuristics) and 'personhood as a solution' (conferring obligations for accountability).</li>
+                <li style="margin-bottom:6px;"><b>Anti-Foundationalist Approach:</b> Rejecting quests for essential definitions based on consciousness or rationality, favoring flexible, context-dependent frameworks.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>论文提出了一个AI人格的务实框架，将重点从形而上的问题转向实际治理：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>人格作为义务束：</b>将人格视为不是本质属性，而是社会赋予的灵活权利和责任束，以解决治理问题。</li>
+                <li style="margin-bottom:6px;"><b>解绑以创建定制解决方案：</b>打破传统人格束以创建情境特定的组合，如制裁性而无选举权或责任性而无意识归属。</li>
+                <li style="margin-bottom:6px;"><b>适当性理论：</b>将规范建模为或有的社会技术，这些技术演化以解决关于共同生活的政治问题，人格就是这样一种技术。</li>
+                <li style="margin-bottom:6px;"><b>双重问题-解决方案分析：</b>考察"人格作为问题"（利用社会启发式的黑暗模式）和"人格作为解决方案"（赋予义务以确保问责制）。</li>
+                <li style="margin-bottom:6px;"><b>反基础主义方法：</b>拒绝基于意识或理性的本质定义的追求，支持灵活的、情境依赖的框架。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（总体示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <p><em>This theoretical paper does not contain traditional technical figures, but focuses on conceptual frameworks for AI personhood.</em></p>
+            <p>The paper presents a pragmatic framework treating personhood as a flexible bundle of obligations rather than metaphysical essence, allowing societies to create bespoke solutions for different AI governance contexts.</p>
+            <p>Note: The work emphasizes unbundling personhood components (sanctionability, culpability, contracting, etc.) to solve concrete governance problems without resolving intractable debates about AI consciousness or rationality.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_ai_personhood.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_ai_personhood.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The pragmatic framework succeeds by shifting from intractable metaphysical debates to actionable governance solutions:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Avoiding Essentialism:</b> By rejecting the search for an essential definition of personhood, the framework sidesteps debates about consciousness and rationality that have paralyzed previous approaches to AI governance.</li>
+                <li style="margin-bottom:6px;"><b>Contextual Flexibility:</b> Unbundling personhood allows for tailored solutions where AI systems receive only the specific obligations needed for their particular use cases, avoiding the all-or-nothing binary of traditional personhood concepts.</li>
+                <li style="margin-bottom:6px;"><b>Social Technology Approach:</b> Treating personhood as a contingent social technology that evolves with societal needs provides a dynamic framework that can adapt to the rapid changes brought by AI development.</li>
+                <li style="margin-bottom:6px;"><b>Governance-Focused:</b> The emphasis on solving concrete governance problems (accountability, contracting, conflict prevention) provides immediate practical value while remaining agnostic about metaphysical questions.</li>
+                <li style="margin-bottom:6px;"><b>Historical Precedent:</b> Drawing on how human societies have historically created diverse forms of personhood (corporate personhood, animal rights, etc.) provides empirical grounding for the proposed approach.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>务实框架通过从难以解决的形而上学辩论转向可操作的治理解决方案而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>避免本质主义：</b>通过拒绝对人格本质定义的寻求，该框架避开了关于意识和理性的辩论，这些辩论使以前的AI治理方法陷入瘫痪。</li>
+                <li style="margin-bottom:6px;"><b>情境灵活性：</b>人格解绑允许定制解决方案，其中AI系统仅接收其特定用例所需的特定义务，避免传统人格概念的全有或全无二分法。</li>
+                <li style="margin-bottom:6px;"><b>社会技术方法：</b>将人格视为随着社会需求演化的或有社会技术，提供了一个能够适应AI发展带来的快速变化的动态框架。</li>
+                <li style="margin-bottom:6px;"><b>治理导向：</b>强调解决具体治理问题（问责制、契约、冲突预防）提供了直接的实际价值，同时对形而上的问题保持不可知论。</li>
+                <li style="margin-bottom:6px;"><b>历史先例：</b>借鉴人类社会如何历史性地创建多样化人格形式（公司人格、动物权利等）为提议的方法提供了经验基础。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking paper establishes a pragmatic foundation for navigating the complex landscape of AI personhood in an era of agentic AI. By fundamentally shifting the discourse from metaphysical questions about what AI "really is" to practical questions about how to govern AI systems effectively, the authors provide a flexible and actionable framework that can adapt to the rapidly evolving AI ecosystem. The key insight—that personhood should be treated as a bundle of obligations that can be unbundled and reassigned based on context—offers a way forward that avoids the paralysis of foundationalist debates while enabling the creation of governance tools tailored to specific AI applications. The dual analysis of personhood as both problem and solution provides crucial insights into how design choices can either exploit or empower human social cognition. By embracing anti-foundationalism and focusing on what works in practice rather than what is true in theory, this work opens new possibilities for integrating increasingly sophisticated AI agents into human society. The framework's emphasis on collective enactment, temporal dynamics, and cultural contingency ensures it can evolve alongside technological and social changes. Ultimately, this pragmatic approach may prove essential for managing the "Cambrian explosion" of new kinds of personhood that agentic AI is set to trigger, providing societies with the conceptual tools needed to govern these new entities effectively and fairly.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这篇开创性论文为在一个代理AI时代中导航AI人格的复杂景观建立了务实基础。通过从关于AI"真正是什么"的形而上的问题根本性地转向关于如何有效治理AI系统的实际问题，作者们提供了一个灵活且可操作的框架，能够适应快速演化的AI生态系统。关键洞察——人格应该被视为一个可以根据上下文解绑和重新分配的义务束——提供了一种前进方式，避免了基础主义辩论的瘫痪，同时能够创建针对特定AI应用定制的治理工具。对人格作为问题和解决方案的双重分析提供了关于设计选择如何利用或赋权人类社会认知的关键洞察。通过拥抱反基础主义并专注于实践中有效的东西而不是理论中真实的东西，这项工作为将日益复杂的AI代理整合到人类社会中开辟了新的可能性。该框架对集体制定、时间动态和文化偶然性的强调确保它能够随着技术和变化演化。最终，这种务实方法可能被证明对于管理代理AI即将触发的"新种类人格的寒武纪大爆发"是必不可少的，为社会提供治理这些新实体所需的有效和公平的概念工具。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2510.26396" target="_blank" style="color:#8bffcf;">2510.26396</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Pragmatic AI Personhood Framework<br>
+<br>
+// Personhood Bundle Management<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">PersonhoodBundle</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""A flexible bundle of obligations for AI entities"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, entity_id):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.entity_id = entity_id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.bundle = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'sanctionability': False,  <span style="color:#6a9955;"># Can be sanctioned/punished</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'contracting': False,      <span style="color:#6a9955;"># Can enter contracts</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'suffrage': False,         <span style="color:#6a9955;"># Voting rights</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'culpability': False,     <span style="color:#6a9955;"># Moral responsibility</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'consciousness_attribution': False,  <span style="color:#6a9955;"># Consciousness recognition</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'identity_provenance': False  <span style="color:#6a9955;"># Identity and origin rights</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.context = ""  <span style="color:#6a9955;"># Governance context</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">unbundle</span>(self, rights_to_grant, context):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Grant specific rights/responsibilities for a context"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.context = context<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> right <span style="color:#569cd6;">in</span> rights_to_grant:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> right <span style="color:#569cd6;">in</span> self.bundle:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.bundle[right] = True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">can_be_sanctioned</span>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.bundle['sanctionability']<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">can_contract</span>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.bundle['contracting']<br>
+<br>
+// Pragmatic Personhood Manager<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">PragmaticPersonhoodManager</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Manages personhood bundles for different AI entities and contexts"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.entities = {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.governance_contexts = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'ai_companion': ['sanctionability', 'identity_provenance'],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'autonomous_vehicle': ['sanctionability', 'culpability'],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'financial_ai': ['contracting', 'sanctionability'],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'medical_ai': ['sanctionability', 'culpability', 'contracting']<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">create_bespoke_personhood</span>(self, entity_id, context):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Create bespoke personhood bundle for specific context"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bundle = PersonhoodBundle(entity_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> context <span style="color:#569cd6;">in</span> self.governance_contexts:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rights = self.governance_contexts[context]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bundle.unbundle(rights, context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.entities[entity_id] = bundle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> bundle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">resolve_governance_problem</span>(self, problem_type, entity_id):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Resolve governance problems using appropriate personhood bundles"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> problem_type == 'ai_contracting':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.create_bespoke_personhood(entity_id, 'financial_ai')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">elif</span> problem_type == 'accountability_gap':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.create_bespoke_personhood(entity_id, 'autonomous_vehicle')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">elif</span> problem_type == 'emotional_manipulation':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.create_bespoke_personhood(entity_id, 'ai_companion')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> None<br>
+<br>
+// Example Usage<br>
+<span style="color:#6a9955;"># Create pragmatic personhood manager</span><br>
+manager = PragmaticPersonhoodManager()<br>
+<br>
+<span style="color:#6a9955;"># Create bespoke personhood for AI companion</span><br>
+companion_personhood = manager.create_bespoke_personhood('replica_ai', 'ai_companion')<br>
+<span style="color:#6a9955;"># Now it can be sanctioned but doesn't have voting rights or consciousness attribution</span><br>
+<br>
+<span style="color:#6a9955;"># Create personhood for autonomous vehicle AI</span><br>
+vehicle_personhood = manager.create_bespoke_personhood('auto_drive_ai', 'autonomous_vehicle')<br>
+<span style="color:#6a9955;"># Has sanctionability and culpability but no contracting rights</span><br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

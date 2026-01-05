@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Imitator: Personalized Speech-driven 3D Facial Animation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Balamurugan Thambiraja, Ikhsanul Habibie, Sadegh Aliakbarian, Darren Cosker, Christian Theobalt, Justus Thies <br>
+        <span style="opacity:0.8">Max Planck Institute for Informatics, University of Bath, TU Darmstadt</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate 3D facial animations that capture the unique, identity-specific speaking style and idiosyncrasies of a target actor, rather than just generic lip synchronization?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何生成能够捕捉目标演员独特的、特定于身份的说话风格和特质的 3D 面部动画，而不仅仅是通用的口型同步？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Personalized Style Adaptation:</b> Proposed a method that learns identity-specific speaking styles from a short reference video, adapting a generic prior to the target actor.</div>
+            <div class="lang-zh" style="display:none"><b>个性化风格适应：</b>提出了一种从短参考视频中学习特定身份说话风格的方法，将通用先验适应于目标演员。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Style-Agnostic Prior:</b> Trained a Transformer-based prior on a large-scale facial expression dataset to capture general speech-motion correlations.</div>
+            <div class="lang-zh" style="display:none"><b>风格无关先验：</b>在大规模面部表情数据集上训练了基于 Transformer 的先验，以捕捉一般的语音-动作相关性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Bilabial Consonant Loss:</b> Introduced a novel loss function based on detected bilabial consonants (e.g., /b/, /p/, /m/) to enforce realistic lip closures.</div>
+            <div class="lang-zh" style="display:none"><b>双唇辅音损失：</b>引入了一种基于检测到的双唇辅音（如 /b/、/p/、/m/）的新型损失函数，以强制实现逼真的嘴唇闭合。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/imitator_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Generic vs. Specific:</b> Existing methods often produce "average" facial movements that lack the unique personality and subtle quirks of individual speakers.</div>
+            <div class="lang-zh" style="display:none"><b>通用与特定：</b>现有的方法通常产生“平均”的面部动作，缺乏个体说话者独特的个性和微妙的怪癖。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Lip Closure Accuracy:</b> Generating accurate lip closures for specific phonetic sounds (like bilabials) is difficult and often overlooked by generic regression losses.</div>
+            <div class="lang-zh" style="display:none"><b>嘴唇闭合准确性：</b>为特定语音（如双唇音）生成准确的嘴唇闭合是困难的，并且经常被通用回归损失所忽视。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Prior Training:</b> A style-agnostic autoregressive Transformer is pre-trained on a large dataset to map audio features to generalized facial motions.</div>
+            <div class="lang-zh" style="display:none"><b>先验训练：</b>在大规模数据集上预训练一个风格无关的自回归 Transformer，将音频特征映射到广义的面部动作。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Style Optimization:</b> Given a short reference video of a target actor, the model optimizes a style embedding and fine-tunes the decoder to adapt the motion prior to the actor's specific style.</div>
+            <div class="lang-zh" style="display:none"><b>风格优化：</b>给定目标演员的短参考视频，模型优化风格嵌入并微调解码器，使动作先验适应演员的特定风格。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Bilabial Loss:</b> A specific loss term penalizes open lips when bilabial consonants are detected in the audio, ensuring proper mouth closure.</div>
+            <div class="lang-zh" style="display:none"><b>双唇损失：</b>当在音频中检测到双唇辅音时，特定的损失项会惩罚张开的嘴唇，从而确保适当的闭嘴。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/imitator_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2301.00023.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2301.00023.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Personalization:</b> Demonstrated superior ability to capture identity-specific styles (e.g., pursed lips, specific mouth shapes) compared to generic methods like VOCA and FaceFormer.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>个性化：</b>与 VOCA 和 FaceFormer 等通用方法相比，展示了捕捉特定身份风格（例如，噘嘴、特定嘴型）的卓越能力。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>User Study:</b> Users consistently rated Imitator's results as more natural and more reflective of the target actor's style.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>用户研究：</b>用户一致认为 Imitator 的结果更自然，更能反映目标演员的风格。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Adaptation vs. Generalization:</b> Imitator strikes a balance by using a generalized prior for robust lip-sync and then adapting it. This "adaptation" phase is key to overcoming the "averaging" effect of large-scale training.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>适应与泛化：</b>Imitator 通过使用广义先验进行稳健的口型同步，然后对其进行调整来取得平衡。这种“适应”阶段是克服大规模训练的“平均”效应的关键。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                Imitator works by "fine-tuning" a generalist model to become a specialist. Just as a skilled impressionist actor learns the general mechanics of speech first and then studies a specific person's mannerisms to mimic them, Imitator uses its pre-trained prior to understand speech-to-motion basics and then optimizes its parameters to minimize the error against a specific person's reference video, effectively "learning" their unique style.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                Imitator 的工作原理是将通才模型“微调”为专家。就像熟练的模仿演员首先学习语音的一般机制，然后研究特定人的习惯动作来模仿他们一样，Imitator 利用其预训练的先验来理解语音到动作的基础，然后优化其参数以最小化相对于特定人参考视频的误差，从而有效地“学习”他们独特的风格。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/balamuruganthambiraja/imitator" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo (Search)
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual style adaptation logic.
+            </div>
+            <div class="lang-zh" style="display:none">
+                概念风格适应逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Personalization / Adaptation Phase</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">optimize_for_identity</span>(reference_video, audio):
+    <span style="color:#6a9955;"># 1. Load Pre-trained Prior</span>
+    model = load_pretrained_transformer()
+    
+    <span style="color:#6a9955;"># 2. Initialize Learnable Style Embedding</span>
+    style_embedding = <span style="color:#4ec9b0;">Parameter</span>(shape=(1, D_style))
+    
+    <span style="color:#6a9955;"># 3. Optimization Loop</span>
+    <span style="color:#c586c0;">for</span> epoch <span style="color:#c586c0;">in</span> range(adaptation_steps):
+        pred_motion = model(audio, style_embedding)
+        loss = reconstruction_loss(pred_motion, reference_motion) + \
+               bilabial_loss(pred_motion, audio)
+        loss.backward()
+        optimizer.step()
+        
+    <span style="color:#569cd6;">return</span> style_embedding
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

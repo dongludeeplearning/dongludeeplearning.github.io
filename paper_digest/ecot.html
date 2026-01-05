@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Robotic Control via Embodied Chain-of-Thought Reasoning</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Michał Zawalski, William Chen, Karl Pertsch <br>
+        <span style="opacity:0.8">University of Warsaw, UC Berkeley</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to enable Vision-Language-Action (VLA) models to "think carefully" and "look carefully" before acting to improve generalization and robustness in robotic manipulation?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何让视觉-语言-动作（VLA）模型在行动前“仔细思考”和“仔细观察”，以提高机器人操作的泛化能力和鲁棒性？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Embodied Chain-of-Thought (ECoT):</b> Introduced a reasoning framework for VLAs that interleaves semantic planning with grounded visual perception (e.g., bounding boxes, gripper positions).</div>
+            <div class="lang-zh" style="display:none"><b>具身思维链（ECoT）：</b>引入了一种 VLA 推理框架，将语义规划与接地的视觉感知（例如边界框、夹爪位置）交织在一起。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalable Data Generation:</b> Designed a pipeline to synthesize ECoT training data for large robot datasets using pre-trained object detectors and LLMs.</div>
+            <div class="lang-zh" style="display:none"><b>可扩展数据生成：</b>设计了一个流程，使用预训练的目标检测器和 LLM 为大型机器人数据集综合生成 ECoT 训练数据。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Performance Boost:</b> Demonstrated a 28% increase in success rate for OpenVLA on challenging generalization tasks without additional robot training data.</div>
+            <div class="lang-zh" style="display:none"><b>性能提升：</b>在没有额外机器人训练数据的情况下，OpenVLA 在具有挑战性的泛化任务上的成功率提高了 28%。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/ecot_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Weak Reasoning in Small VLMs:</b> Open-source VLMs used in robotics are often smaller and less capable of complex reasoning compared to proprietary giants like GPT-4.</div>
+            <div class="lang-zh" style="display:none"><b>小型 VLM 的推理能力较弱：</b>与 GPT-4 等专有巨头相比，机器人技术中使用的开源 VLM 通常较小，执行复杂推理的能力较弱。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Grounding Requirement:</b> Purely semantic CoT is insufficient for robotics; reasoning must be grounded in physical observations (spatial locations, object states).</div>
+            <div class="lang-zh" style="display:none"><b>接地需求：</b>纯语义 CoT 对机器人技术来说是不够的；推理必须建立在物理观察（空间位置、物体状态）的基础上。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Reasoning Structure:</b> Predicts a sequence: Task → Plan → Sub-task → Sub-task Reason → Move → Move Reason → Action.</div>
+            <div class="lang-zh" style="display:none"><b>推理结构：</b>预测序列：任务 → 计划 → 子任务 → 子任务理由 → 移动 → 移动理由 → 动作。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Grounded Features:</b> Explicitly reasons about "visible objects" (bounding boxes) and "gripper position" to force the model to attend to visual inputs.</div>
+            <div class="lang-zh" style="display:none"><b>接地特征：</b>明确推理“可见物体”（边界框）和“夹爪位置”，以迫使模型关注视觉输入。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Synthetic Data Pipeline:</b> Uses Gemini 1.5 Pro to generate reasoning chains based on trajectory data, annotated object detections (Owl-ViT), and task descriptions.</div>
+            <div class="lang-zh" style="display:none"><b>合成数据流程：</b>使用 Gemini 1.5 Pro 基于轨迹数据、带注释的目标检测（Owl-ViT）和任务描述生成推理链。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 12px;font-size:16px;">Detailed Explanation (原理详解)</h2>
+        
+        <div style="margin-bottom:16px;">
+            <h3 style="margin:0 0 8px;font-size:14px;color:#8bffcf;">Sec. 3: Vision-Language-Action Models (VLA 基础)</h3>
+            <div class="lang-en" style="color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                Standard VLAs (like OpenVLA) fine-tune pre-trained Vision-Language Models to map image observations and text instructions directly to robot actions. While powerful, they typically lack intermediate reasoning capabilities, jumping straight from input to action without "thinking" about the process.
+            </div>
+            <div class="lang-zh" style="display:none;color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                标准 VLA（如 OpenVLA）微调预训练的视觉-语言模型，将图像观察和文本指令直接映射到机器人动作。虽然功能强大，但它们通常缺乏中间推理能力，直接从输入跳转到动作，而没有对过程进行“思考”。
+            </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+            <h3 style="margin:0 0 8px;font-size:14px;color:#8bffcf;">Sec. 4.1: Designing Reasoning Steps (推理步骤设计)</h3>
+            <div class="lang-en" style="color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                ECoT introduces a sequence of reasoning steps to bridge the gap between high-level instruction and low-level control:
+                <ul style="margin:8px 0 0 16px; padding:0;">
+                    <li><b>High-Level:</b> Rephrases the <b>TASK</b> and generates a <b>PLAN</b> of steps.</li>
+                    <li><b>Mid-Level:</b> Identifies the current <b>SUBTASK</b> based on the scene state.</li>
+                    <li><b>Low-Level:</b> Predicts a <b>MOVE</b> command (e.g., "move left") to guide execution.</li>
+                    <li><b>Grounded:</b> Outputs <b>GRIPPER</b> position and <b>OBJECT</b> bounding boxes to force attention to visual details.</li>
+                </ul>
+            </div>
+            <div class="lang-zh" style="display:none;color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                ECoT 引入了一系列推理步骤来弥合高层指令与低层控制之间的差距：
+                <ul style="margin:8px 0 0 16px; padding:0;">
+                    <li><b>高层：</b>重述<b>任务 (TASK)</b> 并生成步骤<b>计划 (PLAN)</b>。</li>
+                    <li><b>中层：</b>根据场景状态识别当前的<b>子任务 (SUBTASK)</b>。</li>
+                    <li><b>低层：</b>预测<b>移动 (MOVE)</b> 指令（例如“向左移动”）以指导执行。</li>
+                    <li><b>接地：</b>输出<b>夹爪 (GRIPPER)</b> 位置和<b>物体 (OBJECT)</b> 边界框，迫使模型关注视觉细节。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+            <h3 style="margin:0 0 8px;font-size:14px;color:#8bffcf;">Sec. 4.2: Scalable Data Generation (可扩展数据生成)</h3>
+            <div class="lang-en" style="color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                To avoid expensive human annotation, ECoT uses a synthetic pipeline:
+                <ul style="margin:8px 0 0 16px; padding:0;">
+                    <li><b>Prismatic VLM:</b> Generates detailed scene descriptions.</li>
+                    <li><b>Grounding DINO & SAM:</b> Detects objects and gripper positions.</li>
+                    <li><b>Proprioception:</b> Converts robot state to "move" primitives.</li>
+                    <li><b>Gemini LLM:</b> Synthesizes the full reasoning chain (Plan, Subtasks) based on all above inputs.</li>
+                </ul>
+            </div>
+            <div class="lang-zh" style="display:none;color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                为避免昂贵的人工标注，ECoT 使用合成数据流程：
+                <ul style="margin:8px 0 0 16px; padding:0;">
+                    <li><b>Prismatic VLM：</b>生成详细的场景描述。</li>
+                    <li><b>Grounding DINO & SAM：</b>检测物体和夹爪位置。</li>
+                    <li><b>本体感知：</b>将机器人状态转换为“移动”基元。</li>
+                    <li><b>Gemini LLM：</b>基于以上所有输入合成完整的推理链（计划、子任务）。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <h3 style="margin:0 0 8px;font-size:14px;color:#8bffcf;">Sec. 4.3: Efficient Inference (高效推理)</h3>
+            <div class="lang-en" style="color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                Generating long reasoning chains can slow down control. ECoT addresses this by re-using high-level reasoning (Plan/Subtask) for multiple steps (N-step freeze) or running reasoning asynchronously in a separate process, maintaining high control frequency.
+            </div>
+            <div class="lang-zh" style="display:none;color:rgba(232,236,255,.80);font-size:13px;line-height:1.6;">
+                生成长推理链会降低控制速度。ECoT 通过在多个步骤中重用高层推理（计划/子任务）（N步冻结）或在单独的进程中异步运行推理来解决这个问题，从而保持高控制频率。
+            </div>
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figures（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <!-- Stack of 5 Overview Figures -->
+            <div style="display:flex; flex-direction:column; gap:20px;">
+                <img src="Figures/ecot_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 1" />
+                <img src="Figures/ecot_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 2" />
+                <img src="Figures/ecot_overview03.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 3" />
+                <img src="Figures/ecot_overview04.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 4" />
+                <img src="Figures/ecot_overview05.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure 5" />
+            </div>
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2407.08693.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2407.08693.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                Embodied Chain-of-Thought (ECoT) significantly enhances VLA generalization by integrating semantic reasoning with grounded perception.
+            </div>
+            <div class="lang-zh" style="display:none">
+                具身思维链（ECoT）通过将语义推理与接地感知相结合，显着增强了 VLA 的泛化能力。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The approach also enables human interpretability and correction of robot policies through natural language, paving the way for more robust and interactive robotic agents.
+            </div>
+            <div class="lang-zh" style="display:none">
+                该方法还允许人类通过自然语言解释和纠正机器人策略，为更强大和交互式的机器人智能体铺平了道路。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/MichalZawalski/embodied-CoT" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+      
+      <div style="margin-top:16px; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(0,0,0,.10);">
+        <h2 style="margin:0 0 12px; font-size:16px;">Core Code Logic (核心代码逻辑)</h2>
+        <div style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; font-size:13px; color:rgba(232,236,255,.8); line-height:1.5; overflow-x:auto;">
+            <div style="margin-bottom:12px;">
+                <div class="lang-en">// 1. Load Pre-trained ECoT Model (Based on OpenVLA)</div>
+                <div class="lang-zh" style="display:none">// 1. 加载预训练 ECoT 模型 (基于 OpenVLA)</div>
+                <span style="color:#c792ea;">from</span> transformers <span style="color:#c792ea;">import</span> AutoModelForVision2Seq, AutoProcessor<br><br>
+                path = <span style="color:#c3e88d;">"Embodied-CoT/ecot-openvla-7b-bridge"</span><br>
+                processor = AutoProcessor.from_pretrained(path)<br>
+                <span style="color:#5c6370;"># Load model in bfloat16 for efficiency</span><br>
+                vla = AutoModelForVision2Seq.from_pretrained(path, torch_dtype=torch.bfloat16).to(<span style="color:#c3e88d;">"cuda"</span>)
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <div class="lang-en">// 2. Construct Prompt with Chain-of-Thought Trigger</div>
+                <div class="lang-zh" style="display:none">// 2. 构建包含思维链触发词的提示</div>
+                prompt = (<br>
+                &nbsp;&nbsp;<span style="color:#c3e88d;">"A chat between a curious user and an artificial intelligence assistant. "</span><br>
+                &nbsp;&nbsp;<span style="color:#c3e88d;">"The assistant gives helpful, detailed, and polite answers to the user's questions. "</span><br>
+                &nbsp;&nbsp;f<span style="color:#c3e88d;">"USER: What action should the robot take to {instruction}? "</span><br>
+                &nbsp;&nbsp;<span style="color:#c3e88d;">"ASSISTANT: TASK:"</span>  <span style="color:#5c6370;"># Trigger keyword to start CoT generation</span><br>
+                )
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <div class="lang-en">// 3. Multi-Modal Input Processing</div>
+                <div class="lang-zh" style="display:none">// 3. 多模态输入处理</div>
+                inputs = processor(prompt, image_observation).to(<span style="color:#c3e88d;">"cuda"</span>, dtype=torch.bfloat16)
+            </div>
+
+            <div>
+                <div class="lang-en">// 4. Generate Reasoning Chain & Action</div>
+                <div class="lang-zh" style="display:none">// 4. 生成推理链与动作</div>
+                <span style="color:#5c6370;"># Model predicts: Task -> Plan -> Subtask -> Move -> Grounding -> Action Tokens</span><br>
+                action, generated_ids = vla.predict_action(<br>
+                &nbsp;&nbsp;**inputs, <br>
+                &nbsp;&nbsp;unnorm_key=<span style="color:#c3e88d;">"bridge_orig"</span>, <br>
+                &nbsp;&nbsp;max_new_tokens=<span style="color:#f78c6c;">1024</span> <span style="color:#5c6370;"># Allow long context for full reasoning chain</span><br>
+                )<br>
+                <br>
+                <span style="color:#5c6370;"># Decode the full reasoning text for inspection/debugging</span><br>
+                reasoning_text = processor.batch_decode(generated_ids)[<span style="color:#f78c6c;">0</span>]
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

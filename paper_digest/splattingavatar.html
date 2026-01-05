@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • arXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">SplattingAvatar: Realistic Real-Time Human Avatars with Mesh-Embedded Gaussian Splatting</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zhijing Shao, Zhaolong Wang, Zhuang Li, Duotun Wang, Xiangru Lin, Yu Zhang, Mingming Fan, Zeyu Wang<br>
+        <span style="opacity:0.8">The Hong Kong University of Science and Technology (Guangzhou), Prometheus Vision Technology Co., Ltd., The Hong Kong University of Science and Technology</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create photorealistic, animatable human avatars that render in real-time across devices while disentangling motion control from appearance modeling to achieve high-fidelity rendering and computational efficiency?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建逼真的、可动画的人类头像，在设备上实时渲染，同时将运动控制与外观建模分离，以实现高保真渲染和计算效率？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Mesh-Embedded Gaussian Splatting:</b> Introduced SplattingAvatar, a hybrid representation integrating Gaussian Splatting with triangle meshes, where Gaussians are embedded on mesh surfaces using barycentric coordinates and displacements for explicit motion control and high-fidelity appearance capture.</div>
+            <div class="lang-zh" style="display:none"><b>网格嵌入高斯点云：</b>引入了SplattingAvatar，一种将高斯点云与三角网格集成的混合表示，其中高斯使用重心坐标和位移嵌入在网格表面上，用于显式运动控制和高保真外观捕捉。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lifted Optimization for Avatar Modeling:</b> Extended lifted optimization to jointly optimize Gaussian parameters and mesh embeddings, enabling Gaussians to walk on triangle surfaces and achieve accurate reconstruction while handling cross-triangle updates.</div>
+            <div class="lang-zh" style="display:none"><b>用于头像建模的提升优化：</b>将提升优化扩展到联合优化高斯参数和网格嵌入，使高斯能够在三角表面上行走并实现准确重建，同时处理跨三角更新。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Cross-Platform Rendering:</b> Achieved over 300 FPS rendering on modern GPUs and 30 FPS on mobile devices through Unity implementation, demonstrating the computational efficiency and portability of mesh-embedded Gaussian representations for real-time avatar applications.</div>
+            <div class="lang-zh" style="display:none"><b>实时跨平台渲染：</b>通过Unity实现，在现代GPU上实现超过300 FPS的渲染，在移动设备上实现30 FPS，展示了网格嵌入高斯表示在实时头像应用中的计算效率和可移植性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion-Appearance Disentanglement:</b> Disentangled low-frequency motion (handled by meshes) from high-frequency appearance details (captured by Gaussians), enabling more flexible animation control including skeletal animation, blend shapes, and mesh editing while maintaining photorealistic rendering quality.</div>
+            <div class="lang-zh" style="display:none"><b>运动-外观解耦：</b>将低频运动（由网格处理）与高频外观细节（由高斯捕捉）解耦，实现更灵活的动画控制，包括骨骼动画、混合形状和网格编辑，同时保持逼真的渲染质量。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/splattingavatar_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('splattingavatar_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('splattingavatar_arxiv2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/splattingavatar_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('splattingavatar_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('splattingavatar_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Computational Complexity of High-Fidelity Avatars:</b> Achieving photorealistic human avatars with detailed geometry and appearance while maintaining real-time rendering performance across different hardware platforms, balancing visual quality with computational efficiency.</div>
+            <div class="lang-zh" style="display:none"><b>高保真头像的计算复杂度：</b>在不同硬件平台上实现具有详细几何和外观的逼真人类头像，同时保持实时渲染性能，在视觉质量和计算效率之间取得平衡。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion Control Ambiguity:</b> Developing unambiguous motion control mechanisms for neural representations that avoid the ambiguities inherent in backward tracing approaches used by NeRF-based methods, ensuring stable and accurate deformation.</div>
+            <div class="lang-zh" style="display:none"><b>运动控制歧义：</b>为神经表示开发明确的运动控制机制，避免NeRF-based方法使用的向后追踪方法固有的歧义，确保稳定和准确的变形。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Mesh-Neural Representation Integration:</b> Effectively combining explicit mesh geometry for motion with implicit neural representations for appearance, enabling flexible animation techniques while capturing high-frequency geometric details.</div>
+            <div class="lang-zh" style="display:none"><b>网格-神经表示集成：</b>有效地将用于运动的显式网格几何与用于外观的隐式神经表示相结合，实现灵活的动画技术同时捕捉高频几何细节。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Cross-Platform Portability:</b> Creating avatar representations that can be efficiently rendered across different platforms from high-end GPUs to mobile devices, ensuring consistent visual quality and animation capabilities.</div>
+            <div class="lang-zh" style="display:none"><b>跨平台可移植性：</b>创建可以在从高端GPU到移动设备的不同平台上高效渲染的头像表示，确保一致的视觉质量和动画能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Monocular Video Training:</b> Training high-quality avatars from monocular video sequences with limited viewpoint variations, requiring robust initialization and optimization strategies to reconstruct complete 3D representations.</div>
+            <div class="lang-zh" style="display:none"><b>单目视频训练：</b>从具有有限视点变化的单目视频序列训练高质量头像，需要强大的初始化和优化策略来重建完整的3D表示。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Phong Surface Embedding:</b> Defined Gaussian positions on mesh surfaces using barycentric coordinates and displacements along interpolated normals, creating a continuous representation that supports precise geometric modeling and deformation.</div>
+            <div class="lang-zh" style="display:none"><b>Phong表面嵌入：</b>使用重心坐标和沿插值法线的位移在网格表面上定义高斯位置，创建支持精确几何建模和变形的连续表示。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lifted Optimization with Triangle Walking:</b> Implemented walking on triangle meshes to handle cross-triangle updates during optimization, allowing Gaussians to move seamlessly across mesh boundaries while maintaining differentiable parameter updates.</div>
+            <div class="lang-zh" style="display:none"><b>带三角行走的提升优化：</b>实现网格三角行走以在优化期间处理跨三角更新，允许高斯无缝跨越网格边界同时保持可微参数更新。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Mesh-Driven Motion Control:</b> Computed pose-dependent rotation and scaling directly from mesh deformations using interpolated vertex quaternions and triangle area changes, providing explicit and unambiguous motion control without MLP-based approximations.</div>
+            <div class="lang-zh" style="display:none"><b>网格驱动运动控制：</b>使用插值顶点四元数和三角形面积变化直接从网格变形计算姿势相关旋转和缩放，提供显式和明确的运动控制而无需基于MLP的近似。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Adaptive Density Control:</b> Extended 3D Gaussian Splatting's densification and pruning operations to work with mesh embeddings, adaptively controlling Gaussian density based on rendering importance and geometric complexity.</div>
+            <div class="lang-zh" style="display:none"><b>自适应密度控制：</b>将3D高斯点云的致密化和修剪操作扩展到网格嵌入，根据渲染重要性和几何复杂度自适应控制高斯密度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><div class="lang-en"><b>Unity-Based Real-Time Rendering:</b> Implemented Gaussian Splatting in Unity using quad primitives for each Gaussian, enabling cross-platform rendering with efficient compute shaders and maintaining compatibility with existing animation pipelines.</div>
+            <div class="lang-zh" style="display:none"><b>基于Unity的实时渲染：</b>使用Unity中的四边形原语为每个高斯实现高斯点云渲染，使用高效计算着色器实现跨平台渲染，并保持与现有动画管道的兼容性。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Hybrid Representation Advantages:</b> SplattingAvatar demonstrates that combining explicit mesh geometry with implicit Gaussian rendering provides the best of both worlds: precise motion control from meshes and high-fidelity appearance from Gaussians, surpassing pure mesh or pure neural approaches.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Hybrid Representation Advantages:</b>SplattingAvatar证明了将显式网格几何与隐式高斯渲染相结合提供了两全其美：来自网格的精确运动控制和来自高斯的高保真外观，超越纯网格或纯神经方法。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Real-Time Rendering Breakthrough:</b> Achieving over 300 FPS on GPUs and 30 FPS on mobile devices represents a significant advancement in neural rendering, making photorealistic avatars practical for real-time applications like gaming and telepresence.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Real-Time Rendering Breakthrough:</b>在GPU上实现超过300 FPS，在移动设备上实现30 FPS代表了神经渲染的重大进步，使逼真头像在游戏和远程呈现等实时应用中变得实用。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Animation Compatibility:</b> Direct mesh-driven motion control enables seamless integration with existing animation pipelines, supporting skeletal animation, blend shapes, and procedural deformation without requiring specialized neural motion models.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Animation Compatibility:</b>直接网格驱动运动控制实现了与现有动画管道的无缝集成，支持骨骼动画、混合形状和程序变形，而无需专门的神经运动模型。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because SplattingAvatar elegantly separates motion and appearance: explicit mesh handles low-frequency deformations efficiently, while implicit Gaussians capture high-frequency details. The Phong surface embedding provides differentiable, unambiguous motion control that traditional NeRF backward tracing cannot achieve.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为SplattingAvatar优雅地分离了运动和外观：显式网格高效处理低频变形，而隐式高斯捕捉高频细节。Phong表面嵌入提供了可微分的、明确的运动控制，这是传统NeRF向后追踪无法实现的。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces SplattingAvatar, a hybrid 3D representation combining mesh-embedded Gaussian Splatting for photorealistic human avatars. By disentangling motion and appearance through explicit mesh geometry and implicit Gaussian rendering, the method achieves real-time performance with over 300 FPS on GPUs and 30 FPS on mobile devices. The lifted optimization approach enables precise avatar reconstruction from monocular videos, supporting both head and full-body avatars with state-of-the-art rendering quality and animation compatibility.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了SplattingAvatar，一种将网格嵌入高斯点云的混合3D表示，用于逼真的人类头像。通过显式网格几何和隐式高斯渲染分离运动和外观，该方法在GPU上实现超过300 FPS，在移动设备上实现30 FPS的实时性能。提升优化方法实现从单目视频的精确头像重建，支持头部和全身头像，具有最先进的渲染质量和动画兼容性。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://github.com/initialneil/SplattingAvatar" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

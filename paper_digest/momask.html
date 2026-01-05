@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">MoMask: Generative Masked Modeling of 3D Human Motions</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Chuan Guo, Yuxuan Mu, Muhammad Gohar Javed, Sen Wang, Li Cheng <br>
+        <span style="opacity:0.8">University of Alberta</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate high-fidelity 3D human motion from text that overcomes the limitations of autoregressive models (error accumulation) and diffusion models (slow inference)?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从文本生成高保真的 3D 人体动作，同时克服自回归模型（误差累积）和扩散模型（推理慢）的局限性？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hierarchical Quantization:</b> Proposed a multi-layer discrete representation for motion, decomposing it into base-layer tokens and high-fidelity residual tokens.</div>
+            <div class="lang-zh" style="display:none"><b>分层量化：</b>提出了一种多层离散动作表示方法，将其分解为基础层 token 和高保真残差 token。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Masked Modeling Framework:</b> Introduced a Masked Transformer for iterative base-layer generation and a Residual Transformer for progressive detail refinement.</div>
+            <div class="lang-zh" style="display:none"><b>掩码建模框架：</b>引入了用于迭代生成基础层的 Masked Transformer 和用于逐步细化细节的 Residual Transformer。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>SOTA Performance:</b> Achieved state-of-the-art FID scores on HumanML3D (0.045) and KIT-ML (0.228), significantly outperforming previous methods like T2M-GPT.</div>
+            <div class="lang-zh" style="display:none"><b>SOTA 性能：</b>在 HumanML3D (0.045) 和 KIT-ML (0.228) 上取得了 SOTA 的 FID 分数，显著优于 T2M-GPT 等先前方法。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/MoMask_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Details Loss in VQ:</b> Standard Vector Quantization (VQ) often loses high-frequency details. MoMask addresses this with residual quantization.</div>
+            <div class="lang-zh" style="display:none"><b>VQ 中的细节丢失：</b>标准矢量量化 (VQ) 通常会丢失高频细节。MoMask 通过残差量化解决了这个问题。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Unidirectional Bias:</b> Autoregressive models (like GPT) only see past context, limiting their ability to model global temporal dependencies compared to bidirectional transformers.</div>
+            <div class="lang-zh" style="display:none"><b>单向偏差：</b>自回归模型（如 GPT）只能看到过去的上下文，与双向 Transformer 相比，限制了它们建模全局时间依赖关系的能力。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Residual VQ-VAE:</b> Learn a codebook for base motion features and subsequent codebooks for residual errors, enabling scalable fidelity control.</div>
+            <div class="lang-zh" style="display:none"><b>残差 VQ-VAE：</b>学习基础运动特征的码本以及后续的残差误差码本，实现可扩展的保真度控制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Masked Transformer (Base Layer):</b> Predict randomly masked tokens in the base layer conditioned on text, allowing bidirectional context learning.</div>
+            <div class="lang-zh" style="display:none"><b>掩码 Transformer（基础层）：</b>在文本条件下预测基础层中随机掩码的 token，允许双向上下文学习。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Residual Transformer (Refinement):</b> Autoregressively (layer-wise) predict residual tokens to restore fine details based on the base layer generation.</div>
+            <div class="lang-zh" style="display:none"><b>残差 Transformer（细化）：</b>基于基础层的生成，自回归（逐层）地预测残差 token 以恢复精细细节。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/MoMask_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Quantitative Results:</b>
+                MoMask achieves the best FID (0.045) on HumanML3D, surpassing diffusion (MDM) and autoregressive (T2M-GPT) methods.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>定量结果：</b>
+                MoMask 在 HumanML3D 上取得了最好的 FID (0.045)，超过了扩散 (MDM) 和自回归 (T2M-GPT) 方法。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Applications:</b>
+                The masked modeling nature allows for zero-shot editing tasks like temporal inpainting (filling gaps in motion) without retraining.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>应用：</b>
+                掩码建模的特性允许进行零样本编辑任务，如时间修复（填补运动中的空白），而无需重新训练。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Iterative vs Autoregressive:</b>
+                Masked modeling allows the model to revisit and correct tokens during generation, unlike strict left-to-right generation, leading to better global coherence.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>迭代与自回归：</b>
+                与严格的从左到右生成不同，掩码建模允许模型在生成过程中重新访问和纠正 token，从而产生更好的全局连贯性。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MoMask combines the strengths of VQ-VAE's compact representation with the flexibility of BERT-like masked modeling. By hierarchically separating the "coarse structure" (base layer) from "fine details" (residual layers), it makes the difficult problem of high-fidelity motion generation manageable. The masked generation process acts as a form of non-autoregressive refinement, ensuring the motion is coherent as a whole, rather than just step-by-step.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MoMask 结合了 VQ-VAE 紧凑表示的优势和 BERT 类掩码建模的灵活性。通过将“粗略结构”（基础层）与“精细细节”（残差层）分层分离，它使得高保真运动生成这一难题变得可控。掩码生成过程充当一种非自回归的细化形式，确保运动在整体上是连贯的，而不仅仅是一步一步的。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/EricGuo5513/momask" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          github.com/EricGuo5513/momask
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                The core logic of the Masked Transformer forward pass, computing loss on masked tokens.
+            </div>
+            <div class="lang-zh" style="display:none">
+                Masked Transformer 前向传播的核心逻辑，计算被掩码 token 的损失。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+            <a href="https://github.com/EricGuo5513/momask/blob/main/models/transformer.py" target="_blank" style="position:absolute; top:8px; right:8px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#8bffcf; font-size:10px; padding:4px 8px; border-radius:4px; text-decoration:none; font-family:var(--mono);">Link to Code</a>
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward_masked</span>(self, motion_ids, motion_mask, text_embed):
+    <span style="color:#6a9955;"># 1. Randomly mask motion tokens</span>
+    masked_motion_ids, mask_target = self.mask_tokens(motion_ids)
+    
+    <span style="color:#6a9955;"># 2. Add positional embeddings and fuse with text</span>
+    x = self.token_emb(masked_motion_ids) + self.pos_emb
+    x = torch.cat([text_embed, x], dim=1)
+    
+    <span style="color:#6a9955;"># 3. Transformer Encoder layers</span>
+    for block in self.blocks:
+        x = block(x)
+        
+    <span style="color:#6a9955;"># 4. Predict original tokens</span>
+    logits = self.to_logits(x)
+    loss = F.cross_entropy(logits[mask_target], motion_ids[mask_target])
+    
+    <span style="color:#569cd6;">return</span> loss
+</pre>
+        </div>
+
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80); margin-top:16px;">
+            <div class="lang-en">
+                Below logic shows the <b>Residual Transformer</b> which progressively predicts the next quantization layer's residual tokens.
+            </div>
+            <div class="lang-zh" style="display:none">
+                下方逻辑展示了 <b>残差 Transformer</b>，它逐步预测下一量化层的残差 token。
+            </div>
+        </div>
+
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward_residual</span>(self, base_indices, residual_indices_list):
+    <span style="color:#6a9955;"># base_indices: from Masked Transformer (Layer 0)</span>
+    x = self.base_emb(base_indices)
+    
+    total_loss = 0
+    <span style="color:#6a9955;"># Iterate through residual layers (1 to K)</span>
+    for i in range(self.num_residual_layers):
+        <span style="color:#6a9955;"># 1. Predict next layer's tokens conditioned on current accumulation</span>
+        logits = self.residual_transformer(x)
+        target = residual_indices_list[i]
+        
+        total_loss += F.cross_entropy(logits, target)
+        
+        <span style="color:#6a9955;"># 2. Update input for next step (Teacher Forcing)</span>
+        x = x + self.res_emb(target)
+        
+    <span style="color:#569cd6;">return</span> total_loss
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

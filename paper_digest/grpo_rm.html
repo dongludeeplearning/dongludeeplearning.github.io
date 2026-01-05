@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">GRPO-RM: Fine-Tuning Representation Models via GRPO-Driven Reinforcement Learning</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Yanchen Xu, Ziheng Jiao, Hongyuan Zhang, Xuelong Li<br>
+        <span style="opacity:0.8">China Telecom, Northwestern Polytechnical University, Huawei, University of Hong Kong</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we generalize the GRPO algorithm from LLM fine-tuning to representation learning models, enabling reinforcement learning-based post-training for visual models like DINOv2?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何将GRPO算法从LLM微调推广到表示学习模型，实现基于强化学习的视觉模型（如DINOv2）后训练？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>GRPO for Representation Models:</b> First adaptation of GRPO algorithm from LLM fine-tuning to representation learning, establishing GRPO-RM as a novel reinforcement learning method for post-training visual models.</div>
+            <div class="lang-zh" style="display:none"><b>表示模型的GRPO：</b>首次将GRPO算法从LLM微调适应到表示学习，建立GRPO-RM作为视觉模型后训练的新型强化学习方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Predefined Output Set:</b> Designed a predefined output set mechanism to functionally replace token sequence sampling in LLMs, enabling probability-driven GRPO optimization for representation models.</div>
+            <div class="lang-zh" style="display:none"><b>预定义输出集：</b>设计了预定义输出集机制来功能性替代LLM中的token序列采样，实现表示模型的概率驱动GRPO优化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Specialized Reward Functions:</b> Developed accuracy rewards and uniformity rewards tailored for representation learning properties, encouraging correct predictions while adaptively discouraging incorrect ones.</div>
+            <div class="lang-zh" style="display:none"><b>专门的奖励函数：</b>为表示学习属性开发了准确率奖励和均匀性奖励，鼓励正确预测同时自适应地阻止错误预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Achieved significant improvements over standard fine-tuning, with average 4.26% accuracy improvement on out-of-distribution datasets across image classification and semantic segmentation tasks.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在标准微调基础上实现了显著改进，在图像分类和语义分割任务上，在分布外数据集上实现了平均4.26%的准确率提升。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>GRPO Generalization:</b> Adapting GRPO algorithm from sequential text generation in LLMs to visual representation learning, where outputs are feature embeddings rather than token sequences.</div>
+            <div class="lang-zh" style="display:none"><b>GRPO泛化：</b>将GRPO算法从LLM中的序列文本生成适应到视觉表示学习，其中输出是特征嵌入而不是token序列。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Output Group Generation:</b> Creating a mechanism to generate output groups for representation models, since they don't naturally sample multiple outputs like LLMs do.</div>
+            <div class="lang-zh" style="display:none"><b>输出组生成：</b>为表示模型创建生成输出组的机制，因为它们不像LLM那样自然地采样多个输出。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Reward Function Design:</b> Designing reward functions that capture the properties of representation learning, including both accuracy incentives and regularization terms for feature quality.</div>
+            <div class="lang-zh" style="display:none"><b>奖励函数设计：</b>设计捕捉表示学习属性的奖励函数，包括准确率激励和特征质量的正则化项。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Probability-Driven Optimization:</b> Enabling probability-based optimization for representation models that typically use deterministic forward passes rather than probabilistic sampling.</div>
+            <div class="lang-zh" style="display:none"><b>概率驱动优化：</b>为通常使用确定性前向传递而不是概率采样的表示模型启用基于概率的优化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Task-Specific Adaptation:</b> Adapting GRPO-RM to different downstream tasks like image classification and semantic segmentation, each requiring different output formats and evaluation metrics.</div>
+            <div class="lang-zh" style="display:none"><b>任务特定适应：</b>将GRPO-RM适应到不同的下游任务，如图像分类和语义分割，每个都需要不同的输出格式和评估指标。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>GRPO-RM extends the GRPO algorithm from LLM fine-tuning to representation learning models:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Predefined Output Set:</b> Establishes a fixed set of possible outputs to replace token sequence sampling, enabling group-based optimization for deterministic representation models.</li>
+                <li style="margin-bottom:6px;"><b>Specialized Reward Functions:</b> Combines accuracy rewards (for correct predictions) with uniformity rewards (to discourage incorrect predictions), tailored for representation learning properties.</li>
+                <li style="margin-bottom:6px;"><b>Group Relative Optimization:</b> Applies GRPO's group-relative advantage computation to representation models, using predefined output groups instead of sampled token sequences.</li>
+                <li style="margin-bottom:6px;"><b>DINOv2 Post-Training:</b> Post-trains DINOv2 model using GRPO-RM for image classification and semantic segmentation tasks, leveraging both class tokens and patch tokens.</li>
+                <li style="margin-bottom:6px;"><b>Task-Specific Adaptation:</b> Adapts the framework for different downstream tasks, using appropriate output formats and reward calculations for each task type.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>GRPO-RM将GRPO算法从LLM微调扩展到表示学习模型：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>预定义输出集：</b>建立固定的可能输出集来替代token序列采样，为确定性表示模型启用基于组的优化。</li>
+                <li style="margin-bottom:6px;"><b>专门的奖励函数：</b>将准确率奖励（正确预测）和均匀性奖励（阻止错误预测）相结合，为表示学习属性量身定制。</li>
+                <li style="margin-bottom:6px;"><b>组相对优化：</b>将GRPO的组相对优势计算应用于表示模型，使用预定义输出组而不是采样的token序列。</li>
+                <li style="margin-bottom:6px;"><b>DINOv2后训练：</b>使用GRPO-RM对DINOv2模型进行后训练，针对图像分类和语义分割任务，同时利用类token和patch token。</li>
+                <li style="margin-bottom:6px;"><b>任务特定适应：</b>为不同的下游任务调整框架，为每种任务类型使用适当的输出格式和奖励计算。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（总体示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/grpo_rm_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>GRPO-RM framework showing the adaptation of GRPO algorithm for representation models, with predefined output sets and specialized reward functions for post-training DINOv2.</p>
+            <p>Note: The method achieves significant improvements over standard fine-tuning, demonstrating that GRPO can be successfully generalized from LLMs to visual representation learning.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_grpo_rm.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_grpo_rm.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of GRPO-RM lies in its principled adaptation of reinforcement learning principles to representation learning:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Architectural Similarities:</b> Leveraging the Transformer architecture common to both LLMs and ViT-based representation models like DINOv2, enabling the transfer of RL optimization techniques.</li>
+                <li style="margin-bottom:6px;"><b>Predefined Output Groups:</b> The innovative use of predefined output sets creates the necessary probabilistic framework for GRPO optimization in deterministic representation models.</li>
+                <li style="margin-bottom:6px;"><b>Task-Aligned Rewards:</b> Specialized reward functions that capture both accuracy incentives and feature quality regularization, directly addressing the unique properties of visual representation learning.</li>
+                <li style="margin-bottom:6px;"><b>Group Relative Advantages:</b> GRPO's group-based advantage computation provides stable optimization without requiring complex value function estimation, making it suitable for representation learning.</li>
+                <li style="margin-bottom:6px;"><b>Out-of-Distribution Generalization:</b> The RL approach enables better generalization to unseen data distributions, as evidenced by the 4.26% average accuracy improvement on out-of-distribution datasets.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>GRPO-RM的成功在于其将强化学习原理原则性适应到表示学习的做法：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>架构相似性：</b>利用LLM和基于ViT的表示模型（如DINOv2）共有的Transformer架构，实现RL优化技术的转移。</li>
+                <li style="margin-bottom:6px;"><b>预定义输出组：</b>预定义输出集的创新使用为确定性表示模型中的GRPO优化创建了必要的概率框架。</li>
+                <li style="margin-bottom:6px;"><b>任务对齐奖励：</b>专门的奖励函数捕捉准确率激励和特征质量正则化，直接解决视觉表示学习的独特属性。</li>
+                <li style="margin-bottom:6px;"><b>组相对优势：</b>GRPO的基于组的优势计算提供了稳定的优化，而不需要复杂的价值函数估计，使其适合表示学习。</li>
+                <li style="margin-bottom:6px;"><b>分布外泛化：</b>RL方法实现了对未见数据分布的更好泛化，正如在分布外数据集上平均4.26%的准确率提升所证明的。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>GRPO-RM represents a groundbreaking extension of reinforcement learning techniques from language models to visual representation learning, successfully demonstrating that GRPO can be generalized beyond LLMs. By establishing a predefined output set mechanism to replace token sequence sampling and designing specialized reward functions for representation learning properties, the method enables probability-driven optimization of visual models. The framework's ability to significantly outperform standard fine-tuning approaches, particularly on out-of-distribution datasets, validates the potential of reinforcement learning for enhancing representation model performance. Extensive experiments on image classification and semantic segmentation tasks showcase the versatility and effectiveness of GRPO-RM across different computer vision applications. This work opens new research directions for applying reinforcement learning in computer vision, particularly for post-training representation models. The success of GRPO-RM suggests that many RL techniques developed for LLMs may be transferable to other domains, potentially revolutionizing how we approach model fine-tuning in computer vision. Future work can explore extending GRPO-RM to other vision tasks and investigating other RL algorithms' applicability to representation learning.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>GRPO-RM代表了强化学习技术从语言模型到视觉表示学习的突破性扩展，成功证明GRPO可以超越LLM进行泛化。通过建立预定义输出集机制来替代token序列采样，并为表示学习属性设计专门的奖励函数，该方法实现了视觉模型的概率驱动优化。该框架在显著优于标准微调方法方面的能力，尤其是在分布外数据集上，验证了强化学习在增强表示模型性能方面的潜力。在图像分类和语义分割任务上的广泛实验展示了GRPO-RM在不同计算机视觉应用中的通用性和有效性。这项工作为在计算机视觉中应用强化学习开辟了新的研究方向，特别是针对表示模型的后训练。GRPO-RM的成功表明，许多为LLM开发的RL技术可能是可转移的，可能彻底改变我们在计算机视觉中处理模型微调的方式。未来的工作可以探索将GRPO-RM扩展到其他视觉任务，并调查其他RL算法对表示学习的适用性。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2511.15256v1" target="_blank" style="color:#8bffcf;">2511.15256v1</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# GRPO-RM Implementation<br>
+<br>
+// GRPO for Representation Models<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">GRPORepresentationTrainer</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""GRPO-RM: Group Relative Policy Optimization for Representation Models"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, model, num_classes, group_size=8, epsilon=0.2):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model = model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_classes = num_classes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.group_size = group_size<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.epsilon = epsilon<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Predefined output set for group generation</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.output_set = torch.eye(num_classes)  <span style="color:#6a9955;"># One-hot vectors as predefined outputs</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.optimizer = AdamW(model.parameters(), lr=1e-5)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">generate_output_group</span>(self, features):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Generate output group using predefined set (replaces token sampling)"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;batch_size = features.size(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output_groups = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log_probs = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> _ <span style="color:#569cd6;">in</span> range(self.group_size):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Sample from predefined output set based on model predictions</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logits = self.model.classifier(features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;probs = F.softmax(logits, dim=-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Sample outputs from the predefined set</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sampled_indices = torch.multinomial(probs, 1).squeeze(-1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sampled_outputs = self.output_set[sampled_indices]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output_groups.append(sampled_outputs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log_probs.append(probs.gather(1, sampled_indices.unsqueeze(-1)).log())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> torch.stack(output_groups, dim=1), torch.stack(log_probs, dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">compute_grpo_rewards</span>(self, outputs, targets):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute specialized rewards for representation learning"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;batch_size, group_size, _ = outputs.shape<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards = torch.zeros(batch_size, group_size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> b <span style="color:#569cd6;">in</span> range(batch_size):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> g <span style="color:#569cd6;">in</span> range(group_size):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;predicted_class = outputs[b, g].argmax().item()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true_class = targets[b].item()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Accuracy reward: +1 for correct, 0 for incorrect</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accuracy_reward = 1.0 <span style="color:#569cd6;">if</span> predicted_class == true_class <span style="color:#569cd6;">else</span> 0.0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Uniformity reward: discourage wrong predictions uniformly</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uniformity_penalty = -0.1 <span style="color:#569cd6;">if</span> predicted_class != true_class <span style="color:#569cd6;">else</span> 0.0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards[b, g] = accuracy_reward + uniformity_penalty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> rewards<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">compute_group_relative_advantages</span>(self, rewards):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute group-relative advantages (core GRPO innovation)"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Group-relative normalization</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_mean = rewards.mean(dim=1, keepdim=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group_std = rewards.std(dim=1, keepdim=True) + 1e-8<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normalized_rewards = (rewards - group_mean) / group_std<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> normalized_rewards<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">train_step</span>(self, images, targets):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Single GRPO-RM training step"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Extract features</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;features = self.model.backbone(images)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate output groups and log probabilities</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output_groups, old_log_probs = self.generate_output_group(features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compute rewards</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewards = self.compute_grpo_rewards(output_groups, targets)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Compute group-relative advantages</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;advantages = self.compute_group_relative_advantages(rewards)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Get new log probabilities after model update</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_, new_log_probs = self.generate_output_group(features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># PPO-style clipped loss with GRPO advantages</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ratio = torch.exp(new_log_probs - old_log_probs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clipped_ratio = torch.clamp(ratio, 1-self.epsilon, 1+self.epsilon)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;policy_loss = -torch.min(ratio * advantages, clipped_ratio * advantages).mean()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Update model</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.optimizer.zero_grad()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;policy_loss.backward()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.optimizer.step()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> policy_loss.item()<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

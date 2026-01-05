@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">MemoryTalker: Personalized Speech-Driven 3D Facial Animation via Audio-Guided Stylization</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Hyung Kyu Kim, Sangmin Lee, Hak Gu Kim <br>
+        <span style="opacity:0.8">Chung-Ang University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to synthesize realistic, personalized 3D facial animations from audio alone, without requiring speaker labels or additional reference meshes at inference?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何仅通过音频合成逼真且个性化的3D面部动画，而无需在推理时提供说话人标签或额外的参考网格？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Audio-Guided Stylization:</b> Proposed a method to extract speaking style directly from audio to guide facial animation, removing the need for external style priors.</div>
+            <div class="lang-zh" style="display:none"><b>音频引导风格化：</b>提出了一种直接从音频中提取说话风格以引导面部动画的方法，消除了对外部风格先验的需求。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Framework:</b> Introduced a framework with "Memorizing" (storing general motion) and "Animating" (retrieving and stylizing motion) stages for robust personalization.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段框架：</b>引入了一个包含“记忆”（存储通用动作）和“动画”（检索和风格化动作）阶段的框架，以实现鲁棒的个性化。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Motion Memory Bank:</b> Utilized a memory bank to store diverse facial motion types, which are then selectively emphasized based on the audio input.</div>
+            <div class="lang-zh" style="display:none"><b>动作记忆库：</b>利用记忆库存储多样的面部动作类型，并根据音频输入有选择地强调这些动作。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/memorytalker_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dependency on Priors:</b> Existing methods rely on speaker IDs or reference meshes during inference, limiting generalization to unseen speakers or "in-the-wild" audio.</div>
+            <div class="lang-zh" style="display:none"><b>依赖先验：</b>现有方法在推理时依赖说话人 ID 或参考网格，限制了对未见说话人或“野生”音频的泛化能力。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Style-Content Disentanglement:</b> Difficulty in accurately separating and recombining the linguistic content (what is said) and the speaking style (how it is said) from a single audio source.</div>
+            <div class="lang-zh" style="display:none"><b>风格-内容解耦：</b>难以从单一音频源中准确分离并重新组合语言内容（说什么）和说话风格（怎么说）。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Stage 1: Memorizing:</b> A generic motion encoder-decoder is trained to reconstruct facial motions, building a "Motion Memory" that captures prototypical facial dynamics.</div>
+            <div class="lang-zh" style="display:none"><b>阶段 1：记忆：</b>训练一个通用的动作编码器-解码器来重建面部动作，构建一个捕捉原型面部动态的“动作记忆”。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Stage 2: Animating:</b> The model learns to query this memory bank using audio features. A "Style Awareness" module extracts style vectors from audio to weight the retrieval from memory.</div>
+            <div class="lang-zh" style="display:none"><b>阶段 2：动画：</b>模型学习使用音频特征查询此记忆库。“风格感知”模块从音频中提取风格向量，以加权从记忆中的检索。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Audio-Guided Retrieval:</b> The system dynamically decides which motion types to emphasize for a specific audio segment, ensuring the output matches the speaker's unique style.</div>
+            <div class="lang-zh" style="display:none"><b>音频引导检索：</b>系统动态决定为特定音频片段强调哪些动作类型，确保输出匹配说话人的独特风格。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/memorytalker_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2507.20562.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2507.20562.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Datasets:</b> Evaluated on standard benchmarks (e.g., VOCASET, BIWI) and potentially internal datasets to test personalization.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据集：</b>在标准基准（如 VOCASET, BIWI）和潜在的内部数据集上进行评估，以测试个性化。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Results:</b> Outperformed SOTA methods (like CodeTalker, FaceFormer) in terms of lip-sync accuracy and style consistency without needing reference meshes.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>结果：</b>在无需参考网格的情况下，在口型同步准确性和风格一致性方面优于 SOTA 方法（如 CodeTalker, FaceFormer）。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Zero-Shot Personalization:</b> The key advantage is the ability to adapt to new speakers' styles purely from the input audio track, which is highly valuable for real-world applications.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>零样本个性化：</b>主要优势在于仅通过输入音轨即可适应新说话人风格的能力，这对实际应用非常有价值。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                The effectiveness stems from decoupling "motion capability" (memory bank) from "motion selection" (audio guidance). By having a rich bank of possible motions and learning a sophisticated way to query them based on audio style, the model avoids the averaging effect seen in simple regression models and produces distinctive, styled animations.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                其有效性源于将“动作能力”（记忆库）与“动作选择”（音频引导）解耦。通过拥有丰富的可能动作库并学习基于音频风格的复杂查询方式，该模型避免了简单回归模型中出现的平均化效应，从而产生独特的、有风格的动画。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://cau-irislab.github.io/ICCV25-MemoryTalker/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          Project Page
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual retrieval attention logic.
+            </div>
+            <div class="lang-zh" style="display:none">
+                概念检索注意力逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Placeholder for Memory Retrieval logic</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">retrieve_memory</span>(query, memory_bank):
+    <span style="color:#6a9955;">"""</span>
+<span style="color:#6a9955;">    query: Audio features [B, T, D]</span>
+<span style="color:#6a9955;">    memory_bank: Motion priors [N, D]</span>
+<span style="color:#6a9955;">    """</span>
+    attn_score = torch.matmul(query, memory_bank.T)
+    weights = F.softmax(attn_score, dim=-1)
+    retrieved = torch.matmul(weights, memory_bank)
+    <span style="color:#569cd6;">return</span> retrieved
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

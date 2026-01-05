@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Human-Object Interaction via Automatically Designed VLM-Guided Motion Policy</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zekai Deng, Ye Shi, Kaiyang Ji, Lan Xu, Shaoli Huang, Jingya Wang<br>
+        <span style="opacity:0.8">ShanghaiTech University, Tencent AI Lab</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create a unified physics-based HOI framework that automatically designs reward functions and goal states using VLMs for long-horizon interactions with diverse object types?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建一个统一的物理-based HOI框架，使用VLMs自动设计奖励函数和目标状态，实现与多样化物体类型的长时域交互？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified Physics-Based HOI Framework:</b> First unified physics-based HOI synthesis framework leveraging VLMs for long-horizon interactions with diverse object types, including static, dynamic, and articulated objects, without manual reward engineering.</div>
+            <div class="lang-zh" style="display:none"><b>统一物理-Based HOI框架：</b>首个统一的物理-based HOI合成框架，利用VLMs实现与静态、动态和关节物体等多样化物体类型的长时域交互，无需手动奖励工程。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>VLM-Guided Relative Movement Dynamics (RMD):</b> Fine-grained spatio-temporal bipartite representation encoding structured relationships between human and object parts, enabling automatic construction of goal states and reward functions for reinforcement learning.</div>
+            <div class="lang-zh" style="display:none"><b>VLM引导的相对运动动力学(RMD)：</b>精细时空二部图表示，编码人类和物体部件之间的结构化关系，实现强化学习中目标状态和奖励函数的自动构造。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Automatic Reward Design:</b> Framework that automatically generates reward functions from VLM-generated RMD plans, supporting both static and dynamic interactions while eliminating the need for manual reward tuning and expert domain knowledge.</div>
+            <div class="lang-zh" style="display:none"><b>自动奖励设计：</b>从VLM生成的RMD计划自动生成奖励函数的框架，支持静态和动态交互，同时消除对手动奖励调优和专家领域知识的需求。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Interplay Dataset:</b> Novel dataset comprising thousands of long-horizon static and dynamic interaction plans across varied scene contexts, enabling systematic evaluation in complex multi-task scenarios with diverse object types.</div>
+            <div class="lang-zh" style="display:none"><b>Interplay数据集：</b>包含数千个跨不同场景上下文的长时域静态和动态交互计划的新数据集，实现复杂多任务场景中多样化物体类型的系统评估。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Superior Performance Across Scenarios:</b> Demonstrates state-of-the-art performance in both single-task and long-horizon multi-task scenarios, generating natural, human-like motions with fine-grained interaction details and open-set object generalization.</div>
+            <div class="lang-zh" style="display:none"><b>跨场景的卓越性能：</b>在单任务和长时域多任务场景中展示最先进的性能，生成具有精细交互细节和开放集物体泛化的自然、人性化的运动。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/vlm_rmd_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalability vs. Manual Reward Engineering:</b> Existing methods require labor-intensive reward design by domain experts, limiting generalizability across interaction types and creating scalability bottlenecks for diverse HOI scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>可扩展性与手动奖励工程：</b>现有方法需要领域专家进行劳动密集型的奖励设计，限制了跨交互类型的泛化能力，并为多样化HOI场景创造了可扩展性瓶颈。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Interaction Modeling:</b> Capturing both spatial constraints and temporal dynamics of human-object interactions, especially for dynamic and articulated objects that involve coordinated motion patterns.</div>
+            <div class="lang-zh" style="display:none"><b>动态交互建模：</b>捕获人类-物体交互的空间约束和时间动力学，特别是涉及协调运动模式的动态和关节物体。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Long-Horizon Multi-Task Learning:</b> Developing unified policies that can handle complex sequences of interactions across multiple tasks while maintaining physical plausibility and semantic consistency.</div>
+            <div class="lang-zh" style="display:none"><b>长时域多任务学习：</b>开发能够处理跨多个任务的复杂交互序列的统一策略，同时保持物理合理性和语义一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Open-Set Object Generalization:</b> Handling arbitrary object geometries and interaction affordances without task-specific training or predefined object categories.</div>
+            <div class="lang-zh" style="display:none"><b>开放集物体泛化：</b>处理任意物体几何和交互可及性，而无需特定任务训练或预定义物体类别。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>VLM-to-RL Bridging:</b> Effectively translating high-level VLM reasoning about interactions into low-level reinforcement learning objectives and reward functions that enable executable motion policies.</div>
+            <div class="lang-zh" style="display:none"><b>VLM到RL桥接：</b>有效地将VLM关于交互的高层推理转换为低层的强化学习目标和奖励函数，实现可执行的运动策略。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>VLM-Guided RMD Planner:</b> GPT-4V-based planner that decomposes high-level instructions into structured interaction plans using Relative Movement Dynamics (RMD) bipartite graphs, capturing spatio-temporal relationships between human and object parts.</div>
+            <div class="lang-zh" style="display:none"><b>VLM引导的RMD规划器：</b>基于GPT-4V的规划器，使用相对运动动力学(RMD)二部图将高层指令分解为结构化交互计划，捕获人类和物体部件之间的时空关系。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>RMD Representation:</b> Bipartite graph encoding fine-grained relationships between human parts and object parts with edge weights representing motion patterns (stationary contact, approaching, separating, or neutral), enabling structured reasoning about interaction dynamics.</div>
+            <div class="lang-zh" style="display:none"><b>RMD表示：</b>二部图编码人类部件和物体部件之间的精细关系，边权重表示运动模式（静止接触、接近、分离或中性），实现对交互动力学的结构化推理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Automatic Goal State Construction:</b> Transform VLM-generated RMD plans into goal-conditioned RL states by encoding relative positions/velocities, spatial anchors, heightmaps, and object dynamics into unified representations.</div>
+            <div class="lang-zh" style="display:none"><b>自动目标状态构造：</b>通过将相对位置/速度、空间锚点、高度图和物体动力学编码为统一表示，将VLM生成的RMD计划转换为目标条件RL状态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Automatic Reward Function Design:</b> Generate composite reward functions from RMD graphs with terms for human/object trajectory guidance and relative motion pattern enforcement, using adaptive weighting for balanced optimization.</div>
+            <div class="lang-zh" style="display:none"><b>自动奖励函数设计：</b>从RMD图生成复合奖励函数，包含人类/物体轨迹引导和相对运动模式强制执行的项，使用自适应权重进行平衡优化。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Physics-Based Policy Learning:</b> Goal-conditioned RL framework combining task rewards (RMD alignment) with style rewards (AMP discriminator) for learning natural, physically plausible HOI motions across diverse scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>基于物理的策略学习：</b>目标条件RL框架，将任务奖励（RMD对齐）与风格奖励（AMP判别器）相结合，学习跨多样化场景的自然、物理合理的HOI运动。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/vlm_rmd_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2503.18349.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2503.18349.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>VLM as Motion Imagination Engine:</b> VLMs excel at imagining interaction dynamics beyond symbolic planning, enabling the generation of semantically grounded motion guidance that captures both discrete contact goals and continuous coordination patterns.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>VLM作为运动想象引擎：</b>VLMs擅长想象超越符号规划的交互动力学，实现生成语义基础的运动指导，捕获离散接触目标和连续协调模式。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>RMD as Structured Interaction Language:</b> The bipartite graph representation provides a principled way to encode complex spatio-temporal relationships, bridging high-level VLM reasoning with low-level motion control objectives.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>RMD作为结构化交互语言：</b>二部图表示提供了一种原则性的方法来编码复杂的时空关系，在高层VLM推理和低层运动控制目标之间架起桥梁。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Automatic Reward Design Revolution:</b> By automating the reward engineering process, the framework democratizes HOI policy learning, enabling researchers to focus on high-level interaction design rather than low-level optimization tuning.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>自动奖励设计革命：</b>通过自动化奖励工程过程，该框架使HOI策略学习民主化，使研究人员能够专注于高层交互设计而不是低层优化调优。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because the framework addresses the core challenge of translating high-level interaction understanding into executable motion control. By leveraging VLMs to imagine and structure interaction dynamics through RMD, it creates a bridge between semantic reasoning and physical execution. The automatic reward design ensures that complex interaction patterns can be learned without expert intervention, while the physics-based learning guarantees natural, plausible motions that respect both geometric constraints and human motion priors.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为该框架解决了将高层交互理解转换为可执行运动控制的核心挑战。通过利用VLMs通过RMD想象和结构化交互动力学，它在语义推理和物理执行之间创建了一座桥梁。自动奖励设计确保复杂交互模式可以在没有专家干预的情况下学习，而基于物理的学习保证了尊重几何约束和人类运动先验的自然、合理运动。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This work presents a groundbreaking approach to HOI synthesis that leverages VLMs for automatic reward design and goal state construction. The VLM-Guided Relative Movement Dynamics framework enables the first unified physics-based HOI system capable of long-horizon interactions with diverse object types. By introducing the Interplay dataset and demonstrating superior performance across both single-task and multi-task scenarios, the work establishes a new paradigm for HOI research that eliminates manual reward engineering while maintaining physical plausibility and semantic fidelity. The framework's ability to handle open-set objects and complex interaction sequences paves the way for more natural and versatile human-object interaction synthesis in applications ranging from robotics to virtual reality.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本工作提出了一种开创性的HOI合成方法，利用VLMs进行自动奖励设计和目标状态构造。VLM引导的相对运动动力学框架实现了首个统一的物理-based HOI系统，能够与多样化物体类型进行长时域交互。通过引入Interplay数据集并在单任务和多任务场景中展示卓越性能，该工作建立了HOI研究的新范式，消除了手动奖励工程，同时保持物理合理性和语义保真度。该框架处理开放集物体和复杂交互序列的能力为从机器人到虚拟现实的更自然、多样化人类-物体交互合成铺平了道路。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://vlm-rmd.github.io/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+        <a href="https://github.com/zekaideng/VLM-RMD" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

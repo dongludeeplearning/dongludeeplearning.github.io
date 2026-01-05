@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICLR 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Least-to-Most Prompting Enables Complex Reasoning in Large Language Models</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Denny Zhou, Nathanael Schärli, Le Hou, Jason Wei, Nathan Scales, Xuezhi Wang, Dale Schuurmans, Claire Cui, Olivier Bousquet, Quoc Le, Ed Chi<br>
+        <span style="opacity:0.8">Google Research, Brain Team</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can large language models solve complex reasoning problems that require breaking down problems into simpler subproblems and solving them sequentially, overcoming the limitations of chain-of-thought prompting on easy-to-hard generalization?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何让大型语言模型通过将复杂问题分解为更简单的子问题并按顺序解决它们，来克服思维链提示在简单到困难泛化方面的局限性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Least-to-Most Prompting Framework:</b> Introduced a novel prompting strategy that decomposes complex problems into simpler subproblems and solves them sequentially, enabling generalization to harder problems than those seen in prompts.</div>
+            <div class="lang-zh" style="display:none"><b>Least-to-Most提示框架：</b>引入了一种新的提示策略，将复杂问题分解为更简单的子问题并按顺序解决，从而能够泛化到比提示中看到的更难的问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SCAN Benchmark Breakthrough:</b> Achieved 99%+ accuracy on the compositional generalization SCAN benchmark using just 14 exemplars, surpassing neural-symbolic models trained on 15,000+ examples.</div>
+            <div class="lang-zh" style="display:none"><b>SCAN基准突破：</b>仅使用14个示例就在组合泛化SCAN基准上实现了99%+的准确性，超越了在15,000+示例上训练的神经符号模型。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Evaluation:</b> Demonstrated superior performance on symbolic manipulation, compositional generalization, and math reasoning tasks, showing consistent improvements over chain-of-thought prompting on problems requiring more reasoning steps.</div>
+            <div class="lang-zh" style="display:none"><b>全面评估：</b>在符号操作、组合泛化和数学推理任务上展示了卓越性能，在需要更多推理步骤的问题上显示出对思维链提示的一致改进。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Architecture:</b> Implemented a decomposition stage followed by sequential subproblem solving, with answers from previous subproblems facilitating subsequent reasoning steps.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段架构：</b>实现了分解阶段后跟顺序子问题解决，前一个子问题的答案有助于后续推理步骤。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Easy-to-Hard Generalization:</b> Chain-of-thought prompting performs poorly on problems harder than demonstration examples, particularly in compositional generalization tasks requiring novel combinations of seen elements.</div>
+            <div class="lang-zh" style="display:none"><b>简单到困难泛化：</b>思维链提示在比演示示例更难的问题上表现不佳，尤其是在需要对已见元素进行新颖组合的组合泛化任务中。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Sequential Dependency:</b> Complex reasoning often requires solving interdependent subproblems where answers to earlier steps are prerequisites for later reasoning, challenging single-pass prompting approaches.</div>
+            <div class="lang-zh" style="display:none"><b>顺序依赖：</b>复杂推理通常需要解决相互依赖的子问题，其中早期步骤的答案是后期推理的先决条件，这对单次传递提示方法提出了挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Problem Decomposition:</b> Automatically breaking down complex problems into solvable subproblems without domain-specific knowledge or training remains a significant challenge for prompting methods.</div>
+            <div class="lang-zh" style="display:none"><b>问题分解：</b>在没有领域特定知识或训练的情况下自动将复杂问题分解为可解决的子问题，对于提示方法仍然是一个重大挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Long-range Reasoning:</b> Maintaining coherence and accuracy across multiple reasoning steps while avoiding accumulation of errors from intermediate subproblem solutions.</div>
+            <div class="lang-zh" style="display:none"><b>长程推理：</b>在多个推理步骤中保持连贯性和准确性，同时避免来自中间子问题解决方案的错误累积。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The least-to-most prompting method enables complex reasoning through systematic problem decomposition:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Problem Decomposition Stage:</b> Query the language model to break down the complex problem into a series of simpler, sequential subproblems that can be solved step-by-step.</li>
+                <li style="margin-bottom:6px;"><b>Sequential Subproblem Solving:</b> Solve each decomposed subproblem in sequence, where answers from previously solved subproblems are incorporated into subsequent prompts to facilitate the next reasoning step.</li>
+                <li style="margin-bottom:6px;"><b>Two-Stage Architecture:</b> Maintain separate prompt contexts for decomposition (teaching how to break down problems) and solution (teaching how to solve subproblems sequentially).</li>
+                <li style="margin-bottom:6px;"><b>Answer Propagation:</b> Use solutions from earlier subproblems as context for solving later subproblems, enabling cumulative reasoning that builds upon intermediate results.</li>
+                <li style="margin-bottom:6px;"><b>Few-shot Learning:</b> Both decomposition and solving stages use few-shot prompting with exemplars demonstrating the desired behavior, requiring no model fine-tuning.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>Least-to-Most提示方法通过系统性的问题分解实现复杂推理：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>问题分解阶段：</b>查询语言模型将复杂问题分解为一系列可以逐步解决的更简单的顺序子问题。</li>
+                <li style="margin-bottom:6px;"><b>顺序子问题解决：</b>按顺序解决每个分解的子问题，其中之前解决的子问题的答案被纳入后续提示中以促进下一个推理步骤。</li>
+                <li style="margin-bottom:6px;"><b>两阶段架构：</b>为分解（教导如何分解问题）和解决（教导如何按顺序解决子问题）维护单独的提示上下文。</li>
+                <li style="margin-bottom:6px;"><b>答案传播：</b>使用早期子问题的解决方案作为解决后期子问题的上下文，实现基于中间结果的累积推理。</li>
+                <li style="margin-bottom:6px;"><b>少样本学习：</b>分解和解决阶段都使用具有展示期望行为的示例的少样本提示，不需要模型微调。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/least_to_most_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <p>Least-to-Most prompting solves complex math word problems in two stages: (1) decompose the problem into subproblems, (2) sequentially solve subproblems where each solution builds upon previous answers. This enables generalization to harder problems than those seen in the prompts.</p>
+            <p>Note: The method achieves 99%+ accuracy on SCAN compositional generalization benchmark and significantly outperforms chain-of-thought prompting on problems requiring more reasoning steps, demonstrating superior easy-to-hard generalization capabilities.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_least_to_most.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_least_to_most.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Least-to-Most prompting succeeds by enabling systematic problem decomposition and sequential reasoning:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Problem Decomposition:</b> Breaking complex problems into manageable subproblems allows language models to apply familiar reasoning patterns to novel, harder problems that exceed the complexity of training examples.</li>
+                <li style="margin-bottom:6px;"><b>Answer Propagation:</b> Using solutions from earlier subproblems as context for later reasoning creates a cumulative reasoning process that maintains coherence across multiple interdependent steps.</li>
+                <li style="margin-bottom:6px;"><b>Sequential Dependencies:</b> The method naturally handles problems with sequential dependencies where solving one subproblem unlocks the ability to solve subsequent ones, overcoming limitations of parallel reasoning approaches.</li>
+                <li style="margin-bottom:6px;"><b>Compositional Generalization:</b> By learning to decompose and recompose problems, the model can generalize to novel combinations of seen elements, enabling performance on tasks that require systematic composition.</li>
+                <li style="margin-bottom:6px;"><b>Error Isolation:</b> Decomposing problems into independent subproblems isolates errors to specific reasoning steps, preventing single mistakes from cascading through the entire reasoning chain.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>Least-to-Most提示通过实现系统性的问题分解和顺序推理而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>问题分解：</b>将复杂问题分解为可管理的子问题，允许语言模型将熟悉的推理模式应用于超出训练示例复杂性的新颖、更难的问题。</li>
+                <li style="margin-bottom:6px;"><b>答案传播：</b>使用早期子问题的解决方案作为后期推理的上下文，创建一个跨多个相互依赖步骤保持连贯性的累积推理过程。</li>
+                <li style="margin-bottom:6px;"><b>顺序依赖：</b>该方法自然处理具有顺序依赖的问题，其中解决一个子问题可以解锁解决后续问题的能力，克服了并行推理方法的局限性。</li>
+                <li style="margin-bottom:6px;"><b>组合泛化：</b>通过学习分解和重组问题，模型可以泛化到已见元素的新的组合，从而在需要系统组合的任务上实现性能。</li>
+                <li style="margin-bottom:6px;"><b>错误隔离：</b>将问题分解为独立子问题可以将错误隔离到特定的推理步骤，防止单个错误通过整个推理链级联。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This pioneering work introduces least-to-most prompting, a powerful prompting strategy that overcomes the limitations of chain-of-thought prompting by enabling systematic decomposition of complex problems into simpler subproblems solved sequentially. The method demonstrates remarkable generalization capabilities, achieving near-perfect performance on challenging compositional generalization benchmarks using minimal exemplars. By incorporating answers from previously solved subproblems into subsequent reasoning steps, least-to-most prompting creates a cumulative reasoning process that maintains coherence across multiple interdependent steps. Experimental results across symbolic manipulation, compositional generalization, and mathematical reasoning tasks show consistent superiority over chain-of-thought prompting, particularly on problems requiring more reasoning steps than demonstrated in the prompts. The approach represents a significant advancement in prompting techniques, offering a pathway toward more sophisticated reasoning capabilities in large language models without requiring architectural changes or extensive fine-tuning.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了least-to-most提示，这是一种强大的提示策略，通过将复杂问题系统地分解为按顺序解决的更简单子问题，克服了思维链提示的局限性。该方法展示了卓越的泛化能力，使用最少的示例在具有挑战性的组合泛化基准上实现了接近完美的性能。通过将之前解决的子问题的答案纳入后续推理步骤，least-to-most提示创建了一个跨多个相互依赖步骤保持连贯性的累积推理过程。在符号操作、组合泛化和数学推理任务上的实验结果显示出对思维链提示的一致优势，尤其是在需要比提示中演示的更多推理步骤的问题上。该方法代表了提示技术的重大进步，为大型语言模型在无需架构更改或大量微调的情况下实现更复杂的推理能力提供了途径。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2205.10625" target="_blank" style="color:#8bffcf;">2205.10625</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Least-to-Most Prompting Implementation<br>
+<br>
+// Two-stage prompting: Decomposition + Sequential Solving<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">least_to_most_prompt</span>(complex_question, decomposition_examples, solving_examples):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Implement least-to-most prompting strategy"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Stage 1: Problem Decomposition</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;decomposition_prompt = build_decomposition_prompt(decomposition_examples, complex_question)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;subproblems = query_language_model(decomposition_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;subproblem_list = parse_subproblems(subproblems)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Stage 2: Sequential Subproblem Solving</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;solutions = {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> i, subproblem <span style="color:#569cd6;">in</span> enumerate(subproblem_list):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Build context with previously solved subproblems</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context = build_context_with_solutions(solutions)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solving_prompt = build_solving_prompt(solving_examples, context, subproblem)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solution = query_language_model(solving_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solutions[subproblem] = solution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Final answer is the solution to the original complex question</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> solutions.get(complex_question, "Unable to solve")<br>
+<br>
+// Example decomposition prompt<br>
+decomposition_examples = [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"question": "How many apples do Elsa and Anna have together?",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"decomposition": "To answer 'How many apples do Elsa and Anna have together?', we need to know: 'How many apples does Anna have?', 'How many apples does Elsa have?'."<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+]<br>
+<br>
+// Example solving with context propagation<br>
+<span style="color:#6a9955;"># Query: "How many apples does Anna have?"</span><br>
+<span style="color:#6a9955;"># Context: "Elsa has 5 apples."</span><br>
+<span style="color:#6a9955;"># Solution: "Anna has 2 more apples than Elsa, so Anna has 2 + 5 = 7 apples."</span><br>
+<br>
+<span style="color:#6a9955;"># Next Query: "How many apples do Elsa and Anna have together?"</span><br>
+<span style="color:#6a9955;"># Context: "Elsa has 5 apples. Anna has 7 apples."</span><br>
+<span style="color:#6a9955;"># Solution: "Elsa and Anna have 5 + 7 = 12 apples together."</span><br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICLR 2026
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">SceneCOT: Eliciting Grounded Chain-of-Thought Reasoning in 3D Scenes</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xiongkun Linghu, Jiangyong Huang, Ziyu Zhu, Baoxiong Jia, Siyuan Huang<br>
+        <span style="opacity:0.8">Beijing Institute for General Artificial Intelligence, Peking University, Tsinghua University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to enable step-by-step, human-like grounded Chain-of-Thought reasoning in 3D scenes to overcome the limitations of current 3D Large Language Models that lack interpretable and coherent scene-object reasoning?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在3D场景中实现逐步的、类似人类的基于场景的Chain-of-Thought推理，以克服当前3D大语言模型缺乏可解释性和连贯的场景-对象推理的局限性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SceneCOT Framework:</b> Pioneering Chain-of-Thought reasoning framework for 3D scenes that decomposes complex reasoning tasks into four hierarchical stages: task recognition, region localization, entity grounding, and grounded reasoning, enabling human-like step-by-step scene understanding.</div>
+            <div class="lang-zh" style="display:none"><b>SceneCOT框架：</b>开创性的3D场景Chain-of-Thought推理框架，将复杂推理任务分解为四个层次阶段：任务识别、区域定位、实体接地和基于场景的推理，实现类似人类的逐步场景理解。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SceneCOT-185K Dataset:</b> First large-scale grounded CoT dataset for 3D reasoning with 185K high-quality instances covering situated reasoning and object-centric reasoning tasks, providing comprehensive training data for step-by-step 3D scene understanding.</div>
+            <div class="lang-zh" style="display:none"><b>SceneCOT-185K数据集：</b>首个大规模3D推理基于场景的CoT数据集，包含185K高质量实例，涵盖情境推理和以对象为中心的推理任务，为逐步3D场景理解提供全面的训练数据。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multimodal Expert Integration:</b> Novel integration of specialized 3D-VL and 2D-VL models with symbolic engines within the CoT framework, enabling explicit grounding signals (object probabilities, locations, image tokens) for enhanced reasoning coherence.</div>
+            <div class="lang-zh" style="display:none"><b>多模态专家集成：</b>在CoT框架内新颖地集成专门的3D-VL和2D-VL模型与符号引擎，实现显式接地信号（对象概率、位置、图像令牌）以增强推理连贯性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Grounding-QA Coherence:</b> Achieves state-of-the-art performance on MSQA and Beacon3D benchmarks with significant improvements in grounding-QA coherence (34.7 GC score), demonstrating the effectiveness of step-by-step grounded reasoning in 3D scenes.</div>
+            <div class="lang-zh" style="display:none"><b>卓越的接地-QA连贯性：</b>在MSQA和Beacon3D基准上实现最先进性能，在接地-QA连贯性方面取得显著改进（34.7 GC分数），证明了3D场景中逐步基于场景推理的有效性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/scenecot_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2510.16714.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2510.16714.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/scenecot_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2510.16714.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2510.16714.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Complex 3D Spatial Reasoning:</b> 3D scenes require navigating large spaces, interpreting intricate spatial relations, and coping with partial observability, making traditional end-to-end approaches insufficient for human-like embodied reasoning.</div>
+            <div class="lang-zh" style="display:none"><b>复杂的3D空间推理：</b>3D场景需要导航大空间、解释复杂的空间关系并应对部分可观测性，使得传统的端到端方法不足以实现类似人类的具身推理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Interpretability:</b> Current 3D LLMs produce plausible answers without explicit grounding in scene elements, leading to poor grounding-QA coherence and unreliable reasoning in complex scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏可解释性：</b>当前的3D LLM产生看似合理的答案而没有显式地基于场景元素，导致接地-QA连贯性差以及在复杂场景中的不可靠推理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Task Decomposition Gap:</b> Existing methods lack principled approaches for breaking down complex 3D reasoning tasks into manageable subproblems, hindering the development of step-by-step reasoning mechanisms.</div>
+            <div class="lang-zh" style="display:none"><b>任务分解差距：</b>现有方法缺乏将复杂3D推理任务分解为可管理子问题的原则性方法，阻碍了逐步推理机制的发展。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Grounding-Reasoning Disconnect:</b> Most 3D-LLMs encode multimodal representations but rarely incorporate structured reasoning processes that connect intermediate grounding steps with final reasoning outcomes.</div>
+            <div class="lang-zh" style="display:none"><b>接地-推理断开：</b>大多数3D-LLM编码多模态表示，但很少纳入将中间接地步骤与最终推理结果连接起来的结构化推理过程。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited CoT Exploration:</b> While Chain-of-Thought reasoning has revolutionized 2D multimodal models, its potential in 3D scene understanding remains largely untapped due to challenges in aligning language-based reasoning with 3D spatial representations.</div>
+            <div class="lang-zh" style="display:none"><b>CoT探索有限：</b>虽然Chain-of-Thought推理已经彻底改变了2D多模态模型，但由于将基于语言的推理与3D空间表示对齐的挑战，其在3D场景理解中的潜力在很大程度上仍未被开发。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hierarchical CoT Structure:</b> Four-stage reasoning process: (1) task recognition and analysis with <think_type>, (2) region localization with <think_rgn>, (3) entity grounding with multimodal experts via [OBJ] token, and (4) grounded reasoning with explicit grounding signals.</div>
+            <div class="lang-zh" style="display:none"><b>分层CoT结构：</b>四阶段推理过程：(1) 使用<think_type>进行任务识别和分析，(2) 使用<think_rgn>进行区域定位，(3) 通过[OBJ]令牌使用多模态专家进行实体接地，以及(4) 使用显式接地信号进行基于场景的推理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multimodal Expert Modules:</b> Integration of 3D-VL grounding models (PQ3D), 2D-VL models for attribute recognition, and symbolic engines for spatial reasoning, invoked through special tokens to provide grounding signals like object probabilities, locations, and image tokens.</div>
+            <div class="lang-zh" style="display:none"><b>多模态专家模块：</b>集成3D-VL接地模型（PQ3D）、用于属性识别的2D-VL模型以及用于空间推理的符号引擎，通过特殊令牌调用以提供接地信号，如对象概率、位置和图像令牌。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SceneCOT-185K Dataset:</b> Large-scale dataset with 185K instances covering situated reasoning (MSQA-based) and object-centric reasoning (Beacon3D-based), constructed through metadata collection and automated reasoning trace generation with rule-based object extraction and GPT-4o augmentation.</div>
+            <div class="lang-zh" style="display:none"><b>SceneCOT-185K数据集：</b>大规模数据集包含185K实例，涵盖情境推理（基于MSQA）和以对象为中心的推理（基于Beacon3D），通过元数据收集和自动推理轨迹生成构建，使用基于规则的对象提取和GPT-4o增强。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Joint Training Objective:</b> Combined loss function (LCoT + Lans + Lground) for training multimodal LLM with LoRA, optimizing reasoning traces, final answers, and grounding accuracy while keeping expert modules updatable.</div>
+            <div class="lang-zh" style="display:none"><b>联合训练目标：</b>组合损失函数（LCoT + Lans + Lground）用于使用LoRA训练多模态LLM，同时优化推理轨迹、最终答案和接地准确性，并保持专家模块可更新。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inference Pipeline:</b> Step-by-step execution following predicted CoT structure, invoking external modules for grounding operations and concatenating results back into the reasoning chain for coherent final answers.</div>
+            <div class="lang-zh" style="display:none"><b>推理管道：</b>遵循预测的CoT结构逐步执行，为接地操作调用外部模块并将结果连接回推理链中，以获得连贯的最终答案。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>CoT for 3D Reasoning:</b> SceneCOT successfully extends Chain-of-Thought reasoning from 2D to 3D domains by decomposing spatial reasoning tasks into hierarchical stages, enabling interpretable and grounded scene understanding that was previously unattainable.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>CoT用于3D推理：</b>SceneCOT成功地将Chain-of-Thought推理从2D扩展到3D领域，通过将空间推理任务分解为分层阶段，实现以前无法实现的易解释和基于场景的场景理解。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Grounding-QA Coherence:</b> By explicitly connecting intermediate grounding steps with final reasoning outcomes through structured CoT traces, SceneCOT achieves superior grounding-QA coherence compared to end-to-end approaches that produce plausible but ungrounded answers.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>接地-QA连贯性：</b>通过结构化CoT轨迹将中间接地步骤与最终推理结果显式连接，SceneCOT相比产生看似合理但无根据答案的端到端方法实现了卓越的接地-QA连贯性。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Multimodal Integration:</b> The seamless integration of 3D-VL, 2D-VL, and symbolic reasoning components within the CoT framework demonstrates the potential for building more comprehensive embodied AI systems with explicit reasoning capabilities.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>多模态集成：</b>在CoT框架内无缝集成3D-VL、2D-VL和符号推理组件，展示了构建具有显式推理能力的更全面的具身AI系统的潜力。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because SceneCOT addresses the fundamental disconnect between multimodal scene understanding and coherent reasoning by introducing explicit, step-by-step grounding mechanisms. By decomposing complex 3D reasoning into manageable stages with concrete grounding signals, the framework ensures that answers are not just plausible but truly grounded in scene reality, enabling more reliable and interpretable embodied AI.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为SceneCOT通过引入显式的、逐步的接地机制来解决多模态场景理解与连贯推理之间的基本脱节。通过将复杂的3D推理分解为具有具体接地信号的可管理阶段，该框架确保答案不仅仅是看似合理的，而是真正基于场景现实，从而实现更可靠和易解释的具身AI。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces SceneCOT, a groundbreaking framework for eliciting grounded Chain-of-Thought reasoning in 3D scenes. By decomposing complex 3D reasoning tasks into four hierarchical stages—task recognition, region localization, entity grounding, and grounded reasoning—SceneCOT enables step-by-step, human-like scene understanding that was previously unattainable. The construction of SceneCOT-185K, the first large-scale grounded CoT dataset with 185K high-quality instances, provides comprehensive training data for this paradigm. Through extensive experiments on MSQA and Beacon3D benchmarks, SceneCOT demonstrates superior performance with exceptional grounding-QA coherence (34.7 GC score), significantly outperforming baseline methods. This work represents the first successful application of CoT reasoning to 3D scene understanding, paving the way for more interpretable and reliable embodied AI systems.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了SceneCOT，一个开创性的框架，用于在3D场景中引发基于场景的Chain-of-Thought推理。通过将复杂的3D推理任务分解为四个层次阶段——任务识别、区域定位、实体接地和基于场景的推理——SceneCOT实现了以前无法实现的逐步、类似人类的场景理解。SceneCOT-185K的构建是首个大规模基于场景的CoT数据集，包含185K高质量实例，为这一范式提供了全面的训练数据。通过在MSQA和Beacon3D基准上的广泛实验，SceneCOT展示了卓越的性能，具有 exceptional 的接地-QA连贯性（34.7 GC分数），显著优于基线方法。这项工作代表了CoT推理首次成功应用于3D场景理解，为更易解释和可靠的具身AI系统铺平了道路。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://scenecot.github.io/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

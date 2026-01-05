@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">StableAvatar: Infinite-Length Audio-Driven Avatar Video Generation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Shuyuan Tu, Yueming Pan, Yinming Huang, Xintong Han, Zhen Xing, Qi Dai, Chong Luo, Zuxuan Wu, Yu-Gang Jiang <br>
+        <span style="opacity:0.8">Fudan University, Xi'an Jiaotong University, Hunyuan (Tencent Inc.), Microsoft Research Asia</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate infinite-length, high-quality audio-driven avatar videos without accumulating errors or losing synchronization?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在生成无限长、高质量的音频驱动数字人视频时，避免误差累积或失去同步？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Timestep-aware Audio Adapter:</b> A novel module that modulates audio embeddings with timestep information, forcing the diffusion model to learn joint audio-latent distributions and reducing error accumulation.</div>
+            <div class="lang-zh" style="display:none"><b>时间步感知音频适配器：</b>一种新颖的模块，利用时间步信息调制音频嵌入，迫使扩散模型学习联合音频-潜在分布，并减少误差累积。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Audio Native Guidance:</b> Replaces Classifier-Free Guidance (CFG) with a mechanism that uses the model's own evolving joint predictions to guide generation, improving sync without external classifiers.</div>
+            <div class="lang-zh" style="display:none"><b>音频原生引导：</b>取代无分类器引导（CFG），使用模型自身演变的联合预测来引导生成，在无需外部分类器的情况下提高同步性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Dynamic Weighted Sliding-Window:</b> A strategy to fuse latents over time during inference, ensuring smooth transitions and consistency for infinite-length generation.</div>
+            <div class="lang-zh" style="display:none"><b>动态加权滑动窗口：</b>在推理过程中随时间融合潜在特征的策略，确保无限长生成的平滑过渡和一致性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/stableavatar_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Latent Distribution Shift:</b> Existing methods inject raw audio embeddings directly, causing the latent distribution to drift away from the target over time, leading to distortion in long videos.</div>
+            <div class="lang-zh" style="display:none"><b>潜在分布偏移：</b>现有方法直接注入原始音频嵌入，导致潜在分布随时间推移偏离目标，从而在长视频中产生失真。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Lack of Audio Priors:</b> Standard video diffusion backbones (like DiT) lack inherent knowledge of audio-visual correspondence, making direct injection ineffective for fine-grained synchronization.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏音频先验：</b>标准视频扩散骨干网络（如 DiT）缺乏视听对应关系的固有知识，使得直接注入对于细粒度同步无效。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Backbone:</b> Built upon the Wan2.1-1.3B Video Diffusion Transformer.</div>
+            <div class="lang-zh" style="display:none"><b>骨干网络：</b>构建在 Wan2.1-1.3B 视频扩散 Transformer 之上。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Timestep-aware Adapter:</b> Audio queries cross-attend with latent keys/values, then are modulated by timestep embeddings. This "refined" audio is then injected into the main DiT blocks.</div>
+            <div class="lang-zh" style="display:none"><b>时间步感知适配器：</b>音频 Query 与潜在 Key/Value 进行交叉注意力计算，然后由时间步嵌入进行调制。这种“细化”的音频随后被注入到主 DiT 模块中。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Inference Strategy:</b> Uses Audio Native Guidance to steer sampling towards joint audio-visual coherence, and a sliding window with logarithmic weighting to merge overlapping clips smoothly.</div>
+            <div class="lang-zh" style="display:none"><b>推理策略：</b>使用音频原生引导将采样导向联合视听连贯性，并使用带有对数加权的滑动窗口平滑合并重叠片段。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/stableavatar_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2508.08248.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2508.08248.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                StableAvatar successfully addresses the error accumulation problem in long-video generation, enabling the synthesis of infinite-length avatar videos (tested up to 3500+ frames) with consistent identity and lip sync.
+            </div>
+            <div class="lang-zh" style="display:none">
+                StableAvatar 成功解决了长视频生成中的误差累积问题，使得生成具有一致身份和口型同步的无限长数字人视频（测试高达 3500+ 帧）成为可能。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                It achieves SOTA performance on benchmarks while being more efficient (using a 1.3B parameter model vs. 14B competitors).
+            </div>
+            <div class="lang-zh" style="display:none">
+                它在基准测试中达到了 SOTA 性能，同时效率更高（使用 1.3B 参数模型，而竞争对手使用 14B）。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/Francis-Rings/StableAvatar" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="margin-top:16px; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(0,0,0,.10);">
+        <h2 style="margin:0 0 12px; font-size:16px;">Core Code Implementation (核心代码逻辑)</h2>
+        <div style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; font-size:13px; color:rgba(232,236,255,.8); line-height:1.5; overflow-x:auto;">
+            <div style="margin-bottom:12px;">
+                <div class="lang-en">// 1. Timestep-aware Audio Adapter: Prevents Error Accumulation</div>
+                <div class="lang-zh" style="display:none">// 1. 时间步感知音频适配器：防止误差累积</div>
+                <span style="color:#c792ea;">class</span> <span style="color:#e5c07b;">TimestepAwareAdapter</span>(nn.Module):<br>
+                &nbsp;&nbsp;<span style="color:#c792ea;">def</span> <span style="color:#61afef;">forward</span>(self, audio_emb, latents, t):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#5c6370;"># a. Cross-Attend Audio (Query) with Latents (Key/Value)</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;audio_context = self.cross_attn(query=audio_emb, kv=latents)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#5c6370;"># b. Modulate with Timestep to inject diffusion priors</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;t_emb = self.time_embedding(t)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#c792ea;">return</span> self.ada_ln(audio_context, t_emb)
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <div class="lang-en">// 2. Audio Native Guidance (Inference)</div>
+                <div class="lang-zh" style="display:none">// 2. 音频原生引导（推理）</div>
+                <span style="color:#c792ea;">def</span> <span style="color:#61afef;">predict_noise</span>(model, latents, t, audio, ref_img):<br>
+                &nbsp;&nbsp;<span style="color:#5c6370;"># Instead of CFG (unconditional), steer towards joint audio-latent distribution</span><br>
+                &nbsp;&nbsp;audio_refined = model.adapter(audio, latents, t)<br>
+                &nbsp;&nbsp;noise_pred = model.dit_backbone(latents, t, audio_refined, ref_img)<br>
+                &nbsp;&nbsp;<span style="color:#c792ea;">return</span> noise_pred  <span style="color:#5c6370;"># Directly guided by refined audio</span>
+            </div>
+
+            <div>
+                <div class="lang-en">// 3. Infinite Generation via Sliding Window</div>
+                <div class="lang-zh" style="display:none">// 3. 基于滑动窗口的无限生成</div>
+                <span style="color:#c792ea;">def</span> <span style="color:#61afef;">generate_long_video</span>(full_audio):<br>
+                &nbsp;&nbsp;clips = []<br>
+                &nbsp;&nbsp;<span style="color:#c792ea;">for</span> window <span style="color:#c792ea;">in</span> split_audio(full_audio, overlap=<span style="color:#d19a66;">True</span>):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#5c6370;"># Generate current clip latents</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;latents = diffusion_loop(window)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#5c6370;"># Fuse overlapping regions with logarithmic weights for smoothness</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#c792ea;">if</span> clips:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;latents = fuse_overlap(clips[-1], latents, strategy=<span style="color:#98c379;">"log_weight"</span>)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;clips.append(latents)<br>
+                &nbsp;&nbsp;<span style="color:#c792ea;">return</span> decode_video(clips)
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

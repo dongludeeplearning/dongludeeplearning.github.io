@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Human-Object Interaction from Human-Level Instructions</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zhen Wu, Jiaman Li, Pei Xu, C. Karen Liu <br>
+        <span style="opacity:0.8">Stanford University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to synthesize physically plausible, long-horizon human-object interactions (full-body + fingers) from high-level language instructions in complex environments?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从复杂的环境中的高级语言指令合成物理上合理的、长时程的人-物交互（全身+手指）？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified HOI System:</b> Proposed the first complete system for synthesizing physically plausible, long-horizon human-object interactions from high-level instructions.</div>
+            <div class="lang-zh" style="display:none"><b>统一的 HOI 系统：</b>提出了第一个完整的系统，用于从高级指令合成物理上合理的、长时程的人-物交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Synchronized Full-Body & Fingers:</b> Achieved seamless coordination between full-body movements and detailed finger interactions, overcoming limitations of prior datasets.</div>
+            <div class="lang-zh" style="display:none"><b>同步全身与手指：</b>实现了全身运动与精细手指交互之间的无缝协调，克服了先前数据集的限制。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Physics-Based Tracking:</b> Employed RL-based policy to track generated kinematic motions in physics simulation, ensuring physical plausibility and robustness.</div>
+            <div class="lang-zh" style="display:none"><b>基于物理的跟踪：</b>采用基于强化学习的策略在物理模拟中跟踪生成的运动学运动，确保物理合理性和鲁棒性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/HOI_human-level_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>High-Level Instruction Grounding:</b> Translating abstract instructions (e.g., "set up workspace") into precise object arrangements and execution plans requires commonsense reasoning.</div>
+            <div class="lang-zh" style="display:none"><b>高级指令落地：</b>将抽象指令（例如，“设置工作区”）转换为精确的对象排列和执行计划需要常识推理。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Data Scarcity:</b> Lack of datasets containing synchronized full-body locomotion and detailed finger manipulation for large objects.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>缺乏包含大型物体的同步全身运动和精细手指操作的数据集。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>LLM Planning:</b> Use LLMs to interpret instructions and predict object spatial relationships, then compute precise poses instead of direct prediction.</div>
+            <div class="lang-zh" style="display:none"><b>LLM 规划：</b>使用 LLM 解释指令并预测物体空间关系，然后计算精确姿态而不是直接预测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hierarchical Motion Synthesis:</b> 1. Generate full-body & object motion; 2. Inpaint finger motion based on object/wrist guidance; 3. Refine full-body motion conditioned on fingers.</div>
+            <div class="lang-zh" style="display:none"><b>分层运动合成：</b>1. 生成全身和物体运动；2. 基于物体/手腕引导修复手指运动；3. 以手指为条件细化全身运动。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Physics Tracking via RL:</b> Train a policy using PPO with a composite reward function (pose, hand-object distance, energy) to track kinematic motions in simulation.</div>
+            <div class="lang-zh" style="display:none"><b>通过 RL 进行物理跟踪：</b>使用具有复合奖励函数（姿态、手-物体距离、能量）的 PPO 训练策略，以在模拟中跟踪运动学运动。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/HOI_human-level_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">High-Level LLM Planner (Sec. 4)</h2>
+        <div style="font-size:13px; color:rgba(232,236,255,.7); margin-bottom:12px; line-height:1.5;">
+            <div class="lang-en">
+                <b>Overview:</b> To address the challenge that LLMs struggle with precise 3D coordinate prediction, the paper proposes a two-stage pipeline (Sec 4.1 & 4.2) that uses "Spatial Relationships" as a robust intermediate representation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>概述：</b>为了解决 LLM 难以直接预测精确 3D 坐标的问题，论文提出了一个两阶段流程（第 4.1 和 4.2 节），使用“空间关系”作为稳健的中间表示。
+            </div>
+        </div>
+
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>4.1 LLM-Based Reasoning (Symbolic Stage):</b><br>
+                Instead of coordinates, the LLM is prompted to output a <b>Scene Graph</b>. It identifies relevant objects and predicts semantic spatial relationships (e.g., <code>On(Laptop, Table)</code>, <code>Right(Chair, Table)</code>). This converts the "Instruction Understanding" problem into a "Constraint Generation" problem, leveraging the LLM's commonsense knowledge.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>4.1 基于 LLM 的推理（符号阶段）：</b><br>
+                LLM 不直接输出坐标，而是被提示输出一个<b>场景图</b>。它识别相关物体并预测语义空间关系（例如 <code>On(Laptop, Table)</code>，<code>Right(Chair, Table)</code>）。这利用 LLM 的常识知识，将“指令理解”问题转化为“约束生成”问题。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>4.2 Layout Optimization (Geometric Stage):</b><br>
+                The symbolic spatial constraints are converted into a differentiable loss function. An optimization algorithm then iteratively adjusts the 6DoF poses of objects to minimize this loss. This <b>"Grounding"</b> process ensures that the final layout is not only semantically correct but also geometrically valid (e.g., no inter-penetration, correct alignment).
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>4.2 布局优化（几何阶段）：</b><br>
+                符号空间约束被转换为可微的损失函数。然后，优化算法迭代调整物体的 6DoF 姿态以最小化该损失。这个<b>“落地”</b>过程确保最终布局不仅在语义上正确，而且在几何上有效（例如，无穿透，正确对齐）。
+            </div>
+          </li>
+          <li>
+             <div class="lang-en">
+                 <b>Synthesis:</b> This decoupled approach combines the <i>semantic versatility</i> of LLMs with the <i>geometric precision</i> of optimization, enabling the handling of complex, open-ended instructions.
+             </div>
+             <div class="lang-zh" style="display:none">
+                 <b>综合分析：</b>这种解耦方法结合了 LLM 的<i>语义通用性</i>和优化的<i>几何精度</i>，使其能够处理复杂的、开放式的指令。
+             </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Baselines:</b> Compared against CHOIS (text-to-motion) + GRIP (grasp synthesis) pipeline.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>基线：</b>与 CHOIS（文本到动作）+ GRIP（抓取合成）流程进行了比较。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Results:</b> Outperformed baselines in synthesis quality and physical plausibility. Human studies confirmed the method generates more realistic interactions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>结果：</b>在合成质量和物理合理性方面优于基线。人体研究证实该方法生成了更逼真的交互。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Importance of Physics:</b>
+                Kinematic generation alone is insufficient for complex interactions; physics-based tracking is crucial to fix contacts and ensure realism.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>物理的重要性：</b>
+                仅靠运动学生成不足以处理复杂的交互；基于物理的跟踪对于修复接触和确保真实感至关重要。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Hierarchical Generation:</b>
+                Breaking down the problem (Body -> Fingers -> Refinement) is an effective strategy to bypass the lack of paired high-quality data.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>分层生成：</b>
+                分解问题（身体 -> 手指 -> 细化）是绕过缺乏配对高质量数据问题的有效策略。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                The system works by effectively bridging the semantic gap (LLM planning) and the motor control gap (Hierarchical Diffusion + RL Tracking). By decoupling finger generation from full-body motion, it leverages the best available data for each modality. The final physics tracking step acts as a "reality filter," grounding the generated motion in physical laws to eliminate artifacts like penetration or skating.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                该系统通过有效地弥合语义差距（LLM 规划）和运动控制差距（分层扩散 + RL 跟踪）来发挥作用。通过将手指生成与全身运动解耦，它利用了每种模态的最佳可用数据。最后的物理跟踪步骤充当“现实过滤器”，将生成的运动建立在物理定律之上，以消除穿透或滑动等伪影。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/zhenkirito123/hoifhli_release" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Reward function logic for RL-based physics tracking, penalizing deviation from kinematic reference.
+            </div>
+            <div class="lang-zh" style="display:none">
+                基于 RL 的物理跟踪的奖励函数逻辑，惩罚与运动学参考的偏差。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">compute_reward</span>(self, body_diff, hand_obj_diff, energy):
+    <span style="color:#6a9955;"># 1. Full-body Tracking Reward</span>
+    r_body = 0.5 * torch.exp(-15 * body_diff.rot) + \
+             0.5 * torch.exp(-15 * body_diff.pos)
+             
+    <span style="color:#6a9955;"># 2. Hand-Object Interaction Reward</span>
+    <span style="color:#6a9955;"># Encourages precise finger placement relative to object</span>
+    r_hand = torch.exp(-5 * hand_obj_diff)
+    
+    <span style="color:#6a9955;"># 3. Energy Penalty (Smoothness)</span>
+    r_energy = torch.exp(-1/900 * energy)
+    
+    <span style="color:#6a9955;"># Weighted Sum</span>
+    return 0.8 * r_body + 0.2 * r_hand + 0.05 * r_energy
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

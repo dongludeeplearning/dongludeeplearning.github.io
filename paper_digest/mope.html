@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ACL •  LREC1-COLING 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Mixture-of-Prompt-Experts for Multi-modal Semantic Understanding</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zichen Wu, Hsiu-Yuan Huang, Fanyi Qu, Yunfang Wu<br>
+        <span style="opacity:0.8">Peking University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we develop few-shot learning approaches for multi-modal semantic understanding tasks like sarcasm detection and sentiment analysis using unified vision-language models with efficient soft prompt frameworks?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何开发少样本学习方法，用于多模态语义理解任务如讽刺检测和情感分析，使用统一的视觉-语言模型和高效的软提示框架？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Mixture-of-Prompt-Experts Framework:</b> Introduced MoPE-BAF, a novel multi-modal soft prompt framework with three specialized prompt experts (text, image, and unified) that extract modality-specific features and facilitate cross-modal interaction in unified VLMs.</div>
+            <div class="lang-zh" style="display:none"><b>混合提示专家框架：</b>引入了MoPE-BAF，一种新颖的多模态软提示框架，具有三个专门的提示专家（文本、图像和统一），能够在统一的VLM中提取模态特定特征并促进跨模态交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Block-Aware Prompt Fusion:</b> Developed a block-aware prompt fusion mechanism that reorganizes Transformer layers into blocks and applies cross-modal prompt attention between adjacent blocks, enabling smooth transitions from single-modal to multi-modal fusion.</div>
+            <div class="lang-zh" style="display:none"><b>块感知提示融合：</b>开发了块感知提示融合机制，将Transformer层重组为块，并在相邻块之间应用跨模态提示注意力，实现从单模态到多模态融合的平滑过渡。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Few-Shot Performance:</b> Achieved state-of-the-art performance on few-shot multi-modal sarcasm detection and sentiment analysis, surpassing 8.2B parameter InstructBLIP with only 150M parameters (2% of the size) and outperforming task-specific methods.</div>
+            <div class="lang-zh" style="display:none"><b>卓越的少样本性能：</b>在少样本多模态讽刺检测和情感分析上实现了最先进的性能，以仅150M参数（规模的2%）超越82B参数的InstructBLIP，并优于任务特定方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Efficient Parameter Utilization:</b> Demonstrated that specialized prompt experts with cross-modal attention can achieve superior performance compared to general prompts, showing the effectiveness of mixture-of-experts approach in multi-modal prompt learning.</div>
+            <div class="lang-zh" style="display:none"><b>高效参数利用：</b>证明了具有跨模态注意力的专门提示专家可以实现优于通用提示的性能，展示了专家混合方法在多模态提示学习中的有效性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Few-Shot Multi-Modal Learning:</b> Collecting and annotating high-quality multi-modal data is challenging, especially for nuanced tasks like sarcasm detection, requiring effective few-shot learning approaches that can generalize from limited examples.</div>
+            <div class="lang-zh" style="display:none"><b>少样本多模态学习：</b>收集和标注高质量的多模态数据具有挑战性，特别是对于像讽刺检测这样的细微任务，需要有效的少样本学习方法，能够从有限示例中泛化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Modality Alignment and Fusion:</b> Different modalities (text and image) have distinct feature spaces and semantic representations, requiring sophisticated fusion mechanisms to capture cross-modal incongruities and interactions.</div>
+            <div class="lang-zh" style="display:none"><b>模态对齐和融合：</b>不同模态（文本和图像）具有不同的特征空间和语义表示，需要复杂的融合机制来捕捉跨模态的不一致性和交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified VLM Adaptation:</b> Adapting unified vision-language models to downstream multi-modal tasks while maintaining their pre-trained cross-modal alignments and avoiding catastrophic forgetting of general capabilities.</div>
+            <div class="lang-zh" style="display:none"><b>统一VLM适应：</b>将统一的视觉-语言模型适应下游多模态任务，同时保持其预训练的跨模态对齐并避免灾难性遗忘一般能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Prompt Expert Coordination:</b> Designing and coordinating multiple prompt experts to specialize in different modalities while enabling effective information exchange and fusion across the entire model architecture.</div>
+            <div class="lang-zh" style="display:none"><b>提示专家协调：</b>设计和协调多个提示专家以专门处理不同模态，同时实现整个模型架构中的有效信息交换和融合。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Block-Level Interaction:</b> Enabling smooth transitions between single-modal processing and multi-modal fusion across different layers/blocks of Transformer architectures while maintaining computational efficiency.</div>
+            <div class="lang-zh" style="display:none"><b>块级交互：</b>实现Transformer架构不同层/块之间的单模态处理和多模态融合的平滑过渡，同时保持计算效率。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>MoPE-BAF addresses few-shot multi-modal semantic understanding through specialized prompt experts and block-aware fusion:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Mixture-of-Prompt-Experts:</b> Three soft prompt experts - text prompt for textual semantic extraction, image prompt for visual feature enrichment, and unified prompt for cross-modal interaction within a unified VLM architecture.</li>
+                <li style="margin-bottom:6px;"><b>Block-Aware Prompt Fusion:</b> Transformer layers reorganized into blocks with cross-modal prompt attention applied between adjacent blocks, enabling progressive fusion from single-modal specialization to multi-modal understanding.</li>
+                <li style="margin-bottom:6px;"><b>Modality-Specific Feature Extraction:</b> Text and image prompts extract modality-specific semantic features to enrich single-modal representations before cross-modal fusion.</li>
+                <li style="margin-bottom:6px;"><b>Unified Prompt Integration:</b> Unified prompt expert facilitates inter-modality information exchange and assists in capturing complex cross-modal relationships for sarcasm and sentiment detection.</li>
+                <li style="margin-bottom:6px;"><b>Efficient Parameter Learning:</b> Soft prompts trained with minimal parameters while achieving superior performance compared to large-scale fine-tuned models in few-shot settings.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>MoPE-BAF通过专门的提示专家和块感知融合来解决少样本多模态语义理解：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>混合提示专家：</b>三个软提示专家 - 文本提示用于文本语义提取，图像提示用于视觉特征丰富，以及统一提示用于统一VLM架构内的跨模态交互。</li>
+                <li style="margin-bottom:6px;"><b>块感知提示融合：</b>Transformer层重组为块，在相邻块之间应用跨模态提示注意力，实现从单模态专业化到多模态理解的渐进融合。</li>
+                <li style="margin-bottom:6px;"><b>模态特定特征提取：</b>文本和图像提示提取模态特定语义特征，以丰富跨模态融合之前的单模态表示。</li>
+                <li style="margin-bottom:6px;"><b>统一提示集成：</b>统一提示专家促进模态间信息交换，并帮助捕捉讽刺和情感检测的复杂跨模态关系。</li>
+                <li style="margin-bottom:6px;"><b>高效参数学习：</b>软提示以最少的参数进行训练，同时在少样本设置中实现优于大规模微调模型的性能。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/mope_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>MoPE-BAF framework with three prompt experts (text, image, unified) and block-aware prompt fusion for multi-modal semantic understanding in few-shot settings.</p>
+            <p>Note: The framework achieves superior performance on MSD and MSA tasks, surpassing large-scale models with minimal parameters through efficient prompt learning.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_mope.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_mope.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of MoPE-BAF stems from principled design choices that optimize multi-modal prompt learning:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Modality-Specific Specialization:</b> Separate prompt experts for text and image modalities allow each to focus on extracting rich, modality-specific semantic features before fusion, preventing interference and information loss.</li>
+                <li style="margin-bottom:6px;"><b>Unified Architecture Exploitation:</b> Leveraging unified VLMs instead of dual-encoder architectures maintains pre-trained cross-modal alignments while enabling fine-grained prompt control over different processing stages.</li>
+                <li style="margin-bottom:6px;"><b>Progressive Fusion Strategy:</b> Block-aware prompt fusion ensures smooth transitions from single-modal processing to multi-modal interaction, allowing the model to build complex cross-modal understanding incrementally.</li>
+                <li style="margin-bottom:6px;"><b>Parameter Efficiency:</b> Soft prompts with minimal trainable parameters (150M vs 8.2B) demonstrate that intelligent prompt design can achieve superior performance compared to full model fine-tuning in few-shot scenarios.</li>
+                <li style="margin-bottom:6px;"><b>Task-Specific Adaptation:</b> Mixture-of-experts approach enables the framework to adapt to different multi-modal understanding tasks (sarcasm vs sentiment) by learning appropriate expert specializations and fusion strategies.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>MoPE-BAF的成功源于优化多模态提示学习的基本设计选择：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>模态特定专业化：</b>文本和图像模态的单独提示专家允许每个专注于提取丰富的模态特定语义特征，然后进行融合，防止干扰和信息丢失。</li>
+                <li style="margin-bottom:6px;"><b>统一架构利用：</b>利用统一的VLM而不是双编码器架构，在启用不同处理阶段的细粒度提示控制的同时保持预训练的跨模态对齐。</li>
+                <li style="margin-bottom:6px;"><b>渐进融合策略：</b>块感知提示融合确保从单模态处理到多模态交互的平滑过渡，允许模型逐步构建复杂的跨模态理解。</li>
+                <li style="margin-bottom:6px;"><b>参数效率：</b>具有最小可训练参数（150M vs 82B）的软提示证明，智能提示设计可以在少样本场景中实现优于完整模型微调的性能。</li>
+                <li style="margin-bottom:6px;"><b>任务特定适应：</b>专家混合方法通过学习适当的专家专业化和融合策略，使框架能够适应不同的多模态理解任务（讽刺vs情感）。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This pioneering work establishes MoPE-BAF as a breakthrough in few-shot multi-modal semantic understanding, demonstrating that carefully designed prompt mixtures can achieve remarkable performance on complex tasks like sarcasm detection and sentiment analysis. By introducing specialized prompt experts for different modalities and enabling progressive fusion through block-aware attention, the framework achieves state-of-the-art results while using only 2% of the parameters of competing large-scale models. The work addresses fundamental challenges in multi-modal learning, including modality alignment, few-shot adaptation, and efficient parameter utilization. Experimental results on MSD and MSA datasets showcase consistent superiority over both VLM-based prompt methods and task-specific approaches, validating the effectiveness of the mixture-of-experts paradigm in prompt learning. The framework's ability to surpass 8.2B parameter InstructBLIP with a mere 150M parameters highlights the potential of intelligent prompt design to democratize access to advanced multi-modal capabilities. By maintaining the general capabilities of pre-trained VLMs while enabling task-specific adaptation, MoPE-BAF represents a significant advancement toward practical few-shot multi-modal understanding systems. The work opens new research directions in prompt-based multi-modal learning and provides a blueprint for developing efficient, scalable solutions to complex semantic understanding tasks.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作将MoPE-BAF确立为少样本多模态语义理解的突破，证明精心设计的提示混合可以在复杂任务如讽刺检测和情感分析上实现卓越性能。通过为不同模态引入专门的提示专家并通过块感知注意力启用渐进融合，该框架在使用仅占竞争大型模型2%参数的情况下实现了最先进的结果。这项工作解决了多模态学习的基本挑战，包括模态对齐、少样本适应和高效参数利用。MSD和MSA数据集上的实验结果展示了其在基于VLM的提示方法和任务特定方法方面的持续优势，验证了专家混合范式在提示学习中的有效性。该框架以仅150M参数超越82B参数InstructBLIP的能力突显了智能提示设计民主化访问高级多模态能力的潜力。通过保持预训练VLM的一般能力同时启用任务特定适应，MoPE-BAF代表了朝着实用少样本多模态理解系统的重要进步。这项工作为基于提示的多模态学习开辟了新的研究方向，并为开发高效、可扩展的复杂语义理解任务解决方案提供了蓝图。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2403.11311" target="_blank" style="color:#8bffcf;">2403.11311</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# MoPE-BAF Implementation<br>
+<br>
+// Mixture-of-Prompt-Experts Framework<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">MixtureOfPromptExperts</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""MoPE-BAF: Mixture-of-Prompt-Experts with Block-Aware Prompt Fusion"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, vlm_model, num_blocks=4):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.vlm = vlm_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_blocks = num_blocks<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Three prompt experts: text, image, unified</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.text_prompt = nn.Parameter(torch.randn(1, prompt_length, hidden_dim))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.image_prompt = nn.Parameter(torch.randn(1, prompt_length, hidden_dim))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.unified_prompt = nn.Parameter(torch.randn(1, prompt_length, hidden_dim))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Cross-modal attention for block fusion</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.cross_attention = nn.MultiheadAttention(hidden_dim, num_heads=8)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">organize_into_blocks</span>(self, layers):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Reorganize Transformer layers into blocks for fusion"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;block_size = len(layers) // self.num_blocks<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blocks = [layers[i:i+block_size] <span style="color:#569cd6;">for</span> i <span style="color:#569cd6;">in</span> range(0, len(layers), block_size)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> blocks<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, text_input, image_input):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Forward pass with prompt experts and block fusion"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Initial processing with modality-specific prompts</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_features = self.process_text_with_prompt(text_input, self.text_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_features = self.process_image_with_prompt(image_input, self.image_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Organize VLM layers into blocks</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blocks = self.organize_into_blocks(self.vlm.layers)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Process through blocks with cross-modal fusion</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined_features = torch.cat([text_features, image_features], dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> i, block <span style="color:#569cd6;">in</span> enumerate(blocks):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Apply unified prompt for cross-modal interaction</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unified_features = self.apply_unified_prompt(combined_features, self.unified_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Process through current block</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined_features = self.process_block(block, unified_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Cross-modal attention between adjacent blocks</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> i < len(blocks) - 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined_features = self.cross_modal_attention(combined_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.classification_head(combined_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">process_text_with_prompt</span>(self, text_input, prompt):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract text features with text prompt expert"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_with_prompt = torch.cat([prompt, text_input], dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.vlm.text_encoder(text_with_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">process_image_with_prompt</span>(self, image_input, prompt):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract image features with image prompt expert"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_with_prompt = torch.cat([prompt, image_input], dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> self.vlm.image_encoder(image_with_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">apply_unified_prompt</span>(self, features, prompt):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Apply unified prompt for cross-modal interaction"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> torch.cat([prompt, features], dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">cross_modal_attention</span>(self, features):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Apply cross-modal attention between text and image features"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_features, image_features = torch.split(features, features.size(1)//2, dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attended_text, _ = self.cross_attention(text_features, image_features, image_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attended_image, _ = self.cross_attention(image_features, text_features, text_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> torch.cat([attended_text, attended_image], dim=1)<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

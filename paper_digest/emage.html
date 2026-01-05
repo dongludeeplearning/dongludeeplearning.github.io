@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">EMAGE: Towards Unified Holistic Co-Speech Gesture Generation via Expressive Masked Audio Gesture Modeling</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Haiyang Liu, Zihao Zhu, Giorgio Becherini, Yichen Peng, Mingyang Su, You Zhou, Xuefei Zhe, Naoya Iwamoto, Bo Zheng, Michael J. Black <br>
+        <span style="opacity:0.8">The University of Tokyo, Keio University, MPI-IS, JAIST, Tsinghua University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate holistic, full-body co-speech gestures (including face, hands, body) that are synchronized with audio and can be edited via masked hints, overcoming the limitations of previous methods that treat body parts in isolation?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何生成与音频同步的、整体的全身协同语音手势（包括面部、手、身体），并可以通过掩码提示进行编辑，克服以前将身体部位隔离处理的方法的局限性？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>BEAT2 Dataset:</b> Introduced a new mesh-level holistic co-speech dataset (BEAT2) combining MoShed SMPL-X body with FLAME head, offering high-quality 3D motion capture with refined fingers and neck.</div>
+            <div class="lang-zh" style="display:none"><b>BEAT2 数据集：</b>引入了一个新的网格级整体协同语音数据集 (BEAT2)，结合了 MoShed SMPL-X 身体和 FLAME 头部，提供了具有精细手指和颈部的高质量 3D 动作捕捉。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Masked Audio Gesture Transformer:</b> Proposed a framework that jointly learns audio-to-gesture generation and masked gesture reconstruction, allowing for effective encoding of audio and body gesture hints.</div>
+            <div class="lang-zh" style="display:none"><b>Masked Audio Gesture Transformer：</b>提出了一个框架，联合学习音频到手势的生成和掩码手势重建，允许有效编码音频和身体手势提示。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Holistic Generation:</b> Achieved state-of-the-art performance in generating unified full-body gestures (face, body, hands) and enabled flexible editing via masked inputs.</div>
+            <div class="lang-zh" style="display:none"><b>整体生成：</b>在生成统一的全身手势（面部、身体、手）方面取得了最先进的性能，并通过掩码输入实现了灵活的编辑。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/emage_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Fragmented Modeling:</b> Previous works often modeled body, hands, and face separately or ignored some parts, leading to incoherent holistic motion.</div>
+            <div class="lang-zh" style="display:none"><b>碎片化建模：</b>以前的工作通常分别对身体、手和面部进行建模，或者忽略某些部分，导致整体运动不连贯。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Lack of Controllability:</b> Purely audio-driven methods often lack spatial control. Editing specific gestures while maintaining synchronization with audio is difficult.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏可控性：</b>纯音频驱动的方法通常缺乏空间控制。在保持与音频同步的同时编辑特定手势是困难的。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Masked Modeling:</b> Uses a transformer to reconstruct gestures from partial (masked) inputs during training. This teaches the model to infer full-body motion from audio and sparse spatial hints.</div>
+            <div class="lang-zh" style="display:none"><b>掩码建模：</b>在训练期间使用 Transformer 从部分（掩码）输入重建手势。这教会了模型从音频和稀疏的空间提示中推断全身运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Adaptive Feature Merging:</b> Adaptively merges speech features representing rhythm and content to drive the gesture generation, ensuring semantic alignment.</div>
+            <div class="lang-zh" style="display:none"><b>自适应特征合并：</b>自适应地合并代表节奏和内容的语音特征以驱动手势生成，确保语义对齐。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Compositional VQ-VAEs:</b> Utilizes four separate VQ-VAEs for face, upper body, hands, and lower body to ensure high-fidelity and diverse generation for each part.</div>
+            <div class="lang-zh" style="display:none"><b>组合 VQ-VAE：</b>为面部、上半身、手和下半身利用四个独立的 VQ-VAE，以确保每个部分的高保真度和多样化生成。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method Details (Sec. 4)（方法细节）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>4.1 Audio and Motion Encoders:</b> The model processes audio features (rhythm and content) and motion features separately. Motion is discretized into codebook indices using pre-trained VQ-VAEs for different body parts (Upper, Lower, Hands, Face), creating a compact representation space.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>4.1 音频与动作编码器：</b>模型分别处理音频特征（节奏和内容）和动作特征。利用预训练的 VQ-VAE，将不同身体部位（上身、下身、手、脸）的动作离散化为码本索引，构建紧凑的表示空间。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>4.2 Masked Audio Gesture Transformer:</b> This core component takes audio features and a masked sequence of gesture tokens. During training, random parts of the gesture are masked, and the transformer learns to reconstruct the full gesture. This joint training enables the model to effectively leverage both audio cues and partial body hints (e.g., "upper body visible, predict legs").
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>4.2 掩码音频手势 Transformer：</b>这是核心组件，接收音频特征和被掩码的手势 Token 序列。训练时，随机掩盖手势的部分内容，Transformer 学习重建完整手势。这种联合训练使模型能够有效利用音频线索和部分身体提示（例如，“上身可见，预测腿部”）。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>4.3 Adaptive Merging & Attention:</b> To fuse the rhythm and content audio features effectively, EMAGE employs an adaptive merging mechanism. It dynamically weights the importance of rhythmic vs. semantic cues based on the current context, ensuring the generated gestures are both synchronized (on beat) and meaningful (semantically relevant).
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>4.3 自适应合并与注意力：</b>为了有效融合节奏和内容音频特征，EMAGE 采用了一种自适应合并机制。它根据当前上下文动态加权节奏与语义线索的重要性，确保生成的手势既同步（合拍）又有意义（语义相关）。
+            </div>
+          </li>
+          <li>
+            <div class="lang-en">
+                <b>4.4 Holistic Generation:</b> Finally, the predicted discrete tokens are decoded by the compositional VQ-VAEs back into continuous 3D motion. The separate decoders for each body part allow for high-quality, articulate synthesis of the face, hands, and body simultaneously, resulting in a cohesive full-body animation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>4.4 整体生成：</b>最后，预测的离散 Token 由组合 VQ-VAE 解码回连续的 3D 动作。针对每个身体部位的独立解码器允许同时高质量、清晰地合成面部、手部和身体，从而产生连贯的全身动画。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/emage_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2401.00374.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2401.00374.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Performance:</b> Outperformed SOTA baselines (like Habibie et al. and TalkShow) in terms of FGD (Frechet Gesture Distance) and diversity metrics on the BEAT2 dataset.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>性能：</b>在 BEAT2 数据集上，在 FGD (Frechet Gesture Distance) 和多样性指标方面优于 SOTA 基线（如 Habibie 等人和 TalkShow）。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>User Study:</b> Human evaluators preferred EMAGE results for their naturalness, synchronization, and holistic coherence.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>用户研究：</b>人工评估员因其自然性、同步性和整体连贯性而更喜欢 EMAGE 结果。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Flexibility:</b> EMAGE is not just a generator but an editor. It can take partial gestures (e.g., "raise right hand") and fill in the rest of the body motion plausibly while syncing with audio.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>灵活性：</b>EMAGE 不仅仅是一个生成器，还是一个编辑器。它可以接受部分手势（例如，“举起右手”）并合理地填充其余的身体动作，同时与音频同步。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                EMAGE works by treating gesture generation as a "completion" problem. During training, it learns to predict missing body parts from audio and visible parts. This allows it to learn strong priors about how body parts coordinate. By separately encoding "rhythm" and "content" from speech, it ensures that gestures beat in time with the audio while also reflecting the semantic meaning.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                EMAGE 的工作原理是将手势生成视为一个“补全”问题。在训练期间，它学习从音频和可见部分预测缺失的身体部位。这使它能够学习关于身体部位如何协调的强大先验。通过分别从语音中编码“节奏”和“内容”，它确保手势在时间上与音频一致，同时也反映语义。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/PantoMatrix/PantoMatrix" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual masked gesture modeling.
+            </div>
+            <div class="lang-zh" style="display:none">
+                概念掩码手势建模。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Masked Audio-Gesture Transformer</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(audio, partial_gesture, mask):
+    <span style="color:#6a9955;"># 1. Encode Audio Features (Rhythm + Content)</span>
+    audio_feat = audio_encoder(audio)
+    
+    <span style="color:#6a9955;"># 2. Apply Mask to Gesture</span>
+    masked_input = partial_gesture * mask
+    
+    <span style="color:#6a9955;"># 3. Predict Full Gesture from Audio + Masked Input</span>
+    <span style="color:#6a9955;"># The model learns to "inpaint" the missing motion based on audio context</span>
+    pred_gesture = transformer(audio_feat, masked_input)
+    
+    <span style="color:#569cd6;">return</span> pred_gesture
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

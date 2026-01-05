@@ -1,0 +1,893 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Move as You Say, Interact as You Can: Language-guided Human Motion Generation with Scene Affordance</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Zan Wang, Yixin Chen, Baoxiong Jia, Puhao Li, Jinlu Zhang, Jingze Zhang, Tengyu Liu, Yixin Zhu, Wei Liang, Siyuan Huang<br>
+        <span style="opacity:0.8">BIGAI, Tsinghua University, Peking University, BIT</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate language-guided human motions that are both semantically faithful to descriptions and physically plausible within complex 3D environments?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何生成既语义上忠实于描述、又在复杂3D环境中物理上合理的语言引导人类运动？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Affordance Framework:</b> Novel two-stage approach using scene affordance as intermediate representation, bridging 3D scene grounding and conditional motion generation for language-guided HSI.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段可及性框架：</b>新颖的两阶段方法，使用场景可及性作为中间表示，连接3D场景grounding和条件运动生成，用于语言引导的HSI。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Affordance Diffusion Model (ADM):</b> Perceiver-based diffusion model that predicts explicit affordance maps from 3D scenes and language descriptions, enabling precise interaction region grounding.</div>
+            <div class="lang-zh" style="display:none"><b>可及性扩散模型(ADM)：</b>基于Perceiver的扩散模型，从3D场景和语言描述预测显式的可及性地图，实现精确的交互区域grounding。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Affordance-to-Motion Diffusion Model (AMDM):</b> Transformer-based conditional diffusion model that synthesizes physically plausible human motions using predicted affordance maps and language inputs.</div>
+            <div class="lang-zh" style="display:none"><b>可及性到运动扩散模型(AMDM)：</b>基于Transformer的条件扩散模型，使用预测的可及性地图和语言输入合成物理上合理的人类运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance and Generalization:</b> Consistently outperforms baselines on HumanML3D and HUMANISE benchmarks, with exceptional generalization to unseen language-scene pairs despite limited training data.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能和泛化：</b>在HumanML3D和HUMANISE基准上持续优于基线方法，尽管训练数据有限，但对未见语言-场景配对具有卓越的泛化能力。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Scene Affordance as Intermediate Representation:</b> Demonstrates that affordance maps effectively overcome multimodal conditioning challenges and enable robust motion generation with geometric awareness.</div>
+            <div class="lang-zh" style="display:none"><b>场景可及性作为中间表示：</b>证明可及性地图有效克服多模态条件挑战，并实现具有几何感知的鲁棒运动生成。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/affordance_motion_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Joint Multimodal Modeling:</b> Lack of powerful generative models that can jointly model natural language, 3D scenes, and human motion for coherent HSI generation.</div>
+            <div class="lang-zh" style="display:none"><b>联合多模态建模：</b>缺乏能够联合建模自然语言、3D场景和人类运动的强大生成模型，以实现连贯的HSI生成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Scarcity:</b> Generative models require extensive high-quality paired language-scene-motion datasets, but existing datasets lack comprehensive HSI descriptions and diversity.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>生成模型需要大量的优质配对语言-场景-运动数据集，但现有数据集缺乏全面的HSI描述和多样性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene Grounding Complexity:</b> Difficulty in generating motions that are both descriptive-faithful to language and physically grounded in specific 3D scene locations.</div>
+            <div class="lang-zh" style="display:none"><b>场景Grounding复杂性：</b>难以生成既对语言具有描述性忠实、又在特定3D场景位置物理上grounded的运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Geometric Interaction Understanding:</b> Challenge in modeling the sophisticated interplay between human motions and 3D scene geometries for plausible interactions.</div>
+            <div class="lang-zh" style="display:none"><b>几何交互理解：</b>建模人类运动与3D场景几何之间的复杂相互作用以实现合理交互的挑战。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Generalization to Unseen Scenarios:</b> Models struggle to generalize from limited training data to novel language descriptions and unseen 3D scene configurations.</div>
+            <div class="lang-zh" style="display:none"><b>泛化到未见场景：</b>模型难以从有限训练数据泛化到新的语言描述和未见的3D场景配置。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene Affordance Representation:</b> Defines affordance maps as distance fields between human skeleton joints and 3D scene surface points, providing geometric interaction priors for motion generation.</div>
+            <div class="lang-zh" style="display:none"><b>场景可及性表示：</b>将可及性地图定义为人类骨骼关节与3D场景表面点之间的距离场，为运动生成提供几何交互先验。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Affordance Diffusion Model (ADM):</b> Perceiver-based conditional diffusion model that predicts language-grounded affordance maps from 3D scenes and textual descriptions.</div>
+            <div class="lang-zh" style="display:none"><b>可及性扩散模型(ADM)：</b>基于Perceiver的条件扩散模型，从3D场景和文本描述预测语言grounded的可及性地图。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Affordance-to-Motion Diffusion Model (AMDM):</b> Transformer-based architecture with affordance encoder that generates human motions conditioned on predicted affordance maps and language inputs.</div>
+            <div class="lang-zh" style="display:none"><b>可及性到运动扩散模型(AMDM)：</b>带有可及性编码器的基于Transformer的架构，在预测的可及性地图和语言输入条件下生成人类运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Training Pipeline:</b> Progressive training where ADM learns to predict affordance maps, followed by AMDM learning to generate motions conditioned on these maps.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段训练流水线：</b>渐进式训练，其中ADM学习预测可及性地图，然后AMDM学习在这些地图条件下生成运动。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Geometric-Aware Motion Synthesis:</b> Leverages affordance maps to ensure generated motions respect physical constraints and geometric relationships in 3D environments.</div>
+            <div class="lang-zh" style="display:none"><b>几何感知运动合成：</b>利用可及性地图确保生成的运动尊重3D环境中的物理约束和几何关系。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/affordance_motion_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2403.18036.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2403.18036.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Affordance as Geometric Bridge:</b> Scene affordance maps serve as an elegant intermediate representation that bridges the semantic gap between language understanding and geometric motion constraints, enabling robust multimodal conditioning.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>可及性作为几何桥梁：</b>场景可及性地图作为一个优雅的中间表示，桥接了语言理解与几何运动约束之间的语义差距，实现鲁棒的多模态条件。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Data Efficiency through Intermediate Representation:</b> By decomposing the complex multimodal task into affordance prediction and motion generation stages, the approach significantly reduces the data requirements while maintaining strong generalization capabilities.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>通过中间表示提高数据效率：</b>通过将复杂的多模态任务分解为可及性预测和运动生成阶段，该方法显著降低了数据需求，同时保持强大的泛化能力。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Physical Plausibility via Geometric Awareness:</b> The affordance-based approach ensures that generated motions respect physical constraints and geometric relationships, leading to more realistic and contextually appropriate human-scene interactions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>通过几何感知实现物理合理性：</b>基于可及性的方法确保生成的运动尊重物理约束和几何关系，从而实现更真实和上下文适当的人类-场景交互。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because the affordance representation elegantly decomposes the complex problem of multimodal motion generation. By first predicting where interactions can occur (affordance maps) and then generating motions within those constraints, the model achieves superior physical plausibility and semantic faithfulness. This two-stage approach is particularly effective when training data is limited, as it leverages geometric priors to guide the learning process.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为可及性表示优雅地分解了多模态运动生成的复杂问题。通过首先预测交互可以发生的位置（可及性地图），然后在这些约束内生成运动，该模型实现了卓越的物理合理性和语义忠实性。当训练数据有限时，这种两阶段方法特别有效，因为它利用几何先验来指导学习过程。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This work introduces a novel two-stage framework that leverages scene affordance as an intermediate representation to address the challenges of language-guided human motion generation in 3D environments. By decomposing the complex multimodal task into affordance prediction and motion synthesis stages, our approach achieves superior performance on established benchmarks while demonstrating remarkable generalization capabilities to unseen scenarios. The Affordance Diffusion Model and Affordance-to-Motion Diffusion Model work synergistically to ensure that generated motions are both semantically faithful to language descriptions and physically plausible within 3D scenes. Experimental results validate the effectiveness of our approach, showing consistent improvements over state-of-the-art methods on HumanML3D and HUMANISE datasets, along with strong generalization to novel language-scene combinations. This work establishes scene affordance as a powerful intermediate representation for multimodal motion generation tasks and opens new avenues for controllable human-scene interaction synthesis.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本工作引入了一个新颖的两阶段框架，利用场景可及性作为中间表示来解决3D环境中语言引导人类运动生成的挑战。通过将复杂的多模态任务分解为可及性预测和运动合成阶段，我们的方法在已建立的基准上取得了卓越性能，同时展示了对手未见场景的卓越泛化能力。可及性扩散模型和可及性到运动扩散模型协同工作，确保生成的运动既对语言描述具有语义忠实性，又在3D场景中物理上合理。实验结果验证了我们方法的有效性，在HumanML3D和HUMANISE数据集上显示出对最先进方法的持续改进，以及对新颖语言-场景组合的强大泛化能力。这项工作将场景可及性确立为多模态运动生成任务的强大中间表示，并为可控人类-场景交互合成开辟了新途径。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="font-family:ui-monospace,monospace;font-size:13px;color:rgba(232,236,255,.8);background:rgba(0,0,0,.3);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,.05);">
+          <div class="lang-en">
+            <pre><code>import torch
+import torch.nn as nn
+from diffusers import DDPMScheduler, UNet2DConditionModel
+
+class AffordanceMotion(nn.Module):
+    """Two-Stage Affordance-Based Motion Generation"""
+
+    def __init__(self, scene_dim=6, motion_dim=135, affordance_dim=24):
+        super().__init__()
+
+        # Stage 1: Affordance Diffusion Model (ADM)
+        self.affordance_encoder = AffordanceEncoder(scene_dim, affordance_dim)
+        self.affordance_diffusion = AffordanceDiffusionModel()
+
+        # Stage 2: Affordance-to-Motion Diffusion Model (AMDM)
+        self.affordance_conditioner = AffordanceConditioner(affordance_dim)
+        self.motion_diffusion = MotionDiffusionModel(motion_dim)
+
+    def forward(self, scene, text, motion_length=60):
+        """
+        Two-stage motion generation pipeline
+
+        Args:
+            scene: 3D scene point cloud [B, N, 6] (x,y,z,r,g,b)
+            text: language description
+            motion_length: target motion sequence length
+
+        Returns:
+            motion: generated human motion [B, T, 135]
+        """
+
+        # Stage 1: Predict affordance map
+        affordance_map = self.predict_affordance(scene, text, motion_length)
+
+        # Stage 2: Generate motion conditioned on affordance
+        motion = self.generate_motion(affordance_map, text, motion_length)
+
+        return motion
+
+    def predict_affordance(self, scene, text, seq_length):
+        """Stage 1: Generate language-grounded affordance map"""
+        # Encode scene and text
+        scene_features = self.affordance_encoder.scene_encoder(scene)
+        text_features = self.affordance_encoder.text_encoder(text)
+
+        # Start from Gaussian noise
+        noise = torch.randn(scene.size(0), seq_length, self.affordance_encoder.affordance_dim)
+
+        # Denoising process with text conditioning
+        affordance_map = self.affordance_diffusion.denoise(
+            noise, scene_features, text_features, num_steps=50
+        )
+
+        return affordance_map
+
+    def generate_motion(self, affordance_map, text, seq_length):
+        """Stage 2: Generate motion conditioned on affordance"""
+        # Condition motion generation on affordance
+        affordance_condition = self.affordance_conditioner(affordance_map)
+
+        # Start from Gaussian noise
+        noise = torch.randn(affordance_map.size(0), seq_length, 135)
+
+        # Denoising with affordance and text conditioning
+        motion = self.motion_diffusion.denoise(
+            noise, affordance_condition, text, num_steps=50
+        )
+
+        return motion
+
+class AffordanceEncoder(nn.Module):
+    """Encodes scene and text into affordance representation"""
+
+    def __init__(self, scene_dim=6, affordance_dim=24):
+        super().__init__()
+        self.affordance_dim = affordance_dim
+
+        # Scene encoder (PointNet-like)
+        self.scene_encoder = nn.Sequential(
+            nn.Linear(scene_dim, 128),
+            nn.ReLU(),
+            nn.Linear(128, 256),
+            nn.ReLU(),
+            nn.AdaptiveMaxPool1d(1),
+            nn.Flatten(),
+            nn.Linear(256, 512)
+        )
+
+        # Text encoder (CLIP-like)
+        self.text_encoder = nn.Sequential(
+            nn.Embedding(49408, 512),  # CLIP vocabulary
+            nn.TransformerEncoder(
+                nn.TransformerEncoderLayer(512, 8, batch_first=True),
+                num_layers=6
+            ),
+            nn.AdaptiveAvgPool1d(1),
+            nn.Flatten()
+        )
+
+    def forward(self, scene, text):
+        scene_feat = self.scene_encoder(scene.transpose(1, 2))
+        text_feat = self.text_encoder(text)
+        return scene_feat, text_feat
+
+class AffordanceDiffusionModel(nn.Module):
+    """Diffusion model for affordance map generation"""
+
+    def __init__(self, affordance_dim=24):
+        super().__init__()
+        self.affordance_dim = affordance_dim
+
+        # Perceiver-based architecture for point cloud processing
+        self.latent_dim = 256
+        self.num_latents = 64
+
+        # Learnable latent queries
+        self.latents = nn.Parameter(torch.randn(self.num_latents, self.latent_dim))
+
+        # Cross-attention layers
+        self.cross_attn = nn.MultiheadAttention(self.latent_dim, 8, batch_first=True)
+        self.self_attn = nn.MultiheadAttention(self.latent_dim, 8, batch_first=True)
+
+        # Diffusion timestep embedding
+        self.time_embed = nn.Sequential(
+            nn.Linear(1, self.latent_dim),
+            nn.ReLU(),
+            nn.Linear(self.latent_dim, self.latent_dim)
+        )
+
+        # Denoising network
+        self.denoise_net = UNet2DConditionModel(
+            sample_size=32,
+            in_channels=affordance_dim,
+            out_channels=affordance_dim,
+            layers_per_block=2,
+            block_out_channels=(128, 256, 512),
+            down_block_types=("DownBlock2D", "DownBlock2D", "DownBlock2D"),
+            up_block_types=("UpBlock2D", "UpBlock2D", "UpBlock2D"),
+        )
+
+    def denoise(self, noisy_affordance, scene_features, text_features, num_steps=50):
+        """Denoising process for affordance generation"""
+        scheduler = DDPMScheduler(num_train_timesteps=1000)
+
+        # Process scene and text through Perceiver
+        scene_latents = self.process_scene(scene_features)
+        text_latents = self.process_text(text_features)
+
+        # Concatenate conditions
+        conditions = torch.cat([scene_latents, text_latents], dim=1)
+
+        current_sample = noisy_affordance
+
+        for t in reversed(range(num_steps)):
+            timestep = torch.tensor([t / num_steps]).to(current_sample.device)
+
+            # Predict noise
+            noise_pred = self.denoise_net(
+                current_sample.unsqueeze(-1).unsqueeze(-1),  # Add spatial dims
+                timestep,
+                encoder_hidden_states=conditions
+            ).sample.squeeze(-1).squeeze(-1)
+
+            # Denoising step
+            current_sample = scheduler.step(noise_pred, t, current_sample).prev_sample
+
+        return current_sample
+
+    def process_scene(self, scene_features):
+        """Process scene features through Perceiver"""
+        batch_size = scene_features.size(0)
+        latents = self.latents.unsqueeze(0).repeat(batch_size, 1, 1)
+
+        # Cross-attention with scene
+        attended, _ = self.cross_attn(latents, scene_features, scene_features)
+        attended, _ = self.self_attn(attended, attended, attended)
+
+        return attended
+
+    def process_text(self, text_features):
+        """Process text features through Perceiver"""
+        batch_size = text_features.size(0)
+        latents = self.latents.unsqueeze(0).repeat(batch_size, 1, 1)
+
+        # Cross-attention with text
+        attended, _ = self.cross_attn(latents, text_features, text_features)
+        attended, _ = self.self_attn(attended, attended, attended)
+
+        return attended
+
+class MotionDiffusionModel(nn.Module):
+    """Diffusion model for motion generation conditioned on affordance"""
+
+    def __init__(self, motion_dim=135):
+        super().__init__()
+
+        # Affordance conditioning
+        self.affordance_proj = nn.Sequential(
+            nn.Linear(24, 256),
+            nn.ReLU(),
+            nn.Linear(256, motion_dim)
+        )
+
+        # Motion diffusion network
+        self.motion_net = UNet2DConditionModel(
+            sample_size=32,
+            in_channels=motion_dim,
+            out_channels=motion_dim,
+            layers_per_block=2,
+            block_out_channels=(128, 256, 512),
+            down_block_types=("DownBlock2D", "DownBlock2D", "DownBlock2D"),
+            up_block_types=("UpBlock2D", "UpBlock2D", "UpBlock2D"),
+        )
+
+        # Text conditioning
+        self.text_encoder = nn.Sequential(
+            nn.Embedding(49408, 512),
+            nn.AdaptiveAvgPool1d(1),
+            nn.Flatten(),
+            nn.Linear(512, motion_dim)
+        )
+
+    def denoise(self, noisy_motion, affordance_condition, text, num_steps=50):
+        """Denoising process for motion generation"""
+        scheduler = DDPMScheduler(num_train_timesteps=1000)
+
+        # Process conditions
+        affordance_cond = self.affordance_proj(affordance_condition)
+        text_cond = self.text_encoder(text)
+
+        # Combine conditions
+        combined_condition = affordance_cond + text_cond
+
+        current_sample = noisy_motion
+
+        for t in reversed(range(num_steps)):
+            timestep = torch.tensor([t / num_steps]).to(current_sample.device)
+
+            # Predict noise with conditioning
+            noise_pred = self.motion_net(
+                current_sample.unsqueeze(-1).unsqueeze(-1),
+                timestep,
+                encoder_hidden_states=combined_condition.unsqueeze(1)
+            ).sample.squeeze(-1).squeeze(-1)
+
+            # Denoising step
+            current_sample = scheduler.step(noise_pred, t, current_sample).prev_sample
+
+        return current_sample
+
+# Training and inference
+def train_affordance_motion(model, train_dataset):
+    """Training pipeline for the two-stage model"""
+
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+    scheduler = DDPMScheduler(num_train_timesteps=1000)
+
+    for epoch in range(100):
+        for batch in train_dataset:
+            scene, text, gt_motion = batch['scene'], batch['text'], batch['motion']
+
+            # Compute affordance map from ground truth motion
+            affordance_map = compute_affordance_from_motion(scene, gt_motion)
+
+            # Stage 1: Train affordance prediction
+            pred_affordance = model.predict_affordance(scene, text, gt_motion.size(1))
+            affordance_loss = F.mse_loss(pred_affordance, affordance_map)
+
+            # Stage 2: Train motion generation
+            pred_motion = model.generate_motion(affordance_map, text, gt_motion.size(1))
+            motion_loss = F.mse_loss(pred_motion, gt_motion)
+
+            # Combined loss
+            total_loss = affordance_loss + motion_loss
+
+            optimizer.zero_grad()
+            total_loss.backward()
+            optimizer.step()
+
+    return model
+
+def compute_affordance_from_motion(scene, motion):
+    """Compute affordance map from ground truth motion and scene"""
+    # Extract joint positions from motion
+    joint_positions = motion.view(motion.size(0), motion.size(1), -1, 3)  # [B, T, J, 3]
+
+    # Compute distance field between joints and scene points
+    scene_points = scene[:, :, :3]  # [B, N, 3]
+
+    distances = []
+    for t in range(motion.size(1)):
+        joint_pos_t = joint_positions[:, t]  # [B, J, 3]
+        dist_t = torch.cdist(joint_pos_t, scene_points)  # [B, J, N]
+        distances.append(dist_t)
+
+    # Stack and compute affordance
+    distance_field = torch.stack(distances, dim=1)  # [B, T, J, N]
+
+    # Normalize to affordance map
+    affordance_map = torch.exp(-distance_field / 0.5)  # Gaussian decay
+    affordance_map = affordance_map.mean(dim=-1)  # Average over scene points
+
+    return affordance_map
+
+# Usage example
+if __name__ == "__main__":
+    model = AffordanceMotion()
+
+    # Training
+    model = train_affordance_motion(model, train_dataset)
+
+    # Inference
+    scene = load_3d_scene("living_room.ply")
+    text = "A person walks to the chair and sits down"
+
+    generated_motion = model(scene, text)
+    print(f"Generated motion: {generated_motion.shape}")  # [B, T, 135]</code></pre>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <pre><code>import torch
+import torch.nn as nn
+from diffusers import DDPMScheduler, UNet2DConditionModel
+
+class AffordanceMotion(nn.Module):
+    """两阶段基于可及性的运动生成"""
+
+    def __init__(self, scene_dim=6, motion_dim=135, affordance_dim=24):
+        super().__init__()
+
+        # 第一阶段：可及性扩散模型(ADM)
+        self.affordance_encoder = AffordanceEncoder(scene_dim, affordance_dim)
+        self.affordance_diffusion = AffordanceDiffusionModel()
+
+        # 第二阶段：可及性到运动扩散模型(AMDM)
+        self.affordance_conditioner = AffordanceConditioner(affordance_dim)
+        self.motion_diffusion = MotionDiffusionModel(motion_dim)
+
+    def forward(self, scene, text, motion_length=60):
+        """
+        两阶段运动生成流水线
+
+        Args:
+            scene: 3D场景点云 [B, N, 6] (x,y,z,r,g,b)
+            text: 语言描述
+            motion_length: 目标运动序列长度
+
+        Returns:
+            motion: 生成的人类运动 [B, T, 135]
+        """
+
+        # 第一阶段：预测可及性地图
+        affordance_map = self.predict_affordance(scene, text, motion_length)
+
+        # 第二阶段：在可及性条件下生成运动
+        motion = self.generate_motion(affordance_map, text, motion_length)
+
+        return motion
+
+    def predict_affordance(self, scene, text, seq_length):
+        """第一阶段：生成语言grounded的可及性地图"""
+        # 编码场景和文本
+        scene_features = self.affordance_encoder.scene_encoder(scene)
+        text_features = self.affordance_encoder.text_encoder(text)
+
+        # 从高斯噪声开始
+        noise = torch.randn(scene.size(0), seq_length, self.affordance_encoder.affordance_dim)
+
+        # 带文本条件的去噪过程
+        affordance_map = self.affordance_diffusion.denoise(
+            noise, scene_features, text_features, num_steps=50
+        )
+
+        return affordance_map
+
+    def generate_motion(self, affordance_map, text, seq_length):
+        """第二阶段：在可及性条件下生成运动"""
+        # 基于可及性进行运动生成条件化
+        affordance_condition = self.affordance_conditioner(affordance_map)
+
+        # 从高斯噪声开始
+        noise = torch.randn(affordance_map.size(0), seq_length, 135)
+
+        # 带可及性和文本条件的去噪
+        motion = self.motion_diffusion.denoise(
+            noise, affordance_condition, text, num_steps=50
+        )
+
+        return motion
+
+class AffordanceEncoder(nn.Module):
+    """将场景和文本编码为可及性表示"""
+
+    def __init__(self, scene_dim=6, affordance_dim=24):
+        super().__init__()
+        self.affordance_dim = affordance_dim
+
+        # 场景编码器(PointNet-like)
+        self.scene_encoder = nn.Sequential(
+            nn.Linear(scene_dim, 128),
+            nn.ReLU(),
+            nn.Linear(128, 256),
+            nn.ReLU(),
+            nn.AdaptiveMaxPool1d(1),
+            nn.Flatten(),
+            nn.Linear(256, 512)
+        )
+
+        # 文本编码器(CLIP-like)
+        self.text_encoder = nn.Sequential(
+            nn.Embedding(49408, 512),  # CLIP词汇表
+            nn.TransformerEncoder(
+                nn.TransformerEncoderLayer(512, 8, batch_first=True),
+                num_layers=6
+            ),
+            nn.AdaptiveAvgPool1d(1),
+            nn.Flatten()
+        )
+
+    def forward(self, scene, text):
+        scene_feat = self.scene_encoder(scene.transpose(1, 2))
+        text_feat = self.text_encoder(text)
+        return scene_feat, text_feat
+
+class AffordanceDiffusionModel(nn.Module):
+    """可及性地图生成的扩散模型"""
+
+    def __init__(self, affordance_dim=24):
+        super().__init__()
+        self.affordance_dim = affordance_dim
+
+        # 基于Perceiver的架构处理点云
+        self.latent_dim = 256
+        self.num_latents = 64
+
+        # 可学习的潜在查询
+        self.latents = nn.Parameter(torch.randn(self.num_latents, self.latent_dim))
+
+        # 交叉注意力层
+        self.cross_attn = nn.MultiheadAttention(self.latent_dim, 8, batch_first=True)
+        self.self_attn = nn.MultiheadAttention(self.latent_dim, 8, batch_first=True)
+
+        # 扩散时间步嵌入
+        self.time_embed = nn.Sequential(
+            nn.Linear(1, self.latent_dim),
+            nn.ReLU(),
+            nn.Linear(self.latent_dim, self.latent_dim)
+        )
+
+        # 去噪网络
+        self.denoise_net = UNet2DConditionModel(
+            sample_size=32,
+            in_channels=affordance_dim,
+            out_channels=affordance_dim,
+            layers_per_block=2,
+            block_out_channels=(128, 256, 512),
+            down_block_types=("DownBlock2D", "DownBlock2D", "DownBlock2D"),
+            up_block_types=("UpBlock2D", "UpBlock2D", "UpBlock2D"),
+        )
+
+    def denoise(self, noisy_affordance, scene_features, text_features, num_steps=50):
+        """可及性生成的去噪过程"""
+        scheduler = DDPMScheduler(num_train_timesteps=1000)
+
+        # 通过Perceiver处理场景和文本
+        scene_latents = self.process_scene(scene_features)
+        text_latents = self.process_text(text_features)
+
+        # 连接条件
+        conditions = torch.cat([scene_latents, text_latents], dim=1)
+
+        current_sample = noisy_affordance
+
+        for t in reversed(range(num_steps)):
+            timestep = torch.tensor([t / num_steps]).to(current_sample.device)
+
+            # 预测噪声
+            noise_pred = self.denoise_net(
+                current_sample.unsqueeze(-1).unsqueeze(-1),  # 添加空间维度
+                timestep,
+                encoder_hidden_states=conditions
+            ).sample.squeeze(-1).squeeze(-1)
+
+            # 去噪步骤
+            current_sample = scheduler.step(noise_pred, t, current_sample).prev_sample
+
+        return current_sample
+
+    def process_scene(self, scene_features):
+        """通过Perceiver处理场景特征"""
+        batch_size = scene_features.size(0)
+        latents = self.latents.unsqueeze(0).repeat(batch_size, 1, 1)
+
+        # 与场景交叉注意力
+        attended, _ = self.cross_attn(latents, scene_features, scene_features)
+        attended, _ = self.self_attn(attended, attended, attended)
+
+        return attended
+
+    def process_text(self, text_features):
+        """通过Perceiver处理文本特征"""
+        batch_size = text_features.size(0)
+        latents = self.latents.unsqueeze(0).repeat(batch_size, 1, 1)
+
+        # 与文本交叉注意力
+        attended, _ = self.cross_attn(latents, text_features, text_features)
+        attended, _ = self.self_attn(attended, attended, attended)
+
+        return attended
+
+class MotionDiffusionModel(nn.Module):
+    """基于可及性条件的运动生成扩散模型"""
+
+    def __init__(self, motion_dim=135):
+        super().__init__()
+
+        # 可及性条件化
+        self.affordance_proj = nn.Sequential(
+            nn.Linear(24, 256),
+            nn.ReLU(),
+            nn.Linear(256, motion_dim)
+        )
+
+        # 运动扩散网络
+        self.motion_net = UNet2DConditionModel(
+            sample_size=32,
+            in_channels=motion_dim,
+            out_channels=motion_dim,
+            layers_per_block=2,
+            block_out_channels=(128, 256, 512),
+            down_block_types=("DownBlock2D", "DownBlock2D", "DownBlock2D"),
+            up_block_types=("UpBlock2D", "UpBlock2D", "UpBlock2D"),
+        )
+
+        # 文本条件化
+        self.text_encoder = nn.Sequential(
+            nn.Embedding(49408, 512),
+            nn.AdaptiveAvgPool1d(1),
+            nn.Flatten(),
+            nn.Linear(512, motion_dim)
+        )
+
+    def denoise(self, noisy_motion, affordance_condition, text, num_steps=50):
+        """运动生成的去噪过程"""
+        scheduler = DDPMScheduler(num_train_timesteps=1000)
+
+        # 处理条件
+        affordance_cond = self.affordance_proj(affordance_condition)
+        text_cond = self.text_encoder(text)
+
+        # 组合条件
+        combined_condition = affordance_cond + text_cond
+
+        current_sample = noisy_motion
+
+        for t in reversed(range(num_steps)):
+            timestep = torch.tensor([t / num_steps]).to(current_sample.device)
+
+            # 带条件预测噪声
+            noise_pred = self.motion_net(
+                current_sample.unsqueeze(-1).unsqueeze(-1),
+                timestep,
+                encoder_hidden_states=combined_condition.unsqueeze(1)
+            ).sample.squeeze(-1).squeeze(-1)
+
+            # 去噪步骤
+            current_sample = scheduler.step(noise_pred, t, current_sample).prev_sample
+
+        return current_sample
+
+# 训练和推理
+def train_affordance_motion(model, train_dataset):
+    """两阶段模型的训练流水线"""
+
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+    scheduler = DDPMScheduler(num_train_timesteps=1000)
+
+    for epoch in range(100):
+        for batch in train_dataset:
+            scene, text, gt_motion = batch['scene'], batch['text'], batch['motion']
+
+            # 从真实运动计算可及性地图
+            affordance_map = compute_affordance_from_motion(scene, gt_motion)
+
+            # 第一阶段：训练可及性预测
+            pred_affordance = model.predict_affordance(scene, text, gt_motion.size(1))
+            affordance_loss = F.mse_loss(pred_affordance, affordance_map)
+
+            # 第二阶段：训练运动生成
+            pred_motion = model.generate_motion(affordance_map, text, gt_motion.size(1))
+            motion_loss = F.mse_loss(pred_motion, gt_motion)
+
+            # 组合损失
+            total_loss = affordance_loss + motion_loss
+
+            optimizer.zero_grad()
+            total_loss.backward()
+            optimizer.step()
+
+    return model
+
+def compute_affordance_from_motion(scene, motion):
+    """从真实运动和场景计算可及性地图"""
+    # 从运动中提取关节位置
+    joint_positions = motion.view(motion.size(0), motion.size(1), -1, 3)  # [B, T, J, 3]
+
+    # 计算关节与场景点之间的距离场
+    scene_points = scene[:, :, :3]  # [B, N, 3]
+
+    distances = []
+    for t in range(motion.size(1)):
+        joint_pos_t = joint_positions[:, t]  # [B, J, 3]
+        dist_t = torch.cdist(joint_pos_t, scene_points)  # [B, J, N]
+        distances.append(dist_t)
+
+    # 堆叠并计算可及性
+    distance_field = torch.stack(distances, dim=1)  # [B, T, J, N]
+
+    # 归一化为可及性地图
+    affordance_map = torch.exp(-distance_field / 0.5)  # 高斯衰减
+    affordance_map = affordance_map.mean(dim=-1)  # 对场景点求平均
+
+    return affordance_map
+
+# 使用示例
+if __name__ == "__main__":
+    model = AffordanceMotion()
+
+    # 训练
+    model = train_affordance_motion(model, train_dataset)
+
+    # 推理
+    scene = load_3d_scene("living_room.ply")
+    text = "一个人走到椅子旁边坐下来"
+
+    generated_motion = model(scene, text)
+    print(f"生成了运动: {generated_motion.shape}")  # [B, T, 135]</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://afford-motion.github.io" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Website
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

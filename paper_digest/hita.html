@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Holistic Tokenizer for Autoregressive Image Generation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Anlin Zheng, Haochen Wang, Yucheng Zhao, Weipeng Deng, Tiancai Wang, Xiangyu Zhang, Xiaojuan Qi<br>
+        <span style="opacity:0.8">The University of Hong Kong, NLPR CASIA, Dexmal, StepFun, MEGVII Technology</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to design an image tokenizer that captures holistic global information to improve autoregressive image generation while maintaining compatibility with causal attention mechanisms?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何设计一个能够捕获整体全局信息的图像分词器，以改善自回归图像生成，同时保持与因果注意力机制的兼容性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hita Framework:</b> Pioneering holistic tokenizer that captures global image properties through learnable queries enhanced with DINOv2 semantic features, enabling better autoregressive image generation with improved global coherence.</div>
+            <div class="lang-zh" style="display:none"><b>Hita框架：</b>开创性的整体分词器，通过可学习查询捕获全局图像属性，并通过DINOv2语义特征增强，实现更好的自回归图像生成和改进的全局连贯性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Sequential Token Structure:</b> Novel token arrangement with holistic tokens preceding patch tokens, using causal attention to maintain awareness of global context and align with autoregressive generation paradigm.</div>
+            <div class="lang-zh" style="display:none"><b>顺序令牌结构：</b>新颖的令牌排列方式，整体令牌位于补丁令牌之前，使用因果注意力保持对全局上下文的感知，并与自回归生成范式对齐。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Token Fusion Module:</b> Lightweight fusion mechanism that prioritizes holistic tokens and controls information flow before decoding, preventing codebook collapse and improving reconstruction quality.</div>
+            <div class="lang-zh" style="display:none"><b>令牌融合模块：</b>轻量级融合机制，在解码之前优先处理整体令牌并控制信息流，防止代码本崩溃并提高重建质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Zero-Shot Capabilities:</b> Emergent abilities for style transfer and image inpainting without task-specific training, demonstrating holistic tokens' ability to capture semantic and global image properties.</div>
+            <div class="lang-zh" style="display:none"><b>零样本能力：</b>无需任务特定训练即可实现风格迁移和图像修复的新兴能力，展示了整体令牌捕获语义和全局图像属性的能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> State-of-the-art results on ImageNet (FID 2.59, IS 281.9) with 2.1x faster training convergence, outperforming models with larger parameter counts while maintaining simplicity.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在ImageNet上的最先进结果（FID 2.59，IS 281.9），训练收敛速度提高2.1倍，在保持简单性的同时超越具有更大参数数量的模型。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/hita_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('iccv2025_hita.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('iccv2025_hita.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/hita_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('iccv2025_hita.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('iccv2025_hita.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Global Context:</b> Existing patch-level tokenizers fail to capture holistic image properties like color, texture, material, and shape, limiting semantic coherence in autoregressive generation.</div>
+            <div class="lang-zh" style="display:none"><b>有限的全局上下文：</b>现有的补丁级分词器无法捕获整体图像属性，如颜色、纹理、材质和形状，限制了自回归生成中的语义连贯性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Causal Attention Limitations:</b> Sequential token prediction in AR models struggles to maintain global coherence when relying on spatially structured patch tokens without holistic guidance.</div>
+            <div class="lang-zh" style="display:none"><b>因果注意力限制：</b>AR模型中的顺序令牌预测在依赖空间结构化的补丁令牌而没有整体指导时难以维持全局连贯性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Codebook Collapse:</b> Separate quantization of holistic and patch features can lead to trivial solutions where holistic tokens are ignored, causing codebook utilization issues.</div>
+            <div class="lang-zh" style="display:none"><b>代码本崩溃：</b>整体特征和补丁特征的单独量化可能导致整体令牌被忽略的平凡解决方案，造成代码本利用率问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training Inefficiency:</b> Lack of holistic information increases learning difficulties and slows convergence in autoregressive image generation models.</div>
+            <div class="lang-zh" style="display:none"><b>训练低效：</b>缺乏整体信息会增加自回归图像生成模型的学习难度并减缓收敛速度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Zero-Shot Task Limitations:</b> Patch-based tokenizers lack the semantic understanding needed for zero-shot style transfer and image inpainting without task-specific fine-tuning.</div>
+            <div class="lang-zh" style="display:none"><b>零样本任务限制：</b>基于补丁的分词器缺乏语义理解，无法在无需任务特定微调的情况下进行零样本风格迁移和图像修复。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Holistic Feature Extraction:</b> Learnable queries capture global properties from patch-level embeddings enhanced with DINOv2 semantic features, using transformers to integrate holistic and local information in a causal sequence.</div>
+            <div class="lang-zh" style="display:none"><b>整体特征提取：</b>可学习查询从补丁级嵌入中捕获全局属性，并通过DINOv2语义特征增强，使用变换器在因果序列中集成整体和局部信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Separate Vector Quantization:</b> Independent codebooks for holistic and patch tokens with ℓ2-normalization, using lower dimension for patches and higher for holistic features to improve reconstruction and utilization.</div>
+            <div class="lang-zh" style="display:none"><b>单独向量量化：</b>整体和补丁令牌的独立代码本，使用ℓ2归一化，对补丁使用较低维度，对整体特征使用较高维度，以提高重建和利用率。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Causal Token Fusion:</b> Ordered sequence with holistic tokens first, followed by patch tokens, processed through causal transformers to prioritize holistic information and prevent codebook collapse.</div>
+            <div class="lang-zh" style="display:none"><b>因果令牌融合：</b>整体令牌在前、补丁令牌在后的有序序列，通过因果变换器处理以优先考虑整体信息并防止代码本崩溃。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>AR Generation Integration:</b> Seamless integration with standard AR transformers like Llama, generating holistic tokens as prefix prompts followed by patch tokens, maintaining causal attention compatibility.</div>
+            <div class="lang-zh" style="display:none"><b>AR生成集成：</b>与标准AR变换器（如Llama）无缝集成，将整体令牌作为前缀提示生成，然后生成补丁令牌，保持因果注意力兼容性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training and Optimization:</b> Joint training with VQGAN-style losses including reconstruction, perceptual, and adversarial terms, with separate quantization losses for holistic and patch features.</div>
+            <div class="lang-zh" style="display:none"><b>训练和优化：</b>使用VQGAN风格的损失进行联合训练，包括重建、感知和对抗项，以及整体和补丁特征的单独量化损失。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Holistic Token Benefits:</b> Holistic tokens capture semantic-level properties enabling zero-shot style transfer and inpainting, providing global guidance that patch-based approaches lack.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>整体令牌的好处：</b>整体令牌捕获语义级属性，实现零样本风格迁移和修复，提供基于补丁的方法所缺乏的全局指导。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Causal Attention Alignment:</b> Sequential structure with holistic prefix tokens naturally aligns with autoregressive generation, improving global coherence without modifying AR architectures.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>因果注意力对齐：</b>具有整体前缀令牌的顺序结构自然与自回归生成对齐，在不修改AR架构的情况下提高全局连贯性。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Training Efficiency:</b> Holistic guidance accelerates convergence by providing global context early in the generation process, reducing the learning burden on sequential prediction.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>训练效率：</b>整体指导通过在生成过程早期提供全局上下文来加速收敛，减少顺序预测的学习负担。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because Hita bridges the gap between patch-level tokenization and global semantic understanding by introducing holistic queries that capture high-level image properties. The causal fusion mechanism ensures that global context is maintained throughout the generation process, enabling autoregressive models to generate coherent content that goes beyond local patch dependencies.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为Hita通过引入捕获高级图像属性的整体查询，弥合了补丁级分词和全局语义理解之间的差距。因果融合机制确保全局上下文在整个生成过程中保持，使自回归模型能够生成超越局部补丁依赖的连贯内容。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces Hita, a novel holistic tokenizer designed specifically for autoregressive image generation. By introducing learnable holistic queries enhanced with semantic features from foundation models and a causal token fusion mechanism, Hita captures global image properties while maintaining compatibility with causal attention in AR models. The framework achieves state-of-the-art performance on ImageNet with FID 2.59 and IS 281.9, while accelerating training convergence by 2.1x. Additionally, Hita enables zero-shot style transfer and image inpainting capabilities without task-specific training, demonstrating the power of holistic representations in improving both generation quality and semantic coherence.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了Hita，一种专为自回归图像生成设计的新颖整体分词器。通过引入通过基础模型语义特征增强的可学习整体查询和因果令牌融合机制，Hita捕获全局图像属性，同时保持与AR模型中因果注意力的兼容性。该框架在ImageNet上实现了最先进的性能，FID为2.59，IS为281.9，同时将训练收敛速度提高2.1倍。此外，Hita无需任务特定训练即可实现零样本风格迁移和图像修复能力，展示了整体表示在提高生成质量和语义连贯性方面的强大作用。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/CVMI-Lab/Hita" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repository
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

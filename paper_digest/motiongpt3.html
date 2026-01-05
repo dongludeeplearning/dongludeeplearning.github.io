@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">MotionGPT3: Human Motion as a Second Modality</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Bingfan Zhu, Biao Jiang, Sunyi Wang, Shixiang Tang, Tao Chen, Linjie Luo, Youyi Zheng, Xin Chen <br>
+        <span style="opacity:0.8">Fudan University & Tencent PCG</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> Existing multimodal frameworks suffer from quantization errors and cross-modal interference; how to build a stable, high-fidelity unified model for both motion understanding and generation?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>现有的多模态框架遭受量化误差和跨模态干扰；如何构建一个稳定、高保真的统一模型，既能理解运动又能生成运动？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Continuous Motion Encoding:</b> Replaced discrete quantization with a continuous latent space using VAE, eliminating quantization artifacts and improving fidelity.</div>
+            <div class="lang-zh" style="display:none"><b>连续运动编码：</b>使用 VAE 的连续潜在空间取代了离散量化，消除了量化伪影并提高了保真度。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual-Stream Transformer:</b> Designed a dual-stream backbone with shared attention to preserve modality-specific features while enabling controlled bidirectional information flow.</div>
+            <div class="lang-zh" style="display:none"><b>双流 Transformer：</b>设计了具有共享注意力的双流主干，以保留特定模态的特征，同时实现受控的双向信息流。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Efficient & Stable Training:</b> Proposed a "generate-then-align" three-stage training schedule that accelerates convergence (2x faster training, 4x faster validation) and stabilizes optimization.</div>
+            <div class="lang-zh" style="display:none"><b>高效且稳定的训练：</b>提出了“先生成后对齐”的三阶段训练计划，加速了收敛（训练快 2 倍，验证快 4 倍）并稳定了优化过程。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/MotionGPT3_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Quantization Errors:</b> Previous methods (like MotionGPT) use discrete tokens, which cap the upper bound of motion reconstruction quality.</div>
+            <div class="lang-zh" style="display:none"><b>量化误差：</b>之前的方法（如 MotionGPT）使用离散 token，这限制了运动重建质量的上限。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Cross-Modal Interference:</b> Unifying discrete text and continuous motion in a single-stream backbone often leads to optimization instability and interference between modalities.</div>
+            <div class="lang-zh" style="display:none"><b>跨模态干扰：</b>在单流主干中统一离散文本和连续运动通常会导致优化不稳定和模态之间的干扰。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Continuous Latent Space:</b> Encode raw motion into a continuous latent space using a VAE, preserving fine-grained details better than discrete tokens.</div>
+            <div class="lang-zh" style="display:none"><b>连续潜在空间：</b>使用 VAE 将原始运动编码为连续潜在空间，比离散 token 更好地保留细粒度细节。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual-Stream Architecture:</b> Use two separate streams (one for text, one for motion) that interact through shared attention layers, allowing specific processing for each modality.</div>
+            <div class="lang-zh" style="display:none"><b>双流架构：</b>使用两个独立的流（一个用于文本，一个用于运动），通过共享注意力层进行交互，允许对每种模态进行特定处理。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Three-Stage Training:</b> 1. Motion VAE training; 2. Modality-specific pre-training (Generate); 3. Joint multi-modal alignment (Align).</div>
+            <div class="lang-zh" style="display:none"><b>三阶段训练：</b>1. 运动 VAE 训练；2. 特定模态预训练（生成）；3. 联合多模态对齐（对齐）。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/MotionGPT3_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Convergence Speed:</b> MotionGPT3 achieved 2x faster convergence in training loss and up to 4x faster convergence in validation compared to single-stream baselines.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>收敛速度：</b>与单流基线相比，MotionGPT3 在训练损失上的收敛速度快 2 倍，在验证上的收敛速度快 4 倍。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Performance:</b> Maintained or exceeded state-of-the-art performance on standard benchmarks for both motion understanding (captioning) and motion generation (text-to-motion).
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>性能：</b>在运动理解（描述）和运动生成（文生动）的标准基准测试中，保持或超过了最先进的性能。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Stability of Dual-Stream:</b>
+                Separating the processing paths for different modalities helps reduce the "noise" or interference that one modality might impose on another during early training stages.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>双流的稳定性：</b>
+                分离不同模态的处理路径有助于减少在训练早期阶段一种模态可能对另一种模态施加的“噪声”或干扰。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Continuous vs Discrete:</b>
+                Returning to continuous representation for motion (via VAE) proves to be superior for fidelity than the discrete token approach used in previous iterations, suggesting a hybrid approach is best.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>连续与离散：</b>
+                回归运动的连续表示（通过 VAE）被证明在保真度方面优于之前迭代中使用的离散 token 方法，这表明混合方法是最好的。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MotionGPT3 works by acknowledging the fundamental differences between language (discrete, symbolic) and motion (continuous, physics-based). Instead of forcing them into the same discrete mold, it gives each modality its own "lane" (dual streams) and representation format (continuous for motion, discrete for text), only allowing them to interact at strategic points (shared attention). This reduces conflict during learning and allows each modality to be modeled naturally.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                MotionGPT3 的有效性在于承认语言（离散、符号化）和运动（连续、基于物理）之间的根本差异。它没有强迫它们进入相同的离散模具，而是给予每个模态自己的“车道”（双流）和表示格式（运动为连续，文本为离散），只允许它们在战略点（共享注意力）进行交互。这减少了学习过程中的冲突，并允许自然地对每个模态进行建模。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.75;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">MotionGPT3 successfully addresses the limitations of quantization and cross-modal interference in unified motion-language models.</div>
+            <div class="lang-zh" style="display:none">MotionGPT3 成功解决了统一运动-语言模型中量化和跨模态干扰的局限性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">The dual-stream continuous approach sets a new standard for stability and efficiency in multi-modal training.</div>
+            <div class="lang-zh" style="display:none">双流连续方法为多模态训练的稳定性和效率树立了新标准。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <!-- No official code link found in snippet, using placeholder or repo if found -->
+        <a href="#" style="display:flex; align-items:center; gap:6px; color:#aeb7e6; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(255,255,255,0.1); padding:6px 12px; border-radius:8px; background:rgba(255,255,255,0.02); cursor:not-allowed;">
+          (Pending Release)
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual implementation of the Dual-Stream Transformer with shared attention.
+            </div>
+            <div class="lang-zh" style="display:none">
+                具有共享注意力的双流 Transformer 的概念实现。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">DualStreamBlock</span>(nn.Module):
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, x_text, x_motion):
+        <span style="color:#6a9955;"># 1. Self-Attention (Modality Specific)</span>
+        t_out = self.text_attn(x_text)
+        m_out = self.motion_attn(x_motion)
+        
+        <span style="color:#6a9955;"># 2. Shared/Cross Attention (Interaction)</span>
+        <span style="color:#6a9955;"># Allowing information flow between streams</span>
+        t_mixed, m_mixed = self.shared_attn(t_out, m_out)
+        
+        <span style="color:#6a9955;"># 3. Feed Forward</span>
+        return self.ffn_t(t_mixed), self.ffn_m(m_mixed)
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

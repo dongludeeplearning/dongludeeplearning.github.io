@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICLR 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xingchao Liu, Chengyue Gong, Qiang Liu<br>
+        <span style="opacity:0.8">University of Texas at Austin</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to learn neural ODE models that transport between distributions following straight paths, enabling unified, efficient solutions to generative modeling and domain transfer?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何学习神经ODE模型，使其沿着直线路径在分布之间传输，从而为生成建模和域转移提供统一、高效的解决方案？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Rectified Flow Framework:</b> Pioneering ODE-based approach that learns to transport between distributions following straight paths, providing a unified solution to generative modeling and domain transfer without requiring paired training data.</div>
+            <div class="lang-zh" style="display:none"><b>Rectified Flow框架：</b>开创性的基于ODE的方法，学习沿着直线路径在分布之间传输，为生成建模和域转移提供统一解决方案，无需配对训练数据。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Reflow for Straightening:</b> Recursive application of rectification produces increasingly straight flows that can be simulated exactly with single Euler steps, dramatically reducing inference computational costs compared to existing ODE/SDE methods.</div>
+            <div class="lang-zh" style="display:none"><b>Reflow直线化：</b>递归应用校正产生越来越直的流，可以用单个欧拉步骤精确模拟，与现有ODE/SDE方法相比，大大降低了推理计算成本。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Convex Transport Cost Reduction:</b> Theoretical guarantee that rectification reduces convex transport costs for all convex cost functions simultaneously, providing a Pareto-optimal improvement over arbitrary input couplings.</div>
+            <div class="lang-zh" style="display:none"><b>凸传输成本降低：</b>理论保证校正同时减少所有凸成本函数的凸传输成本，对任意输入耦合提供帕累托最优改进。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalable Training:</b> Simple nonlinear least squares optimization that scales to large models without introducing extra parameters beyond standard supervised learning, avoiding instability issues of GANs and likelihood issues of MLE.</div>
+            <div class="lang-zh" style="display:none"><b>可扩展训练：</b>简单的非线性最小二乘优化，可以扩展到大型模型，除了标准监督学习之外不引入额外参数，避免GAN的不稳定性问题和MLE的似然问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Empirical Performance:</b> State-of-the-art results on CIFAR-10 (FID 4.85, recall 0.51), image-to-image translation, and domain adaptation, with nearly straight flows yielding high-quality results using single discretization steps.</div>
+            <div class="lang-zh" style="display:none"><b>卓越的经验性能：</b>CIFAR-10上的最先进结果（FID 4.85，recall 0.51）、图像到图像翻译和域适应，几乎直线流使用单个离散步骤产生高质量结果。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/rectified_flow_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2209.03003.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2209.03003.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified Transport Framework:</b> Traditional methods treat generative modeling and domain transfer separately, requiring different approaches and lacking a unified mathematical framework for distribution transport problems.</div>
+            <div class="lang-zh" style="display:none"><b>统一传输框架：</b>传统方法将生成建模和域转移分开处理，需要不同的方法，缺乏分布传输问题的统一数学框架。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>High Inference Computational Cost:</b> Existing ODE/SDE-based continuous-time models require repeated neural network evaluations during inference, making them computationally expensive compared to one-step generative models.</div>
+            <div class="lang-zh" style="display:none"><b>高推理计算成本：</b>现有的基于ODE/SDE的连续时间模型在推理期间需要重复神经网络评估，与单步生成模型相比，使其计算成本高昂。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training Instability:</b> GANs suffer from numerical instability and mode collapse, while MLE methods are intractable for complex models and require special structures or variational approximations.</div>
+            <div class="lang-zh" style="display:none"><b>训练不稳定性：</b>GAN遭受数值不稳定性和模式崩溃，而MLE方法对于复杂模型是难以处理的，需要特殊结构或变分近似。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Theoretical Guarantees:</b> Existing diffusion methods lack clear theoretical understanding of their transport properties and require substantial hyperparameter tuning without principled guidance.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏理论保证：</b>现有的扩散方法缺乏对其传输性质的明确理论理解，需要大量超参数调整而没有原则性指导。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Non-Straight Path Issues:</b> Existing ODE/SDE methods follow curved trajectories that require fine time discretization, leading to suboptimal performance when using coarse discretization steps.</div>
+            <div class="lang-zh" style="display:none"><b>非直线路径问题：</b>现有的ODE/SDE方法遵循弯曲轨迹，需要精细的时间离散化，导致使用粗略离散步骤时性能次优。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Rectified Flow Formulation:</b> Learn ODE model dZt = v(Zt, t)dt that transports between distributions π0 and π1 by following straight paths connecting paired points as closely as possible, solved via simple nonlinear least squares optimization.</div>
+            <div class="lang-zh" style="display:none"><b>Rectified Flow公式化：</b>学习ODE模型dZt = v(Zt, t)dt，使其通过尽可能紧密地跟随连接配对点的直线路径在分布π0和π1之间传输，通过简单的非线性最小二乘优化求解。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Reflow for Straightening:</b> Recursive application of rectification Zk+1 = RectFlow((Zk_0, Zk_1)) produces increasingly straight flows that can be simulated with fewer discretization steps, theoretically guaranteed to reduce transport costs.</div>
+            <div class="lang-zh" style="display:none"><b>Reflow直线化：</b>递归应用校正Zk+1 = RectFlow((Zk_0, Zk_1))产生越来越直的流，可以用更少的离散化步骤模拟，理论上保证降低传输成本。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Theoretical Guarantees:</b> Rectification converts arbitrary couplings to deterministic couplings with provably non-increasing convex transport costs, while reflow progressively straightens paths towards zero discretization error.</div>
+            <div class="lang-zh" style="display:none"><b>理论保证：</b>校正将任意耦合转换为确定性耦合，具有可证明的非递增凸传输成本，而reflow逐步使路径变直，向零离散化误差发展。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalable Implementation:</b> Parameterize velocity field v with neural networks and optimize using stochastic gradient descent, enabling scaling to large models without extra parameters beyond standard supervised learning.</div>
+            <div class="lang-zh" style="display:none"><b>可扩展实现：</b>使用神经网络参数化速度场v，并使用随机梯度下降优化，实现扩展到大型模型，除了标准监督学习之外无需额外参数。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Connection to Existing Methods:</b> Framework unifies and clarifies relationships with probability flow ODEs and DDIM, showing that rectified flows with straight paths are computationally superior for fast inference.</div>
+            <div class="lang-zh" style="display:none"><b>与现有方法的联系：</b>框架统一并阐明了与概率流ODE和DDIM的关系，显示具有直线路径的校正流在快速推理方面具有计算优势。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Unified Transport Solution:</b> Rectified flow provides a unified mathematical framework for both generative modeling (π0: noise, π1: data) and domain transfer (π0, π1: different domains), eliminating the need for separate methodologies.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>统一传输解决方案：</b>校正流为生成建模（π0：噪声，π1：数据）和域转移（π0，π1：不同域）提供统一的数学框架，消除了对单独方法论的需求。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Straight Paths Advantage:</b> By following shortest paths between points, rectified flows can be simulated exactly without time discretization, bridging the gap between computationally expensive continuous-time models and efficient one-step models.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>直线路径优势：</b>通过跟随点之间的最短路径，校正流可以精确模拟而无需时间离散化，弥合了计算成本高的连续时间模型和高效单步模型之间的差距。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Theoretical Superiority:</b> Unlike optimal transport which optimizes specific cost functions, rectification reduces all convex transport costs simultaneously, providing a principled approach that doesn't require cost function specification.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>理论优越性：</b>与优化特定成本函数的最优传输不同，校正同时减少所有凸传输成本，提供了一种不需要指定成本函数的原则性方法。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because rectified flow transforms the challenging distribution transport problem into a simple supervised learning task of predicting straight paths, while the reflow procedure progressively eliminates discretization errors. This approach sidesteps the instability of adversarial training, the intractability of likelihood-based methods, and the computational bottlenecks of existing ODE/SDE models, delivering both theoretical guarantees and practical efficiency.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为校正流将具有挑战性的分布传输问题转换为预测直线路径的简单监督学习任务，而reflow过程逐步消除离散化误差。这种方法避开了对抗训练的不稳定性、基于似然的难以处理的方法以及现有ODE/SDE模型的计算瓶颈，同时提供理论保证和实际效率。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces rectified flow, a surprisingly simple yet powerful approach to learning neural ODE models for transporting between distributions. By learning to follow straight paths connecting paired points, rectified flow provides a unified solution to generative modeling and domain transfer that avoids the instability of GANs, the intractability of MLE methods, and the high computational costs of existing ODE/SDE models. The reflow procedure produces increasingly straight flows that can be simulated with single Euler steps while maintaining theoretical guarantees of reduced transport costs. Empirical results demonstrate state-of-the-art performance on CIFAR-10 (FID 4.85, recall 0.51), image-to-image translation, and domain adaptation, establishing rectified flow as a foundational framework for efficient and reliable distribution transport.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了校正流，这是一种令人惊讶的简单而强大的方法，用于学习神经ODE模型在分布之间传输。通过学习跟随连接配对点的直线路径，校正流为生成建模和域转移提供统一解决方案，避免了GAN的不稳定性、MLE方法的难以处理性以及现有ODE/SDE模型的高计算成本。Reflow过程产生越来越直的流，可以用单个欧拉步骤模拟，同时保持降低传输成本的理论保证。经验结果展示了CIFAR-10上的最先进性能（FID 4.85，recall 0.51）、图像到图像翻译和域适应，将校正流确立为高效可靠分布传输的基础框架。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/XingchaoLiu/RectifiedFlow" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repository
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

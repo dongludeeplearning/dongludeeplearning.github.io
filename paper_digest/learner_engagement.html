@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • arXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">A General Model for Detecting Learner Engagement: Implementation and Evaluation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Somayeh Malekshahi, Javad M. Kheyridoost, Omid Fatemi<br>
+        <span style="opacity:0.8">University of Tehran, Iran</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to develop a lightweight, general model that preserves temporal relationships in video sequences to detect learner engagement levels from facial expressions in e-learning environments?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何开发一个轻量级、通用的模型，在视频序列中保持时间关系，从面部表情在电子学习环境中检测学习者参与度水平？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>General Engagement Detection Framework:</b> Proposed a general, lightweight model for selecting and processing facial expression features to detect learner engagement levels while preserving sequential temporal relationships over time, handling variable-length video inputs effectively.</div>
+            <div class="lang-zh" style="display:none"><b>通用参与度检测框架：</b>提出一个通用、轻量级的模型，用于选择和处理面部表情特征来检测学习者参与度水平，同时保持时间上的顺序时间关系，有效处理可变长度的视频输入。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Adaptation Policy for Educational Context:</b> Developed an adaptation policy that utilizes affective states from the DAiSEE dataset to create new engagement labels, combining 'Engagement' and 'Confusion' states to improve model judgment specifically for educational scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>教育上下文的适应策略：</b>开发了一个适应策略，利用DAiSEE数据集中的情感状态创建新的参与度标签，结合"参与"和"困惑"状态来改善针对教育场景的模型判断。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Competitive Performance with Statistical Models:</b> Achieved 68.57% accuracy using KNN classifier on balanced data, outperforming state-of-the-art models while using lightweight statistical approaches instead of complex deep learning architectures, demonstrating efficiency in resource-constrained e-learning environments.</div>
+            <div class="lang-zh" style="display:none"><b>统计模型的竞争力：</b>使用KNN分类器在平衡数据上实现了68.57%的准确率，在使用轻量级统计方法而不是复杂深度学习架构的同时超越了最先进的模型，证明了在资源受限的电子学习环境中的效率。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Evaluation Framework:</b> Provided extensive evaluation on the DAiSEE dataset with multiple machine learning classifiers (KNN, XGBoost, MLP, SVM, Logistic Regression) and different affective state combinations, establishing a robust benchmark for learner engagement detection research.</div>
+            <div class="lang-zh" style="display:none"><b>综合评估框架：</b>在DAiSEE数据集上使用多种机器学习分类器(KNN、XGBoost、MLP、SVM、Logistic Regression)和不同的情感状态组合提供了广泛的评估，为学习者参与度检测研究建立了强大的基准。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/learner_engagement_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('learner_engagement_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('learner_engagement_arxiv2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Variable-Length Temporal Sequences:</b> Processing video sequences with varying frame counts while preserving sequential temporal dependencies, requiring methods to handle missing features and standardize input dimensions without losing critical temporal information.</div>
+            <div class="lang-zh" style="display:none"><b>可变长度时间序列：</b>在保持顺序时间依赖关系的同时处理具有不同帧数的视频序列，需要方法处理缺失特征并标准化输入维度而不丢失关键时间信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Imbalanced Dataset Adaptation:</b> Addressing class imbalance in affective state datasets like DAiSEE, where engagement levels are unevenly distributed, requiring adaptation policies that combine multiple affective states to create meaningful engagement labels for educational contexts.</div>
+            <div class="lang-zh" style="display:none"><b>不平衡数据集适应：</b>解决DAiSEE等情感状态数据集中的类别不平衡问题，其中参与度水平分布不均匀，需要适应策略来结合多种情感状态为教育上下文创建有意义的参与度标签。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Processing Requirements:</b> Developing lightweight models suitable for real-time engagement monitoring in synchronous e-learning environments, balancing accuracy with computational efficiency for practical deployment in educational settings.</div>
+            <div class="lang-zh" style="display:none"><b>实时处理要求：</b>开发适合同步电子学习环境中实时参与度监控的轻量级模型，在准确性和计算效率之间取得平衡，以在教育环境中进行实际部署。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Educational Context Relevance:</b> Creating engagement detection models that go beyond generic affective state recognition to incorporate educational psychology principles, considering how confusion and frustration can indicate engagement rather than disengagement in learning contexts.</div>
+            <div class="lang-zh" style="display:none"><b>教育上下文相关性：</b>创建超越通用情感状态识别的参与度检测模型，纳入教育心理学原则，考虑困惑和挫败如何在学习上下文中表示参与度而不是脱离。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Feature Selection and Importance:</b> Identifying and weighting facial expression features that are most relevant to learner engagement, considering that not all emotional states contribute equally to engagement assessment in educational scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>特征选择和重要性：</b>识别和加权最相关学习者参与度的面部表情特征，考虑并非所有情感状态在教育场景中的参与度评估中贡献相等。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Sequential Feature Processing:</b> Implemented a general framework that processes variable-length video sequences by selecting representative frames and extracting 7-dimensional emotion vectors (happy, neutral, surprised, disgusted, angry, fearful, sad) using a pre-trained CNN emotion detector.</div>
+            <div class="lang-zh" style="display:none"><b>顺序特征处理：</b>实现了一个通用框架，通过选择代表性帧并使用预训练CNN情感检测器提取7维情感向量（快乐、中性、惊讶、厌恶、生气、恐惧、悲伤）来处理可变长度视频序列。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Emotion Weighting and Encoding:</b> Applied weighted encoding to emotion features based on their true positive rates (happy: 0.9, neutral: 0.8, surprised: 0.77, disgusted: 0.62, angry: 0.5, fearful: 0.37, sad: 0.28) to prioritize more reliable emotion detections in engagement assessment.</div>
+            <div class="lang-zh" style="display:none"><b>情感加权和编码：</b>根据真实阳性率对情感特征应用加权编码（快乐：0.9，中性：0.8，惊讶：0.77，厌恶：0.62，生气：0.5，恐惧：0.37，悲伤：0.28），以在参与度评估中优先考虑更可靠的情感检测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Educational Adaptation Policy:</b> Developed adaptation policies that combine multiple affective states from DAiSEE dataset (Engagement + Confusion, Engagement + Frustration, etc.) to create more educationally relevant engagement labels, recognizing that confusion can indicate engaged learning states.</div>
+            <div class="lang-zh" style="display:none"><b>教育适应策略：</b>开发适应策略，结合DAiSEE数据集中的多种情感状态（参与+困惑，参与+挫败等）来创建更具教育相关性的参与度标签，认识到困惑可以表示参与的学习状态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Statistical Classification Models:</b> Employed multiple machine learning classifiers (KNN, XGBoost, MLP, SVM, Logistic Regression) for engagement detection, with KNN achieving the best performance of 68.57% accuracy using the Engagement+Confusion adaptation policy.</div>
+            <div class="lang-zh" style="display:none"><b>统计分类模型：</b>使用多种机器学习分类器(KNN、XGBoost、MLP、SVM、Logistic Regression)进行参与度检测，其中KNN使用参与+困惑适应策略实现了68.57%的最佳性能。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><div class="lang-en"><b>Data Balancing and Standardization:</b> Applied random under-sampling to balance imbalanced classes and standardization to normalize feature scales, ensuring robust performance across different affective state combinations and video lengths.</div>
+            <div class="lang-zh" style="display:none"><b>数据平衡和标准化：</b>应用随机欠采样来平衡不平衡的类别，并应用标准化来规范化特征尺度，确保在不同的情感状态组合和视频长度中实现稳健性能。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Educational Psychology Integration:</b> The work successfully bridges computer vision with educational psychology by recognizing that affective states like confusion and frustration can indicate engaged learning rather than disengagement, providing more nuanced engagement assessment for e-learning platforms.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Educational Psychology Integration:</b>这项工作通过认识到情感状态如困惑和挫败可以表示参与的学习而不是脱离，成功地将计算机视觉与教育心理学相结合，为电子学习平台提供了更细致的参与度评估。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Lightweight vs. Deep Learning Trade-off:</b> Demonstrates that statistical machine learning approaches can achieve competitive performance compared to complex deep architectures, offering practical advantages for deployment in resource-constrained educational environments.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Lightweight vs. Deep Learning Trade-off:</b>证明统计机器学习方法可以比复杂深度架构实现竞争力，为在资源受限的教育环境中部署提供了实际优势。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Temporal Processing Importance:</b> Emphasizes the critical role of preserving temporal relationships in video sequences, showing that frame-level averaging alone is insufficient for capturing the dynamic nature of learner engagement over time.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Temporal Processing Importance:</b>强调在视频序列中保持时间关系的关键作用，表明仅帧级平均不足以捕捉学习者参与度随时间变化的动态性质。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because the model combines computer vision feature extraction with educational psychology principles, recognizing that engagement is a complex temporal phenomenon that requires both technical processing and domain knowledge to interpret affective states correctly in learning contexts.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为该模型将计算机视觉特征提取与教育心理学原理相结合，认识到参与度是一个复杂的时间现象，需要技术和领域知识来在学习上下文中正确解释情感状态。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper presents a general, lightweight model for detecting learner engagement levels from facial expressions in e-learning videos. By preserving temporal relationships and implementing an adaptation policy that combines affective states relevant to education, the model achieves 68.57% accuracy using KNN classification. The approach demonstrates that statistical machine learning methods can compete with complex deep learning architectures while offering practical advantages for real-time deployment in educational environments.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文提出一个通用、轻量级的模型，用于从电子学习视频中的面部表情检测学习者参与度水平。通过保持时间关系并实施结合教育相关情感状态的适应策略，该模型使用KNN分类实现了68.57%的准确率。该方法证明统计机器学习方法可以与复杂深度学习架构竞争，同时为教育环境中的实时部署提供实际优势。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://arxiv.org/abs/2405.04251" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          arXiv
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

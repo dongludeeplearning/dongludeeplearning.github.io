@@ -1,0 +1,1588 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paper Digest Index</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box;}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background: radial-gradient(1200px 800px at 15% 10%, rgba(122,162,255,.18), transparent 60%),
+                  radial-gradient(1000px 700px at 80% 30%, rgba(139,255,207,.10), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    .app{
+      height:100%;
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:16px;
+      padding:16px;
+    }
+    .sidebar, .main{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      min-height:0;
+    }
+
+    /* Sidebar */
+    .sidebar-header{
+      padding:16px 16px 12px;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      background: rgba(0,0,0,.12);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .brand h1{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.3px;
+    }
+    .pill{
+      font-family: var(--mono);
+      font-size:12px;
+      padding:6px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      color:var(--muted);
+      background: rgba(255,255,255,.03);
+      white-space:nowrap;
+    }
+    .search{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .search input{
+      width:100%;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+    }
+    .search input::placeholder{color:rgba(232,236,255,.55);}
+    .list{
+      padding:10px;
+      overflow:auto;
+      height: calc(100% - 98px);
+    }
+    .item{
+      padding:12px 12px;
+      border:1px solid transparent;
+      border-radius:14px;
+      background: rgba(0,0,0,.12);
+      cursor:pointer;
+      transition: .15s ease;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      margin-bottom:10px;
+    }
+    .item:hover{transform: translateY(-1px); border-color: rgba(122,162,255,.35);}
+    .item.active{
+      border-color: rgba(122,162,255,.70);
+      background: linear-gradient(180deg, rgba(122,162,255,.18), rgba(0,0,0,.10));
+    }
+    .badge{
+      min-width:44px;
+      height:30px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--muted);
+    }
+    .meta{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width:0;
+    }
+    .meta .abbr{
+      font-family: var(--mono);
+      font-size:13px;
+      color: var(--text);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 250px;
+    }
+    .meta .desc{
+      font-size:12px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 250px;
+    }
+
+    /* Main */
+    .main-header{
+      padding:16px;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background: rgba(0,0,0,.12);
+    }
+    .main-title{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width:0;
+    }
+    .main-title h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .main-title .sub{
+      margin:0;
+      color: var(--muted);
+      font-size:12px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width: 60vw;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-shrink:0;
+    }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      padding:8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-size:12px;
+      transition: .15s ease;
+    }
+    .btn:hover{border-color: rgba(139,255,207,.6); transform: translateY(-1px);}
+    .content{
+      height: calc(100% - 66px);
+      overflow:auto;
+      padding:16px;
+      background: linear-gradient(180deg, rgba(0,0,0,.06), transparent);
+    }
+    .empty{
+      border:1px dashed rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      padding:18px;
+      color: var(--muted);
+      background: rgba(0,0,0,.12);
+      line-height:1.55;
+    }
+
+    /* Mobile */
+    @media (max-width: 920px){
+      .app{grid-template-columns: 1fr; grid-template-rows: 320px 1fr;}
+      .list{height: calc(100% - 98px);}
+      .main-title .sub{max-width: 100%;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <!-- LEFT: paper index -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <h1>📚 Paper Digest</h1>
+          <span class="pill" id="countPill">0 papers</span>
+        </div>
+        <div class="search">
+          <input id="searchInput" type="text" placeholder="搜索：标题缩写 / 年份 / 关键词..." />
+        </div>
+      </div>
+      <div class="list" id="paperList"></div>
+    </aside>
+
+    <!-- RIGHT: panel -->
+    <main class="main">
+      <div class="main-header">
+        <div class="main-title">
+          <h2 id="panelTitle">选择一篇论文</h2>
+          <p class="sub" id="panelSub">右侧会加载对应的 subpaper 页面（自动生成摘要 / 创新点 / 实验总结等）。</p>
+        </div>
+        <div class="actions">
+          <button class="btn" id="btnArxiv" style="display:none">ArXiv</button>
+          <button class="btn" id="btnPdf" style="display:none">PDF</button>
+        </div>
+      </div>
+
+      <div class="content" id="content">
+        <div class="empty" id="emptyState">
+          <b>你要做的“自动生成论文理解”项目建议这样组织：</b>
+          <ul>
+            <li>每篇论文一个 <code>subpaper/*.html</code> 页面（也可以后续改成 <code>.json</code> + 模板渲染）。</li>
+            <li>Index 左侧只放：<b>标题缩写 + 年份</b>，点击后右侧加载内容。</li>
+            <li>subpaper 页面结构：Title → 一句话问题 → 贡献 → 挑战 → 方法 → Overview 图 → 结论。</li>
+          </ul>
+          <div style="margin-top:10px;color:rgba(232,236,255,.7)">
+            ✅ 下面我给你一个示例 subpaper 页面文件，你复制到 <code>subpaper/demo_2022.html</code> 就能看到加载效果。
+          </div>
+        </div>
+        <iframe id="paperFrame" style="width:100%;height:100%;border:none;display:none;"></iframe>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // 你可以把这里替换成从 papers.json 读取
+    const PAPERS = [
+      {
+        id: "demo_2022",
+        abbr: "ControlNet (Adding Conditional Control)",
+        year: 2023,
+        note: "生成式：Stable Diffusion 的空间条件控制",
+        path: "controlnet.html",
+        arxiv: "https://arxiv.org/abs/2302.05543",
+        pdf: "https://arxiv.org/pdf/2302.05543.pdf",
+        topic: "Generative Models"
+      },
+      {
+        id: "demo_ddpm",
+        abbr: "DDPM (Denoising Diffusion Probabilistic Models)",
+        year: 2020,
+        note: "生成式：Diffusion Models 的奠基之作",
+        path: "ddpm.html",
+        arxiv: "https://arxiv.org/abs/2006.11239",
+        pdf: "https://arxiv.org/pdf/2006.11239.pdf",
+        topic: "Generative Models"
+      },
+      {
+        id: "mope",
+        abbr: "MoPE-BAF (Mixture-of-Prompt-Experts)",
+        year: 2024,
+        note: "MoE：Multi-modal prompt learning framework achieving SOTA on few-shot MSD/MSA with 150M params vs 8.2B InstructBLIP (ArXiv 2024)",
+        path: "mope.html",
+        arxiv: "https://arxiv.org/abs/2403.11311",
+        pdf: "pdfs/arxiv_mope.pdf",
+        topic: "MoE"
+      },
+      {
+        id: "demo_ldm",
+        abbr: "LDM (High-Resolution Image Synthesis with Latent Diffusion Models)",
+        year: 2022,
+        note: "生成式：Stable Diffusion 的基础模型",
+        path: "ldm.html",
+        arxiv: "https://arxiv.org/abs/2112.10752",
+        pdf: "https://arxiv.org/pdf/2112.10752.pdf",
+        topic: "Generative Models"
+      },
+      {
+        id: "rectified_flow",
+        abbr: "Rectified Flow (Straight Paths for Fast Generation)",
+        year: 2023,
+        note: "Generative Models: Unified ODE framework for generative modeling and domain transfer with straight paths and fast inference",
+        path: "rectified_flow.html",
+        arxiv: "https://arxiv.org/pdf/2209.03003",
+        pdf: "https://arxiv.org/pdf/2209.03003.pdf",
+        topic: "Generative Models"
+      },
+      {
+        id: "rectified_flow_transformers",
+        abbr: "Rectified Flow Transformers (High-Resolution Synthesis)",
+        year: 2024,
+        note: "Generative Models: Scaling rectified flow transformers for high-resolution text-to-image synthesis with improved noise sampling and multimodal architecture",
+        path: "rectified_flow_transformers.html",
+        arxiv: "https://arxiv.org/abs/2403.03206",
+        pdf: "https://arxiv.org/pdf/2403.03206.pdf",
+        topic: "Generative Models"
+      },
+      {
+        id: "ctf",
+        abbr: "CTF (Coarse-to-Fine Token Prediction)",
+        year: 2025,
+        note: "Generative Models: Coarse-to-fine token prediction framework that alleviates vocabulary redundancy in autoregressive image generation through hierarchical clustering and two-stage prediction",
+        path: "ctf.html",
+        arxiv: "https://arxiv.org/abs/2503.16194",
+        pdf: "https://arxiv.org/pdf/2503.16194.pdf",
+        topic: "Generative Models"
+      },
+      {
+        id: "hita",
+        abbr: "Hita (Holistic Tokenizer for AR Generation)",
+        year: 2025,
+        note: "Generative Models: Holistic-to-local tokenizer with learnable queries and causal fusion for improved AR image generation quality and training efficiency",
+        path: "hita.html",
+        arxiv: "https://openaccess.thecvf.com/content/ICCV2025/papers/Zheng_Holistic_Tokenizer_for_Autoregressive_Image_Generation_ICCV_2025_paper.pdf",
+        pdf: "https://openaccess.thecvf.com/content/ICCV2025/papers/Zheng_Holistic_Tokenizer_for_Autoregressive_Image_Generation_ICCV_2025_paper.pdf",
+        topic: "Generative Models"
+      },
+      {
+        id: "mmhops_r1",
+        abbr: "MMhops-R1 (Multimodal Multi-hop Reasoning)",
+        year: 2026,
+        note: "CoT Reasoning: RL-optimized multimodal retrieval-augmented generation framework for dynamic reasoning paths, achieving 51.35% accuracy on 31K-sample benchmark requiring 3-4 reasoning hops across visual and textual modalities (AAAI 2026)",
+        path: "mmhops_r1.html",
+        arxiv: "https://arxiv.org/pdf/2512.13573",
+        pdf: "pdfs/arxiv_mmhops_r1.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "chain_of_thought",
+        abbr: "Chain-of-Thought Prompting (CoT)",
+        year: 2022,
+        note: "CoT Reasoning: Revolutionary prompting technique that elicits multi-step reasoning in large language models, achieving state-of-the-art performance on arithmetic, commonsense, and symbolic reasoning tasks through intermediate reasoning steps",
+        path: "chain_of_thought.html",
+        arxiv: "https://arxiv.org/abs/2201.11903",
+        pdf: "pdfs/arxiv_chain_of_thought.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "least_to_most",
+        abbr: "Least-to-Most Prompting (ICLR 2023)",
+        year: 2023,
+        note: "CoT Reasoning: Advanced prompting strategy that decomposes complex problems into simpler subproblems and solves them sequentially, enabling generalization to harder problems than those seen in prompts, achieving 99%+ accuracy on SCAN benchmark",
+        path: "least_to_most.html",
+        arxiv: "https://arxiv.org/abs/2205.10625",
+        pdf: "pdfs/arxiv_least_to_most.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "self_consistency",
+        abbr: "Self-Consistency (ICLR 2023)",
+        year: 2023,
+        note: "CoT Reasoning: Novel decoding strategy that replaces greedy decoding with sampling diverse reasoning paths and selecting the most consistent answer, achieving +17.9% on GSM8K and +6.4% on StrategyQA",
+        path: "self_consistency.html",
+        arxiv: "https://arxiv.org/abs/2203.11171",
+        pdf: "pdfs/arxiv_self_consistency.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "plan_solve",
+        abbr: "Plan-and-Solve Prompting (ACL 2023)",
+        year: 2023,
+        note: "CoT Reasoning: Zero-shot prompting strategy that guides LLMs to first devise solution plans and then execute them step-by-step, addressing missing-step and calculation errors, achieving 76.7% average on math reasoning",
+        path: "plan_solve.html",
+        arxiv: "https://aclanthology.org/2023.acl-long.147/",
+        pdf: "pdfs/acl_plan_solve.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "tree_of_thoughts",
+        abbr: "Tree of Thoughts (NeurIPS 2023)",
+        year: 2023,
+        note: "CoT Reasoning: Revolutionary framework that enables LMs to perform deliberate problem solving by exploring multiple reasoning paths in a tree structure, achieving 74% success on Game of 24 and 78% accuracy on Mini Crosswords",
+        path: "tree_of_thoughts.html",
+        arxiv: "https://arxiv.org/abs/2305.10601",
+        pdf: "pdfs/arxiv_tree_of_thoughts.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "react",
+        abbr: "ReAct (ICLR 2023)",
+        year: 2023,
+        note: "CoT Reasoning: Framework that synergizes reasoning and acting by interleaving verbal reasoning traces with actionable steps, reducing hallucinations and achieving superior performance on QA, fact verification, and interactive decision-making tasks",
+        path: "react.html",
+        arxiv: "https://arxiv.org/abs/2210.03629",
+        pdf: "pdfs/arxiv_react.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "star",
+        abbr: "STaR (NeurIPS 2022)",
+        year: 2022,
+        note: "CoT Reasoning: Bootstrapping method that iteratively improves language models by generating rationales, filtering correct ones, and fine-tuning, achieving 72.5% on CommonsenseQA and strong results on arithmetic and math problems",
+        path: "star.html",
+        arxiv: "https://arxiv.org/abs/2203.14465",
+        pdf: "pdfs/arxiv_star.pdf",
+        topic: "CoT Reasoning"
+      },
+      {
+        id: "deepseek_r1",
+        abbr: "DeepSeek-R1 (RL for Reasoning)",
+        year: 2025,
+        note: "Post-Training: Pure reinforcement learning approach achieving OpenAI-o1 comparable performance through GRPO algorithm and self-evolution, with DeepSeek-R1-Zero demonstrating remarkable reasoning capabilities without supervised fine-tuning",
+        path: "deepseek_r1.html",
+        arxiv: "https://arxiv.org/abs/2501.12948",
+        pdf: "pdfs/arxiv_deepseek_r1.pdf",
+        topic: "Post-Training"
+      },
+      {
+        id: "aios",
+        abbr: "AiOS (All-in-One-Stage EHPS)",
+        year: 2024,
+        note: "3D Body & Object Regression: DETR-based end-to-end framework for expressive human pose and shape estimation without detection steps, using Human-as-Tokens paradigm",
+        path: "aios.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2024/papers/Sun_AiOS_All-in-One-Stage_Expressive_Human_Pose_and_Shape_Estimation_CVPR_2024_paper.pdf",
+        pdf: "pdfs/aios_cvpr2024.pdf",
+        topic: "3D Body & Object Regression"
+      },
+      {
+        id: "sam3d",
+        abbr: "SAM 3D (3Dfy Anything in Images)",
+        year: 2025,
+        note: "3D Body & Object Regression: Foundation model for visually grounded 3D object reconstruction predicting geometry, texture, and layout from single images using human-and-model-in-the-loop data pipeline",
+        path: "sam3d.html",
+        arxiv: "https://arxiv.org/abs/2511.16624",
+        pdf: "https://arxiv.org/pdf/2511.16624.pdf",
+        topic: "3D Body & Object Regression"
+      },
+      {
+        id: "mega",
+        abbr: "MEGA (Masked Generative Autoencoder for HMR)",
+        year: 2025,
+        note: "3D Body & Object Regression: Masked generative autoencoder for human mesh recovery with dual inference modes, using tokenized mesh representations for both deterministic and stochastic predictions",
+        path: "mega.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2025/papers/Fiche_MEGA_Masked_Generative_Autoencoder_for_Human_Mesh_Recovery_CVPR_2025_paper.pdf",
+        pdf: "pdfs/mega_cvpr2025.pdf",
+        topic: "3D Body & Object Regression"
+      },
+      {
+        id: "gaussianavatars",
+        abbr: "GaussianAvatars (Rigged 3D Gaussians)",
+        year: 2024,
+        note: "3D Gaussian: Photorealistic head avatars with 3D Gaussians rigged to parametric face models, enabling controllable animation with expression, pose, and viewpoint control",
+        path: "gaussianavatars.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2024/papers/Qian_GaussianAvatars_Photorealistic_Head_Avatars_with_Rigged_3D_Gaussians_CVPR_2024_paper.pdf",
+        pdf: "pdfs/gaussianavatars_cvpr2024.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "gaussiantalker",
+        abbr: "GaussianTalker (3DGS Talking Head)",
+        year: 2024,
+        note: "3D Gaussian: Real-time high-fidelity talking head synthesis with audio-driven 3D Gaussian Splatting achieving 120 FPS",
+        path: "gaussiantalker.html",
+        arxiv: "https://arxiv.org/abs/2404.16012",
+        pdf: "pdfs/gaussiantalker_arxiv2024.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "gagavatar",
+        abbr: "GAGAvatar (Generalizable Animatable Gaussian)",
+        year: 2024,
+        note: "3D Gaussian: Generalizable and animatable Gaussian head avatar for one-shot reconstruction with dual-lifting method achieving real-time reenactment",
+        path: "gagavatar.html",
+        arxiv: "https://arxiv.org/abs/2410.07971",
+        pdf: "pdfs/gagavatar_arxiv2024.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "talkinggaussian",
+        abbr: "TalkingGaussian (Structure-Persistent 3D Talking Head)",
+        year: 2024,
+        note: "3D Gaussian: Structure-persistent 3D talking head synthesis via deformation-based Gaussian Splatting with face-mouth decomposition for lip synchronization",
+        path: "talkinggaussian.html",
+        arxiv: "https://arxiv.org/abs/2404.15264",
+        pdf: "pdfs/talkinggaussian_arxiv2024.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "mggtalk",
+        abbr: "MGGTalk (Monocular Generalizable Gaussian)",
+        year: 2025,
+        note: "3D Gaussian: Monocular and generalizable Gaussian talking head animation using depth-aware symmetric geometry reconstruction and symmetric Gaussian prediction for real-time inference",
+        path: "mggtalk.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2025/papers/Gong_Monocular_and_Generalizable_Gaussian_Talking_Head_Animation_CVPR_2025_paper.pdf",
+        pdf: "pdfs/mggtalk_cvpr2025.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "street_gaussians",
+        abbr: "Street Gaussians (Dynamic Urban Scenes)",
+        year: 2024,
+        note: "3D Gaussian: Modeling dynamic urban street scenes with Gaussian Splatting, representing scenes as composable point clouds with optimizable tracked poses and 4D spherical harmonics for real-time rendering",
+        path: "street_gaussians.html",
+        arxiv: "https://arxiv.org/abs/2401.01339",
+        pdf: "pdfs/street_gaussians_arxiv2024.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "hugs",
+        abbr: "HUGS (Human Gaussian Splats)",
+        year: 2024,
+        note: "3D Gaussian: Animatable human avatars from monocular videos using 3D Gaussians with LBS weights for deformation, achieving 60 FPS rendering and 30-minute training from 50-100 frames",
+        path: "hugs.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2024/papers/Kocabas_HUGS_Human_Gaussian_Splats_CVPR_2024_paper.pdf",
+        pdf: "pdfs/hugs_cvpr2024.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "splattingavatar",
+        abbr: "SplattingAvatar (Mesh-Embedded Gaussian)",
+        year: 2024,
+        note: "3D Gaussian: Realistic real-time human avatars with Gaussian Splatting embedded on triangle meshes, achieving over 300 FPS on GPU and 30 FPS on mobile devices",
+        path: "splattingavatar.html",
+        arxiv: "https://arxiv.org/abs/2403.05087",
+        pdf: "pdfs/splattingavatar_arxiv2024.pdf",
+        topic: "3D Gaussian"
+      },
+      {
+        id: "affective_xai",
+        abbr: "Affective XAI (Facial Affect Analysis)",
+        year: 2021,
+        note: "Affective Analysis: Facial affect analysis for understanding explainable human-AI interactions, identifying AU1/AU4/arousal as markers of explanation efficacy, multitask embedding correlating with subjective user perceptions",
+        path: "affective_xai.html",
+        arxiv: "https://openaccess.thecvf.com/content/ICCV2021W/RPRMI/papers/Guerdan_Toward_Affective_XAI_Facial_Affect_Analysis_for_Understanding_Explainable_Human-AI_ICCVW_2021_paper.pdf",
+        pdf: "pdfs/iccv_affective_xai.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "far_planner",
+        abbr: "FAR Planner (Fast Attemptable Route Planner)",
+        year: 2021,
+        note: "Robotics: Visibility graph-based planner with dynamic updates for unknown environments, two-layered polygon extraction and graph construction, achieving 12-47% travel time reduction over A*, D* Lite, RRT*, BIT*, SPARS in ground and aerial navigation",
+        path: "far_planner.html",
+        arxiv: "https://arxiv.org/abs/2110.09460",
+        pdf: "pdfs/arxiv_far_planner.pdf",
+        topic: "Robotics"
+      },
+      {
+        id: "uad_affordance",
+        abbr: "UAD (Unsupervised Affordance Distillation)",
+        year: 2025,
+        note: "Robotics: Unsupervised affordance distillation from foundation models for robotic manipulation generalization, task-conditioned affordance prediction using FiLM atop DINOv2, imitation learning with affordance as observation space achieving few-shot generalization",
+        path: "uad_affordance.html",
+        arxiv: "https://arxiv.org/abs/2506.09284",
+        pdf: "pdfs/arxiv_uad_affordance.pdf",
+        topic: "Robotics"
+      },
+      {
+        id: "faba_instruction_tuning",
+        abbr: "FABA Instruction Tuning (EmoLA)",
+        year: 2024,
+        note: "Affective Analysis: Facial affective behavior analysis with instruction tuning using MLLMs, FABA-Instruct dataset with GPT-4V annotations, and EmoLA model with facial prior expert achieving SOTA on FER and AUR tasks",
+        path: "faba_instruction_tuning.html",
+        arxiv: "https://arxiv.org/abs/2404.05052",
+        pdf: "pdfs/arxiv_faba_instruction_tuning.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "optimizing_student_engagement",
+        abbr: "Optimizing Student Engagement Detection",
+        year: 2025,
+        note: "Affective Analysis: Direct mapping of facial action units to engagement labels using statistical metrics (conditional probability, RAR, SDC), multimodal ML/DL with XGBoost 82.9% and EfficientNet 47.2% accuracy on WACV/DAiSEE datasets",
+        path: "optimizing_student_engagement.html",
+        arxiv: "https://link.springer.com/article/10.1007/s00521-025-11317-z",
+        pdf: "pdfs/Optimizing student engagement.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "stem_engagement",
+        abbr: "Real-Time STEM Engagement Platform",
+        year: 2023,
+        note: "Affective Analysis: Biometric sensor network with web cameras and HPC for real-time behavioral/emotional engagement measurement in STEM classrooms, superior to SOTA frameworks with enhanced flexibility",
+        path: "stem_engagement.html",
+        arxiv: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9919426/",
+        pdf: "pdfs/pmc_stem_engagement.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "facial_landmarks_stgcn",
+        abbr: "ST-GCN Facial Landmark Engagement",
+        year: 2024,
+        note: "Affective Analysis: Privacy-preserving engagement measurement using facial landmarks and ST-GCNs with ordinal transfer learning, achieving 3.1% accuracy improvement on EngageNet and Grad-CAM interpretability",
+        path: "facial_landmarks_stgcn.html",
+        arxiv: "https://arxiv.org/pdf/2403.17175v2",
+        pdf: "pdfs/arxiv_facial_landmarks_engagement.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "text_driven_clef",
+        abbr: "CLEF (Text-Driven Contrastive Learning)",
+        year: 2023,
+        note: "Affective Analysis: Weakly-supervised text-driven contrastive learning using activity descriptions for facial behavior understanding, achieving SOTA on BP4D, DISFA, and FER datasets with CLIP-based vision-text framework",
+        path: "text_driven_clef.html",
+        arxiv: "https://openaccess.thecvf.com/content/ICCV2023/papers/Zhang_Weakly-Supervised_Text-Driven_Contrastive_Learning_for_Facial_Behavior_Understanding_ICCV_2023_paper.pdf",
+        pdf: "pdfs/iccv2023_weakly_supervised_text_driven.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "explainable_fau",
+        abbr: "VL-FAU (Explainable Facial AU Recognition)",
+        year: 2024,
+        note: "Affective Analysis: End-to-end vision-language joint learning for explainable facial action unit recognition, achieving 66.5% F1-score on DISFA and providing interpretable language descriptions of AU states",
+        path: "explainable_fau.html",
+        arxiv: "https://dl.acm.org/doi/epdf/10.1145/3664647.3681443",
+        pdf: "pdfs/3664647.3681443.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "learner_engagement",
+        abbr: "Learner Engagement Detection",
+        year: 2024,
+        note: "Affective Analysis: General model for detecting learner engagement levels from facial expressions in e-learning videos using DAiSEE dataset, achieving 68.57% accuracy with KNN classifier",
+        path: "learner_engagement.html",
+        arxiv: "https://arxiv.org/abs/2405.04251",
+        pdf: "pdfs/learner_engagement_arxiv2024.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "student_engagement_dataset",
+        abbr: "Student Engagement Dataset",
+        year: 2021,
+        note: "Affective Analysis: Dataset of college students solving math problems on MathSpring with engagement annotations (screen/paper/wandering), baselines achieving 94% accuracy with deep learning models",
+        path: "student_engagement_dataset.html",
+        arxiv: "https://openaccess.thecvf.com/content/ICCV2021W/ABAW/papers/Delgado_Student_Engagement_Dataset_ICCVW_2021_paper.pdf",
+        pdf: "pdfs/student_engagement_dataset_iccv2021.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "classroom_group_engagement_dataset",
+        abbr: "OUC Classroom Group Engagement Dataset",
+        year: 2025,
+        note: "Affective Analysis: First benchmark dataset for group engagement recognition in authentic classrooms, containing 7,705 annotated video clips from undergraduate students, achieving 97.8% accuracy with SLOW model",
+        path: "classroom_group_engagement_dataset.html",
+        arxiv: "https://www.nature.com/articles/s41597-025-04987-w",
+        pdf: "pdfs/classroom_group_engagement_dataset_nature2025.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "dipser",
+        abbr: "DIPSER (In-Person Student Engagement)",
+        year: 2025,
+        note: "Affective Analysis: Multimodal dataset with RGB cameras and smartwatch sensors for in-person student engagement recognition, containing 1.3M images from 54 students across 9 educational scenarios",
+        path: "dipser.html",
+        arxiv: "https://arxiv.org/abs/2502.20209",
+        pdf: "pdfs/dipser_arxiv2025.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "frame_level_engagement",
+        abbr: "Frame-Level Engagement Classification",
+        year: 2024,
+        note: "Affective Analysis: Enhancing frame-level student engagement classification through knowledge transfer techniques, using WACV base dataset for pretraining and DAiSEE target dataset for fine-tuning, achieving improved engagement detection at granular level",
+        path: "frame_level_engagement.html",
+        arxiv: "https://link.springer.com/article/10.1007/s10489-023-05256-2",
+        pdf: "pdfs/frame_level_engagement_springer2024.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "engagement_prediction",
+        abbr: "Facial Feature Engagement Prediction",
+        year: 2025,
+        note: "Affective Analysis: Predicting learners' engagement and help-seeking behaviors using facial expressions and head pose features, achieving 0.69-0.93 accuracy with LightGBM, AU02/AU23/AU04 important for engagement, AU04/AU23/AU14 for help-seeking",
+        path: "engagement_prediction.html",
+        arxiv: "https://www.sciencedirect.com/science/article/pii/S2666920X2500027X",
+        pdf: "pdfs/1-s2.0-S2666920X2500027X-main.pdf",
+        topic: "Affective Analysis"
+      },
+      {
+        id: "emotion_qwen",
+        abbr: "Emotion-Qwen (Unified Emotion-Vision Framework)",
+        year: 2025,
+        note: "MoE: Unified multimodal framework with MoE-based Hybrid Compressor for emotion understanding and VL reasoning, VER dataset with 40K+ bilingual video clips, SOTA on emotion recognition while preserving general VL capabilities",
+        path: "emotion_qwen.html",
+        arxiv: "https://arxiv.org/abs/2505.06685",
+        pdf: "pdfs/arxiv_emotion_qwen.pdf",
+        topic: "MoE"
+      },
+      {
+        id: "grpo_rm",
+        abbr: "GRPO-RM (GRPO for Representation Models)",
+        year: 2025,
+        note: "Post-Training: First adaptation of GRPO algorithm from LLM fine-tuning to representation learning, using predefined output sets and specialized rewards for post-training DINOv2, achieving 4.26% accuracy improvement on OOD datasets",
+        path: "grpo_rm.html",
+        arxiv: "https://arxiv.org/abs/2511.15256v1",
+        pdf: "pdfs/arxiv_grpo_rm.pdf",
+        topic: "Post-Training"
+      },
+      {
+        id: "ai_personhood",
+        abbr: "A Pragmatic View of AI Personhood",
+        year: 2025,
+        note: "Social Intelligence: Pragmatic framework treating personhood as flexible bundle of obligations for AI governance, unbundling rights/responsibilities for bespoke solutions, rejecting essentialist definitions based on consciousness/rationality",
+        path: "ai_personhood.html",
+        arxiv: "https://arxiv.org/abs/2510.26396",
+        pdf: "pdfs/arxiv_ai_personhood.pdf",
+        topic: "Social Intelligence"
+      },
+      {
+        id: "demo_facetalk",
+        abbr: "FaceTalk (NPHM Motion Diffusion)",
+        year: 2024,
+        note: "FaceTalk: Audio-Driven Motion Diffusion for Neural Parametric Head Models",
+        path: "facetalk.html",
+        arxiv: "https://arxiv.org/abs/2312.08459",
+        pdf: "https://arxiv.org/pdf/2312.08459.pdf",
+        topic: "Audio-Driven Face"
+      },
+      {
+        id: "demo_unitalker",
+      abbr: "UniTalker (Unified Model for Scaling)",
+      year: 2024,
+      note: "Audio-Driven Face: Scaling up training with multi-head architecture and diverse datasets",
+      path: "unitalker.html",
+      arxiv: "https://arxiv.org/abs/2408.00762",
+      pdf: "https://arxiv.org/pdf/2408.00762.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_voca",
+      abbr: "VOCA (Voice Operated Animation)",
+      year: 2019,
+      note: "Audio-Driven Face: Pioneering 3D facial animation from speech",
+      path: "voca.html",
+      arxiv: "https://arxiv.org/abs/1905.03079",
+      pdf: "https://arxiv.org/pdf/1905.03079.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_sadtalker",
+      abbr: "SadTalker (Stylized Audio-Driven)",
+      year: 2023,
+      note: "Audio-Driven Face: 3D motion coefficients for realistic talking head generation",
+      path: "sadtalker.html",
+      arxiv: "https://arxiv.org/abs/2211.12194",
+      pdf: "https://arxiv.org/pdf/2211.12194.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_emote",
+      abbr: "EMOTE (Content-Emotion Disentanglement)",
+      year: 2023,
+      note: "Audio-Driven Face: Explicit semantic control over emotion",
+      path: "emote.html",
+      arxiv: "https://arxiv.org/abs/2306.08990",
+      pdf: "https://arxiv.org/pdf/2306.08990.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_imitator",
+      abbr: "Imitator (Personalized Face Animation)",
+      year: 2023,
+      note: "Audio-Driven Face: Learning identity-specific speaking style",
+      path: "imitator.html",
+      arxiv: "https://arxiv.org/abs/2301.00023",
+      pdf: "https://arxiv.org/pdf/2301.00023.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_emotalk",
+      abbr: "EmoTalk (Emotional Disentanglement)",
+      year: 2023,
+      note: "Audio-Driven Face: Disentangling emotion and content for expressive 3D face animation",
+      path: "emotalk.html",
+      arxiv: "https://arxiv.org/abs/2303.11089",
+      pdf: "https://arxiv.org/pdf/2303.11089.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_codetalker",
+      abbr: "CodeTalker (Discrete Motion Prior)",
+      year: 2023,
+      note: "Audio-Driven Face: VQ-VAE codebook for vivid facial animation",
+      path: "codetalker.html",
+      arxiv: "https://arxiv.org/abs/2301.02379",
+      pdf: "https://arxiv.org/pdf/2301.02379.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_faceformer",
+      abbr: "FaceFormer (Speech-Driven 3D Animation)",
+      year: 2022,
+      note: "Audio-Driven Face: Autoregressive Transformer with wav2vec 2.0",
+      path: "faceformer.html",
+      arxiv: "https://arxiv.org/abs/2112.05329",
+      pdf: "https://arxiv.org/pdf/2112.05329.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_meshtalk",
+      abbr: "MeshTalk (Cross-Modality Disentanglement)",
+      year: 2021,
+      note: "Audio-Driven Face: Disentangling audio-correlated and uncorrelated motions",
+      path: "meshtalk.html",
+      arxiv: "https://arxiv.org/abs/2104.08223",
+      pdf: "https://arxiv.org/pdf/2104.08223.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_memorytalker",
+      abbr: "MemoryTalker (Audio-Guided Stylization)",
+      year: 2025,
+      note: "Audio-Driven Face: Personalized 3D facial animation via style memory",
+      path: "memorytalker.html",
+      arxiv: "https://arxiv.org/abs/2507.20562",
+      pdf: "https://arxiv.org/pdf/2507.20562.pdf",
+      topic: "Audio-Driven Face"
+    },
+    {
+      id: "demo_emage",
+      abbr: "EMAGE (Expressive Masked Gesture)",
+      year: 2024,
+      note: "Audio-Driven Whole-Body: Holistic gesture generation with masked modeling",
+      path: "emage.html",
+      arxiv: "https://arxiv.org/abs/2401.00374",
+      pdf: "https://arxiv.org/pdf/2401.00374.pdf",
+      topic: "Audio-Driven Whole-Body"
+    },
+      {
+        id: "demo_dim",
+        abbr: "DIM (Dyadic Interaction Modeling)",
+        year: 2024,
+        note: "DIM: Dyadic Interaction Modeling for Social Behavior Generation",
+        path: "dim.html",
+        arxiv: "https://arxiv.org/abs/2403.09069",
+        pdf: "https://arxiv.org/pdf/2403.09069.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "demo_learning2listen",
+        abbr: "Learning to Listen",
+        year: 2022,
+        note: "Learning to Listen: Modeling Non-Deterministic Dyadic Facial Motion",
+        path: "learning2listen.html",
+        arxiv: "https://arxiv.org/abs/2204.08451",
+        pdf: "https://arxiv.org/pdf/2204.08451.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "vico",
+        abbr: "ViCo (Responsive Listening Head)",
+        year: 2022,
+        note: "Dyadic Interaction: Benchmark Dataset and Baseline for Listening Head",
+        path: "vico.html",
+        arxiv: "https://arxiv.org/abs/2112.13548",
+        pdf: "https://arxiv.org/pdf/2112.13548",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "perceptual_head",
+        abbr: "Perceptual Head (ViCo Challenge)",
+        year: 2022,
+        note: "Dyadic Interaction: Regularized Driver and Enhanced Renderer for Conversational Head Generation",
+        path: "perceptual_head.html",
+        arxiv: "https://arxiv.org/abs/2206.12837",
+        pdf: "https://arxiv.org/pdf/2206.12837.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "customlistener",
+        abbr: "CustomListener",
+        year: 2024,
+        note: "Dyadic Interaction: Text-guided Responsive Listening Head Generation",
+        path: "customlistener.html",
+        arxiv: "https://arxiv.org/abs/2403.00274",
+        pdf: "https://arxiv.org/pdf/2403.00274.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "seamless_interaction",
+        abbr: "Seamless Interaction",
+        year: 2025,
+        note: "Dyadic Interaction: Large-Scale Dataset and Audiovisual Motion Modeling",
+        path: "seamless_interaction.html",
+        arxiv: "https://arxiv.org/abs/2506.22554",
+        pdf: "https://arxiv.org/pdf/2506.22554.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "infp",
+        abbr: "INFP (Interactive Head Generation)",
+        year: 2024,
+        note: "Dyadic Interaction: Audio-Driven Interactive Head Generation",
+        path: "infp.html",
+        arxiv: "https://arxiv.org/abs/2412.04037",
+        pdf: "https://arxiv.org/pdf/2412.04037.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "difflistener",
+        abbr: "DiffListener",
+        year: 2025,
+        note: "Dyadic Interaction: Diffusion-based Hybrid Motion Modeling",
+        path: "difflistener.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2025/papers/Wang_Diffusion-based_Realistic_Listening_Head_Generation_via_Hybrid_Motion_Modeling_CVPR_2025_paper.pdf", // CVPR 2025 Open Access
+        pdf: "https://openaccess.thecvf.com/content/CVPR2025/papers/Wang_Diffusion-based_Realistic_Listening_Head_Generation_via_Hybrid_Motion_Modeling_CVPR_2025_paper.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "styleaware_listening",
+        abbr: "Style-Aware Listening",
+        year: 2023,
+        note: "Dyadic Interaction: Listening Style-Aware Facial Motion",
+        path: "styleaware_listening.html",
+        arxiv: "", // Not on arXiv, published in CEUR-WS (ICCV Workshops)
+        pdf: "https://ceur-ws.org/Vol-3475/paper1.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "demo_diffsheg",
+        abbr: "DiffSHEG (Unified Diffusion)",
+        year: 2024,
+        note: "DiffSHEG: A Diffusion-Based Approach for Real-Time Speech-driven Holistic 3D Expression and Gesture Generation",
+        path: "diffsheg.html",
+        arxiv: "https://arxiv.org/abs/2401.04747",
+        pdf: "https://arxiv.org/pdf/2401.04747.pdf",
+        topic: "Audio-Driven Whole-Body"
+      },
+      {
+        id: "demo_combo",
+        abbr: "Combo (Holistic Motion)",
+        year: 2024,
+        note: "Combo: Co-speech holistic 3D human motion generation and efficient customizable adaptation in harmony",
+        path: "combo.html",
+        arxiv: "https://arxiv.org/abs/2408.09397",
+        pdf: "https://arxiv.org/pdf/2408.09397.pdf",
+        topic: "Audio-Driven Whole-Body"
+      },
+      {
+        id: "demo_talkshow",
+      abbr: "TalkShow (Holistic Motion from Speech)",
+      year: 2023,
+      note: "Audio-Driven: Generating holistic 3D body motion from speech",
+      path: "talkshow.html",
+      arxiv: "https://arxiv.org/abs/2212.04420",
+      pdf: "https://arxiv.org/pdf/2212.04420.pdf",
+      topic: "Audio-Driven Whole-Body"
+    },
+      {
+        id: "demo_motiongpt",
+        abbr: "MotionGPT (Human Motion as a Foreign Language)",
+        year: 2023,
+        note: "动作生成：统一的运动-语言模型",
+        path: "motiongpt.html",
+        arxiv: "https://arxiv.org/abs/2306.14795",
+        pdf: "https://arxiv.org/pdf/2306.14795.pdf",
+        topic: "Motion Generation"
+      },
+      {
+        id: "motion_r1",
+        abbr: "Motion-R1 (Decomposed CoT + RL Binding)",
+        year: 2025,
+        note: "Motion Generation: Combining decomposed Chain-of-Thought reasoning with RL binding for enhanced text-to-motion generation quality and interpretability",
+        path: "motion_r1.html",
+        arxiv: "https://arxiv.org/abs/2506.10353",
+        pdf: "https://arxiv.org/pdf/2506.10353.pdf",
+        topic: "Motion Generation"
+      },
+      {
+        id: "sam3d_body",
+        abbr: "SAM 3D Body (Full-Body Human Mesh Recovery)",
+        year: 2025,
+        note: "3D Body & Object Regression: Promptable full-body HMR model with MHR representation and data engine for robust pose estimation in diverse wild conditions",
+        path: "sam3d_body.html",
+        pdf: "pdfs/sam3d_body.pdf",
+        topic: "3D Body & Object Regression"
+      },
+      {
+        id: "demo_motiongpt3",
+        abbr: "MotionGPT3 (Human Motion as a Second Modality)",
+        year: 2025,
+        note: "动作生成：双流连续多模态模型",
+        path: "motiongpt3.html",
+        arxiv: "https://arxiv.org/abs/2506.24086",
+        pdf: "https://arxiv.org/pdf/2506.24086.pdf",
+        topic: "Motion Generation"
+      },
+      {
+        id: "closd",
+        abbr: "CLoSD (Diffusion + RL for Character Control)",
+        year: 2024,
+        note: "Human-Object Interaction: Text-driven RL controller with diffusion planning for object interaction tasks",
+        path: "closd.html",
+        arxiv: "https://arxiv.org/abs/2410.03441",
+        pdf: "https://arxiv.org/pdf/2410.03441.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "demo_momask",
+        abbr: "MoMask (Generative Masked Modeling)",
+        year: 2024,
+        note: "动作生成：基于掩码建模的高保真生成",
+        path: "momask.html",
+        arxiv: "https://arxiv.org/abs/2312.00063",
+        pdf: "https://arxiv.org/pdf/2312.00063.pdf",
+        topic: "Motion Generation"
+      },
+      {
+        id: "demo_maskcontrol",
+        abbr: "MaskControl (Spatio-Temporal Control)",
+        year: 2025,
+        note: "动作生成：可控掩码运动合成",
+        path: "maskcontrol.html",
+        arxiv: "https://arxiv.org/abs/2410.10780",
+        pdf: "https://arxiv.org/pdf/2410.10780.pdf",
+        topic: "Motion Generation"
+      },
+      {
+        id: "demo_hoi",
+        abbr: "HOI (Human-Object Interaction from Human-Level Instructions)",
+        year: 2024,
+        note: "交互合成：基于指令的全身+手指物理交互",
+        path: "hoi.html",
+        arxiv: "https://arxiv.org/abs/2406.17840",
+        pdf: "https://arxiv.org/pdf/2406.17840.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "chois",
+        abbr: "CHOIS (Controllable Human-Object Interaction)",
+        year: 2024,
+        note: "Human-Object Interaction: Conditional diffusion model for synchronized human-object motion synthesis",
+        path: "chois.html",
+        arxiv: "https://arxiv.org/abs/2312.03913",
+        pdf: "https://arxiv.org/pdf/2312.03913.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "rhobin",
+        abbr: "RHOBIN Challenge (HOI Reconstruction)",
+        year: 2024,
+        note: "Human-Object Interaction: CVPR workshop challenge with three tracks for monocular 3D reconstruction of human-object interactions from RGB images",
+        path: "rhobin.html",
+        arxiv: "https://arxiv.org/abs/2401.04143",
+        pdf: "https://arxiv.org/pdf/2401.04143.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "parahome",
+        abbr: "ParaHome (Multi-View HOI Capture System)",
+        year: 2025,
+        note: "Human-Object Interaction: Multi-view capture system with 70 cameras and wearable devices for natural home activity parameterization",
+        path: "parahome.html",
+        arxiv: "https://arxiv.org/abs/2401.10232",
+        pdf: "https://arxiv.org/pdf/2401.10232.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "demo_hosig",
+        abbr: "HOSIG (Hierarchical Scene Perception)",
+        year: 2026,
+        note: "交互合成：分层场景感知的全身人-物-场景交互",
+        path: "hosig.html",
+        arxiv: "https://arxiv.org/abs/2506.01579",
+        pdf: "https://arxiv.org/pdf/2506.01579.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "interact",
+        abbr: "InterAct (Large-Scale 3D HOI Generation)",
+        year: 2025,
+        note: "Human-Object Interaction: Large-scale benchmark with 30.70 hours of data and six HOI generation tasks using contact invariance",
+        path: "interact.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2025/papers/Xu_InterAct_Advancing_Large-Scale_Versatile_3D_Human-Object_Interaction_Generation_CVPR_2025_paper.pdf",
+        pdf: "pdfs/cvpr2025_interact.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "interactanything",
+        abbr: "InteractAnything (Zero-shot HOI Synthesis)",
+        year: 2025,
+        note: "Human-Object Interaction: Zero-shot 3D HOI generation from text using LLM feedback and object affordance parsing for open-set objects",
+        path: "interactanything.html",
+        arxiv: "https://arxiv.org/abs/2505.24315",
+        pdf: "https://arxiv.org/pdf/2505.24315.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "vlm_rmd",
+        abbr: "VLM-RMD (Auto-Designed HOI Policy)",
+        year: 2025,
+        note: "Human-Object Interaction: VLM-guided automatic reward design for physics-based HOI synthesis with Relative Movement Dynamics",
+        path: "vlm_rmd.html",
+        arxiv: "https://arxiv.org/abs/2503.18349",
+        pdf: "https://arxiv.org/pdf/2503.18349.pdf",
+        topic: "Human-Object Interaction"
+      },
+      {
+        id: "humanise",
+        abbr: "HUMANISE (Language-conditioned HSI)",
+        year: 2022,
+        note: "Human-Scene Interaction: Large-scale dataset and model for language-conditioned human motion generation in 3D scenes",
+        path: "humanise.html",
+        arxiv: "https://arxiv.org/abs/2210.09729",
+        pdf: "https://arxiv.org/pdf/2210.09729.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "autonomous_interaction",
+        abbr: "Autonomous Character-Scene Interaction",
+        year: 2024,
+        note: "Human-Scene Interaction: Text-driven autonomous synthesis of multi-stage scene-aware interactions",
+        path: "autonomous_interaction.html",
+        arxiv: "https://arxiv.org/abs/2410.03187",
+        pdf: "https://arxiv.org/pdf/2410.03187.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "zerohsi",
+        abbr: "ZeroHSI (Zero-Shot 4D HSI by Video Generation)",
+        year: 2026,
+        note: "Human-Scene Interaction: Zero-shot 4D human-scene interaction synthesis by distilling from video generation models and differentiable rendering",
+        path: "zerohsi.html",
+        arxiv: "https://arxiv.org/pdf/2412.18600",
+        pdf: "https://arxiv.org/pdf/2412.18600.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "genhsi",
+        abbr: "GenHSI (Controllable HSI Video Generation)",
+        year: 2025,
+        note: "Human-Scene Interaction: Training-free controllable generation of long human-scene interaction videos",
+        path: "genhsi.html",
+        arxiv: "https://arxiv.org/abs/2506.19840",
+        pdf: "https://arxiv.org/pdf/2506.19840.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "hisgpt",
+        abbr: "HIS-GPT (3D Human-In-Scene Understanding)",
+        year: 2025,
+        note: "Human-Scene Interaction: Multimodal understanding of human behaviors in 3D scenes with HIS-QA benchmark",
+        path: "hisgpt.html",
+        arxiv: "https://arxiv.org/abs/2503.12955",
+        pdf: "https://arxiv.org/pdf/2503.12955.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "scenemi",
+        abbr: "SceneMI (Motion In-betweening for HSI)",
+        year: 2025,
+        note: "Human-Scene Interaction: Scene-aware motion in-betweening with dual descriptors for controllable HSI synthesis and noisy keyframe handling",
+        path: "scenemi.html",
+        arxiv: "https://arxiv.org/abs/2503.16289",
+        pdf: "https://arxiv.org/pdf/2503.16289.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "scenecot",
+        abbr: "SceneCOT (Grounded Chain-of-Thought in 3D)",
+        year: 2026,
+        note: "Human-Scene Interaction: Grounded Chain-of-Thought reasoning framework for 3D scenes with SceneCOT-185K dataset and multimodal expert integration (ICLR 2026 submission)",
+        path: "scenecot.html",
+        arxiv: "https://arxiv.org/abs/2510.16714",
+        pdf: "https://arxiv.org/pdf/2510.16714.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "hsi_gpt",
+        abbr: "HSI-GPT (General-Purpose Scene-Motion-Language)",
+        year: 2025,
+        note: "Human-Scene Interaction: General-purpose LLM-based model for controllable HSI generation with multiple modalities",
+        path: "hsi_gpt.html",
+        arxiv: "https://openaccess.thecvf.com/content/CVPR2025/papers/Wang_HSI-GPT_A_General-Purpose_Large_Scene-Motion-Language_Model_for_Human_Scene_Interaction_CVPR_2025_paper.pdf",
+        pdf: "pdfs/cvpr2025_hsi_gpt.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "trumans",
+        abbr: "TRUMANS (Dynamic Human-Scene Interaction)",
+        year: 2024,
+        note: "Human-Scene Interaction: Scaling up HSI modeling with diffusion autoregressive model and comprehensive dataset",
+        path: "trumans.html",
+        arxiv: "https://arxiv.org/abs/2403.08629",
+        pdf: "https://arxiv.org/pdf/2403.08629.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "affordance_motion",
+        abbr: "AffordMotion (Language-guided HSI with Affordance)",
+        year: 2024,
+        note: "Human-Scene Interaction: Two-stage framework using scene affordance for language-guided motion generation in 3D scenes",
+        path: "affordance_motion.html",
+        arxiv: "https://arxiv.org/abs/2403.18036",
+        pdf: "pdfs/2403.18036.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "demo_unihsi",
+        abbr: "UniHSI (Unified Human-Scene Interaction)",
+        year: 2023,
+        note: "人-场景交互：基于接触链提示的统一交互框架",
+        path: "unihsi.html",
+        arxiv: "https://arxiv.org/abs/2309.07918",
+        pdf: "https://arxiv.org/pdf/2309.07918.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "genzi",
+        abbr: "GenZI (Zero-Shot 3D HSI Generation)",
+        year: 2023,
+        note: "Human-Scene Interaction: Zero-shot 3D human-scene interaction synthesis by distilling priors from vision-language models",
+        path: "genzi.html",
+        arxiv: "https://arxiv.org/abs/2311.17737",
+        pdf: "https://arxiv.org/pdf/2311.17737.pdf",
+        topic: "Human-Scene Interaction"
+      },
+      {
+        id: "demo_stereotalker",
+        abbr: "Stereo-Talker (Prior-Guided MoE)",
+        year: 2024,
+        note: "Audio-Driven Whole-Body: One-shot 3D talking human synthesis with Mixture-of-Experts",
+        path: "stereotalker.html",
+        arxiv: "https://arxiv.org/abs/2410.23836",
+        pdf: "https://arxiv.org/pdf/2410.23836.pdf",
+        topic: "Audio-Driven Whole-Body"
+      },
+      {
+        id: "stableavatar",
+        abbr: "StableAvatar",
+        year: 2025,
+        note: "Infinite Audio-Driven Video",
+        path: "stableavatar.html",
+        arxiv: "https://arxiv.org/abs/2508.08248",
+        pdf: "https://arxiv.org/pdf/2508.08248",
+        topic: "Audio-Driven Face"
+      },
+      {
+        id: "demo_ecot",
+        abbr: "ECoT (Embodied Chain-of-Thought)",
+        year: 2024,
+        note: "ECoT: Robotic Control via Embodied Chain-of-Thought Reasoning",
+        path: "ecot.html",
+        arxiv: "https://arxiv.org/abs/2407.08693",
+        pdf: "https://arxiv.org/pdf/2407.08693.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "world_models",
+        abbr: "World Models",
+        year: 2018,
+        note: "Agent AI: Generative neural models of RL environments enabling agents to train in hallucinated dreams, achieving SOTA on CarRacing-v0 and VizDoom with compressed VAE+MDN-RNN representations",
+        path: "world_models.html",
+        arxiv: "https://arxiv.org/abs/1803.10122",
+        pdf: "pdfs/arxiv_world_models.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "toolformer",
+        abbr: "Toolformer",
+        year: 2023,
+        note: "Agent AI: Language models that teach themselves to use external tools via self-supervised learning, autonomously deciding which APIs to call for arithmetic, QA, search, translation, and calendar tasks",
+        path: "toolformer.html",
+        arxiv: "https://arxiv.org/abs/2302.04761",
+        pdf: "pdfs/arxiv_toolformer.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "propositional_probes",
+        abbr: "Propositional Probes",
+        year: 2024,
+        note: "Agent AI: Extracting logical propositions from LM activations to monitor latent world states, revealing that models encode faithful internal representations but decode them unfaithfully under bias or attacks",
+        path: "propositional_probes.html",
+        arxiv: "https://arxiv.org/abs/2406.19501",
+        pdf: "pdfs/arxiv_propositional_probes.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "dreamerv3",
+        abbr: "DreamerV3",
+        year: 2025,
+        note: "Agent AI: General RL algorithm using world models for imagination-based planning, achieving state-of-the-art across 150+ diverse tasks with fixed hyperparameters and solving Minecraft diamond collection from scratch (Nature 2025)",
+        path: "dreamerv3.html",
+        arxiv: "https://arxiv.org/abs/2301.04104",
+        pdf: "pdfs/arxiv_dreamerv3.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "deps",
+        abbr: "DEPS",
+        year: 2023,
+        note: "Agent AI: Interactive planning framework using LLMs for open-world multi-task agents, with Describe-Explain-Plan-Select approach achieving zero-shot success on 70+ Minecraft tasks and advancing ObtainDiamond challenge (NeurIPS 2023)",
+        path: "deps.html",
+        arxiv: "https://proceedings.neurips.cc/paper_files/paper/2023/file/6b8dfb8c0c12e6fafc6c256cb08a5ca7-Paper-Conference.pdf",
+        pdf: "pdfs/neurips_deps.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "switch_transformers",
+        abbr: "Switch Transformers",
+        year: 2022,
+        note: "MoE: Simplified and efficient Mixture-of-Experts routing enabling trillion-parameter models with 7x pre-training speedups, stable bfloat16 training, and universal multilingual improvements (JMLR 2022)",
+        path: "switch_transformers.html",
+        arxiv: "https://arxiv.org/abs/2101.03961",
+        pdf: "pdfs/arxiv_switch_transformers.pdf",
+        topic: "MoE"
+      },
+      {
+        id: "splurobonlp_2024",
+        abbr: "Language-Guided World Models",
+        year: 2024,
+        note: "Agent AI: LWMs that can be controlled through natural language descriptions, enabling safer agents that can discuss plans with humans and revise behaviors based on verbal feedback",
+        path: "splurobonlp_2024.html",
+        arxiv: "https://aclanthology.org/2024.splurobonlp-1.1.pdf",
+        pdf: "pdfs/acl_splurobonlp_2024.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "demo_worldmodels",
+        abbr: "World Models Survey",
+        year: 2025,
+        note: "A Comprehensive Survey on World Models for Embodied AI",
+        path: "worldmodels.html",
+        arxiv: "https://arxiv.org/abs/2510.16732",
+        pdf: "https://arxiv.org/pdf/2510.16732.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "demo_agentai",
+        abbr: "Agent AI (Multimodal Interaction)",
+        year: 2024,
+        note: "Agent AI: Surveying the horizons of multimodal interaction and embodied agents",
+        path: "agentai.html",
+        arxiv: "https://arxiv.org/abs/2401.03568",
+        pdf: "https://arxiv.org/pdf/2401.03568.pdf",
+        topic: "Agent AI"
+      },
+      {
+        id: "demo_photoreal",
+        abbr: "Audio2Photoreal (Synthesizing Humans)",
+        year: 2024,
+        note: "Audio-Driven Whole-Body: Generating photorealistic avatars with conversational dynamics",
+        path: "photoreal.html",
+        arxiv: "https://arxiv.org/abs/2401.01885",
+        pdf: "https://arxiv.org/pdf/2401.01885.pdf",
+        topic: "Dyadic Motion Interaction"
+      },
+      {
+        id: "demo_exges",
+        abbr: "ExGes (Expressive Motion Retrieval)",
+        year: 2025,
+        note: "Audio-Driven Whole-Body: Retrieval-enhanced diffusion for expressive gesture synthesis",
+        path: "exges.html",
+        arxiv: "https://arxiv.org/abs/2503.06499",
+        pdf: "https://arxiv.org/pdf/2503.06499.pdf",
+        topic: "Audio-Driven Whole-Body"
+      },
+      {
+        id: "demo_snapmogen",
+        abbr: "SnapMoGen (Expressive Text-to-Motion)",
+        year: 2025,
+        note: "动作生成：基于大规模丰富文本数据集的生成",
+        path: "snapmogen.html",
+        arxiv: "https://arxiv.org/abs/2507.09122",
+        pdf: "https://arxiv.org/pdf/2507.09122.pdf",
+        topic: "Motion Generation"
+      }
+    ];
+
+    const els = {
+      list: document.getElementById("paperList"),
+      search: document.getElementById("searchInput"),
+      count: document.getElementById("countPill"),
+      panelTitle: document.getElementById("panelTitle"),
+      panelSub: document.getElementById("panelSub"),
+      content: document.getElementById("content"),
+      empty: document.getElementById("emptyState"),
+      frame: document.getElementById("paperFrame"),
+      btnArxiv: document.getElementById("btnArxiv"),
+      btnPdf: document.getElementById("btnPdf"),
+    };
+
+    let activePaper = null;
+
+    function renderList(items){
+      els.list.innerHTML = "";
+      // Sort items by year descending
+      const sortedItems = [...items].sort((a, b) => b.year - a.year);
+      
+      sortedItems.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.dataset.id = p.id;
+
+        div.innerHTML = `
+          <div class="badge">${p.year}</div>
+          <div class="meta">
+            <div class="abbr">${escapeHtml(p.abbr)}</div>
+            <div class="desc">${escapeHtml(p.note || "")}</div>
+          </div>
+        `;
+
+        div.addEventListener("click", () => selectPaper(p));
+        els.list.appendChild(div);
+      });
+
+      els.count.textContent = `${items.length} papers`;
+    }
+
+    function selectPaper(p){
+      activePaper = p;
+      // highlight
+      document.querySelectorAll(".item").forEach(node => {
+        node.classList.toggle("active", node.dataset.id === p.id);
+      });
+
+      els.panelTitle.textContent = `${p.abbr} (${p.year})`;
+      els.panelSub.textContent = `加载：${p.path}`;
+
+      // Button Logic
+      // 1. ArXiv / Local Button
+      els.btnArxiv.style.display = "inline-block";
+      if (p.arxiv) {
+        els.btnArxiv.textContent = "ArXiv";
+        els.btnArxiv.onclick = () => window.open(p.arxiv, "_blank");
+      } else {
+        els.btnArxiv.textContent = "Local";
+        els.btnArxiv.onclick = () => {
+             // 尝试打开本地 pdfs 文件夹 (依赖浏览器/服务器环境，可能只是打开一个目录列表)
+             window.open("pdfs/", "_blank");
+        };
+      }
+
+      // 2. PDF Button
+      if (p.pdf) {
+        els.btnPdf.style.display = "inline-block";
+        els.btnPdf.onclick = () => window.open(p.pdf, "_blank");
+      } else {
+        // 如果没有指定 PDF 链接，尝试默认去 pdfs/ 找同名文件？或者隐藏
+        // 这里为了简单，如果没有配 pdf 字段，假设它是本地文件
+        els.btnPdf.style.display = "inline-block";
+        els.btnPdf.onclick = () => window.open(`pdfs/${p.id}.pdf`, "_blank");
+      }
+
+      // Switch to iframe view
+      els.empty.style.display = "none";
+      els.frame.style.display = "block";
+      els.frame.src = p.path;
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function applySearch(){
+      const q = els.search.value.trim().toLowerCase();
+      if(!q){
+        renderList(PAPERS);
+        return;
+      }
+      const filtered = PAPERS.filter(p => {
+        const hay = `${p.abbr} ${p.year} ${p.note} ${p.id}`.toLowerCase();
+        return hay.includes(q);
+      });
+      renderList(filtered);
+    }
+
+    els.search.addEventListener("input", applySearch);
+
+    // Removed old button listeners as buttons are now dynamic per paper
+    
+    function renderDashboard() {
+        const stats = {};
+        PAPERS.forEach(p => {
+            const t = p.topic || "Uncategorized";
+            if (!stats[t]) stats[t] = [];
+            stats[t].push(p);
+        });
+
+        let html = `
+            <div class="empty">
+              <h3 style="margin-top:0; color:#e8ecff;">📊 Topics & Papers <span style="opacity:0.6; font-weight:normal; font-size:14px;">(${PAPERS.length} papers)</span></h3>
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:16px;">
+        `;
+
+        const topicOrder = [
+            "CoT Reasoning",
+            "Generative Models",
+            "Motion Generation",
+            "3D Body & Object Regression",
+            "3D Gaussian",
+            "Human-Object Interaction",
+            "Human-Scene Interaction",
+            "Audio-Driven Face",
+            "Audio-Driven Whole-Body",
+            "Dyadic Motion Interaction",
+            "Agent AI",
+            "Affective Analysis",
+            "MoE",
+            "Robotics",
+            "Post-Training",
+            "Social Intelligence"
+        ];
+
+        const sortedTopics = Object.keys(stats).sort((a, b) => {
+            let ia = topicOrder.indexOf(a);
+            let ib = topicOrder.indexOf(b);
+            if (ia === -1) ia = 999;
+            if (ib === -1) ib = 999;
+            return ia - ib;
+        });
+
+        for (const topic of sortedTopics) {
+            const list = stats[topic];
+            // Sort list by year descending
+            list.sort((a, b) => b.year - a.year);
+
+            html += `
+                <div style="background:rgba(0,0,0,.15); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:16px;">
+                    <h4 style="margin:0 0 12px; color:#8bffcf; font-size:14px; border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:8px;">
+                        ${topic} <span style="opacity:0.5; font-weight:normal; margin-left:4px;">(${list.length})</span>
+                    </h4>
+                    <ul style="margin:0; padding-left:20px; font-size:13px; color:rgba(232,236,255,.75); line-height:1.6;">
+            `;
+            list.forEach(p => {
+                html += `<li style="cursor:pointer; text-decoration:underline; text-underline-offset:2px;" onclick="selectPaperById('${p.id}')">${p.abbr} <span style="opacity:0.6; font-size:11px;">(${p.year})</span></li>`;
+            });
+            html += `</ul></div>`;
+        }
+
+        html += `
+              </div>
+              <div style="margin-top:24px; padding-top:16px; border-top:1px dashed rgba(255,255,255,.15); color:rgba(232,236,255,.5); font-size:12px;">
+                Select a paper from the left list or above to view details.
+              </div>
+            </div>
+        `;
+        
+        els.empty.innerHTML = html;
+        els.empty.style.display = "block";
+        els.frame.style.display = "none";
+        
+        // Reset header buttons
+        els.panelTitle.textContent = "Paper Dashboard";
+        els.panelSub.textContent = "Select a paper to view details.";
+        els.btnArxiv.style.display = "none";
+        els.btnPdf.style.display = "none";
+    }
+
+    function selectPaperById(id) {
+        const p = PAPERS.find(item => item.id === id);
+        if (p) selectPaper(p);
+      }
+
+    // init
+    renderList(PAPERS);
+    renderDashboard();
+  </script>
+</body>
+</html>

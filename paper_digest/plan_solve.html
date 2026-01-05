@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ACL 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Lei Wang, Wanyu Xu, Yihuai Lan, Zhiqiang Hu, Yunshi Lan, Roy Ka-Wei Lee, Ee-Peng Lim<br>
+        <span style="opacity:0.8">Singapore Management University, Southwest Jiaotong University, Singapore University of Technology and Design, East China Normal University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we improve zero-shot chain-of-thought prompting by explicitly guiding language models to first plan the solution steps and then execute the plan, addressing the pitfalls of missing reasoning steps and calculation errors?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过明确指导语言模型首先规划解决方案步骤然后执行计划来改进零样本思维链提示，解决缺失推理步骤和计算错误的问题？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Plan-and-Solve Prompting Framework:</b> Introduced PS and PS+ prompting strategies that guide LLMs to first devise a solution plan and then execute it step-by-step, improving zero-shot chain-of-thought reasoning without manual demonstrations.</div>
+            <div class="lang-zh" style="display:none"><b>Plan-and-Solve提示框架：</b>引入了PS和PS+提示策略，指导LLM首先制定解决方案计划，然后逐步执行，从而改进零样本思维链推理而无需手动演示。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive Error Analysis:</b> Identified three main pitfalls of Zero-shot-CoT (calculation errors, missing-step errors, semantic misunderstanding) and showed PS+ prompting reduces calculation and missing-step errors by 2-3% absolute.</div>
+            <div class="lang-zh" style="display:none"><b>全面错误分析：</b>识别了Zero-shot-CoT的三个主要缺陷（计算错误、缺失步骤错误、语义误解），并显示PS+提示将计算和缺失步骤错误减少了2-3%的绝对值。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved new SOTA results on multiple reasoning benchmarks, with PS+ outperforming Zero-shot-CoT by large margins (up to 76.7% vs 70.4% average) and comparable to 8-shot CoT prompting on math reasoning.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在多个推理基准上取得了新的SOTA结果，PS+以大优势优于Zero-shot-CoT（平均高达76.7% vs 70.4%），在数学推理上与8-shot CoT提示相当。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Generalization Across Domains:</b> Demonstrated effectiveness across arithmetic, commonsense, and symbolic reasoning tasks, with consistent improvements over baseline methods including Zero-shot-PoT and Manual-CoT.</div>
+            <div class="lang-zh" style="display:none"><b>跨领域泛化：</b>在算术、常识和符号推理任务中展示了有效性，对包括Zero-shot-PoT和Manual-CoT在内的基线方法有持续改进。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Missing-Step Errors:</b> Zero-shot-CoT often misses intermediate reasoning steps, especially when problems require multiple sequential operations, leading to incomplete solution processes.</div>
+            <div class="lang-zh" style="display:none"><b>缺失步骤错误：</b>Zero-shot-CoT经常遗漏中间推理步骤，尤其是在问题需要多个顺序操作时，导致不完整的解决方案过程。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Calculation Errors:</b> LLMs struggle with accurate numerical computation during reasoning, particularly when dealing with complex arithmetic operations or multi-step calculations.</div>
+            <div class="lang-zh" style="display:none"><b>计算错误：</b>LLM在推理过程中难以进行准确的数值计算，尤其是在处理复杂的算术运算或多步骤计算时。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Semantic Misunderstanding:</b> LLMs may misinterpret problem statements or fail to understand the semantic relationships between problem elements, leading to incorrect reasoning paths.</div>
+            <div class="lang-zh" style="display:none"><b>语义误解：</b>LLM可能误解问题陈述或无法理解问题元素之间的语义关系，导致错误的推理路径。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Prompt Engineering Complexity:</b> Designing effective zero-shot prompts that can guide LLMs to perform systematic planning and execution without task-specific fine-tuning remains challenging.</div>
+            <div class="lang-zh" style="display:none"><b>提示工程复杂性：</b>设计有效的零样本提示，使LLM能够在没有任务特定微调的情况下执行系统规划和执行仍然具有挑战性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The Plan-and-Solve prompting method enhances zero-shot chain-of-thought reasoning through explicit planning and execution:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Problem Understanding:</b> Extract relevant variables and their corresponding numerals from the problem statement to ensure all necessary information is identified.</li>
+                <li style="margin-bottom:6px;"><b>Plan Formulation:</b> Devise a complete solution plan by breaking down the problem into sequential subtasks that need to be addressed step-by-step.</li>
+                <li style="margin-bottom:6px;"><b>Plan Execution:</b> Carry out the plan by calculating intermediate variables and performing operations according to the devised plan, with attention to numerical accuracy and commonsense reasoning.</li>
+                <li style="margin-bottom:6px;"><b>Enhanced Instructions (PS+):</b> Add detailed guidance for variable extraction, intermediate result calculation, and attention to both numerical computation and commonsense reasoning.</li>
+                <li style="margin-bottom:6px;"><b>Answer Extraction:</b> Use a separate prompting step to extract the final numerical or option-based answer from the generated reasoning text.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>Plan-and-Solve提示方法通过明确的规划和执行来增强零样本思维链推理：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>问题理解：</b>从问题陈述中提取相关变量及其相应数字，以确保识别所有必要信息。</li>
+                <li style="margin-bottom:6px;"><b>计划制定：</b>通过将问题分解为需要逐步解决的顺序子任务来制定完整的解决方案计划。</li>
+                <li style="margin-bottom:6px;"><b>计划执行：</b>通过根据制定的计划计算中间变量并执行操作来执行计划，注意数值准确性和常识推理。</li>
+                <li style="margin-bottom:6px;"><b>增强指令（PS+）：</b>为变量提取、中间结果计算以及对数值计算和常识推理的注意添加详细指导。</li>
+                <li style="margin-bottom:6px;"><b>答案提取：</b>使用单独的提示步骤从生成的推理文本中提取最终的数字或选项答案。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/plan_solve_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/plan_solve_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/plan_solve_overview02.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <p>Plan-and-Solve prompting improves zero-shot chain-of-thought by explicitly guiding LLMs to first devise a solution plan and then execute it step-by-step, reducing missing-step and calculation errors compared to standard Zero-shot-CoT.</p>
+            <p>Note: PS+ prompting achieves significant performance gains across arithmetic, commonsense, and symbolic reasoning tasks, with particular effectiveness in addressing the pitfalls of Zero-shot-CoT through structured planning and careful execution.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('acl_plan_solve.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('acl_plan_solve.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Plan-and-Solve prompting succeeds by addressing the fundamental limitations of Zero-shot-CoT through structured reasoning:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Explicit Planning:</b> By requiring LLMs to first devise a complete solution plan, the method ensures all necessary reasoning steps are identified upfront, reducing missing-step errors.</li>
+                <li style="margin-bottom:6px;"><b>Step-by-Step Execution:</b> The execution phase enforces systematic progression through the plan, ensuring each subtask is addressed in the correct sequence with proper intermediate calculations.</li>
+                <li style="margin-bottom:6px;"><b>Variable Awareness:</b> Explicit extraction and tracking of relevant variables and numerals ensures LLMs maintain focus on key problem elements throughout the reasoning process.</li>
+                <li style="margin-bottom:6px;"><b>Error Mitigation:</b> Detailed instructions for calculation and commonsense reasoning help LLMs avoid both computational mistakes and semantic misunderstandings.</li>
+                <li style="margin-bottom:6px;"><b>Structured Reasoning:</b> The plan-and-execute framework provides a clear structure that guides LLMs toward more coherent and complete reasoning processes.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>Plan-and-Solve提示通过结构化推理解决了Zero-shot-CoT的基本局限性：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>明确规划：</b>通过要求LLM首先制定完整的解决方案计划，该方法确保提前识别所有必要的推理步骤，从而减少缺失步骤错误。</li>
+                <li style="margin-bottom:6px;"><b>逐步执行：</b>执行阶段强制系统地通过计划进行，确保每个子任务以正确的顺序解决，并进行适当的中间计算。</li>
+                <li style="margin-bottom:6px;"><b>变量意识：</b>显式提取和跟踪相关变量和数字确保LLM在整个推理过程中保持对关键问题元素的关注。</li>
+                <li style="margin-bottom:6px;"><b>错误缓解：</b>详细的计算和常识推理指令帮助LLM避免计算错误和语义误解。</li>
+                <li style="margin-bottom:6px;"><b>结构化推理：</b>计划和执行框架提供了一个清晰的结构，指导LLM朝着更连贯和完整的推理过程发展。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This influential work introduces Plan-and-Solve prompting, a significant advancement in zero-shot chain-of-thought reasoning that addresses the critical limitations of standard Zero-shot-CoT. By guiding large language models to first devise comprehensive solution plans and then execute them step-by-step with explicit attention to variable extraction, intermediate calculations, and commonsense reasoning, PS+ prompting achieves substantial performance improvements across diverse reasoning benchmarks. The method's elegance lies in its simplicity and zero-shot nature, requiring no manual demonstrations while consistently outperforming established baselines including Zero-shot-CoT, Zero-shot-PoT, and even Manual-CoT on several datasets. Experimental results demonstrate remarkable gains on arithmetic reasoning tasks (76.7% average accuracy) and strong performance on commonsense and symbolic reasoning, with PS+ prompting reducing critical error types by 2-3% absolute. Through systematic error analysis and correlation studies, the authors provide compelling evidence that structured planning and careful execution are key to unlocking more reliable reasoning capabilities in large language models. This work not only advances the state-of-the-art in prompt engineering but also provides valuable insights into how explicit planning instructions can mitigate the inherent limitations of current language model architectures. The approach represents a promising direction for developing more robust and interpretable reasoning systems, with potential applications extending beyond mathematical and logical reasoning to complex decision-making and problem-solving domains.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项有影响力的工作引入了Plan-and-Solve提示，这是零样本思维链推理的重大进步，解决了标准Zero-shot-CoT的关键局限性。通过指导大型语言模型首先制定全面的解决方案计划，然后通过明确关注变量提取、中间计算和常识推理来逐步执行它们，PS+提示在各种推理基准上取得了显著的性能改进。该方法的优雅之处在于其简单性和零样本性质，不需要手动演示，同时在几个数据集上始终优于已建立的基线，包括Zero-shot-CoT、Zero-shot-PoT甚至Manual-CoT。实验结果显示了算术推理任务的显著增益（平均准确率76.7%）以及常识和符号推理的强劲表现，PS+提示将关键错误类型减少了2-3%的绝对值。通过系统错误分析和相关性研究，作者提供了令人信服的证据，表明结构化规划和仔细执行是解锁大型语言模型中更可靠推理能力的钥匙。这项工作不仅推进了提示工程的最新水平，还提供了关于显式规划指令如何缓解当前语言模型架构固有限制的宝贵见解。该方法代表了开发更强大和可解释推理系统的有前景方向，其应用潜力扩展到数学和逻辑推理之外的复杂决策和问题解决领域。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ACL Anthology:</b> <a href="https://aclanthology.org/2023.acl-long.147/" target="_blank" style="color:#8bffcf;">2023.acl-long.147</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/AGI-Edgerunners/Plan-and-Solve-Prompting" target="_blank" style="color:#8bffcf;">https://github.com/AGI-Edgerunners/Plan-and-Solve-Prompting</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Plan-and-Solve Prompting Implementation<br>
+<br>
+// Zero-shot PS+ prompting with plan formulation and execution<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">plan_solve_prompt</span>(question):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Implement Plan-and-Solve prompting strategy"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># PS+ Prompt with detailed instructions</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ps_plus_prompt = <span style="color:#ce9178;">f"""Q: {question}<br>
+A: Let's first understand the problem, extract relevant variables and their corresponding numerals, and make a complete plan. Then, let's carry out the plan, calculate intermediate variables (pay attention to correct numerical calculation and commonsense), solve the problem step by step, and show the answer."""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate reasoning with plan and execution</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;reasoning_text = query_language_model(ps_plus_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Extract final answer using separate prompt</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;extraction_prompt = <span style="color:#ce9178;">f"""{reasoning_text}<br>
+Therefore, the answer (arabic numerals) is"""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;final_answer = query_language_model(extraction_prompt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> final_answer<br>
+<br>
+// Example PS+ reasoning process<br>
+<span style="color:#6a9955;"># Input: "Grace weighs 125 pounds. Alex weighs 498 pounds. Combined weight?"</span><br>
+<br>
+<span style="color:#6a9955;"># PS+ Generated Output:</span><br>
+<span style="color:#6a9955;"># Variables:</span><br>
+<span style="color:#6a9955;"># Grace: 125 pounds</span><br>
+<span style="color:#6a9955;"># Alex: 498 pounds</span><br>
+<span style="color:#6a9955;"># Plan:</span><br>
+<span style="color:#6a9955;"># 1. Add Grace's weight and Alex's weight</span><br>
+<span style="color:#6a9955;"># Calculation:</span><br>
+<span style="color:#6a9955;"># Combined weight = 125 + 498 = 623 pounds</span><br>
+<span style="color:#6a9955;"># Answer: 623</span><br>
+<br>
+// Comparison with Zero-shot-CoT<br>
+<span style="color:#6a9955;"># Zero-shot-CoT: "Let's think step by step. Grace weighs 125 pounds. Alex weighs 498 pounds. So together they weigh 125 + 498 = 623 pounds. The answer is 623."</span><br>
+<span style="color:#6a9955;"># PS+: Provides structured variables, plan, calculation, reducing errors</span><br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

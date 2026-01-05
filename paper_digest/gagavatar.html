@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • NeurIPS 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Generalizable and Animatable Gaussian Head Avatar</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xuangeng Chu, Tatsuya Harada<br>
+        <span style="opacity:0.8">The University of Tokyo, RIKEN AIP</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create a generalizable and animatable head avatar framework that can reconstruct photorealistic 3D head avatars from a single image in one forward pass while enabling real-time reenactment with precise expression control?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建一个可泛化和可动画的头部头像框架，能够从单张图像在一次前向传递中重建逼真的3D头部头像，同时实现具有精确表情控制的实时重演？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Generalizable One-Shot Head Avatar:</b> Introduced GAGAvatar, the first generalizable 3D Gaussian head avatar framework that achieves single forward-pass reconstruction and real-time reenactment without identity-specific optimization, enabling generalization to unseen identities.</div>
+            <div class="lang-zh" style="display:none"><b>可泛化的单次头部头像：</b>引入了GAGAvatar，这是第一个可泛化的3D高斯头部头像框架，实现了单次前向传递重建和实时重演，无需身份特定优化，能够泛化到未见身份。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual-Lifting Reconstruction:</b> Pioneered a dual-lifting method that predicts forward and backward lifting distances from a single image plane, enabling complete 3D Gaussian reconstruction while capturing both visible and occluded facial regions for multi-view consistency.</div>
+            <div class="lang-zh" style="display:none"><b>双提升重建：</b>开创了一种双提升方法，从单张图像平面预测前向和后向提升距离，实现完整的3D高斯重建，同时捕捉可见和遮挡的面部区域以实现多视图一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3DMM-Guided Expression Control:</b> Developed a hybrid approach combining 3DMM priors with 3D Gaussians, where learnable vertex features enable precise expression transfer while maintaining identity consistency and avoiding redundant computations.</div>
+            <div class="lang-zh" style="display:none"><b>3DMM引导的表情控制：</b>开发了一种结合3DMM先验与3D高斯的混合方法，其中可学习的顶点特征实现精确的表情转移，同时保持身份一致性并避免冗余计算。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Achieved state-of-the-art results in reconstruction quality, expression accuracy, and rendering speed, surpassing previous NeRF-based methods while maintaining real-time capabilities and strong generalization to unseen identities.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在重建质量、表情准确性和渲染速度方面实现了最先进的结果，超越了之前的基于NeRF的方法，同时保持实时能力和对未见身份的强大泛化能力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/gagavatar_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('gagavatar_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('gagavatar_arxiv2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/gagavatar_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('gagavatar_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('gagavatar_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Single-Image 3D Reconstruction:</b> Reconstructing complete 3D head avatars from a single image while maintaining photorealistic quality and enabling free-viewpoint rendering, overcoming the challenges of sparse input data and depth ambiguity.</div>
+            <div class="lang-zh" style="display:none"><b>单图像3D重建：</b>从单张图像重建完整的3D头部头像，同时保持逼真质量并实现自由视点渲染，克服稀疏输入数据和深度模糊的挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Generalization to Unseen Identities:</b> Creating avatars that work for any person without identity-specific training or optimization, requiring robust feature learning that captures universal facial characteristics while preserving individual identity traits.</div>
+            <div class="lang-zh" style="display:none"><b>泛化到未见身份：</b>创建适用于任何人的头像，无需身份特定训练或优化，需要强大的特征学习来捕捉普遍的面部特征同时保留个体身份特征。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Rendering and Animation:</b> Achieving real-time rendering speeds while enabling precise expression control and pose manipulation, balancing computational efficiency with animation fidelity and visual quality.</div>
+            <div class="lang-zh" style="display:none"><b>实时渲染和动画：</b>在实现实时渲染速度的同时实现精确的表情控制和姿势操纵，在计算效率、动画保真度和视觉质量之间取得平衡。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Expression-Identity Disentanglement:</b> Separating facial expressions from identity characteristics while ensuring that expression transfer maintains natural facial deformations and doesn't compromise the source identity's appearance.</div>
+            <div class="lang-zh" style="display:none"><b>表情-身份解耦：</b>分离面部表情与身份特征，同时确保表情转移保持自然的面部变形，并且不损害源身份的外观。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-View Consistency:</b> Ensuring that reconstructed avatars produce consistent and realistic results from arbitrary viewpoints, requiring proper 3D geometric understanding and handling of occluded facial regions.</div>
+            <div class="lang-zh" style="display:none"><b>多视图一致性：</b>确保重建的头像从任意视点产生一致和逼真的结果，需要适当的3D几何理解和处理遮挡的面部区域。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual-Lifting for 3D Reconstruction:</b> Implemented a dual-lifting approach that predicts forward and backward lifting distances from image plane pixels, mapping them to 3D space with camera pose information to create complete Gaussian distributions capturing both visible and occluded facial regions.</div>
+            <div class="lang-zh" style="display:none"><b>双提升3D重建：</b>实现了一种双提升方法，从图像平面像素预测前向和后向提升距离，使用相机姿势信息将它们映射到3D空间，以创建完整的捕获可见和遮挡面部区域的高斯分布。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3DMM-Prior Guided Lifting:</b> Incorporated 3DMM priors to constrain lifting distances and ensure anatomically plausible 3D reconstructions, using closest point matching between predicted Gaussians and tracked 3DMM vertices to guide the learning process.</div>
+            <div class="lang-zh" style="display:none"><b>3DMM先验引导提升：</b>纳入3DMM先验来约束提升距离并确保解剖学上合理的3D重建，使用预测高斯和跟踪3DMM顶点之间的最近点匹配来指导学习过程。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Resolution Triplane Features:</b> Employed a triplane representation to encode 3D Gaussian attributes with spatial-aware features, enabling interpolation-based parameter prediction that enforces facial region consistency across neighboring Gaussians.</div>
+            <div class="lang-zh" style="display:none"><b>多分辨率三平面特征：</b>使用三平面表示来编码具有空间感知特征的3D高斯属性，实现基于插值的参数预测，强制相邻高斯之间的面部区域一致性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Hybrid Expression Control:</b> Developed a dual-branch approach combining static reconstruction Gaussians with dynamic expression Gaussians bound to 3DMM vertices, using learnable vertex features and global identity embeddings for precise expression transfer.</div>
+            <div class="lang-zh" style="display:none"><b>混合表情控制：</b>开发了一种双分支方法，将静态重建高斯与绑定到3DMM顶点的动态表情高斯相结合，使用可学习的顶点特征和全局身份嵌入进行精确的表情转移。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Neural Rendering Refinement:</b> Applied a neural renderer that processes multi-dimensional Gaussian features to resolve conflicts between reconstruction and expression branches, producing high-fidelity final images with enhanced detail representation.</div>
+            <div class="lang-zh" style="display:none"><b>神经渲染细化：</b>应用神经渲染器处理多维高斯特征以解决重建分支和表情分支之间的冲突，产生具有增强细节表示的高保真最终图像。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>3DGS vs NeRF for Head Avatars:</b> 3D Gaussian Splatting provides superior rendering speed and editability compared to NeRF while maintaining photorealistic quality, enabling real-time applications that were previously impossible with implicit representations.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>3DGS vs NeRF for Head Avatars:</b>3D高斯点云提供优于NeRF的渲染速度和可编辑性，同时保持逼真质量，实现以前用隐式表示不可能的实时应用。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Single-Image to 3D Reconstruction:</b> The dual-lifting method effectively addresses the ill-posed nature of monocular 3D reconstruction by creating closed Gaussian distributions that ensure multi-view consistency without requiring video input.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Single-Image to 3D Reconstruction:</b>双提升方法通过创建封闭的高斯分布有效地解决了单目3D重建的不适定性质，确保了多视图一致性而无需视频输入。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Identity-Expression Balance:</b> The hybrid approach successfully disentangles identity and expression while maintaining their interaction, enabling precise control over facial animations without compromising identity preservation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>Identity-Expression Balance:</b>混合方法成功分离身份和表情同时保持它们的交互，实现对面部动画的精确控制而不损害身份保留。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because GAGAvatar bridges the gap between single-image input and complete 3D avatar reconstruction through the dual-lifting mechanism, while the 3DMM-guided approach ensures anatomical plausibility and the hybrid expression control maintains identity consistency during animation.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为GAGAvatar通过双提升机制弥合了单图像输入与完整3D头像重建之间的差距，而3DMM引导方法确保了解剖学合理性，混合表情控制在动画期间保持身份一致性。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper presents GAGAvatar, a novel framework for generalizable and animatable head avatar reconstruction from single images. By introducing the dual-lifting method for 3D Gaussian reconstruction and combining it with 3DMM-guided expression control, the method achieves single-forward-pass reconstruction and real-time reenactment capabilities. Extensive experiments demonstrate superior performance in reconstruction quality, expression accuracy, and rendering speed compared to existing approaches, while maintaining strong generalization to unseen identities. The framework establishes new benchmarks for one-shot head avatar creation and opens possibilities for real-time avatar applications in various domains.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文提出了GAGAvatar，这是一个新颖的可泛化和可动画头部头像重建框架，可从单张图像重建。通过引入用于3D高斯重建的双提升方法并将其与3DMM引导的表情控制相结合，该方法实现了单次前向传递重建和实时重演能力。广泛的实验证明了在重建质量、表情准确性和渲染速度方面优于现有方法，同时保持对未见身份的强大泛化能力。该框架为单次头部头像创建建立了新的基准，并为各种领域的实时头像应用开辟了可能性。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://github.com/xg-chu/GAGAvatar" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

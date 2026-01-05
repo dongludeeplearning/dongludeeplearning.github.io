@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Engagement Measurement Based on Facial Landmarks and Spatial-Temporal Graph Convolutional Networks</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Ali Abedi and Shehroz S. Khan<br>
+        <span style="opacity:0.8">KITE Research Institute, University Health Network, Toronto, Canada</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we develop a privacy-preserving, computationally efficient method for measuring student engagement in virtual learning using only facial landmarks analyzed through spatial-temporal graph convolutional networks?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>我们如何开发一种隐私保护、计算高效的方法，仅使用通过时空图卷积网络分析的面部地标来测量虚拟学习中的学生参与度？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Novel Engagement Measurement Framework:</b> First approach using facial landmarks with ST-GCNs for video-based engagement measurement, eliminating need for raw facial videos and multiple handcrafted features while maintaining privacy.</div>
+            <div class="lang-zh" style="display:none"><b>新颖的参与度测量框架：</b>首次使用面部地标与ST-GCNs进行基于视频的参与度测量的方法，消除了对原始面部视频和多个手工特征的需求，同时保持隐私性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Ordinal Learning Integration:</b> Novel ordinal classification framework using transfer learning to incorporate the ordinal nature of engagement levels, improving classification accuracy through better modeling of engagement hierarchies.</div>
+            <div class="lang-zh" style="display:none"><b>序数学习整合：</b>使用迁移学习的新颖序数分类框架，以整合参与度水平的序数性质，通过更好地建模参与度层次来提高分类准确性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Achieved improved state-of-the-art results with 3.1% accuracy gain on EngageNet dataset and 1.5% gain on Online Student Engagement dataset, while being computationally efficient and real-time capable.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>在EngageNet数据集上实现了3.1%的准确性提升，在在线学生参与度数据集上实现了1.5%的提升，同时计算高效且能够实时运行。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Interpretability and Explainability:</b> Applied Grad-CAM to ST-GCNs for spatial and temporal interpretation of engagement measurements, enabling instructors to understand which facial regions and time points contribute to engagement levels.</div>
+            <div class="lang-zh" style="display:none"><b>可解释性和可说明性：</b>将Grad-CAM应用于ST-GCNs，以实现参与度测量的空间和时间解释，使教师能够了解哪些面部区域和时间点有助于参与度水平。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Privacy Preservation:</b> Need to avoid using personally identifiable information from raw facial videos while maintaining engagement measurement accuracy in virtual learning environments.</div>
+            <div class="lang-zh" style="display:none"><b>隐私保护：</b>需要在虚拟学习环境中避免使用原始面部视频中的个人可识别信息，同时保持参与度测量准确性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Computational Efficiency:</b> Developing lightweight models suitable for real-time deployment on local devices without requiring cloud-based processing of privacy-sensitive video data.</div>
+            <div class="lang-zh" style="display:none"><b>计算效率：</b>开发适合在本地设备上实时部署的轻量级模型，而不需要对隐私敏感的视频数据进行基于云的处理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Ordinal Nature Modeling:</b> Properly modeling engagement as an ordinal variable with inherent hierarchical relationships (Not-Engaged → Barely-Engaged → Engaged → Highly-Engaged) rather than treating it as categorical.</div>
+            <div class="lang-zh" style="display:none"><b>序数性质建模：</b>将参与度正确建模为具有固有层次关系（未参与→轻微参与→参与→高度参与）的序数变量，而不是将其视为分类变量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Component Engagement:</b> Capturing the behavioral, affective, and cognitive components of engagement through facial landmarks, including head pose, eye gaze, facial expressions, and blink patterns.</div>
+            <div class="lang-zh" style="display:none"><b>多组件参与度：</b>通过面部地标捕获参与度的行为、情感和认知组件，包括头部姿势、眼部注视、面部表情和眨眼模式。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The proposed method introduces a comprehensive framework for privacy-preserving engagement measurement:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Facial Landmark Extraction:</b> Uses MediaPipe to extract 78 3D facial landmarks (68 Dlib-compatible + 10 iris landmarks) from video frames, providing geometric features for head pose, AUs, eye gaze, and affect analysis without personal identifiers.</li>
+                <li style="margin-bottom:6px;"><b>Spatiotemporal Graph Construction:</b> Constructs spatiotemporal graphs where nodes represent facial landmarks across T consecutive frames, with edges defined by Delaunay triangulation within frames and temporal connections between consecutive frames.</li>
+                <li style="margin-bottom:6px;"><b>ST-GCN Architecture:</b> Employs Spatial-Temporal Graph Convolutional Networks with batch normalization, dropout, and residual connections to analyze spatial-temporal facial landmark patterns for engagement inference.</li>
+                <li style="margin-bottom:6px;"><b>Ordinal Transfer Learning:</b> Implements transfer learning framework where pre-trained ST-GCN layers are frozen and multiple binary classifiers are trained for ordinal engagement levels, then combined into multi-class probabilities.</li>
+                <li style="margin-bottom:6px;"><b>Interpretability Analysis:</b> Applies Grad-CAM to visualize spatial-temporal contributions of facial landmarks to engagement predictions, enabling instructors to understand engagement indicators.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>所提出的方法引入了一个全面的隐私保护参与度测量框架：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>面部地标提取：</b>使用MediaPipe从视频帧中提取78个3D面部地标（68个Dlib兼容+10个虹膜地标），为头部姿势、AU、眼部注视和情感分析提供几何特征，而不使用个人标识符。</li>
+                <li style="margin-bottom:6px;"><b>时空图构建：</b>构建时空图，其中节点表示T个连续帧中的面部地标，边由帧内的Delaunay三角剖分和连续帧之间的时间连接定义。</li>
+                <li style="margin-bottom:6px;"><b>ST-GCN架构：</b>采用具有批归一化、dropout和残差连接的时空图卷积网络来分析时空面部地标模式以进行参与度推理。</li>
+                <li style="margin-bottom:6px;"><b>序数迁移学习：</b>实现迁移学习框架，其中预训练的ST-GCN层被冻结，训练多个二元分类器用于序数参与度水平，然后组合成多类概率。</li>
+                <li style="margin-bottom:6px;"><b>可解释性分析：</b>应用Grad-CAM可视化面部地标对参与度预测的空间时间贡献，使教师能够理解参与度指标。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <p>Overview figure showing Grad-CAM interpretation of engagement measurements with facial landmarks colored by activation values (blue to red indicating contribution to Not-Engaged classification).</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_facial_landmarks_engagement.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_facial_landmarks_engagement.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of the ST-GCN approach for engagement measurement stems from several key innovations:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Geometric Feature Preservation:</b> Facial landmarks capture essential geometric information about head pose, eye gaze, blink patterns, and facial expressions that are direct indicators of behavioral and affective engagement components.</li>
+                <li style="margin-bottom:6px;"><b>Spatiotemporal Dynamics:</b> ST-GCNs excel at modeling both spatial relationships between facial landmarks and their temporal evolution, capturing how engagement manifests as dynamic facial behavior over time.</li>
+                <li style="margin-bottom:6px;"><b>Ordinal Constraint Integration:</b> The transfer learning framework properly models engagement as an ordinal variable, allowing the model to learn meaningful relationships between adjacent engagement levels rather than treating them as independent categories.</li>
+                <li style="margin-bottom:6px;"><b>Privacy-by-Design:</b> By using only anonymized landmark coordinates, the approach eliminates privacy concerns while maintaining sufficient information for accurate engagement assessment.</li>
+                <li style="margin-bottom:6px;"><b>Computational Efficiency:</b> The lightweight ST-GCN architecture combined with MediaPipe's real-time landmark extraction enables deployment on edge devices without compromising accuracy.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>ST-GCN方法在参与度测量方面的成功源于几个关键创新：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>几何特征保存：</b>面部地标捕获头部姿势、眼部注视、眨眼模式和面部表情的关键几何信息，这些是行为和情感参与度组件的直接指标。</li>
+                <li style="margin-bottom:6px;"><b>时空动态：</b>ST-GCNs擅长建模面部地标之间的空间关系及其时间演变，捕获参与度如何表现为随时间变化的动态面部行为。</li>
+                <li style="margin-bottom:6px;"><b>序数约束整合：</b>迁移学习框架正确地将参与度建模为序数变量，允许模型学习相邻参与度水平之间的有意义关系，而不是将它们视为独立类别。</li>
+                <li style="margin-bottom:6px;"><b>设计隐私：</b>通过仅使用匿名化的地标坐标，该方法消除了隐私问题，同时保持足够的信息用于准确的参与度评估。</li>
+                <li style="margin-bottom:6px;"><b>计算效率：</b>轻量级ST-GCN架构与MediaPipe的实时地标提取相结合，能够在边缘设备上部署而不牺牲准确性。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This work presents a groundbreaking approach to engagement measurement that prioritizes privacy, efficiency, and interpretability. By leveraging facial landmarks as the sole input modality and employing ST-GCNs for spatiotemporal analysis, the method achieves state-of-the-art performance on two challenging engagement datasets while requiring only 861K parameters and 0.8ms inference time. The ordinal learning framework properly accounts for the hierarchical nature of engagement levels, and Grad-CAM provides spatial-temporal interpretability that can guide educational interventions. The integration with MediaPipe enables real-time deployment on virtual learning platforms, making it practically viable for large-scale educational applications. Future work could explore attention mechanisms within ST-GCNs and investigate multi-modal fusion with audio or physiological signals for even more comprehensive engagement assessment.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项工作提出了一种开创性的参与度测量方法，优先考虑隐私性、效率和可解释性。通过利用面部地标作为唯一的输入模态并采用ST-GCNs进行时空分析，该方法在两个具有挑战性的参与度数据集上实现了最先进的性能，同时只需要861K参数和0.8ms推理时间。序数学习框架正确地考虑了参与度水平的层次性质，Grad-CAM提供了可以指导教育干预的空间时间可解释性。与MediaPipe的集成实现了在虚拟学习平台上的实时部署，使其在大型教育应用中具有实际可行性。未来工作可以探索ST-GCNs中的注意力机制，并研究与音频或生理信号的多模态融合，以实现更全面的参与度评估。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/pdf/2403.17175v2" style="color:#8bffcf;">2403.17175v2</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/" style="color:#8bffcf;">Code Not Available</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import torch<br>
+import torch.nn as nn<br>
+import torch.nn.functional as F<br>
+from torch_geometric.nn import GCNConv<br>
+<br>
+// ST-GCN for Engagement Measurement<br>
+class STGCNLayer(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, in_channels, out_channels, temporal_kernel=9):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(STGCNLayer, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.temporal_kernel = temporal_kernel<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Spatial convolution (1x1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.spatial_conv = nn.Conv2d(in_channels, out_channels, 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Temporal convolution (1xT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.temporal_conv = nn.Conv2d(out_channels, out_channels,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1, temporal_kernel))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Learnable adjacency matrix scaling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.adj_scale = nn.Parameter(torch.ones(78, 78))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, x, adjacency_matrix):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# x: (batch_size, channels, num_nodes, time_steps)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Spatial convolution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = self.spatial_conv(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Apply learnable adjacency scaling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adj_scaled = adjacency_matrix * self.adj_scale<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adj_norm = self.normalize_adjacency(adj_scaled)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Apply spatial graph convolution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = torch.einsum('bctn,nm->bcmn', x, adj_norm)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Temporal convolution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = self.temporal_conv(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def normalize_adjacency(self, adj):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Normalize adjacency matrix<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d = torch.sum(adj, dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d_inv_sqrt = torch.pow(d, -0.5)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d_inv_sqrt[torch.isinf(d_inv_sqrt)] = 0.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d_mat = torch.diag(d_inv_sqrt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return torch.mm(torch.mm(d_mat, adj), d_mat)<br>
+<br>
+// Ordinal Engagement Classifier<br>
+class OrdinalEngagementClassifier(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, num_classes=4):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(OrdinalEngagementClassifier, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# ST-GCN layers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.stgcn_layers = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STGCNLayer(3, 64),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STGCNLayer(64, 128),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STGCNLayer(128, 256)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Global pooling and classification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.global_pool = nn.AdaptiveAvgPool2d((1, 1))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.classifier = nn.Linear(256, num_classes)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, x, adjacency_matrix):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# x: (batch_size, 3, num_nodes, time_steps)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for layer in self.stgcn_layers:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = layer(x, adjacency_matrix)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = F.relu(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Global pooling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = self.global_pool(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = x.view(x.size(0), -1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Classification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logits = self.classifier(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return logits<br>
+<br>
+// Ordinal Transfer Learning Framework<br>
+class OrdinalTransferLearning:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, base_model, num_classes=4):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.base_model = base_model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_classes = num_classes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.binary_classifiers = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(256, 1) for _ in range(num_classes - 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def convert_to_ordinal_labels(self, labels):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Convert K-class labels to K-1 binary labels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ordinal_labels = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(self.num_classes - 1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary_labels = (labels > i).float()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ordinal_labels.append(binary_labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return ordinal_labels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def predict_ordinal(self, features):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Get binary predictions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary_preds = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for classifier in self.binary_classifiers:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred = torch.sigmoid(classifier(features)).squeeze()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary_preds.append(pred)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Convert to ordinal probabilities<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;probabilities = torch.zeros(features.size(0), self.num_classes)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(self.num_classes):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if i == 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;probabilities[:, i] = 1 - binary_preds[0]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif i == self.num_classes - 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;probabilities[:, i] = binary_preds[-1]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;probabilities[:, i] = binary_preds[i-1] - binary_preds[i]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return probabilities<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

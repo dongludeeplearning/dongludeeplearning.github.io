@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2022 (Oral)
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">High-Resolution Image Synthesis with Latent Diffusion Models (LDM)</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer <br>
+        <span style="opacity:0.8">LMU Munich & IWR, Heidelberg University, Runway ML</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> Training diffusion models directly in pixel space is computationally expensive; how can we scale them to high-resolution synthesis while maintaining quality and flexibility?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>直接在像素空间训练扩散模型计算成本高昂；我们如何在保持质量和灵活性的同时将其扩展到高分辨率合成？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Latent Diffusion Models (LDMs):</b> Proposed training diffusion models in the latent space of a powerful pretrained autoencoder, significantly reducing computational costs.</div>
+            <div class="lang-zh" style="display:none"><b>潜在扩散模型 (LDMs)：</b>提出在强大的预训练自编码器的潜在空间中训练扩散模型，显著降低了计算成本。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Cross-Attention Mechanism:</b> Introduced cross-attention layers into the UNet backbone, enabling flexible conditioning on various inputs like text, bounding boxes, and layout.</div>
+            <div class="lang-zh" style="display:none"><b>交叉注意力机制：</b>将交叉注意力层引入 UNet 主干，实现了对文本、边界框和布局等多种输入的灵活条件控制。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>SOTA Performance:</b> Achieved state-of-the-art results on image inpainting, class-conditional image synthesis, and super-resolution, and competitive results on unconditional generation.</div>
+            <div class="lang-zh" style="display:none"><b>SOTA 性能：</b>在图像修复、类条件图像合成和超分辨率方面取得了最先进的结果，并在无条件生成方面取得了有竞争力的结果。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/LDM_intro.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Computational Cost:</b> Pixel-space diffusion models require optimizing over high-dimensional spaces, consuming hundreds of GPU days and making inference slow.</div>
+            <div class="lang-zh" style="display:none"><b>计算成本：</b>像素空间扩散模型需要在高维空间进行优化，消耗数百个 GPU 天数，并且推理速度缓慢。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Perceptual Compression vs. Semantic Compression:</b> Generative models need to handle both imperceptible high-frequency details and high-level semantic content. Doing both in one model is inefficient.</div>
+            <div class="lang-zh" style="display:none"><b>感知压缩与语义压缩：</b>生成模型需要同时处理不可察觉的高频细节和高级语义内容。在一个模型中同时完成这两项任务效率低下。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Perceptual Compression Stage:</b> Train an autoencoder (VQ-GAN or KL-reg) to compress images into a low-dimensional latent space, removing high-frequency details.</div>
+            <div class="lang-zh" style="display:none"><b>感知压缩阶段：</b>训练一个自编码器（VQ-GAN 或 KL-reg）将图像压缩到低维潜在空间，去除高频细节。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Latent Diffusion Stage:</b> Train a diffusion model (UNet with cross-attention) in the latent space to generate latent codes from noise, conditioned on text/class labels.</div>
+            <div class="lang-zh" style="display:none"><b>潜在扩散阶段：</b>在潜在空间中训练扩散模型（带交叉注意力的 UNet），以从噪声生成潜在代码，并以文本/类别标签为条件。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Decoding:</b> Use the decoder of the pretrained autoencoder to map the generated latent codes back to high-resolution pixel space.</div>
+            <div class="lang-zh" style="display:none"><b>解码：</b>使用预训练自编码器的解码器将生成的潜在代码映射回高分辨率像素空间。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+           <img src="Figures/LDM_overview.png" style="width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); display:block;" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Datasets & Metrics:</b>
+                Evaluated on ImageNet (256x256, 512x512), CelebA-HQ, FFHQ, and LSUN. Metrics included FID (Fréchet Inception Distance), Inception Score, and Precision/Recall.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据集与指标：</b>
+                在 ImageNet (256x256, 512x512)、CelebA-HQ、FFHQ 和 LSUN 上进行了评估。指标包括 FID、Inception Score 和 Precision/Recall。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Text-to-Image:</b>
+                LDM trained on LAION-400M demonstrated powerful text-to-image generation capabilities, achieving an FID of 12.67 on MS-COCO 256x256.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>文生图：</b>
+                在 LAION-400M 上训练的 LDM 展示了强大的文生图能力，在 MS-COCO 256x256 上达到了 12.67 的 FID。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en"><b>Super-Resolution & Inpainting:</b>
+                LDM-SR achieved SOTA FID on ImageNet validation. LDM-Inpainting significantly outperformed previous specialized methods (like CoModGAN, LaMa).
+            </div>
+            <div class="lang-zh" style="display:none"><b>超分辨率与修复：</b>
+                LDM-SR 在 ImageNet 验证集上达到了 SOTA FID。LDM-Inpainting 显著优于之前的专门方法（如 CoModGAN, LaMa）。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Efficiency vs. Quality Trade-off:</b>
+                The downsampling factor (f) plays a critical role. Too small (f=1, pixel space) is slow; too large (f=32) loses too much information. f=4 or f=8 was found to be optimal.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>效率与质量的权衡：</b>
+                下采样因子 (f) 起着关键作用。太小（f=1，像素空间）太慢；太大（f=32）丢失太多信息。发现 f=4 或 f=8 是最佳的。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Universal Generative Model:</b>
+                LDM is presented not just as a specific model for one task, but as a general-purpose conditioning mechanism that can handle multimodal inputs (text, semantic maps, images).
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>通用生成模型：</b>
+                LDM 不仅被展示为针对单一任务的特定模型，而且被展示为一种可以处理多模态输入（文本、语义图、图像）的通用条件机制。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                LDM works because it decouples the training of the perceptual compression (autoencoder) and the semantic generation (diffusion). By moving the diffusion process to a lower-dimensional latent space, it focuses the model's capacity on learning the semantic structure of the data, rather than wasting resources on modeling imperceptible high-frequency noise. The cross-attention mechanism then acts as a flexible interface to inject any kind of condition into this generative process.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                LDM 之所以有效，是因为它解耦了感知压缩（自编码器）和语义生成（扩散）的训练。通过将扩散过程转移到低维潜在空间，它将模型的能力集中在学习数据的语义结构上，而不是将资源浪费在建模不可察觉的高频噪声上。交叉注意力机制随后充当灵活的接口，将任何类型的条件注入到这个生成过程中。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.75;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">Latent Diffusion Models enable high-resolution image synthesis with significantly reduced computational requirements.</div>
+            <div class="lang-zh" style="display:none">潜在扩散模型以显著降低的计算要求实现了高分辨率图像合成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en">The proposed cross-attention mechanism makes diffusion models flexible for various conditioning inputs, paving the way for Stable Diffusion.</div>
+            <div class="lang-zh" style="display:none">提出的交叉注意力机制使得扩散模型能够灵活适应各种条件输入，为 Stable Diffusion 铺平了道路。</div>
+          </li>
+          <li>
+            <div class="lang-en">LDMs achieve state-of-the-art performance across multiple tasks including super-resolution, inpainting, and text-to-image generation.</div>
+            <div class="lang-zh" style="display:none">LDM 在超分辨率、修复和文生图生成等多个任务中取得了最先进的性能。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/CompVis/latent-diffusion" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          github.com/CompVis/latent-diffusion
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                The core mechanism shows the <b>LatentDiffusion</b> class which first encodes input x to z, then computes diffusion loss in latent space.
+            </div>
+            <div class="lang-zh" style="display:none">
+                核心机制展示了 <b>LatentDiffusion</b> 类，它首先将输入 x 编码为 z，然后在潜在空间计算扩散损失。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+            <a href="https://github.com/CompVis/latent-diffusion/blob/main/ldm/models/diffusion/ddpm.py#L487" target="_blank" style="position:absolute; top:8px; right:8px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#8bffcf; font-size:10px; padding:4px 8px; border-radius:4px; text-decoration:none; font-family:var(--mono);">Link to Code</a>
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">LatentDiffusion</span>(DDPM):
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, first_stage_config, cond_stage_config, ...):
+        <span style="color:#569cd6;">super</span>().__init__(...)
+        self.instantiate_first_stage(first_stage_config)
+        self.instantiate_cond_stage(cond_stage_config)
+
+    <span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, x, c, *args, **kwargs):
+        <span style="color:#6a9955;"># 1. Encode image x to latent z</span>
+        encoder_posterior = self.encode_first_stage(x)
+        z = self.get_first_stage_encoding(encoder_posterior).detach()
+        
+        <span style="color:#6a9955;"># 2. Get conditioning vector (e.g. text embedding)</span>
+        c = self.get_learned_conditioning(c)
+        
+        <span style="color:#6a9955;"># 3. Standard DDPM training on z</span>
+        <span style="color:#569cd6;">return</span> self.p_losses(z, c, *args, **kwargs)
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

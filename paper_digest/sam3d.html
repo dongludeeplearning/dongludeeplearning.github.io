@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">SAM 3D: 3Dfy Anything in Images</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        SAM 3D Team, Xingyu Chen, Fu-Jen Chu, Pierre Gleize, Kevin J Liang, Alexander Sax, Hao Tang, Weiyao Wang, Michelle Guo, Thibaut Hardin, Xiang Li, Aohan Lin, Jiawei Liu, Ziqi Ma, Anushka Sagar, Bowen Song, Xiaodong Wang, Jianing Yang, Bowen Zhang, Piotr Dollár, Georgia Gkioxari, Matt Feiszli, Jitendra Malik<br>
+        <span style="opacity:0.8">Meta Superintelligence Labs</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to create a generative model that can reconstruct full 3D object geometry, texture, and layout from a single image, particularly in challenging natural scenes with occlusion and clutter, while overcoming the massive data scarcity barrier in 3D visual grounding?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何创建一个生成模型，能够从单个图像重建完整的3D对象几何形状、纹理和布局，特别是在具有遮挡和杂乱的挑战性自然场景中，同时克服3D视觉 grounding 中的海量数据稀缺障碍？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SAM 3D Foundation Model:</b> Introduced a new foundation model for 3D that predicts object shape, texture, and pose from a single image, achieving state-of-the-art performance with the ability to reconstruct any object and create composable 3D scenes from natural images.</div>
+            <div class="lang-zh" style="display:none"><b>SAM 3D基础模型：</b>引入了一个新的3D基础模型，能够从单个图像预测对象形状、纹理和姿态，实现最先进性能，能够重建任何对象并从自然图像创建可组合的3D场景。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Model-in-the-Loop Annotation Pipeline:</b> Developed a MITL pipeline that leverages both human annotators and AI models to create visually grounded 3D reconstruction data at unprecedented scale, enabling the collection of millions of 3D annotations for natural images.</div>
+            <div class="lang-zh" style="display:none"><b>模型在回路中的注释管道：</b>开发了一个MITL管道，利用人类注释者和AI模型以空前的规模创建视觉 grounding 的3D重建数据，为自然图像收集数百万个3D注释。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Training Framework:</b> Pioneered a modern training paradigm combining synthetic pretraining with real-world alignment, breaking the orders-of-magnitude data gap between 3D and other domains through iterative data engine improvements.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段训练框架：</b>开创了一个现代训练范式，将合成预训练与真实世界对齐相结合，通过迭代数据引擎改进打破3D与其他领域之间的数量级数据差距。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SA-3DAO Benchmark:</b> Released a challenging benchmark of 1,000 image-3D pairs for real-world object reconstruction, created by professional 3D artists, providing an expert upper bound for evaluating visually grounded 3D reconstruction methods.</div>
+            <div class="lang-zh" style="display:none"><b>SA-3DAO基准：</b>发布了针对真实世界对象重建的挑战性基准，包含1000个图像-3D对，由专业3D艺术家创建，为评估视觉 grounding 的3D重建方法提供专家上限。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Achieved at least 5:1 win rate in human preference tests over recent work, with significant quantitative gains on shape quality, texture, and layout reconstruction across diverse real-world scenarios.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在人类偏好测试中相对于最近的工作实现了至少5:1的胜率，在形状质量、纹理和布局重建方面在各种真实世界场景中取得了显著的量化增益。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/sam3d_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2511.16624.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2511.16624.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/sam3d_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <hr style="border-top: 1px dashed rgba(255,255,255,.1); margin: 20px 0;">
+            <img src="Figures/sam3d_overview01.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2511.16624.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2511.16624.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3D Data Scarcity:</b> Natural images paired with 3D ground truth are difficult to obtain at scale, creating a massive data gap between 3D visual grounding and other domains like text, images, or video.</div>
+            <div class="lang-zh" style="display:none"><b>3D数据稀缺：</b>与3D地面实况配对的自然图像难以大规模获取，在3D视觉 grounding 与文本、图像或视频等其他领域之间创造了一个巨大的数据差距。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Complex Scene Reconstruction:</b> Natural scenes with significant clutter, occlusion, and distant objects pose unique challenges compared to isolated object reconstruction, requiring joint prediction of shape, texture, and layout.</div>
+            <div class="lang-zh" style="display:none"><b>复杂场景重建：</b>具有显著杂乱、遮挡和远处对象的自然场景与孤立对象重建相比提出了独特挑战，需要联合预测形状、纹理和布局。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Human Annotation Difficulty:</b> Generalist human annotators struggle to create 3D shape ground truth directly, unlike simpler tasks like labeling or segmentation, requiring sophisticated pipelines to collect high-quality 3D annotations.</div>
+            <div class="lang-zh" style="display:none"><b>人类注释难度：</b>通用人类注释者难以直接创建3D形状地面实况，与标记或分割等更简单的任务不同，需要复杂的管道来收集高质量的3D注释。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Domain Gap:</b> Models trained on synthetic data struggle to generalize to natural images, requiring sophisticated alignment techniques to bridge the gap between artificial and real-world data distributions.</div>
+            <div class="lang-zh" style="display:none"><b>领域差距：</b>在合成数据上训练的模型难以泛化到自然图像，需要复杂的对齐技术来弥合人工和真实世界数据分布之间的差距。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Modal Integration:</b> Successfully combining 2D image cues, 3D shape priors, and scene understanding requires sophisticated architectures that can reason about geometry, texture, and spatial layout simultaneously.</div>
+            <div class="lang-zh" style="display:none"><b>多模态集成：</b>成功结合2D图像线索、3D形状先验和场景理解需要复杂的架构，能够同时推理几何形状、纹理和空间布局。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Evaluation Benchmark Limitations:</b> Lack of challenging real-world benchmarks for evaluating 3D reconstruction quality in natural scenes hinders proper assessment and comparison of different approaches.</div>
+            <div class="lang-zh" style="display:none"><b>评估基准局限性：</b>缺乏针对自然场景中3D重建质量的挑战性真实世界基准阻碍了不同方法的适当评估和比较。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>MITL Data Pipeline:</b> Human-and-model-in-the-loop annotation system that collects 3D shape, texture, and pose data at unprecedented scale by having annotators select and align from model-generated proposals, with professional artists handling hard cases.</div>
+            <div class="lang-zh" style="display:none"><b>MITL数据管道：</b>人类和模型在回路中的注释系统，通过让注释者从模型生成的提议中选择和对齐，以空前的规模收集3D形状、纹理和姿态数据，由专业艺术家处理困难案例。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Architecture:</b> Geometry model predicts coarse shape and layout jointly, followed by Texture & Refinement model that adds high-resolution details and synthesizes texture, using Mixture-of-Transformers with multi-modal attention for information sharing.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段架构：</b>几何模型联合预测粗略形状和布局，随后纹理和细化模型添加高分辨率细节并合成纹理，使用具有多模态注意力的变换器混合进行信息共享。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Training:</b> LLM-style training framework with synthetic pretraining on isolated objects, mid-training on semi-synthetic render-paste data, and post-training alignment with real-world data through iterative data engine improvements.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段训练：</b>LLM风格的训练框架，包括孤立对象的合成预训练、半合成渲染粘贴数据的中训练，以及通过迭代数据引擎改进的真实世界数据后训练对齐。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Flow Matching with Rectified Flows:</b> Conditional flow matching training with perceptually-biased noise sampling techniques, enabling efficient generation of 3D modalities including shape, texture, rotation, translation, and scale.</div>
+            <div class="lang-zh" style="display:none"><b>带修正流的流匹配：</b>具有感知偏向噪声采样技术的条件流匹配训练，实现包括形状、纹理、旋转、平移和缩放在内的3D模态的高效生成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Preference Optimization:</b> Direct preference optimization using human preference data to align model outputs with aesthetic quality standards, eliminating undesirable artifacts like floaters and missing symmetry.</div>
+            <div class="lang-zh" style="display:none"><b>偏好优化：</b>使用人类偏好数据进行直接偏好优化，将模型输出与审美质量标准对齐，消除不受欢迎的伪影，如浮动和缺失对称性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>SA-3DAO Benchmark:</b> New evaluation benchmark of 1,000 image-3D pairs created by professional artists, providing expert upper bound for real-world 3D object reconstruction assessment.</div>
+            <div class="lang-zh" style="display:none"><b>SA-3DAO基准：</b>由专业艺术家创建的1000个图像-3D对的新评估基准，为真实世界3D对象重建评估提供专家上限。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Breaking the 3D Data Barrier:</b> SAM 3D demonstrates that sophisticated data collection pipelines combined with modern training paradigms can overcome the orders-of-magnitude data scarcity in 3D visual grounding, enabling unprecedented scale in real-world 3D reconstruction.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>打破3D数据障碍：</b>SAM 3D证明了复杂的收集管道与现代训练范式的结合可以克服3D视觉 grounding 中的数量级数据稀缺，实现真实世界3D重建中空前的规模。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Recognition-Driven Reconstruction:</b> The success of SAM 3D validates the long-standing insight that object recognition enables 3D reconstruction, showing that even novel objects can be reconstructed by leveraging learned priors about object parts and structure.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>识别驱动的重建：</b>SAM 3D的成功验证了对象识别启用3D重建的长期洞察，表明即使是新颖的对象也可以通过利用关于对象部件和结构的已学习先验来重建。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Iterative Data Engine:</b> The virtuous cycle of model improvement driving better data collection, which in turn enables better models, demonstrates the power of human-AI collaboration in tackling data-scarce domains like 3D reconstruction.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>迭代数据引擎：</b>模型改进驱动更好数据收集的美德循环，而这反过来又启用了更好的模型，展示了人类-AI协作在解决3D重建等数据稀缺领域中的力量。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because SAM 3D addresses the fundamental data scarcity in 3D visual grounding through a sophisticated MITL pipeline that enables human-AI collaboration at unprecedented scale. By combining synthetic pretraining with iterative real-world alignment and leveraging recognition-driven reconstruction principles, the model achieves breakthrough performance in natural scenes that were previously intractable.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为SAM 3D通过复杂的MITL管道解决了3D视觉 grounding 中的基本数据稀缺，该管道以空前的规模实现了人类-AI协作。通过将合成预训练与迭代真实世界对齐相结合，并利用识别驱动的重建原理，该模型在以前难以处理的自然场景中实现了突破性性能。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces SAM 3D, a groundbreaking generative model for visually grounded 3D object reconstruction from single images. By predicting geometry, texture, and layout simultaneously, SAM 3D excels in natural scenes with occlusion and clutter where traditional approaches struggle. The key innovation lies in a human-and-model-in-the-loop pipeline that creates high-quality 3D annotations at unprecedented scale, combined with a modern multi-stage training framework that bridges the massive data gap in 3D visual grounding. Through extensive experiments, SAM 3D achieves at least 5:1 win rates in human preference tests and significant quantitative improvements over state-of-the-art methods. The release of code, model weights, online demo, and a new challenging benchmark SA-3DAO aims to accelerate research in real-world 3D reconstruction. This work demonstrates that sophisticated data collection strategies and iterative model-data co-evolution can overcome fundamental data scarcity challenges, opening new possibilities for 3D understanding and downstream applications.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了SAM 3D，一个开创性的从单个图像生成视觉 grounding 的3D对象重建生成模型。通过同时预测几何形状、纹理和布局，SAM 3D在具有遮挡和杂乱的自然场景中表现出色，而传统方法在这些场景中会遇到困难。关键创新在于人类和模型在回路中的管道，以空前的规模创建高质量3D注释，结合现代多阶段训练框架，弥合3D视觉 grounding 中的巨大数据差距。通过广泛实验，SAM 3D在人类偏好测试中实现了至少5:1的胜率，并在最先进方法上取得了显著的量化改进。代码、模型权重、在线演示和新挑战性基准SA-3DAO的发布旨在加速真实世界3D重建的研究。这项工作证明了复杂的收集策略和迭代模型-数据协同演化可以克服基本数据稀缺挑战，为3D理解和下游应用开辟新的可能性。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://ai.meta.com/sam3d" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Website
+        </a>
+        <a href="https://www.aidemos.meta.com/segment-anything/editor/convert-image-to-3d" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Online Demo
+        </a>
+        <a href="https://github.com/facebookresearch/sam-3d-objects" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Code
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

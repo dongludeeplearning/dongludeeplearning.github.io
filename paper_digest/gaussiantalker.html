@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • arXiv 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">GaussianTalker: Real-Time High-Fidelity Talking Head Synthesis with Audio-Driven 3D Gaussian Splatting</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Kyusun Cho, Joungbin Lee, Heeji Yoon, Yeobin Hong, Jaehoon Ko, Sangjun Ahn, Seungryong Kim<br>
+        <span style="opacity:0.8">Korea University, NCSOFT</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to achieve real-time, high-fidelity talking head synthesis that maintains photorealistic quality and accurate lip synchronization while enabling pose control, overcoming the limitations of slow NeRF-based approaches?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何实现实时、高保真的说话头部合成，同时保持逼真质量和准确的唇同步，并实现姿势控制，克服慢速NeRF方法的局限性？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time 3DGS Talking Head Synthesis:</b> Introduced GaussianTalker, the first real-time high-fidelity talking head synthesis framework leveraging 3D Gaussian Splatting for audio-driven facial animation, achieving up to 120 FPS rendering speed while maintaining photorealistic quality.</div>
+            <div class="lang-zh" style="display:none"><b>实时3DGS说话头部合成：</b>引入了GaussianTalker，这是第一个利用3D高斯点云进行音频驱动面部动画的实时高保真说话头部合成框架，实现高达120 FPS的渲染速度，同时保持逼真质量。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Implicit Feature Volume Representation:</b> Pioneered encoding 3D Gaussian attributes into a shared implicit feature representation using multi-resolution triplanes, enabling spatial-aware deformation and enforcing interactions between neighboring Gaussians for coherent facial motion.</div>
+            <div class="lang-zh" style="display:none"><b>隐式特征体积表示：</b>开创性地使用多分辨率三平面将3D高斯属性编码到共享隐式特征表示中，实现空间感知变形并强制邻近高斯之间的交互以实现连贯的面部运动。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Spatial-Audio Cross-Attention:</b> Developed a spatial-audio attention mechanism that fuses 3D Gaussian features with audio features through cross-attention, enabling stable and region-specific deformation across numerous Gaussian primitives while disentangling speech-related motions from non-verbal scene variations.</div>
+            <div class="lang-zh" style="display:none"><b>空间-音频交叉注意力：</b>开发了一种空间-音频注意力机制，通过交叉注意力融合3D高斯特征与音频特征，在众多高斯基元上实现稳定且区域特定的变形，同时分离语音相关运动与非语言场景变化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Performance:</b> Achieved state-of-the-art results in facial fidelity, lip synchronization accuracy, and rendering speed, surpassing NeRF-based methods while maintaining compatibility with novel audio inputs and pose variations.</div>
+            <div class="lang-zh" style="display:none"><b>卓越性能：</b>在面部保真度、唇同步准确性和渲染速度方面实现了最先进的结果，超越了基于NeRF的方法，同时保持与新颖音频输入和姿势变化的兼容性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/gaussiantalker_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('gaussiantalker_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('gaussiantalker_arxiv2024.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/gaussiantalker_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('gaussiantalker_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('gaussiantalker_arxiv2024.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Rendering Constraints:</b> Achieving high-fidelity talking head synthesis with photorealistic quality and accurate lip synchronization while maintaining real-time rendering speeds, overcoming the slow inference bottleneck of NeRF-based approaches.</div>
+            <div class="lang-zh" style="display:none"><b>实时渲染约束：</b>在保持逼真质量和准确唇同步的同时实现高保真说话头部合成，并维持实时渲染速度，克服基于NeRF方法的慢速推理瓶颈。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>3DGS Parameter Manipulation:</b> Developing effective mechanisms to control and deform the extensive parameter space of 3D Gaussian primitives (position, rotation, scale, appearance) in response to audio inputs, ensuring stable and coherent facial animations.</div>
+            <div class="lang-zh" style="display:none"><b>3DGS参数操纵：</b>开发有效机制来控制和变形3D高斯基元（位置、旋转、缩放、外观）的广泛参数空间以响应音频输入，确保稳定和连贯的面部动画。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Spatial-Audio Feature Integration:</b> Effectively fusing spatial 3D information with temporal audio features to enable region-specific deformations, where different facial regions respond appropriately to speech audio while maintaining spatial coherence.</div>
+            <div class="lang-zh" style="display:none"><b>空间-音频特征集成：</b>有效地融合空间3D信息与时间音频特征以实现区域特定变形，其中不同面部区域适当地响应语音音频，同时保持空间连贯性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion Disentanglement:</b> Separating speech-related facial motions (lip movements) from non-verbal scene variations (eye blinks, head movements, lighting changes) to enable accurate audio-driven animation without unwanted artifacts.</div>
+            <div class="lang-zh" style="display:none"><b>运动分离：</b>分离语音相关面部运动（唇部运动）与非语言场景变化（眨眼、头部运动、光照变化），以实现准确的音频驱动动画而不产生不需要的伪影。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Canonical to Deformed Mapping:</b> Establishing a robust mapping from canonical 3D head representation to deformed states while preserving facial identity and ensuring that deformation offsets are applied consistently across different viewing angles.</div>
+            <div class="lang-zh" style="display:none"><b>规范到变形映射：</b>建立从规范3D头部表示到变形状态的鲁棒映射，同时保留面部身份并确保变形偏移在不同观看角度下的一致应用。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Resolution Triplane Representation:</b> Employed a triplane feature volume to encode 3D Gaussian attributes into implicit spatial features, enabling interpolation-based attribute prediction that enforces spatial relationships between neighboring Gaussians for coherent deformation.</div>
+            <div class="lang-zh" style="display:none"><b>多分辨率三平面表示：</b>使用三平面特征体积将3D高斯属性编码到隐式空间特征中，实现基于插值的属性预测，强制邻近高斯之间的空间关系以实现连贯变形。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Spatial-Audio Cross-Attention:</b> Implemented a cross-attention mechanism between spatial 3D features and audio features, allowing dynamic fusion that models how different facial regions should respond to speech audio while maintaining stability across numerous Gaussian parameters.</div>
+            <div class="lang-zh" style="display:none"><b>空间-音频交叉注意力：</b>实现了空间3D特征与音频特征之间的交叉注意力机制，允许动态融合，建模不同面部区域应如何响应语音音频，同时在众多高斯参数上保持稳定性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion Disentanglement via Auxiliary Inputs:</b> Incorporated eye blink features, viewpoint embeddings, and null vectors as additional conditioning inputs to separate speech-related motions from non-verbal scene variations, enabling precise control over different facial motion components.</div>
+            <div class="lang-zh" style="display:none"><b>通过辅助输入进行运动分离：</b>纳入眨眼特征、视点嵌入和空向量作为额外的条件输入，以分离语音相关运动与非语言场景变化，实现对不同面部运动成分的精确控制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Frame-wise Gaussian Deformation:</b> Predicted per-frame offsets for all Gaussian attributes (position, rotation, scale, appearance) conditioned on the fused spatial-audio features, enabling direct manipulation of the explicit 3D representation for accurate audio-driven facial animation.</div>
+            <div class="lang-zh" style="display:none"><b>逐帧高斯变形：</b>基于融合的空间-音频特征预测所有高斯属性（位置、旋转、缩放、外观）的逐帧偏移，实现显式3D表示的直接操纵以实现准确的音频驱动面部动画。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Two-Stage Training Strategy:</b> Employed stage-wise optimization first learning canonical 3D Gaussians with triplane features, then training deformation networks with audio conditioning, ensuring stable convergence and high-quality reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>两阶段训练策略：</b>采用分阶段优化，首先使用三平面特征学习规范3D高斯，然后使用音频条件训练变形网络，确保稳定收敛和高品质重建。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>3DGS vs NeRF for Dynamic Scenes:</b> The explicit geometric representation of 3DGS enables direct manipulation of facial primitives for audio-driven animation, providing superior rendering speed and editability compared to implicit NeRF representations while maintaining photorealistic quality.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>3DGS vs NeRF for Dynamic Scenes:</b>3DGS的显式几何表示允许直接操纵面部基元进行音频驱动动画，与隐式NeRF表示相比提供了卓越的渲染速度和可编辑性，同时保持逼真质量。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Spatial-Aware Feature Fusion:</b> The triplane-based feature encoding ensures spatial coherence across facial regions, enabling more natural and anatomically-plausible deformations compared to methods that treat Gaussians independently.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>空间感知特征融合：</b>基于三平面的特征编码确保面部区域间的空间连贯性，与独立处理高斯的方法相比实现了更自然和解剖学上合理的变形。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Attention-Based Audio Integration:</b> Cross-attention mechanisms provide a more sophisticated approach to audio-visual fusion than simple concatenation or multiplication, enabling region-specific responses to speech while maintaining temporal stability.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>基于注意力的音频集成：</b>交叉注意力机制提供了比简单连接或乘法更复杂的音频-视觉融合方法，在保持时间稳定性的同时实现对语音的区域特定响应。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because GaussianTalker bridges the gap between explicit geometric modeling and implicit feature learning, enabling real-time manipulation of 3D Gaussians through spatially-aware attention mechanisms. The triplane representation ensures facial coherence while cross-attention provides precise audio-driven control, resulting in photorealistic talking heads with unprecedented speed and quality.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为GaussianTalker弥合了显式几何建模与隐式特征学习之间的差距，通过空间感知注意力机制实现3D高斯的实时操纵。三平面表示确保面部连贯性，而交叉注意力提供精确的音频驱动控制，从而产生具有前所未有速度和质量的逼真说话头部。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces GaussianTalker, a novel real-time high-fidelity talking head synthesis framework that leverages 3D Gaussian Splatting for audio-driven facial animation. By encoding Gaussian attributes into implicit spatial features and using cross-attention for audio integration, the method achieves superior performance in facial fidelity and lip synchronization while reaching rendering speeds up to 120 FPS. The framework successfully addresses the challenges of controlling explicit 3D representations through audio inputs, demonstrating significant improvements over NeRF-based approaches in both quality and efficiency. Experimental results show GaussianTalker outperforms state-of-the-art methods across multiple benchmarks, establishing it as a new paradigm for real-time audio-driven talking head synthesis.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了GaussianTalker，这是一个新颖的实时高保真说话头部合成框架，利用3D高斯点云进行音频驱动面部动画。通过将高斯属性编码到隐式空间特征中并使用交叉注意力进行音频集成，该方法在面部保真度和唇同步方面实现了卓越性能，同时达到高达120 FPS的渲染速度。该框架成功解决了通过音频输入控制显式3D表示的挑战，在质量和效率方面都显示出对基于NeRF方法的显著改进。实验结果显示，GaussianTalker在多个基准测试中优于最先进的方法，将其确立为实时音频驱动说话头部合成的新范式。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Links:</h2>
+        <a href="https://github.com/cvlab-kaist/GaussianTalker" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

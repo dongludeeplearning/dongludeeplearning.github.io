@@ -1,0 +1,375 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • AAAI 2026
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">MMhops-R1: Multimodal Multi-hop Reasoning</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Tao Zhang, Ziqi Zhang, Zongyang Ma, Yuxin Chen, Bing Li, Chunfeng Yuan, Guangting Wang, Fengyun Rao, Ying Shan, Weiming Hu<br>
+        <span style="opacity:0.8">Chinese Academy of Sciences, Tencent Inc., PeopleAI Inc., ShanghaiTech University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can multimodal large language models perform complex multi-hop reasoning that requires dynamically integrating information across visual and textual modalities through external knowledge retrieval?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何让多模态大语言模型通过外部知识检索动态整合视觉和文本模态的信息来进行复杂的多跳推理？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>MMhops Benchmark:</b> First large-scale multimodal multi-hop reasoning dataset with 31K samples, featuring Bridging (single-image sequential reasoning) and Comparison (cross-image comparative analysis) tasks requiring 3-4 reasoning hops spanning visual and textual modalities.</div>
+            <div class="lang-zh" style="display:none"><b>MMhops基准：</b>首个大规模多模态多跳推理数据集，包含31K个样本，特色包括Bridging（单图像顺序推理）和Comparison（跨图像比较分析）任务，需要3-4个推理跳跃跨越视觉和文本模态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Reinforcement Learning Framework:</b> MMhops-R1 framework using RL to optimize multimodal retrieval-augmented generation, enabling dynamic reasoning path planning with actions for image retrieval, text retrieval, and answer generation.</div>
+            <div class="lang-zh" style="display:none"><b>强化学习框架：</b>MMhops-R1框架使用RL优化多模态检索增强生成，实现动态推理路径规划，具有图像检索、文本检索和答案生成动作。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Composite Reward Mechanism:</b> Multi-component reward system combining outcome accuracy, format adherence, and action effectiveness, gated by successful trajectories to encourage proper tool usage and reasoning strategies.</div>
+            <div class="lang-zh" style="display:none"><b>复合奖励机制：</b>多组件奖励系统结合结果准确性、格式遵循和动作有效性，由成功轨迹控制以鼓励适当的工具使用和推理策略。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>State-of-the-Art Performance:</b> Significant improvements over baselines (up to 51.35% overall accuracy), demonstrating superiority of dynamic mRAG over fixed-process methods and strong generalization to fixed-hop reasoning tasks.</div>
+            <div class="lang-zh" style="display:none"><b>最先进性能：</b>对基线显著改进（总体准确率高达51.35%），证明动态mRAG优于固定过程方法，并在固定跳跃推理任务上具有强大的泛化能力。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Limited Multi-hop Reasoning:</b> Existing MLLMs excel at single-step visual understanding but lack capability for complex reasoning chains requiring iterative multimodal information integration across multiple retrieval steps.</div>
+            <div class="lang-zh" style="display:none"><b>有限的多跳推理：</b>现有MLLM擅长单步视觉理解，但缺乏需要跨多个检索步骤迭代多模态信息整合的复杂推理链能力。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Insufficient Benchmarks:</b> Current VQA datasets focus on shallow reasoning (1-2 hops) with limited multimodal integration, lacking challenging tasks that require dynamic planning of complex reasoning paths.</div>
+            <div class="lang-zh" style="display:none"><b>不足的基准：</b>当前VQA数据集专注于浅层推理（1-2跳），多模态整合有限，缺乏需要动态规划复杂推理路径的挑战性任务。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Static Retrieval Processes:</b> Conventional mRAG frameworks use fixed pipelines unsuitable for queries of varying complexity, lacking flexibility to adapt reasoning depth and strategy based on question difficulty.</div>
+            <div class="lang-zh" style="display:none"><b>静态检索过程：</b>传统mRAG框架使用固定管道，不适合复杂度不同的查询，缺乏根据问题难度调整推理深度和策略的灵活性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Cross-modal Integration:</b> Complex real-world problems require seamless integration of visual understanding with external textual knowledge through multi-turn interactions, challenging current model architectures.</div>
+            <div class="lang-zh" style="display:none"><b>跨模态整合：</b>复杂现实问题需要通过多轮交互无缝整合视觉理解与外部文本知识，对当前模型架构构成挑战。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>MMhops-R1 introduces a reinforcement learning framework for dynamic multimodal multi-hop reasoning:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>MMhops Dataset Construction:</b> Large-scale benchmark with Bridging tasks (single-image sequential reasoning) and Comparison tasks (cross-image comparative analysis), requiring 3-4 reasoning hops integrating visual and textual modalities through automated pipeline using GPT-4o.</li>
+                <li style="margin-bottom:6px;"><b>Dynamic mRAG Framework:</b> Policy model with action space {image retrieval, text retrieval, answer generation}, using RL to learn adaptive reasoning strategies that dynamically adjust path complexity based on question requirements.</li>
+                <li style="margin-bottom:6px;"><b>Multi-step Retrieval Process:</b> Agent interacts with image retriever (CLIP-ViT-L/14) and text retriever (E5 model) through structured queries, building reasoning trajectories with external knowledge integration across multiple turns.</li>
+                <li style="margin-bottom:6px;"><b>Composite Reward Optimization:</b> Weighted reward combining outcome accuracy, format adherence, and action effectiveness, optimized using PPO with dynamic sampling to ensure procedural correctness and tool usage learning.</li>
+                <li style="margin-bottom:6px;"><b>Loss Masking Strategy:</b> External retrieval observations masked during policy optimization, ensuring model learns from its own generated reasoning and action tokens rather than retrieved content.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>MMhops-R1引入了一个用于动态多模态多跳推理的强化学习框架：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>MMhops数据集构建：</b>大规模基准，包括Bridging任务（单图像顺序推理）和Comparison任务（跨图像比较分析），需要3-4个推理跳跃，通过使用GPT-4o的自动化管道整合视觉和文本模态。</li>
+                <li style="margin-bottom:6px;"><b>动态mRAG框架：</b>具有动作空间{图像检索、文本检索、答案生成}的策略模型，使用RL学习自适应推理策略，根据问题要求动态调整路径复杂度。</li>
+                <li style="margin-bottom:6px;"><b>多步检索过程：</b>代理通过结构化查询与图像检索器（CLIP-ViT-L/14）和文本检索器（E5模型）交互，在多个回合中构建包含外部知识整合的推理轨迹。</li>
+                <li style="margin-bottom:6px;"><b>复合奖励优化：</b>加权奖励结合结果准确性、格式遵循和动作有效性，使用PPO和动态采样进行优化，以确保程序正确性和工具使用学习。</li>
+                <li style="margin-bottom:6px;"><b>损失屏蔽策略：</b>策略优化期间屏蔽外部检索观察，确保模型从其自身生成的推理和动作标记中学习，而不是检索内容。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/mmhops_r1_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+              <button onclick="openLocalPdf('arxiv_mmhops_r1.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+              <button onclick="delLocalPdf('arxiv_mmhops_r1.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+         </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/mmhops_r1_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_mmhops_r1.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_mmhops_r1.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The effectiveness of MMhops-R1 stems from its RL-driven dynamic reasoning approach:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Adaptive Reasoning Depth:</b> RL optimization enables the model to dynamically adjust reasoning complexity based on question difficulty, avoiding over-retrieval in simple cases and ensuring sufficient depth for complex queries.</li>
+                <li style="margin-bottom:6px;"><b>Multimodal Knowledge Integration:</b> Structured action space combining image and text retrieval allows seamless cross-modal reasoning, with the model learning when to leverage visual vs. textual knowledge sources for optimal information gathering.</li>
+                <li style="margin-bottom:6px;"><b>Procedural Learning:</b> Composite reward mechanism with process-based rewards enables learning of correct reasoning procedures even when final outcomes are correct, leading to more robust and interpretable decision-making.</li>
+                <li style="margin-bottom:6px;"><b>External Knowledge Orchestration:</b> Dynamic interaction with retrievers overcomes limitations of fixed pipelines, allowing the model to explore multiple reasoning paths and backtrack when suboptimal strategies are identified.</li>
+                <li style="margin-bottom:6px;"><b>Scalable Training Paradigm:</b> RL framework provides a generalizable approach for complex reasoning tasks, with the ability to incorporate new retrievers and action types as multimodal capabilities expand.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>MMhops-R1的有效性源于其RL驱动的动态推理方法：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>自适应推理深度：</b>RL优化使模型能够根据问题难度动态调整推理复杂度，避免在简单情况下过度检索，并在复杂查询中确保足够的深度。</li>
+                <li style="margin-bottom:6px;"><b>多模态知识整合：</b>结合图像和文本检索的结构化动作空间允许无缝跨模态推理，模型学习何时利用视觉与文本知识源以实现最优信息收集。</li>
+                <li style="margin-bottom:6px;"><b>程序性学习：</b>具有基于过程奖励的复合奖励机制，即使在最终结果正确的情况下也能学习正确的推理程序，导致更稳健和可解释的决策制定。</li>
+                <li style="margin-bottom:6px;"><b>外部知识编排：</b>与检索器的动态交互克服了固定管道的局限性，允许模型探索多个推理路径，并在识别出次优策略时进行回溯。</li>
+                <li style="margin-bottom:6px;"><b>可扩展训练范式：</b>RL框架为复杂推理任务提供了可泛化的方法，随着多模态能力的扩展，能够纳入新的检索器和动作类型。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This work addresses the critical challenge of multimodal multi-hop reasoning by introducing MMhops, the first large-scale benchmark requiring systematic integration of visual and textual information across variable reasoning depths, and MMhops-R1, a novel reinforcement learning framework for dynamic multimodal retrieval-augmented generation. The framework's RL-driven approach enables adaptive reasoning path planning that overcomes the limitations of static retrieval processes, demonstrating significant performance improvements over strong baselines including proprietary MLLMs. Through comprehensive evaluation on MMhops and generalization tests on fixed-hop reasoning tasks, the work establishes that dynamic planning and multi-modal knowledge integration are essential for complex reasoning capabilities. The composite reward mechanism and procedural learning paradigm provide a foundation for developing more sophisticated multimodal reasoning systems, with the RL framework offering a scalable approach to incorporate emerging retrieval modalities and reasoning strategies.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项工作通过引入MMhops（首个大规模基准，需要系统整合视觉和文本信息跨越可变推理深度）和MMhops-R1（用于动态多模态检索增强生成的新型强化学习框架）来解决多模态多跳推理的关键挑战。该框架的RL驱动方法实现了克服静态检索过程局限的自适应推理路径规划，在包括专有MLLM在内的强大基线上展示了显著的性能改进。通过对MMhops的全面评估和对固定跳跃推理任务的泛化测试，该工作确立了动态规划和多模态知识整合对复杂推理能力至关重要。复合奖励机制和程序性学习范式为开发更复杂的多模态推理系统提供了基础，RL框架提供了纳入新兴检索模态和推理策略的可扩展方法。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/pdf/2512.13573" target="_blank" style="color:#8bffcf;">2512.13573</a></p>
+          <p><b>GitHub:</b> <a href="https://github.com/taoszhang/MMhops-R1" target="_blank" style="color:#8bffcf;">https://github.com/taoszhang/MMhops-R1</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import torch<br>
+import torch.nn as nn<br>
+from transformers import Qwen2VLForConditionalGeneration, AutoTokenizer<br>
+from typing import List, Dict, Any<br>
+import numpy as np<br>
+<br>
+// MMhops-R1: Multimodal Multi-hop Reasoning with RL<br>
+class MMhopsR1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, model_name="Qwen/Qwen2-VL-7B-Instruct"):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model = Qwen2VLForConditionalGeneration.from_pretrained(model_name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.tokenizer = AutoTokenizer.from_pretrained(model_name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.image_retriever = CLIPImageRetriever()  # CLIP-ViT-L/14@336px<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.text_retriever = TextRetriever()  # E5 model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.max_steps = 4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Action space: {think, image_search, text_search, answer}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.actions = ["think", "image_search", "text_search", "answer"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def rollout_trajectory(self, question: str, images: List[np.ndarray]) -> Dict[str, Any]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Generate reasoning trajectory with multi-step retrieval"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trajectory = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = {"question": question, "images": images, "history": []}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for step in range(self.max_steps):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Generate next action and reasoning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;action_output = self._generate_action(state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;action, reasoning = self._parse_action(action_output)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if action == "answer":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Execute action and get observation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;observation = self._execute_action(action, reasoning, state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Update state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state["history"].append({"action": action, "reasoning": reasoning, "observation": observation})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trajectory.append((state.copy(), action, observation))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return {"trajectory": trajectory, "final_answer": reasoning if action == "answer" else None}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _generate_action(self, state: Dict) -> str:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Generate next action using the policy model"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Format prompt with current state<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt = self._format_state_prompt(state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Generate response<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputs = self.tokenizer(prompt, return_tensors="pt")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Add image inputs if needed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if state["images"]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputs["images"] = state["images"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs = self.model.generate(**inputs, max_new_tokens=512)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.tokenizer.decode(outputs[0], skip_special_tokens=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _parse_action(self, output: str) -> tuple:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Parse action and content from model output"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if "&lt;answer&gt;" in output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "answer", self._extract_content(output, "answer")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif "&lt;image_search&gt;" in output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "image_search", self._extract_content(output, "image_search")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif "&lt;text_search&gt;" in output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "text_search", self._extract_content(output, "text_search")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "think", output  # Default to thinking<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _execute_action(self, action: str, content: str, state: Dict) -> str:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Execute the selected action and return observation"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if action == "image_search":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract image index from content<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_idx = self._extract_image_index(content)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.image_retriever.retrieve(state["images"][image_idx])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif action == "text_search":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.text_retriever.retrieve(content)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Action executed successfully"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def compute_reward(self, trajectory: List, ground_truth: str) -> float:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute composite reward for trajectory"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_answer = trajectory[-1][1] if trajectory and trajectory[-1][0] == "answer" else None<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Outcome reward<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_outcome = 1.0 if self._check_answer_correct(final_answer, ground_truth) else 0.0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Format reward<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_format = self._check_format_correct(trajectory)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Action reward (gated by success)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_action = r_outcome * r_format * self._count_valid_actions(trajectory)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1.0 * r_outcome + 1.0 * r_format + 0.25 * r_action<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _format_state_prompt(self, state: Dict) -> str:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Format state into prompt for model input"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt = f"Question: {state['question']}\n\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if state['images']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt += f"Images: {len(state['images'])} images provided\n\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt += "History:\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for entry in state['history']:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt += f"- {entry['action']}: {entry['reasoning']}\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt += f"  Observation: {entry['observation']}\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt += "\nChoose your next action: think, image_search, text_search, or answer\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return prompt<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _extract_content(self, text: str, tag: str) -> str:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract content between XML-like tags"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_tag = f"&lt;{tag}&gt;"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end_tag = f"&lt;/{tag}&gt;"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start = text.find(start_tag)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end = text.find(end_tag)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if start != -1 and end != -1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return text[start + len(start_tag):end].strip()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _extract_image_index(self, content: str) -> int:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Extract image index from content (simplified)"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 0  # Default to first image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _check_answer_correct(self, answer: str, ground_truth: str) -> bool:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Check if answer matches ground truth (simplified)"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return answer and ground_truth in answer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _check_format_correct(self, trajectory: List) -> float:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Check if trajectory follows correct format"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1.0 if all(self._is_valid_action_format(step) for step in trajectory) else 0.0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _count_valid_actions(self, trajectory: List) -> float:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Count syntactically correct tool invocations"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return sum(1 for step in trajectory if step[0] in ["image_search", "text_search"])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def _is_valid_action_format(self, step) -> bool:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Check if action follows required format"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return True  # Simplified<br>
+<br>
+// Example usage<br>
+# mmhops_r1 = MMhopsR1()<br>
+# trajectory = mmhops_r1.rollout_trajectory("What is the elevation gap between the mountain summits in the two images?", [image1, image2])<br>
+# reward = mmhops_r1.compute_reward(trajectory["trajectory"], "511m")<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

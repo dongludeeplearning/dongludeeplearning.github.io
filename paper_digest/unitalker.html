@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ECCV 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">UniTalker: Scaling up Audio-Driven 3D Facial Animation through A Unified Model</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Xiangyu Fan, Jiaqi Li, Zhiqian Lin, Weiye Xiao, Lei Yang <br>
+        <span style="opacity:0.8">SenseTime Research</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to scale up audio-driven facial animation training by unifying diverse datasets with inconsistent annotations (vertices, blendshapes) to improve generalization and performance?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过统一具有不一致注释（顶点、混合形状）的多样化数据集来扩大量音频驱动的面部动画训练，从而提高泛化能力和性能？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Unified Multi-Head Model:</b> Proposed UniTalker, a unified model with a multi-head architecture capable of learning from diverse datasets with varied annotations (vertices vs parameters).</div>
+            <div class="lang-zh" style="display:none"><b>统一多头模型：</b>提出了 UniTalker，这是一个具有多头架构的统一模型，能够从具有各种注释（顶点与参数）的多样化数据集中学习。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training Strategies:</b> Introduced PCA for vertex dimensionality reduction, model warm-up, and Pivot Identity Embedding (PIE) to stabilize multi-dataset training and mitigate bias.</div>
+            <div class="lang-zh" style="display:none"><b>训练策略：</b>引入了用于顶点降维的 PCA、模型预热和枢轴身份嵌入 (PIE)，以稳定多数据集训练并减轻偏差。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>A2F-Bench Dataset:</b> Assembled a large-scale benchmark (A2F-Bench) comprising 8 datasets (5 public + 3 curated), scaling training data from <1h to 18.5h with multilingual speech and songs.</div>
+            <div class="lang-zh" style="display:none"><b>A2F-Bench 数据集：</b>组建了一个大规模基准测试 (A2F-Bench)，包含 8 个数据集（5 个公开 + 3 个精选），将训练数据从不到 1 小时扩展到 18.5 小时，包含多语言语音和歌曲。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/unitalker_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inconsistent Annotations:</b> Existing datasets use different 3D formats (e.g., dense vertices vs. sparse blendshapes), making it hard to train a single model on all of them.</div>
+            <div class="lang-zh" style="display:none"><b>不一致的注释：</b>现有的数据集使用不同的 3D 格式（例如，密集顶点与稀疏混合形状），这使得很难在所有数据集上训练单个模型。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Dataset Bias & Scale:</b> Individual datasets are small (<1h) and lack diversity (mostly English speech). Simply combining them introduces domain gaps and instability.</div>
+            <div class="lang-zh" style="display:none"><b>数据集偏差和规模：</b>单个数据集很小（<1h）且缺乏多样性（主要是英语语音）。简单地组合它们会引入领域差距和不稳定性。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Head Architecture:</b> A shared audio encoder feeds into multiple task-specific decoder heads. One head outputs PCA-reduced vertex offsets, another outputs blendshape weights, etc.</div>
+            <div class="lang-zh" style="display:none"><b>多头架构：</b>共享音频编码器馈送到多个特定于任务的解码器头。一个头输出 PCA 减少的顶点偏移，另一个输出 blendshape 权重等。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>PCA Dimensionality Reduction:</b> Applies PCA to high-dimensional vertex data (e.g., 23k vertices -> 512 components) to balance the learning difficulty between vertex and parameter heads.</div>
+            <div class="lang-zh" style="display:none"><b>PCA 降维：</b>将 PCA 应用于高维顶点数据（例如，23k 顶点 -> 512 个分量），以平衡顶点和参数头之间的学习难度。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Pivot Identity Embedding (PIE):</b> Creates a shared "pivot" identity during training to act as a bridge, preventing the model from overfitting to dataset-specific speaker identities.</div>
+            <div class="lang-zh" style="display:none"><b>枢轴身份嵌入 (PIE)：</b>在训练期间创建一个共享的“枢轴”身份作为桥梁，防止模型过度拟合特定于数据集的说话者身份。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/unitalker_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2408.00762.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2408.00762.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Performance:</b> Reduced Lip Vertex Error (LVE) by 9.2% on BIWI and 13.7% on Vocaset compared to previous SOTA, using a single unified model.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>性能：</b>与以前的 SOTA 相比，使用单个统一模型在 BIWI 上将唇部顶点误差 (LVE) 降低了 9.2%，在 Vocaset 上降低了 13.7%。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Foundation Model Potential:</b> Fine-tuning the pre-trained UniTalker on unseen datasets with only 50% data surpassed models trained from scratch on full data.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>基础模型潜力：</b>仅使用 50% 的数据在未见过的数据集上微调预训练的 UniTalker，其性能超过了在完整数据上从头开始训练的模型。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Scaling Law:</b> UniTalker demonstrates that scaling up training data diversity and quantity significantly benefits audio-driven animation, paving the way for robust foundation models in this domain.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>缩放定律：</b>UniTalker 证明了扩大训练数据的多样性和数量对音频驱动的动画有显著好处，为该领域强大的基础模型铺平了道路。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                UniTalker works by abstracting the common "audio-to-motion" logic into a shared encoder while delegating format-specific details to lightweight heads. The PCA strategy normalizes the difficulty of different output formats, ensuring the shared encoder isn't biased towards easier tasks. The Pivot Identity Embedding acts like a "universal speaker" anchor, helping the model learn generalizable speech-motion correlations rather than memorizing specific dataset quirks.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                UniTalker 的工作原理是将通用的“音频到动作”逻辑抽象到一个共享编码器中，同时将特定于格式的细节委托给轻量级头。PCA 策略归一化了不同输出格式的难度，确保共享编码器不会偏向更容易的任务。枢轴身份嵌入就像一个“通用说话者”锚点，帮助模型学习可泛化的语音-动作相关性，而不是记住特定数据集的怪癖。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/X-niper/UniTalker" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual multi-head forwarding logic.
+            </div>
+            <div class="lang-zh" style="display:none">
+                概念多头转发逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Unified Forward Pass</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(audio, speaker_id, dataset_id):
+    <span style="color:#6a9955;"># 1. Shared Audio Encoding</span>
+    feat = audio_encoder(audio)
+    
+    <span style="color:#6a9955;"># 2. Pivot Identity Embedding (Training)</span>
+    <span style="color:#c586c0;">if</span> training <span style="color:#c586c0;">and</span> random() < pivot_prob:
+        id_emb = pivot_embedding
+    <span style="color:#c586c0;">else</span>:
+        id_emb = speaker_embedding(speaker_id)
+        
+    <span style="color:#6a9955;"># 3. Multi-Head Decoding</span>
+    <span style="color:#c586c0;">if</span> dataset_id == 'BIWI':
+        <span style="color:#6a9955;"># Output PCA components -> Vertices</span>
+        out = decoder_head_biwi(feat, id_emb)
+        vertices = pca_inverse(out)
+    <span style="color:#c586c0;">elif</span> dataset_id == 'ARKit':
+        <span style="color:#6a9955;"># Output Blendshape Weights</span>
+        out = decoder_head_arkit(feat, id_emb)
+        vertices = blendshape_layer(out)
+        
+    <span style="color:#569cd6;">return</span> vertices
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>

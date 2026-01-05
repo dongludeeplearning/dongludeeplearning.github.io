@@ -1,0 +1,530 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • SIGGRAPH Asia 2024
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Lingo: Autonomous Character-Scene Interaction Synthesis from Text Instruction</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Nan Jiang*, Zimo He*, Zi Wang, Hongjie Li, Yixin Chen, Siyuan Huang†, Yixin Zhu†<br>
+        <span style="opacity:0.8">Institute for AI, Peking University & National Key Lab of General AI, BIGAI</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en"> 
+            <b>One-Sentence Problem:</b> How to autonomously synthesize multi-stage character-scene interactions directly from a single text instruction and goal location without manual waypoint specification?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何从单个文本指令和目标位置直接自主合成多阶段角色-场景交互，而无需手动指定路径点？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Autonomous Synthesis Framework:</b> A comprehensive framework that synthesizes multi-stage scene-aware interaction motions directly from single text instruction and goal location, eliminating the need for manual waypoint specification.</div>
+            <div class="lang-zh" style="display:none"><b>自主合成框架：</b>一个综合框架，直接从单个文本指令和目标位置合成多阶段场景感知交互运动，无需手动指定路径点。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Autonomous Scheduler:</b> An autoregressive diffusion model combined with an autonomous scheduler that predicts transitions for each action stage, enabling seamless multi-stage motion generation.</div>
+            <div class="lang-zh" style="display:none"><b>自主调度器：</b>自回归扩散模型结合自主调度器，可以预测每个动作阶段的转换，实现无缝的多阶段运动生成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Local Scene Perception:</b> A scene representation that considers local perception at both start and goal locations, ensuring synthesized motions are seamlessly integrated within complex 3D environments.</div>
+            <div class="lang-zh" style="display:none"><b>局部场景感知：</b>一种场景表示，同时考虑起始和目标位置的局部感知，确保合成的运动在复杂3D环境中无缝集成。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Language-Motion Integration:</b> Enhanced motion coherence by integrating frame embeddings with language input, providing better alignment between textual descriptions and generated motions.</div>
+            <div class="lang-zh" style="display:none"><b>语言-运动集成：</b>通过将帧嵌入与语言输入集成来增强运动连贯性，提供文本描述与生成运动之间更好的对齐。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Comprehensive Dataset:</b> A 16-hour motion-captured dataset comprising motion sequences in 120 indoor scenes covering 40 types of motions, each annotated with precise language descriptions.</div>
+            <div class="lang-zh" style="display:none"><b>综合数据集：</b>一个16小时的运动捕捉数据集，包含120个室内场景中的运动序列，涵盖40种运动类型，每种都标注了精确的语言描述。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/autonomous_interaction_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Stage Coordination:</b> Automatically determining stage transitions and waypoints from high-level text instructions without manual intervention.</div>
+            <div class="lang-zh" style="display:none"><b>多阶段协调：</b>从高层文本指令自动确定阶段转换和路径点，而无需手动干预。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scene-Aware Synthesis:</b> Ensuring generated motions respect environmental constraints and maintain physical plausibility across complex 3D scenes.</div>
+            <div class="lang-zh" style="display:none"><b>场景感知合成：</b>确保生成的运动尊重环境约束并在复杂3D场景中保持物理合理性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Language-Motion Alignment:</b> Bridging the gap between natural language descriptions and precise motion sequences with proper temporal and semantic coherence.</div>
+            <div class="lang-zh" style="display:none"><b>语言-运动对齐：</b>弥合自然语言描述与精确运动序列之间的差距，并保持适当的时间和语义连贯性。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Data Annotation Complexity:</b> Creating comprehensive datasets with precise language descriptions for diverse motion types and scene configurations.</div>
+            <div class="lang-zh" style="display:none"><b>数据标注复杂性：</b>为多样化的运动类型和场景配置创建具有精确语言描述的综合数据集。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Autoregressive Diffusion Model:</b> Employs a diffusion model to synthesize the next motion segment autoregressively, conditioned on current state and language instruction.</div>
+            <div class="lang-zh" style="display:none"><b>自回归扩散模型：</b>使用扩散模型自回归地合成下一个运动片段，以当前状态和语言指令为条件。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Autonomous Stage Scheduler:</b> Predicts transitions between action stages automatically, determining when to switch from locomotion to reaching or interaction phases.</div>
+            <div class="lang-zh" style="display:none"><b>自主阶段调度器：</b>自动预测动作阶段之间的转换，确定何时从运动切换到伸手或交互阶段。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Local Scene Representation:</b> Constructs scene representations considering local perception at both start and goal positions, enabling environment-aware motion planning.</div>
+            <div class="lang-zh" style="display:none"><b>局部场景表示：</b>构建考虑起始和目标位置局部感知的场景表示，实现环境感知的运动规划。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Language-Frame Integration:</b> Combines frame-level embeddings with language input through cross-modal attention to enhance temporal coherence and semantic alignment.</div>
+            <div class="lang-zh" style="display:none"><b>语言-帧集成：</b>通过跨模态注意力将帧级嵌入与语言输入相结合，以增强时间连贯性和语义对齐。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/autonomous_interaction_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2410.03187.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2410.03187.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The framework successfully automates multi-stage character-scene interaction synthesis from simple text instructions, eliminating the need for manual waypoint specification and stage transitions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                该框架成功实现了从简单文本指令自主合成多阶段角色-场景交互，消除了手动指定路径点和阶段转换的需求。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                Local scene perception and language-motion integration ensure that generated motions are both physically plausible and semantically aligned with textual descriptions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                局部场景感知和语言-运动集成确保生成的运动既物理合理又与文本描述语义对齐。
+            </div>
+          </li>
+          <li>
+            <div class="lang-en">
+                The comprehensive dataset and autonomous scheduler enable robust generalization across diverse motion types and complex 3D environments, advancing the field of interactive character animation.
+            </div>
+            <div class="lang-zh" style="display:none">
+                综合数据集和自主调度器能够在多样化的运动类型和复杂3D环境中实现鲁棒泛化，推动交互式角色动画领域的发展。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="font-family:ui-monospace,monospace;font-size:13px;color:rgba(232,236,255,.8);background:rgba(0,0,0,.3);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,.05);">
+          <div class="lang-en">
+            <pre><code># Lingo: Autonomous Character-Scene Interaction Synthesis
+import torch
+import torch.nn as nn
+from diffusion_model import AutoregressiveDiffusion
+from scene_encoder import LocalSceneEncoder
+from scheduler import AutonomousScheduler
+
+class Lingo(nn.Module):
+    def __init__(self, motion_dim=135, scene_dim=512, text_dim=768):
+        super().__init__()
+        self.diffusion = AutoregressiveDiffusion(motion_dim)
+        self.scene_encoder = LocalSceneEncoder()  # Local perception at start/goal
+        self.text_encoder = nn.TransformerEncoder(text_dim, 6)  # CLIP or similar
+        self.scheduler = AutonomousScheduler()  # Predicts stage transitions
+        self.cross_modal_attn = nn.MultiheadAttention(motion_dim, 8)  # Language-motion fusion
+
+    def forward(self, text, goal_pos, current_motion, scene_start, scene_goal):
+        # Encode inputs
+        text_emb = self.text_encoder(text)  # [B, seq_len, text_dim]
+        scene_emb = self.scene_encoder(scene_start, scene_goal)  # [B, scene_dim]
+
+        # Autoregressive motion synthesis
+        motion_pred = self.diffusion(current_motion, text_emb, scene_emb)
+
+        # Language-motion integration via attention
+        motion_enhanced, _ = self.cross_modal_attn(
+            motion_pred.transpose(0,1),  # [seq_len, B, motion_dim]
+            text_emb.transpose(0,1),     # [text_len, B, text_dim]
+            text_emb.transpose(0,1)
+        )
+
+        return motion_enhanced.transpose(0,1)
+
+    def autonomous_synthesis(self, text, start_pos, goal_pos, scene):
+        """Generate multi-stage interaction from text instruction"""
+        trajectory = [start_pos]
+        motion_sequence = []
+
+        while not self.at_goal(trajectory[-1], goal_pos):
+            # Current stage assessment
+            current_stage = self.scheduler.predict_stage(text, trajectory, goal_pos)
+
+            # Local scene perception for current context
+            scene_local = self.scene_encoder.extract_local(scene, trajectory[-1], goal_pos)
+
+            # Generate next motion segment
+            current_motion = self.get_current_motion_state()
+            next_motion = self(text, goal_pos, current_motion, scene_local, scene_local)
+
+            # Execute and update trajectory
+            trajectory.append(self.execute_motion(next_motion))
+            motion_sequence.append(next_motion)
+
+            # Check for stage transition
+            if self.scheduler.should_transition(text, trajectory, goal_pos):
+                continue  # Continue to next stage
+
+        return motion_sequence
+
+    def at_goal(self, current_pos, goal_pos, threshold=0.1):
+        return torch.norm(current_pos - goal_pos) < threshold
+
+    def get_current_motion_state(self):
+        # Return current character motion state (pose, velocity, etc.)
+        return torch.randn(1, 135)  # Placeholder
+
+    def execute_motion(self, motion):
+        # Simulate motion execution and return new position
+        return torch.randn(3)  # Placeholder
+
+# Autonomous Stage Scheduler
+class AutonomousScheduler(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.stage_predictor = nn.Sequential(
+            nn.Linear(512, 256),
+            nn.ReLU(),
+            nn.Linear(256, 4)  # 4 possible stages: approach, reach, interact, depart
+        )
+
+    def predict_stage(self, text, trajectory, goal_pos):
+        # Analyze text and trajectory to predict current action stage
+        trajectory_emb = self.embed_trajectory(trajectory)
+        text_emb = self.embed_text(text)
+        combined = torch.cat([trajectory_emb, text_emb], dim=-1)
+
+        stage_logits = self.stage_predictor(combined)
+        return torch.argmax(stage_logits, dim=-1)
+
+    def should_transition(self, text, trajectory, goal_pos):
+        # Determine if current stage should end and next should begin
+        current_stage = self.predict_stage(text, trajectory, goal_pos)
+
+        # Simple heuristic: transition if close to stage completion
+        return self.stage_completion_score(trajectory, goal_pos) > 0.8
+
+    def stage_completion_score(self, trajectory, goal_pos):
+        # Compute how close current stage is to completion
+        current_pos = trajectory[-1]
+        distance_to_goal = torch.norm(current_pos - goal_pos)
+        return min(1.0, 1.0 / (1.0 + distance_to_goal))
+
+# Local Scene Encoder
+class LocalSceneEncoder(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.pointnet = PointNet()  # Process 3D scene geometry
+        self.position_encoder = nn.Linear(3, 128)  # Encode start/goal positions
+
+    def forward(self, scene_start, scene_goal):
+        # Extract local geometry around start and goal positions
+        local_start = self.extract_local_geometry(scene_start)
+        local_goal = self.extract_local_geometry(scene_goal)
+
+        # Encode positions
+        pos_start = self.position_encoder(scene_start['position'])
+        pos_goal = self.position_encoder(scene_goal['position'])
+
+        # Combine local geometry and position encodings
+        scene_emb = torch.cat([local_start, local_goal, pos_start, pos_goal], dim=-1)
+        return scene_emb
+
+    def extract_local_geometry(self, scene_patch):
+        # Process local 3D scene patch
+        return self.pointnet(scene_patch['points'])
+
+# Training with multi-stage objectives
+def train_lingo(model, batch):
+    text, goal_pos, gt_motion, scene_start, scene_goal = batch
+
+    # Forward pass
+    pred_motion = model(text, goal_pos, gt_motion[:, :-1], scene_start, scene_goal)
+
+    # Motion reconstruction loss
+    motion_loss = nn.MSELoss()(pred_motion, gt_motion[:, 1:])
+
+    # Stage transition loss
+    stage_targets = model.scheduler.get_stage_targets(text, gt_motion, goal_pos)
+    stage_loss = nn.CrossEntropyLoss()(model.scheduler.predict_stages(text, gt_motion, goal_pos), stage_targets)
+
+    # Scene awareness loss
+    scene_loss = model.compute_scene_penetration_loss(pred_motion, scene_start, scene_goal)
+
+    total_loss = motion_loss + 0.1 * stage_loss + 0.05 * scene_loss
+    return total_loss
+
+# Usage example
+if __name__ == "__main__":
+    model = Lingo()
+
+    # Example: "Walk to the chair and sit down"
+    text_instruction = "Walk to the chair and sit down"
+    goal_position = torch.tensor([2.0, 0.0, 0.0])  # Chair position
+    start_scene = {'points': torch.randn(1000, 3), 'position': torch.zeros(3)}
+    goal_scene = {'points': torch.randn(1000, 3), 'position': goal_position}
+
+    # Generate autonomous interaction
+    motion_sequence = model.autonomous_synthesis(
+        text_instruction, torch.zeros(3), goal_position,
+        {'start': start_scene, 'goal': goal_scene}
+    )
+
+    print(f"Generated {len(motion_sequence)} motion segments")</code></pre>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <pre><code># Lingo: 自主角色-场景交互合成
+import torch
+import torch.nn as nn
+from diffusion_model import AutoregressiveDiffusion
+from scene_encoder import LocalSceneEncoder
+from scheduler import AutonomousScheduler
+
+class Lingo(nn.Module):
+    def __init__(self, motion_dim=135, scene_dim=512, text_dim=768):
+        super().__init__()
+        self.diffusion = AutoregressiveDiffusion(motion_dim)  # 自回归扩散模型
+        self.scene_encoder = LocalSceneEncoder()  # 局部场景编码器
+        self.text_encoder = nn.TransformerEncoder(text_dim, 6)  # 文本编码器
+        self.scheduler = AutonomousScheduler()  # 自主阶段调度器
+        self.cross_modal_attn = nn.MultiheadAttention(motion_dim, 8)  # 跨模态注意力
+
+    def forward(self, text, goal_pos, current_motion, scene_start, scene_goal):
+        # 编码输入
+        text_emb = self.text_encoder(text)  # 文本嵌入
+        scene_emb = self.scene_encoder(scene_start, scene_goal)  # 场景嵌入
+
+        # 自回归运动合成
+        motion_pred = self.diffusion(current_motion, text_emb, scene_emb)
+
+        # 语言-运动集成
+        motion_enhanced, _ = self.cross_modal_attn(
+            motion_pred.transpose(0,1),  # [seq_len, B, motion_dim]
+            text_emb.transpose(0,1),     # [text_len, B, text_dim]
+            text_emb.transpose(0,1)
+        )
+
+        return motion_enhanced.transpose(0,1)
+
+    def autonomous_synthesis(self, text, start_pos, goal_pos, scene):
+        """从文本指令生成多阶段交互"""
+        trajectory = [start_pos]
+        motion_sequence = []
+
+        while not self.at_goal(trajectory[-1], goal_pos):
+            # 当前阶段评估
+            current_stage = self.scheduler.predict_stage(text, trajectory, goal_pos)
+
+            # 当前上下文的局部场景感知
+            scene_local = self.scene_encoder.extract_local(scene, trajectory[-1], goal_pos)
+
+            # 生成下一个运动片段
+            current_motion = self.get_current_motion_state()
+            next_motion = self(text, goal_pos, current_motion, scene_local, scene_local)
+
+            # 执行并更新轨迹
+            trajectory.append(self.execute_motion(next_motion))
+            motion_sequence.append(next_motion)
+
+            # 检查阶段转换
+            if self.scheduler.should_transition(text, trajectory, goal_pos):
+                continue  # 继续到下一阶段
+
+        return motion_sequence
+
+    def at_goal(self, current_pos, goal_pos, threshold=0.1):
+        return torch.norm(current_pos - goal_pos) < threshold
+
+# 自主阶段调度器
+class AutonomousScheduler(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.stage_predictor = nn.Sequential(
+            nn.Linear(512, 256),
+            nn.ReLU(),
+            nn.Linear(256, 4)  # 4个可能阶段：接近、伸手、交互、离开
+        )
+
+    def predict_stage(self, text, trajectory, goal_pos):
+        # 分析文本和轨迹预测当前动作阶段
+        trajectory_emb = self.embed_trajectory(trajectory)
+        text_emb = self.embed_text(text)
+        combined = torch.cat([trajectory_emb, text_emb], dim=-1)
+
+        stage_logits = self.stage_predictor(combined)
+        return torch.argmax(stage_logits, dim=-1)
+
+    def should_transition(self, text, trajectory, goal_pos):
+        # 确定当前阶段是否应该结束，下一阶段是否应该开始
+        return self.stage_completion_score(trajectory, goal_pos) > 0.8
+
+# 局部场景编码器
+class LocalSceneEncoder(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.pointnet = PointNet()  # 处理3D场景几何
+        self.position_encoder = nn.Linear(3, 128)  # 编码起始/目标位置
+
+    def forward(self, scene_start, scene_goal):
+        # 提取起始和目标位置周围的局部几何
+        local_start = self.extract_local_geometry(scene_start)
+        local_goal = self.extract_local_geometry(scene_goal)
+
+        # 编码位置
+        pos_start = self.position_encoder(scene_start['position'])
+        pos_goal = self.position_encoder(scene_goal['position'])
+
+        # 组合局部几何和位置编码
+        scene_emb = torch.cat([local_start, local_goal, pos_start, pos_goal], dim=-1)
+        return scene_emb
+
+# 带多阶段目标的训练
+def train_lingo(model, batch):
+    text, goal_pos, gt_motion, scene_start, scene_goal = batch
+
+    # 前向传播
+    pred_motion = model(text, goal_pos, gt_motion[:, :-1], scene_start, scene_goal)
+
+    # 运动重建损失
+    motion_loss = nn.MSELoss()(pred_motion, gt_motion[:, 1:])
+
+    # 阶段转换损失
+    stage_targets = model.scheduler.get_stage_targets(text, gt_motion, goal_pos)
+    stage_loss = nn.CrossEntropyLoss()(model.scheduler.predict_stages(text, gt_motion, goal_pos), stage_targets)
+
+    # 场景感知损失
+    scene_loss = model.compute_scene_penetration_loss(pred_motion, scene_start, scene_goal)
+
+    total_loss = motion_loss + 0.1 * stage_loss + 0.05 * scene_loss
+    return total_loss
+
+# 使用示例
+if __name__ == "__main__":
+    model = Lingo()
+
+    # 示例："走到椅子旁边坐下"
+    text_instruction = "Walk to the chair and sit down"
+    goal_position = torch.tensor([2.0, 0.0, 0.0])  # 椅子位置
+
+    # 生成自主交互
+    motion_sequence = model.autonomous_synthesis(
+        text_instruction, torch.zeros(3), goal_position,
+        {'start': start_scene, 'goal': goal_scene}
+    )
+
+    print(f"生成了 {len(motion_sequence)} 个运动片段")</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://github.com/mileret/lingo-release" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          GitHub Repo
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

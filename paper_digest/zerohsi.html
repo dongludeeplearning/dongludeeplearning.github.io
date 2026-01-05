@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • 3DV 2026
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">ZeroHSI: Zero-Shot 4D Human-Scene Interaction by Video Generation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Hongjie Li, Hong-Xing Yu, Jiaman Li, Jiajun Wu<br>
+        <span style="opacity:0.8">Stanford University</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to synthesize realistic human motions that interact with 3D environments in unseen scenes without requiring paired motion-scene training data?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在未见场景中合成与3D环境交互的真实人类运动，而无需配对的运动-场景训练数据？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>ZeroHSI Framework:</b> Pioneering zero-shot 4D human-scene interaction synthesis that distills interactions from video generation models and uses differentiable rendering for motion reconstruction, eliminating the need for MoCap training data.</div>
+            <div class="lang-zh" style="display:none"><b>ZeroHSI框架：</b>开创性的零样本4D人类-场景交互合成，从视频生成模型中提取交互，并使用可微分渲染进行运动重建，消除了对MoCap训练数据的需要。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Video-to-4D Lifting:</b> Novel optimization-based approach integrating video generation with neural human rendering, enabling reconstruction of both human motions and object manipulations from generated 2D videos into coherent 4D interactions.</div>
+            <div class="lang-zh" style="display:none"><b>视频到4D提升：</b>新颖的基于优化的方法，将视频生成与神经人类渲染集成，实现从生成的2D视频重建人类运动和物体操作到连贯的4D交互。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Robust Optimization Pipeline:</b> Comprehensive optimization strategy with photometric, center point, and depth regularization losses, handling low-quality generated videos through techniques for incorrect content removal, body part disappearance, and appearance changes.</div>
+            <div class="lang-zh" style="display:none"><b>鲁棒优化管道：</b>全面的优化策略，包括光度学、中心点和深度正则化损失，通过技术处理低质量生成视频，包括错误内容移除、身体部位消失和外观变化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multi-Object Support:</b> Unified framework supporting both static environments and dynamic object manipulation, with dedicated optimization for object 6D poses and human-scene compatibility constraints.</div>
+            <div class="lang-zh" style="display:none"><b>多物体支持：</b>统一的框架，支持静态环境和动态物体操作，具有针对物体6D姿态和人类-场景兼容性约束的专用优化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Extensive Evaluation:</b> Curated dataset with diverse indoor/outdoor scenes and interaction prompts, demonstrating contextual appropriateness across Mip-NeRF 360 and Tanks and Temples reconstructed scenes, with compatibility across multiple video generation models.</div>
+            <div class="lang-zh" style="display:none"><b>广泛评估：</b>精心策划的数据集，具有多样化的室内/室外场景和交互提示，展示了在Mip-NeRF 360和Tanks and Temples重建场景中的上下文适当性，以及跨多个视频生成模型的兼容性。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/zerohsi_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2412.18600.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2412.18600.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/zerohsi_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2412.18600.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2412.18600.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Data Dependency:</b> Existing supervised approaches require paired 3D scenes and motion capture data for training, making them unable to synthesize interactions in unseen environments like in-the-wild or reconstructed scenes.</div>
+            <div class="lang-zh" style="display:none"><b>数据依赖：</b>现有的监督方法需要配对的3D场景和运动捕获数据进行训练，使其无法在未见环境中合成交互，如野外或重建场景。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Generalization Limitations:</b> Learning-based methods struggle with geometric variations and fail to handle diverse object categories and interaction types beyond their training distributions.</div>
+            <div class="lang-zh" style="display:none"><b>泛化限制：</b>基于学习的方法难以处理几何变化，无法在训练分布之外处理多样化的物体类别和交互类型。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dynamic Object Support:</b> Most methods focus on static environments and lack mechanisms for realistic manipulation of dynamic objects with proper physics and interaction constraints.</div>
+            <div class="lang-zh" style="display:none"><b>动态物体支持：</b>大多数方法专注于静态环境，缺乏对具有适当物理和交互约束的动态物体进行真实操作的机制。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Video-to-3D Reconstruction:</b> Lifting generated 2D videos to 3D motions requires handling camera pose estimation, object pose optimization, and maintaining temporal coherence under imperfect video generation quality.</div>
+            <div class="lang-zh" style="display:none"><b>视频到3D重建：</b>将生成的2D视频提升到3D运动需要处理相机姿态估计、物体姿态优化，并在不完美的视频生成质量下保持时间连贯性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Low-Quality Video Handling:</b> Video generation models produce artifacts like incorrect contents, body part disappearance, and appearance changes that require robust reconstruction techniques.</div>
+            <div class="lang-zh" style="display:none"><b>低质量视频处理：</b>视频生成模型产生错误内容、身体部位消失和外观变化等瑕疵，需要鲁棒的重建技术。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Video Generation Integration:</b> Leverages pretrained video generation models (KLING) conditioned on rendered initial frames and text prompts to generate contextually appropriate HSI videos with natural human-object interactions.</div>
+            <div class="lang-zh" style="display:none"><b>视频生成集成：</b>利用预训练的视频生成模型（KLING），以渲染的初始帧和文本提示为条件，生成具有自然人类-物体交互的上下文适当的HSI视频。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Gaussian-based Representation:</b> Unified representation using 3D Gaussian Splatting for scenes, objects, and animatable humans, enabling differentiable rendering for optimization-based motion reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>基于高斯表示：</b>使用3D高斯泼溅对场景、物体和可动画人类进行统一表示，实现可微分渲染以进行基于优化的运动重建。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Per-frame Optimization:</b> Sequential frame-by-frame optimization of camera poses, human SMPL-X parameters, and object 6D poses using photometric losses with center point and depth regularization for accurate 4D reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>每帧优化：</b>使用光度损失以及中心点和深度正则化，对相机姿态、人SMPL-X参数和物体6D姿态进行顺序的逐帧优化，以实现准确的4D重建。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Robust Video Processing:</b> Techniques for handling low-quality generated videos including dynamic foreground mask aggregation for incorrect content removal, visibility-based camera selection, and appearance change handling.</div>
+            <div class="lang-zh" style="display:none"><b>鲁棒视频处理：</b>处理低质量生成视频的技术，包括动态前景掩码聚合以移除错误内容、基于可见性的相机选择和外观变化处理。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Refinement with Pose Priors:</b> Post-processing refinement in VPoser latent space with physics-based losses to enhance motion naturalness and physical plausibility, reducing artifacts from single-view reconstruction.</div>
+            <div class="lang-zh" style="display:none"><b>使用姿态先验的优化：</b>在VPoser潜在空间中进行后处理优化，使用基于物理的损失来增强运动自然性和物理合理性，减少单视图重建的瑕疵。</div>
+          </li>
+        </ol>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Zero-Shot Paradigm Breakthrough:</b> ZeroHSI establishes a new paradigm for HSI synthesis by leveraging video generation models trained on vast internet data, enabling synthesis in arbitrary 3D environments without scene-specific training.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>零样本范式突破：</b>ZeroHSI通过利用在大量互联网数据上训练的视频生成模型，建立了一个新的HSI合成范式，实现无需场景特定训练即可在任意3D环境中进行合成。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Video Generation as Knowledge Source:</b> Pretrained video generation models serve as rich knowledge repositories of human behaviors and interactions, providing a scalable alternative to expensive motion capture data collection.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>视频生成为知识来源：</b>预训练的视频生成模型作为人类行为和交互的丰富知识库，为昂贵的运动捕获数据收集提供了一个可扩展的替代方案。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Unified Optimization Framework:</b> The combination of differentiable rendering and multi-term optimization losses creates a general framework for lifting 2D video content to coherent 4D spatio-temporal interactions.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>统一优化框架：</b>可微分渲染和多项优化损失的结合为将2D视频内容提升到连贯的4D时空交互创建了一个通用框架。
+            </div>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">
+               <span class="lang-en">High-Level Insights: Why it Works?</span>
+               <span class="lang-zh" style="display:none">高层洞察：为什么有效？</span>
+             </h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                It works because ZeroHSI bridges the gap between generative 2D video capabilities and 3D motion reconstruction through principled optimization. By leveraging the semantic understanding embedded in video generation models and using differentiable rendering as the connection mechanism, the approach transforms the challenging zero-shot problem into a tractable optimization task that respects both visual fidelity and physical constraints.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                之所以有效，是因为ZeroHSI通过原理性的优化弥合了生成2D视频能力和3D运动重建之间的差距。通过利用嵌入在视频生成模型中的语义理解，并使用可微分渲染作为连接机制，该方法将具有挑战性的零样本问题转换为尊重视觉保真度和物理约束的易处理优化任务。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            This paper introduces ZeroHSI, a novel zero-shot approach for 4D human-scene interaction synthesis that eliminates the need for paired 3D scene and motion capture training data. By integrating video generation with differentiable neural rendering, ZeroHSI distills human-scene interactions from pretrained video models and reconstructs them into coherent 4D motions supporting both static environments and dynamic object manipulations. The framework demonstrates robust performance across diverse indoor and outdoor scenes from Mip-NeRF 360 and Tanks and Temples datasets, generating contextually appropriate interactions for activities ranging from walking and sitting to watering plants and playing instruments. Extensive ablation studies validate the effectiveness of the optimization components, while compatibility with multiple video generation models ensures adaptability to future advancements. ZeroHSI establishes a new paradigm for data-efficient HSI synthesis that leverages the rich behavioral knowledge embedded in large-scale video generation models.
+          </div>
+          <div class="lang-zh" style="display:none">
+            本文介绍了ZeroHSI，这是一种新颖的零样本方法，用于4D人类-场景交互合成，消除了对配对3D场景和运动捕获训练数据的需要。通过将视频生成与可微分神经渲染集成，ZeroHSI从预训练的视频模型中提取人类-场景交互，并将它们重建为支持静态环境和动态物体操作的连贯4D运动。该框架展示了在来自Mip-NeRF 360和Tanks and Temples数据集的多样化室内和室外场景中的鲁棒性能，为从步行和坐下到浇水植物和演奏乐器的活动生成上下文适当的交互。广泛的消融研究验证了优化组件的有效性，而与多个视频生成模型的兼容性确保了对未来进展的适应性。ZeroHSI建立了一个新的范式，用于数据高效的HSI合成，利用嵌入在大规模视频生成模型中的丰富行为知识。
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://awfuact.github.io/zerohsi/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          Project Page
+        </a>
+      </div>
+    </div>
+</section>
+</body>
+</html>

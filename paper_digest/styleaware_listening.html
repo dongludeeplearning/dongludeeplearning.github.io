@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV Workshops 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Listening Style-Aware Dyadic Facial Motion Generation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Gourav Datta, Boshi Huang, Nitesh Sekhar, Vivek Yadav, Shih-Yao Lin, Ayush Jaiswal, Prateek Singhal <br>
+        <span style="opacity:0.8">University of Southern California, Amazon Alexa AI</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate diverse and style-aware non-verbal facial responses for listeners in dyadic conversations without training separate models for each person?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何在二元对话中为听众生成多样化且感知风格的非语言面部反应，而无需为每个人训练单独的模型？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Single Generalizable Model:</b> Proposes a unified framework that learns listening styles from multiple listeners and generalizes to new, unseen styles at runtime, replacing the need for one-model-per-person.</div>
+            <div class="lang-zh" style="display:none"><b>单一可泛化模型：</b>提出了一个统一框架，从多个听众中学习聆听风格，并在运行时泛化到新的、未见过的风格，取代了“一人一模型”的需求。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Style Embedding & Sampling:</b> Develops a style representation (embedding) for each listener, allowing users to sample new listening styles from this latent space to generate unique facial expressions and head motions.</div>
+            <div class="lang-zh" style="display:none"><b>风格嵌入与采样：</b>为每个听众开发风格表示（嵌入），允许用户从该潜在空间采样新的聆听风格，以生成独特的面部表情和头部动作。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Co-optimized Training:</b> Introduces a style transfer aware training technique where the style representation and the facial motion generation model are trained simultaneously, improving motion realism (FID reduced by ~30%).</div>
+            <div class="lang-zh" style="display:none"><b>协同优化训练：</b>引入了一种风格迁移感知训练技术，同时训练风格表示和面部动作生成模型，提高了动作的真实感（FID 降低约 30%）。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/styleaware_listening_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Indeterministic Response:</b> Listener non-verbal feedback is highly non-deterministic and stochastic, making it difficult for standard generative models to generalize well.</div>
+            <div class="lang-zh" style="display:none"><b>非确定性反应：</b>听众的非语言反馈具有高度的非确定性和随机性，使得标准生成模型难以良好泛化。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>One-Model-Per-Style Limitation:</b> Existing works typically train a separate model for each listener ID, which is impractical for deploying scalable conversational avatars that need to adapt to various personas.</div>
+            <div class="lang-zh" style="display:none"><b>单风格单模型限制：</b>现有工作通常为每个听众 ID 训练单独的模型，这对于部署需要适应多种角色的可扩展对话化身是不切实际的。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Multimodal Alignment:</b> Accurately aligning and fusing speaker audio/video features with listener style embeddings is complex and prone to training instability.</div>
+            <div class="lang-zh" style="display:none"><b>多模态对齐：</b>准确对齐和融合演讲者的音频/视频特征与听众的风格嵌入非常复杂，且容易导致训练不稳定。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Style Extractor:</b> A CNN-based module that learns a compact style embedding from reference listener video clips using contrastive loss (or cross-entropy).</div>
+            <div class="lang-zh" style="display:none"><b>风格提取器：</b>一个基于 CNN 的模块，使用对比损失（或交叉熵）从参考听众视频片段中学习紧凑的风格嵌入。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Motion Generator (VQ-VAE):</b> A VQ-VAE based generator that takes the speaker's multimodal signals (audio + face motion) and the learned listener style embedding to autoregressively predict listener facial motion coefficients (FLAME parameters).</div>
+            <div class="lang-zh" style="display:none"><b>动作生成器 (VQ-VAE)：</b>基于 VQ-VAE 的生成器，接收演讲者的多模态信号（音频 + 面部动作）和学习到的听众风格嵌入，自回归地预测听众的面部动作系数（FLAME 参数）。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>End-to-End Co-Optimization:</b> The style extractor and motion generator are trained jointly, ensuring the style embeddings are optimized specifically for the motion generation task.</div>
+            <div class="lang-zh" style="display:none"><b>端到端协同优化：</b>风格提取器和动作生成器联合训练，确保风格嵌入专门针对动作生成任务进行优化。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/styleaware_listening_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('styleaware_listening.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('styleaware_listening.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                The proposed framework successfully enables a single model to generate diverse, realistic listener facial responses corresponding to various styles, significantly improving quantitative metrics (L2, FID) over listener-agnostic baselines.
+            </div>
+            <div class="lang-zh" style="display:none">
+                所提出的框架成功使单一模型能够生成对应于各种风格的多样化、逼真的听众面部反应，在定量指标（L2, FID）上显著优于无视听众的基线模型。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                It allows for the runtime generation of new listening styles by sampling from the style embedding space, offering flexibility for conversational AI avatar customization.
+            </div>
+            <div class="lang-zh" style="display:none">
+                它允许通过从风格嵌入空间采样在运行时生成新的聆听风格，为对话 AI 化身的定制提供了灵活性。
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="#" target="_blank" style="display:flex; align-items:center; gap:6px; color:rgba(232,236,255,0.5); text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(255,255,255,0.1); padding:6px 12px; border-radius:8px; background:rgba(255,255,255,0.02); pointer-events:none;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          Code Not Available
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
+

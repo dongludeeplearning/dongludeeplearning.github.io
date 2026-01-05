@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • JMLR 2022
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        William Fedus, Barret Zoph, Noam Shazeer<br>
+        <span style="opacity:0.8">Google Research</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we scale neural language models to trillion parameters while maintaining computational efficiency through sparse activation, overcoming the limitations of traditional dense models and previous mixture-of-experts approaches?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过稀疏激活将神经语言模型扩展到万亿参数，同时保持计算效率，克服传统密集模型和之前专家混合方法的限制？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Switch Transformer Architecture:</b> Introduced a simplified and efficient Mixture-of-Experts (MoE) routing algorithm that routes each token to exactly one expert, reducing communication costs and improving training stability compared to previous MoE approaches.</div>
+            <div class="lang-zh" style="display:none"><b>Switch Transformer架构：</b>引入了简化和高效的专家混合(MoE)路由算法，将每个token精确路由到一个专家，降低了通信成本并提高了训练稳定性，相较于之前的MoE方法。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Scalability to Trillion Parameters:</b> Demonstrated the ability to train models with up to a trillion parameters using efficient combinations of data, model, and expert parallelism, achieving 4x speedup over dense T5-XXL models.</div>
+            <div class="lang-zh" style="display:none"><b>扩展到万亿参数：</b>展示了使用数据、模型和专家并行的高效组合来训练最多万亿参数模型的能力，实现了比密集T5-XXL模型4倍的加速。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training Stability Improvements:</b> Developed techniques including simplified routing, expert capacity management, and lower-precision training (bfloat16) that enable stable training of large sparse models for the first time.</div>
+            <div class="lang-zh" style="display:none"><b>训练稳定性改进：</b>开发了技术包括简化的路由、专家容量管理和低精度训练(bfloat16)，首次实现了大型稀疏模型的稳定训练。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Superior Scaling Properties:</b> Achieved up to 7x pre-training speed improvements over T5 models with the same computational resources, with benefits extending to multilingual settings across all 101 languages.</div>
+            <div class="lang-zh" style="display:none"><b>卓越的扩展特性：</b>实现了比T5模型7倍的预训练速度提升，使用相同的计算资源，益处扩展到多语言设置中的所有101种语言。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Knowledge Distillation:</b> Showed that large sparse Switch Transformers can be effectively distilled into small dense models, reducing model size by up to 99% while preserving 30% of the quality gains.</div>
+            <div class="lang-zh" style="display:none"><b>知识蒸馏：</b>展示了大型稀疏Switch Transformers可以有效蒸馏到小型密集模型，将模型大小减少高达99%，同时保留30%的质量提升。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>MoE Routing Complexity:</b> Traditional Mixture-of-Experts models suffer from complex routing algorithms that introduce communication overhead, training instability, and load balancing issues.</div>
+            <div class="lang-zh" style="display:none"><b>MoE路由复杂度：</b>传统的专家混合模型遭受复杂路由算法的影响，会引入通信开销、训练不稳定性和负载平衡问题。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Training Instability:</b> Sparse models with conditional computation are prone to training instabilities, gradient vanishing/exploding, and expert collapse, making them difficult to scale to large sizes.</div>
+            <div class="lang-zh" style="display:none"><b>训练不稳定：</b>具有条件计算的稀疏模型容易出现训练不稳定、梯度消失/爆炸和专家崩溃等问题，使其难以扩展到大型模型。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Communication Costs:</b> Distributing sparse computations across multiple devices introduces significant communication overhead that can outweigh the computational benefits of sparsity.</div>
+            <div class="lang-zh" style="display:none"><b>通信成本：</b>跨多个设备分布稀疏计算会引入显著的通信开销，可能超过稀疏性的计算益处。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Precision and Scale Trade-offs:</b> Achieving both numerical stability with lower precision formats and massive scale requires careful balancing of model architecture, training techniques, and distributed computing strategies.</div>
+            <div class="lang-zh" style="display:none"><b>精度和规模权衡：</b>实现低精度格式的数值稳定性和大规模需要仔细平衡模型架构、训练技术和分布式计算策略。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Load Balancing:</b> Ensuring even distribution of computation across experts while maintaining model quality is challenging, especially when expert capacities are limited or routing decisions are made independently.</div>
+            <div class="lang-zh" style="display:none"><b>负载平衡：</b>确保跨专家的均匀计算分布同时保持模型质量具有挑战性，尤其是当专家容量有限或路由决策独立做出时。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The Switch Transformer introduces a simplified MoE approach for efficient sparse language modeling:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Simplified Routing:</b> Each token is routed to exactly one expert based on a learned routing function, eliminating the need for load balancing and reducing communication costs compared to top-k routing.</li>
+                <li style="margin-bottom:6px;"><b>Efficient Implementation:</b> All-to-all communication is replaced with scatter and gather operations, and expert computation is organized to minimize memory transfers and maximize hardware utilization.</li>
+                <li style="margin-bottom:6px;"><b>Capacity Management:</b> A "no-token-left-behind" mechanism ensures all tokens are processed by allowing experts to exceed their capacity when necessary, preventing token dropping.</li>
+                <li style="margin-bottom:6px;"><b>Training Techniques:</b> Selective precision training with bfloat16, expert dropout for regularization, and improved initialization schemes that enable stable training of trillion-parameter models.</li>
+                <li style="margin-bottom:6px;"><b>Parallelism Strategy:</b> Combines data, model, and expert parallelism to efficiently distribute computation across thousands of accelerators, enabling unprecedented model scale.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>Switch Transformer引入了一种简化的MoE方法，用于高效的稀疏语言建模：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>简化路由：</b>每个token基于学习的路由函数精确路由到一个专家，消除了负载平衡的需求，并降低了与top-k路由相比的通信成本。</li>
+                <li style="margin-bottom:6px;"><b>高效实现：</b>将all-to-all通信替换为scatter和gather操作，并组织专家计算以最小化内存传输并最大化硬件利用率。</li>
+                <li style="margin-bottom:6px;"><b>容量管理：</b>"no-token-left-behind"机制确保所有token都被处理，允许专家在必要时超过其容量，防止token丢失。</li>
+                <li style="margin-bottom:6px;"><b>训练技术：</b>使用bfloat16的选择性精度训练、专家dropout进行正则化，以及改进的初始化方案，使万亿参数模型的稳定训练成为可能。</li>
+                <li style="margin-bottom:6px;"><b>并行策略：</b>结合数据、模型和专家并行，以高效方式跨数千个加速器分布计算，实现前所未有的模型规模。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/switch_transformers_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <img src="Figures/switch_transformers_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <p>Switch Transformers demonstrate superior scaling properties with increasing sparsity (more experts), achieving up to 7x pre-training speedups over dense T5 models while maintaining sample efficiency.</p>
+            <p>Note: The architecture enables training of trillion-parameter models through simplified MoE routing, reduced communication costs, and efficient distributed training techniques.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_switch_transformers.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_switch_transformers.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The Switch Transformer's success stems from fundamental improvements to sparse model training and scaling:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Simplified Routing Architecture:</b> By routing each token to exactly one expert instead of multiple experts, the Switch Transformer eliminates complex load balancing requirements and reduces communication overhead by 90% compared to traditional MoE approaches.</li>
+                <li style="margin-bottom:6px;"><b>Efficient Expert Computation:</b> Organizing experts to maximize hardware utilization and minimizing memory transfers allows sparse models to achieve computational efficiency that rivals or exceeds dense models at scale.</li>
+                <li style="margin-bottom:6px;"><b>Robust Training Techniques:</b> Capacity management prevents token dropping, selective precision training enables stable bfloat16 training, and improved initialization schemes prevent expert collapse, making trillion-parameter training feasible.</li>
+                <li style="margin-bottom:6px;"><b>Parallelism Innovation:</b> The combination of data, model, and expert parallelism provides near-perfect scaling efficiency across thousands of accelerators, enabling unprecedented model sizes that were previously impossible.</li>
+                <li style="margin-bottom:6px;"><b>Quality Preservation:</b> Distillation techniques allow the benefits of massive sparse models to be transferred to smaller dense models, making the approach practical for deployment while retaining significant quality improvements.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>Switch Transformer的成功源于对稀疏模型训练和扩展的基本改进：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>简化路由架构：</b>通过将每个token精确路由到一个专家而不是多个专家，Switch Transformer消除了复杂的负载平衡要求，并将通信开销降低了90%，相较于传统的MoE方法。</li>
+                <li style="margin-bottom:6px;"><b>高效专家计算：</b>组织专家以最大化硬件利用率并最小化内存传输，使稀疏模型能够在规模上实现与密集模型相当或更好的计算效率。</li>
+                <li style="margin-bottom:6px;"><b>鲁棒训练技术：</b>容量管理防止token丢失，选择性精度训练实现稳定的bfloat16训练，改进的初始化方案防止专家崩溃，使万亿参数训练成为可能。</li>
+                <li style="margin-bottom:6px;"><b>并行创新：</b>数据、模型和专家并行的组合提供了跨数千个加速器的近乎完美的扩展效率，实现前所未有的模型规模。</li>
+                <li style="margin-bottom:6px;"><b>质量保留：</b>蒸馏技术允许将大型稀疏模型的益处转移到较小的密集模型，使该方法在部署时实用，同时保留显著的质量改进。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work establishes Switch Transformers as a fundamental breakthrough in scaling neural language models, demonstrating that sparsity through Mixture-of-Experts can achieve unprecedented parameter counts while maintaining computational efficiency. By simplifying the MoE routing algorithm to route each token to exactly one expert, the authors eliminate the communication and training instabilities that have plagued previous sparse approaches. The result is a model that can scale to trillion parameters—orders of magnitude beyond previous limits—while achieving up to 7x pre-training speed improvements and 4x speedups over dense baselines. The training innovations, including bfloat16 precision training, capacity management, and expert regularization, make large-scale sparse training practical for the first time. The multilingual evaluation across 101 languages and successful distillation to smaller models further demonstrate the broad applicability of the approach. Switch Transformers represent a pivotal advancement in machine learning architecture, showing that intelligent sparsity can unlock the next generation of language models. The work not only advances the theoretical understanding of how to scale neural networks but provides practical techniques that have been adopted in subsequent large language models. By enabling efficient training of models with outrageous parameter counts, Switch Transformers open new frontiers in natural language processing and pave the way for more capable AI systems.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作将Switch Transformers确立为扩展神经语言模型的基本突破，证明通过专家混合的稀疏性可以实现前所未有的参数数量，同时保持计算效率。通过将MoE路由算法简化为将每个token精确路由到一个专家，作者消除了困扰之前稀疏方法的通信和训练不稳定性。结果是一个可以扩展到万亿参数的模型——比之前极限高出几个数量级——同时实现高达7倍的预训练速度提升和比密集基线4倍的速度提升。包括bfloat16精度训练、容量管理和专家正则化在内的训练创新，首次使大规模稀疏训练变得实用。跨101种语言的多语言评估和成功蒸馏到较小模型进一步证明了该方法的广泛适用性。Switch Transformers代表了机器学习架构的关键进步，表明智能稀疏性可以解锁下一代语言模型。这项工作不仅推进了对如何扩展神经网络的理论理解，还提供了已被后续大型语言模型采用的实用技术。通过实现具有惊人参数数量的模型的高效训练，Switch Transformers为自然语言处理开辟了新前沿，并为更强大的AI系统铺平了道路。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2101.03961" target="_blank" style="color:#8bffcf;">2101.03961</a></p>
+          <p><b>JAX Code:</b> <a href="https://github.com/kyegomez/SwitchTransformers" target="_blank" style="color:#8bffcf;">https://github.com/kyegomez/SwitchTransformers</a></p>
+          <p><b>TensorFlow Code:</b> <a href="https://github.com/tensorflow/mesh/blob/master/mesh_tensorflow/transformer/moe.py" target="_blank" style="color:#8bffcf;">tensorflow/mesh</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Switch Transformer Implementation<br>
+<br>
+// Simplified MoE Routing - Each token to exactly one expert<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">SwitchRouter</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Routes each token to exactly one expert based on learned routing function"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, num_experts, hidden_dim):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.router = nn.Linear(hidden_dim, num_experts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_experts = num_experts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">route</span>(self, inputs):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Route each token to one expert"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logits = self.router(inputs)  <span style="color:#6a9955;"># (batch_size, seq_len, num_experts)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expert_indices = torch.argmax(logits, dim=-1)  <span style="color:#6a9955;"># (batch_size, seq_len)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> expert_indices<br>
+<br>
+// Expert Capacity Management - No Token Left Behind<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">ExpertCapacityManager</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Manages expert capacity to prevent token dropping"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, num_experts, capacity_factor=1.0):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.capacity_factor = capacity_factor<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_experts = num_experts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">get_capacity</span>(self, batch_size, seq_len):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Calculate per-expert capacity"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokens_per_expert = (batch_size * seq_len) // self.num_experts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity = <span style="color:#569cd6;">int</span>(tokens_per_expert * self.capacity_factor)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> capacity<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">enforce_capacity</span>(self, expert_indices, batch_size, seq_len):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Allow experts to exceed capacity to prevent token dropping"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity = self.get_capacity(batch_size, seq_len)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># In Switch Transformer, we allow flexible capacity</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># No tokens are dropped - experts can handle more if needed</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> expert_indices  <span style="color:#6a9955;"># Return unchanged</span><br>
+<br>
+// Switch Transformer Layer<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">SwitchTransformerLayer</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""A transformer layer with Switch routing instead of dense FFN"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, hidden_dim, num_experts, expert_capacity):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.router = SwitchRouter(num_experts, hidden_dim)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.capacity_manager = ExpertCapacityManager(num_experts, expert_capacity)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Create multiple expert FFNs</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.experts = nn.ModuleList([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(hidden_dim, hidden_dim * 4),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(hidden_dim * 4, hidden_dim)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) <span style="color:#569cd6;">for</span> _ <span style="color:#569cd6;">in</span> range(num_experts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(self, x):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Forward pass with expert routing"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;batch_size, seq_len, hidden_dim = x.shape<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Route tokens to experts</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expert_indices = self.router.route(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expert_indices = self.capacity_manager.enforce_capacity(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expert_indices, batch_size, seq_len)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Process tokens through assigned experts</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs = torch.zeros_like(x)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">for</span> expert_idx <span style="color:#569cd6;">in</span> range(len(self.experts)):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mask = (expert_indices == expert_idx)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> mask.any():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expert_input = x[mask]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expert_output = self.experts[expert_idx](expert_input)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs[mask] = expert_output<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> outputs<br>
+<br>
+// Distributed Training with Expert Parallelism<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">DistributedSwitchTransformer</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Switch Transformer with data, model, and expert parallelism"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(self, model_config, num_devices, expert_parallelism=True):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model_config = model_config<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.num_devices = num_devices<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.expert_parallelism = expert_parallelism<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Initialize distributed components</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._setup_distributed_training()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">_setup_distributed_training</span>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Setup data, model, and expert parallelism"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span> self.expert_parallelism:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Distribute experts across devices</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;experts_per_device = self.model_config.num_experts // self.num_devices<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Implement efficient all-to-all communication for expert routing</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._setup_expert_communication()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Standard data and model parallelism</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._setup_data_parallelism()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._setup_model_parallelism()<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

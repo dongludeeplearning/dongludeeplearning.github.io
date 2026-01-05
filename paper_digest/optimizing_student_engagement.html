@@ -1,0 +1,357 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  // 直接打开PDF文件
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • Neural Computing and Applications 2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Optimizing Student Engagement Detection Using Facial and Behavioral Features</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Riju Das, Soumyabrata Dev<br>
+        <span style="opacity:0.8">University College Dublin, Ireland</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can facial action units and behavioral features be directly mapped to student engagement labels for accurate real-time detection in educational environments?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何将面部动作单元和行为特征直接映射到学生参与度标签，以实现教育环境中准确的实时检测？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>AU-Engagement Mapping:</b> First direct mapping of facial action units (AUs) to engagement labels using conditional probability, relative activation ratio, and statistical discriminative coefficient (SDC) metrics.</div>
+            <div class="lang-zh" style="display:none"><b>AU-参与度映射：</b>首次使用条件概率、相对激活比率和统计判别系数（SDC）指标将面部动作单元（AU）直接映射到参与度标签。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Comprehensive ML/DL Analysis:</b> Systematic comparison of traditional machine learning (SVM, RF, XGBoost) and deep learning approaches (ResNet, EfficientNet) for engagement detection using facial and behavioral features.</div>
+            <div class="lang-zh" style="display:none"><b>全面ML/DL分析：</b>系统比较传统机器学习（SVM、RF、XGBoost）和深度学习方法（ResNet、EfficientNet），用于使用面部和行为特征的参与度检测。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Multimodal Integration:</b> Dual-path architecture combining image features with OpenFace behavioral features (AUs, eye gaze, head pose) for enhanced engagement classification performance.</div>
+            <div class="lang-zh" style="display:none"><b>多模态集成：</b>双路径架构将图像特征与OpenFace行为特征（AU、眼部注视、头部姿势）相结合，以增强参与度分类性能。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Reproducible Framework:</b> Open-source code repository with comprehensive evaluation on WACV and DAiSEE datasets, achieving 82.9% accuracy with XGBoost and 47.2% with EfficientNet.</div>
+            <div class="lang-zh" style="display:none"><b>可重现框架：</b>开源代码库，在WACV和DAiSEE数据集上进行全面评估，XGBoost达到82.9%的准确率，EfficientNet达到47.2%。</div>
+          </li>
+        </ul>
+      </div>
+
+
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Direct AU-Engagement Mapping:</b> Bridging the gap between low-level facial action units and high-level engagement states without relying on intermediate emotion classification steps.</div>
+            <div class="lang-zh" style="display:none"><b>直接AU-参与度映射：</b>弥合低级面部动作单元和高水平参与度状态之间的差距，而不依赖于中间情绪分类步骤。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dataset Imbalance:</b> Handling significantly imbalanced engagement classes in educational datasets (412 disengaged vs. 2247 partially engaged vs. 1765 engaged images) using weighted sampling and loss functions.</div>
+            <div class="lang-zh" style="display:none"><b>数据集不平衡：</b>使用加权采样和损失函数处理教育数据集中严重不平衡的参与度类别（412个不参与、2247个部分参与、1765个参与图像）。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Real-Time Processing:</b> Extracting and processing multimodal facial features (AUs, gaze, pose, landmarks) in real-time for continuous engagement monitoring in educational settings.</div>
+            <div class="lang-zh" style="display:none"><b>实时处理：</b>实时提取和处理多模态面部特征（AU、注视、姿势、地标），用于教育环境中的连续参与度监控。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Static vs. Dynamic Analysis:</b> Extending AU-engagement mappings from static images to dynamic video sequences, accounting for temporal variations in facial expressions across engagement states.</div>
+            <div class="lang-zh" style="display:none"><b>静态vs动态分析：</b>将AU-参与度映射从静态图像扩展到动态视频序列，考虑参与度状态下面部表情的时间变化。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The paper presents a comprehensive framework for optimizing student engagement detection:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Facial Feature Extraction:</b> Utilized OpenFace for AU detection, eye gaze, and head pose estimation, and MediaPipe for 468 facial landmarks to capture comprehensive behavioral features.</li>
+                <li style="margin-bottom:6px;"><b>AU-Engagement Statistical Analysis:</b> Computed conditional probability, relative activation ratio (RAR), and statistical discriminative coefficient (SDC) to map 17 AUs directly to engagement labels across WACV and DAiSEE datasets.</li>
+                <li style="margin-bottom:6px;"><b>Machine Learning Pipeline:</b> Trained traditional ML models (SVM, Random Forest, XGBoost) on concatenated behavioral features, employing class weights and WeightedRandomSampler to handle dataset imbalance.</li>
+                <li style="margin-bottom:6px;"><b>Deep Learning Architectures:</b> Implemented ResNet and EfficientNet with dual-path approach combining image features with OpenFace behavioral features, using Optuna for hyperparameter optimization.</li>
+                <li style="margin-bottom:6px;"><b>Interpretability Analysis:</b> Applied Grad-CAM for model visualization and ablation studies to understand feature importance, with comprehensive evaluation on accuracy, precision, recall, and F1-score metrics.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>本文提出了一种全面的框架，用于优化学生参与度检测：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>面部特征提取：</b>使用OpenFace进行AU检测、眼部注视和头部姿势估计，使用MediaPipe进行468个面部地标，以捕获全面的行为特征。</li>
+                <li style="margin-bottom:6px;"><b>AU-参与度统计分析：</b>计算条件概率、相对激活比率（RAR）和统计判别系数（SDC），将17个AU直接映射到WACV和DAiSEE数据集的参与度标签。</li>
+                <li style="margin-bottom:6px;"><b>机器学习流水线：</b>在串联的行为特征上训练传统ML模型（SVM、随机森林、XGBoost），使用类别权重和WeightedRandomSampler来处理数据集不平衡。</li>
+                <li style="margin-bottom:6px;"><b>深度学习架构：</b>使用双路径方法实现ResNet和EfficientNet，将图像特征与OpenFace行为特征相结合，使用Optuna进行超参数优化。</li>
+                <li style="margin-bottom:6px;"><b>可解释性分析：</b>应用Grad-CAM进行模型可视化和消融研究以了解特征重要性，使用准确率、精确率、召回率和F1分数指标进行全面评估。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/optimizing_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+          <img src="Figures/optimizing_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('Optimizing student engagement.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('Optimizing student engagement.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>The success of direct AU-engagement mapping for student engagement detection stems from several methodological innovations:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Statistical AU Characterization:</b> The three statistical metrics (conditional probability, RAR, SDC) provide robust characterization of AU-engagement relationships, identifying discriminative AUs like AU45/AU20 for disengagement and AU14/AU23 for engagement without intermediate emotion classification.</li>
+                <li style="margin-bottom:6px;"><b>Multimodal Feature Integration:</b> Combining behavioral features (AUs, gaze, pose) with image features through dual-path architectures captures complementary information that single-modality approaches miss, leading to superior classification performance.</li>
+                <li style="margin-bottom:6px;"><b>Imbalance-Aware Training:</b> Class weights and weighted sampling ensure minority classes (disengaged students) receive appropriate attention during training, preventing model bias toward majority partially engaged samples.</li>
+                <li style="margin-bottom:6px;"><b>Hyperparameter Optimization:</b> Optuna-driven tuning identifies optimal configurations for different model architectures and feature combinations, maximizing performance across diverse educational scenarios.</li>
+                <li style="margin-bottom:6px;"><b>Cross-Dataset Validation:</b> Evaluation on both static (WACV) and dynamic (DAiSEE) datasets ensures robustness across different data modalities and temporal characteristics, supporting real-world deployment in various educational settings.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>直接AU-参与度映射在学生参与度检测方面的成功源于几个方法创新：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>统计AU表征：</b>三个统计指标（条件概率、RAR、SDC）提供了AU-参与度关系的稳健表征，识别出判别性AU，如不参与的AU45/AU20和参与的AU14/AU23，而无需中间情绪分类。</li>
+                <li style="margin-bottom:6px;"><b>多模态特征集成：</b>通过双路径架构将行为特征（AU、注视、姿势）与图像特征相结合，捕获单模态方法遗漏的互补信息，从而实现卓越的分类性能。</li>
+                <li style="margin-bottom:6px;"><b>不平衡感知训练：</b>类别权重和加权采样确保少数类别（不参与的学生）在训练期间获得适当关注，防止模型偏向多数部分参与样本。</li>
+                <li style="margin-bottom:6px;"><b>超参数优化：</b>Optuna驱动的调优为不同模型架构和特征组合识别出最佳配置，在不同教育场景中最大化性能。</li>
+                <li style="margin-bottom:6px;"><b>跨数据集验证：</b>在静态（WACV）和动态（DAiSEE）数据集上的评估确保在不同数据模态和时间特征上的鲁棒性，支持在各种教育环境中实际部署。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This comprehensive study establishes a novel framework for optimizing student engagement detection by directly mapping facial action units to engagement labels, bypassing traditional emotion classification intermediaries. The systematic evaluation of machine learning and deep learning approaches on WACV and DAiSEE datasets demonstrates superior performance with XGBoost achieving 82.9% accuracy and EfficientNet reaching 47.2% in deep learning experiments. The statistical analysis using conditional probability, relative activation ratio, and statistical discriminative coefficient provides interpretable insights into AU-engagement relationships, identifying key discriminative units for each engagement state. The multimodal integration of facial features with advanced handling of dataset imbalance and hyperparameter optimization creates a robust, reproducible framework suitable for real-time deployment in educational environments. This work advances the field of affective computing in education by providing educators with objective, automated tools for engagement assessment, facilitating timely interventions to enhance learning outcomes and student satisfaction.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项全面研究通过将面部动作单元直接映射到参与度标签，建立了一种新颖的框架，绕过了传统的情绪分类中介。在WACV和DAiSEE数据集上对机器学习和深度学习方法的系统评估展示了卓越性能，XGBoost达到82.9%的准确率，EfficientNet在深度学习实验中达到47.2%。使用条件概率、相对激活比率和统计判别系数的统计分析提供了对AU-参与度关系的可解释见解，识别出每个参与度状态的关键判别单元。面部特征的多模态集成以及对数据集不平衡的高级处理和超参数优化创建了一个稳健、可重现的框架，适用于教育环境中的实时部署。这项工作通过为教育工作者提供客观的自动化参与度评估工具，推动了教育情感计算领域的发展，促进及时干预以增强学习成果和学生满意度。</p>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码实现）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+import pandas as pd<br>
+import numpy as np<br>
+from sklearn.ensemble import RandomForestClassifier<br>
+from sklearn.svm import SVC<br>
+import xgboost as xgb<br>
+from torch.utils.data import WeightedRandomSampler<br>
+<br>
+// Statistical AU-Engagement Mapping<br>
+def compute_au_engagement_metrics(au_data, engagement_labels):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Compute conditional probability, RAR, and SDC for AU-engagement mapping<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;au_columns = [f'AU{i}' for i in range(1, 18)]  # AU1 to AU17<br>
+&nbsp;&nbsp;&nbsp;&nbsp;engagement_classes = np.unique(engagement_labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;metrics = {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for au in au_columns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conditional_probs = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rar_values = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdc_values = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overall_activation = au_data[au].mean()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for cls in engagement_classes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_mask = engagement_labels == cls<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conditional_prob = au_data.loc[class_mask, au].mean()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rar = conditional_prob / overall_activation if overall_activation > 0 else 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conditional_probs.append(conditional_prob)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rar_values.append(rar)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Compute SDC<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_prior = np.mean(class_mask)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdc_value = class_prior * np.log(conditional_prob / overall_activation) if conditional_prob > 0 and overall_activation > 0 else 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdc_values.append(sdc_value)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metrics[au] = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'conditional_probs': conditional_probs,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rar_values': rar_values,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'sdc_values': sdc_values<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return metrics<br>
+<br>
+// Multimodal Engagement Classifier with Imbalance Handling<br>
+class EngagementClassifier:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, model_type='xgboost'):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model_type = model_type<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if model_type == 'xgboost':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model = xgb.XGBClassifier(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;objective='multi:softprob',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num_class=3,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eval_metric='mlogloss'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif model_type == 'svm':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model = SVC(kernel='rbf', probability=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif model_type == 'rf':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model = RandomForestClassifier(n_estimators=100)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def compute_class_weights(self, labels):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Compute class weights for imbalanced dataset"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unique_labels, counts = np.unique(labels, return_counts=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total_samples = len(labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weights = {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for label, count in zip(unique_labels, counts):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weights[label] = total_samples / (len(unique_labels) * count)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return weights<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def create_weighted_sampler(self, labels):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Create WeightedRandomSampler for imbalanced data"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_weights = self.compute_class_weights(labels)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sample_weights = np.array([class_weights[label] for label in labels])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return WeightedRandomSampler(sample_weights, len(sample_weights))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def fit(self, X, y):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.model_type == 'xgboost':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_weights = self.compute_class_weights(y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model.fit(X, y, sample_weight=[class_weights[label] for label in y])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.model.fit(X, y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def predict(self, X):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.model.predict(X)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def predict_proba(self, X):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.model.predict_proba(X)<br>
+<br>
+// Dual-Path Deep Learning Model<br>
+import torch<br>
+import torch.nn as nn<br>
+from torchvision.models import resnet50, efficientnet_b0<br>
+<br>
+class DualPathEngagementModel(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, num_classes=3, behavioral_dim=709):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(DualPathEngagementModel, self).__init__()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Image feature extractor (ResNet or EfficientNet)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.image_backbone = resnet50(pretrained=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.image_backbone.fc = nn.Identity()  # Remove classification head<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Behavioral feature processor<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.behavioral_processor = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(behavioral_dim, 128),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Dropout(0.5),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(128, 64)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Fusion and classification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.fusion = nn.Sequential(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(2048 + 64, 512),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.ReLU(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Dropout(0.3),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.Linear(512, num_classes)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def forward(self, image, behavioral_features):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Extract image features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_features = self.image_backbone(image)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Process behavioral features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;behavioral_processed = self.behavioral_processor(behavioral_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Concatenate features<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined = torch.cat([image_features, behavioral_processed], dim=1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Classification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self.fusion(combined)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return output<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>

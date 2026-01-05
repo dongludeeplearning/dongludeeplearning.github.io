@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ICCV 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">EmoTalk: Speech-Driven Emotional Disentanglement for 3D Face Animation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Ziqiao Peng, Haoyu Wu, Zhenbo Song, Hao Xu, Xiangyu Zhu, Jun He, Hongyan Liu, Zhaoxin Fan <br>
+        <span style="opacity:0.8">Renmin University of China, NJUST, HKUST, CAS, Tsinghua University, Psyche AI</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How to generate 3D facial animations that are not only lip-synced but also rich in emotional expression, addressing the lack of emotional disentanglement in current methods?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何生成既口型同步又富含情感表达的3D面部动画，以解决当前方法中缺乏情感解耦的问题？
+        </div>
+      </div>
+    </div>
+  
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Emotion Disentangling Encoder (EDE):</b> Designed a module to explicitly separate emotion and content from speech using cross-reconstruction with different emotion labels.</div>
+            <div class="lang-zh" style="display:none"><b>情感解耦编码器 (EDE)：</b>设计了一个模块，通过使用不同情感标签的交叉重构，明确地将情感和内容从语音中分离出来。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Emotion-Guided Feature Fusion Decoder:</b> Proposed a decoder that fuses disentangled identity, emotional, and content embeddings to generate controllable 3D facial expressions.</div>
+            <div class="lang-zh" style="display:none"><b>情感引导特征融合解码器：</b>提出了一种解码器，融合了解耦的身份、情感和内容嵌入，以生成可控的3D面部表情。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>3D-ETF Dataset:</b> Contributed a large-scale 3D emotional talking face dataset by reconstructing 3D faces from 2D emotional data using blendshape supervision.</div>
+            <div class="lang-zh" style="display:none"><b>3D-ETF 数据集：</b>通过使用 blendshape 监督从 2D 情感数据重建 3D 人脸，贡献了一个大规模的 3D 情感说话人脸数据集。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（示例）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+             <img src="Figures/emotalk_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" />
+        </div>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Emotion Neglect:</b> Previous SOTA methods (e.g., FaceFormer, CodeTalker) focus heavily on lip-sync but often fail to capture or generate the appropriate emotional expressions inherent in speech.</div>
+            <div class="lang-zh" style="display:none"><b>情感忽视：</b>以前的 SOTA 方法（如 FaceFormer, CodeTalker）主要关注口型同步，但往往无法捕捉或生成语音中固有的适当情感表情。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Data Scarcity:</b> There is a lack of high-quality 3D emotional talking face datasets, which limits the ability to train models that can generate diverse emotional expressions.</div>
+            <div class="lang-zh" style="display:none"><b>数据稀缺：</b>缺乏高质量的 3D 情感说话人脸数据集，这限制了训练能够生成多样化情感表情模型的能力。</div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（解决方法）</h2>
+        <ol style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual-Stream Encoder:</b> Uses two separate encoders for content and emotion. A cross-reconstruction mechanism ensures that the content encoder captures only linguistic info and the emotion encoder captures only affective info.</div>
+            <div class="lang-zh" style="display:none"><b>双流编码器：</b>使用两个独立的编码器分别处理内容和情感。交叉重构机制确保内容编码器仅捕获语言信息，而情感编码器仅捕获情感信息。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Emotion-Guided Decoder:</b> A Transformer-based decoder that takes the disentangled features plus identity and emotion-level codes to predict 52 blendshape coefficients.</div>
+            <div class="lang-zh" style="display:none"><b>情感引导解码器：</b>一个基于 Transformer 的解码器，接收解耦的特征以及身份和情感级别代码，以预测 52 个 blendshape 系数。</div>
+          </li>
+          <li>
+            <div class="lang-en"><b>Pseudo-3D Data Generation:</b> To solve data scarcity, they used a blendshape capture system on existing 2D emotional datasets (RAVDESS, HDTF) to create "pseudo" 3D ground truth for training.</div>
+            <div class="lang-zh" style="display:none"><b>伪 3D 数据生成：</b>为了解决数据稀缺问题，他们在现有的 2D 情感数据集（RAVDESS, HDTF）上使用 blendshape 捕捉系统，为训练创建“伪”3D 地面真值。</div>
+          </li>
+        </ol>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/emotalk_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" />
+            
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('2303.11089.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('2303.11089.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Experiments（实验）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Datasets:</b> Trained on the newly created 3D-ETF dataset (derived from RAVDESS and HDTF).
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>数据集：</b>在新建的 3D-ETF 数据集（源自 RAVDESS 和 HDTF）上进行训练。
+            </div>
+          </li>
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Evaluation:</b> EmoTalk showed better emotional expressiveness and lip synchronization compared to FaceFormer and MeshTalk, confirmed by both objective metrics and user studies.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>评估：</b>EmoTalk 在情感表现力和口型同步方面优于 FaceFormer 和 MeshTalk，这一结果得到了客观指标和用户研究的证实。
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:12px;">
+            <div class="lang-en">
+                <b>Importance of Emotion:</b> The paper highlights that for realistic 3D avatars, simply moving lips is not enough. The whole face must reflect the emotional tone of the speaker, which EmoTalk achieves via explicit disentanglement.
+            </div>
+            <div class="lang-zh" style="display:none">
+                <b>情感的重要性：</b>论文强调，对于逼真的 3D 虚拟化身，仅仅移动嘴唇是不够的。整个面部必须反映说话人的情感基调，EmoTalk 通过显式解耦实现了这一点。
+            </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:16px; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);">
+             <h3 style="margin:0 0 6px; font-size:14px; color:#8bffcf;">High-Level Insights: Why it Works?</h3>
+             <div class="lang-en" style="color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                EmoTalk works because it treats "emotion" as a separate, explicitly modeled variable rather than an implicit byproduct of speech. By forcing the network to separate emotional style from linguistic content (via the EDE module) and then recombining them, it gains fine-grained control over the facial expression, allowing it to generate angry, happy, or sad animations from the same spoken words.
+             </div>
+             <div class="lang-zh" style="display:none; color:rgba(232,236,255,.80); font-size:13px; line-height:1.6;">
+                EmoTalk 之所以有效，是因为它将“情感”视为一个独立的、显式建模的变量，而不是语音的隐式副产品。通过强制网络将情感风格与语言内容分离（通过 EDE 模块），然后重新组合它们，它获得了对面部表情的细粒度控制，从而能够根据相同的口语单词生成愤怒、快乐或悲伤的动画。
+             </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); display:flex; align-items:center; gap:12px;">
+        <h2 style="margin:0;font-size:16px;">Official Code:</h2>
+        <a href="https://ziqiaopeng.github.io/emotalk/" target="_blank" style="display:flex; align-items:center; gap:6px; color:#8bffcf; text-decoration:none; font-family:ui-monospace,monospace; font-size:13px; border:1px solid rgba(139,255,207,0.3); padding:6px 12px; border-radius:8px; background:rgba(139,255,207,0.05); transition: all 0.2s ease;">
+          <svg height="16" viewBox="0 0 16 16" width="16" style="fill:currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          Project Page
+        </a>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="font-size:13px;line-height:1.6;color:rgba(232,236,255,.80);">
+            <div class="lang-en">
+                Conceptual emotion disentanglement logic.
+            </div>
+            <div class="lang-zh" style="display:none">
+                概念情感解耦逻辑。
+            </div>
+        </div>
+        
+        <div style="position:relative; margin-top:12px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px; overflow-x:auto;">
+<pre style="margin:0; font-family:Menlo,Consolas,monospace; font-size:12px; color:#d4d4d4;">
+<span style="color:#6a9955;"># Disentanglement Strategy</span>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">forward</span>(audio_A, audio_B):
+    <span style="color:#6a9955;"># Extract Content from A, Emotion from B</span>
+    content_A = content_encoder(audio_A)
+    emotion_B = emotion_encoder(audio_B)
+    
+    <span style="color:#6a9955;"># Reconstruct audio with content A and emotion B</span>
+    <span style="color:#6a9955;"># This forces the encoders to separate the two factors</span>
+    pred_audio = decoder(content_A, emotion_B)
+    
+    <span style="color:#6a9955;"># Generate Face</span>
+    blendshapes = face_decoder(content_A, emotion_B, identity_code)
+    <span style="color:#569cd6;">return</span> blendshapes
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function toggleLang(btn) {
+      const container = btn.closest('div');
+      const enElements = container.querySelectorAll('.lang-en');
+      const zhElements = container.querySelectorAll('.lang-zh');
+      
+      enElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+      
+      zhElements.forEach(el => {
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+      });
+    }
+
+    function openLocalPdf(filename) {
+      window.open('pdfs/' + filename, '_blank');
+    }
+
+    function delLocalPdf(filename) {
+      // User will implement this themselves
+      alert("Please implement the delete logic or delete the file manually: pdfs/" + filename);
+    }
+  </script>
+</body>
+</html>
