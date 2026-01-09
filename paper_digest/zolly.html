@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • ArXiv 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">Zolly: Zoom Focal Length Correctly for Perspective-Distorted Human Mesh Reconstruction</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Wenjia Wang, Yongtao Ge, Haiyi Mei, Zhongang Cai, Qingping Sun, Yanjun Wang, Chunhua Shen, Lei Yang, Taku Komura<br>
+        <span style="opacity:0.8">Multiple Institutions</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we accurately reconstruct 3D human mesh from perspective-distorted single-view RGB images by correctly estimating focal length and formulating projection matrices, especially when the camera is close to the human body causing torso, limb, hand or face distortion?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过正确估计焦距和构建投影矩阵，从透视失真的单视角RGB图像中准确重建3D人体网格，特别是当相机靠近人体导致躯干、肢体、手或面部失真时？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>First Perspective-Distorted 3DHMR Method:</b> Introduced Zolly, the first 3D human mesh reconstruction method specifically focusing on perspective-distorted images, addressing the long-standing challenge of torso, limb, hand, and face distortion caused by perspective camera projection when the camera is close to the human body.</div>
+            <div class="lang-zh" style="display:none"><b>首个透视失真3DHMR方法：</b>引入Zolly，首个专门专注于透视失真图像的3D人体网格重建方法，解决了当相机靠近人体时由透视相机投影引起的躯干、肢体、手和面部失真的长期挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>New Camera Model and Distortion Image:</b> Proposed a new camera model and a novel 2D representation termed distortion image, which describes the 2D dense distortion scale of the human body, enabling accurate estimation of the distance from distortion scale features rather than environment context features.</div>
+            <div class="lang-zh" style="display:none"><b>新相机模型和失真图像：</b>提出了新的相机模型和称为失真图像的新颖2D表示，描述了人体2D密集失真尺度，能够从失真尺度特征而非环境上下文特征准确估计距离。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Dual Projection Loss:</b> Simultaneously uses perspective and weak-perspective projection loss to formulate the correct projection matrix and locate the human body position, ensuring both accurate 3D pose estimation and 2D alignment.</div>
+            <div class="lang-zh" style="display:none"><b>双重投影损失：</b>同时使用透视和弱透视投影损失来构建正确的投影矩阵并定位人体位置，确保准确的3D姿态估计和2D对齐。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Perspective-Distorted Datasets:</b> Contributed the first synthetic dataset PDHuman and extended two real-world datasets tailored for perspective-distorted human images, addressing the lack of training data for this challenging scenario.</div>
+            <div class="lang-zh" style="display:none"><b>透视失真数据集：</b>贡献了首个合成数据集PDHuman，并扩展了两个专门用于透视失真人体图像的真实世界数据集，解决了这一挑战性场景缺乏训练数据的问题。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Perspective Distortion in Close-range Images:</b> When the camera is close to the human body, perspective camera projection causes severe distortion in the torso, limbs, hands, and face, making it extremely difficult to accurately reconstruct 3D mesh from single-view RGB images.</div>
+            <div class="lang-zh" style="display:none"><b>近距离图像的透视失真：</b>当相机靠近人体时，透视相机投影会导致躯干、肢体、手和面部严重失真，使得从单视角RGB图像准确重建3D网格极其困难。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inaccurate Focal Length Assumptions:</b> Existing 3DHMR methods either use a constant large focal length or estimate one based on background environment context, which cannot handle perspective distortion and harm the task with incorrectly formulated projection matrices.</div>
+            <div class="lang-zh" style="display:none"><b>不准确的焦距假设：</b>现有的3DHMR方法要么使用恒定的大焦距，要么基于背景环境上下文估计一个焦距，这无法处理透视失真，并且会因错误构建的投影矩阵而损害任务。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Difficult Camera Calibration:</b> It is hard to calibrate single-view RGB images in the wild, making it challenging to accurately estimate camera parameters including focal length and camera position relative to the human body.</div>
+            <div class="lang-zh" style="display:none"><b>困难的相机标定：</b>难以在野外环境中标定单视角RGB图像，使得准确估计包括焦距和相机相对于人体位置的相机参数具有挑战性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Perspective-Distorted Training Data:</b> Existing datasets do not adequately handle perspective-distorted human images, making it difficult for models to learn accurate reconstruction for close-range scenarios with strong perspective effects.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏透视失真训练数据：</b>现有数据集无法充分处理透视失真的人体图像，使得模型难以学习对具有强透视效应的近距离场景的准确重建。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Zolly addresses perspective distortion through a new camera model and distortion-aware representation:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Distortion Image Representation:</b> Introduces a novel 2D representation termed distortion image, which describes the 2D dense distortion scale of the human body. The distortion scale is analyzed based on the relative location of the human body to the camera center, which is the main cause of perspective distortion.</li>
+                <li style="margin-bottom:6px;"><b>Distance Estimation from Distortion:</b> Estimates the distance from the camera to the human body using distortion scale features extracted from the distortion image, rather than relying on background environment context features which may not be reliable.</li>
+                <li style="margin-bottom:6px;"><b>Distortion-Aware Mesh Reconstruction:</b> Integrates the distortion feature with image features to reconstruct the body mesh, enabling the model to account for perspective effects during mesh recovery.</li>
+                <li style="margin-bottom:6px;"><b>Dual Projection Loss:</b> Simultaneously uses perspective and weak-perspective projection loss to formulate the correct projection matrix and locate the human body position accurately. This ensures both accurate 3D pose estimation and proper 2D alignment.</li>
+                <li style="margin-bottom:6px;"><b>PDHuman Dataset:</b> Contributes the first synthetic dataset PDHuman specifically for perspective-distorted human images, and extends two real-world datasets to provide diverse training data with varying degrees of perspective distortion.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>Zolly通过新的相机模型和失真感知表示解决透视失真问题：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>失真图像表示：</b>引入称为失真图像的新颖2D表示，描述了人体2D密集失真尺度。失真尺度基于人体相对于相机中心的位置进行分析，这是透视失真的主要原因。</li>
+                <li style="margin-bottom:6px;"><b>从失真估计距离：</b>使用从失真图像提取的失真尺度特征估计从相机到人体的距离，而非依赖可能不可靠的背景环境上下文特征。</li>
+                <li style="margin-bottom:6px;"><b>失真感知网格重建：</b>将失真特征与图像特征集成以重建人体网格，使模型能够在网格恢复期间考虑透视效应。</li>
+                <li style="margin-bottom:6px;"><b>双重投影损失：</b>同时使用透视和弱透视投影损失来构建正确的投影矩阵并准确定位人体位置。这确保了准确的3D姿态估计和适当的2D对齐。</li>
+                <li style="margin-bottom:6px;"><b>PDHuman数据集：</b>贡献了首个专门用于透视失真人体图像的合成数据集PDHuman，并扩展了两个真实世界数据集，以提供具有不同透视失真程度的多样化训练数据。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/zolly_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:rgba(232,236,255,.5); text-align:center; padding:20px;\'>Intro figure not found. Please add Figures/zolly_intro.png</div>'"/>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/zolly_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:rgba(232,236,255,.5); text-align:center; padding:20px;\'>Overview figure not found. Please add Figures/zolly_overview.png</div>'"/>
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <p>Zolly correctly estimates focal length and formulates projection matrices for perspective-distorted human mesh reconstruction. The method introduces a distortion image representation to describe 2D dense distortion scale, estimates distance from distortion features, and integrates distortion with image features for mesh recovery.</p>
+            <p>Note: Zolly is the first 3DHMR method focusing on perspective-distorted images, outperforming existing methods on both perspective-distorted datasets and the standard benchmark (3DPW). The dual projection loss (perspective + weak-perspective) ensures accurate 3D pose and 2D alignment simultaneously.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_zolly.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_zolly.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>Zolly succeeds by explicitly modeling perspective distortion and using distortion-aware features:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Distortion Image Representation:</b> By introducing the distortion image as a 2D dense representation of distortion scale, the method explicitly captures perspective effects caused by the relative location of the human body to the camera center, which is the fundamental cause of perspective distortion.</li>
+                <li style="margin-bottom:6px;"><b>Distortion-Based Distance Estimation:</b> Estimating distance from distortion scale features is more reliable than using background environment context, as distortion scales directly reflect the geometric relationship between the camera and human body.</li>
+                <li style="margin-bottom:6px;"><b>Feature Integration:</b> Integrating distortion features with image features enables the pose estimator to account for perspective effects during mesh reconstruction, improving accuracy for close-range images with strong distortion.</li>
+                <li style="margin-bottom:6px;"><b>Dual Projection Supervision:</b> Using both perspective and weak-perspective projection loss ensures the model learns correct projection matrices while maintaining flexibility for different scenarios, achieving both accurate 3D pose and proper 2D alignment.</li>
+                <li style="margin-bottom:6px;"><b>Diverse Training Data:</b> The PDHuman synthetic dataset and extended real-world datasets provide diverse perspective-distorted scenarios, enabling robust learning of distortion-aware reconstruction.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>Zolly通过显式建模透视失真和使用失真感知特征而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>失真图像表示：</b>通过引入失真图像作为失真尺度的2D密集表示，该方法显式捕获由人体相对于相机中心的位置引起的透视效应，这是透视失真的根本原因。</li>
+                <li style="margin-bottom:6px;"><b>基于失真的距离估计：</b>从失真尺度特征估计距离比使用背景环境上下文更可靠，因为失真尺度直接反映相机与人体之间的几何关系。</li>
+                <li style="margin-bottom:6px;"><b>特征集成：</b>将失真特征与图像特征集成使姿态估计器能够在网格重建期间考虑透视效应，提高对具有强失真的近距离图像的准确性。</li>
+                <li style="margin-bottom:6px;"><b>双重投影监督：</b>同时使用透视和弱透视投影损失确保模型学习正确的投影矩阵，同时保持对不同场景的灵活性，实现准确的3D姿态和适当的2D对齐。</li>
+                <li style="margin-bottom:6px;"><b>多样化训练数据：</b>PDHuman合成数据集和扩展的真实世界数据集提供多样化的透视失真场景，实现失真感知重建的鲁棒学习。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This pioneering work introduces Zolly, the first 3D human mesh reconstruction method specifically designed to handle perspective-distorted images. By recognizing that perspective distortion is mainly caused by the relative location of the human body to the camera center, the method introduces a novel distortion image representation to explicitly model 2D dense distortion scales. Through distortion-based distance estimation and distortion-aware mesh reconstruction, Zolly accurately estimates focal length and formulates correct projection matrices for perspective-distorted scenarios. The dual projection loss framework, combining perspective and weak-perspective supervision, ensures both accurate 3D pose estimation and proper 2D alignment. Extensive experiments demonstrate Zolly's superior performance over existing state-of-the-art methods on both perspective-distorted datasets and the standard benchmark (3DPW). The contribution of PDHuman, the first synthetic dataset for perspective-distorted human images, along with extended real-world datasets, addresses the critical lack of training data for this challenging scenario. This work opens new possibilities for accurate 3D human mesh reconstruction in close-range scenarios where perspective distortion cannot be ignored, such as video conferencing, virtual try-on, and interactive applications. Zolly's approach to explicitly modeling and leveraging perspective distortion represents a significant advancement in handling real-world 3DHMR challenges where naive focal length assumptions fail.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了Zolly，首个专门设计用于处理透视失真图像的3D人体网格重建方法。通过认识到透视失真主要由人体相对于相机中心的位置引起，该方法引入了新颖的失真图像表示来显式建模2D密集失真尺度。通过基于失真的距离估计和失真感知网格重建，Zolly准确估计焦距并为透视失真场景构建正确的投影矩阵。结合透视和弱透视监督的双重投影损失框架确保了准确的3D姿态估计和适当的2D对齐。广泛实验证明了Zolly在透视失真数据集和标准基准（3DPW）上相对于现有最先进方法的优越性能。PDHuman作为首个用于透视失真人体图像的合成数据集的贡献，以及扩展的真实世界数据集，解决了这一挑战性场景严重缺乏训练数据的问题。这项工作为在近距离场景中准确进行3D人体网格重建开辟了新的可能性，在这些场景中透视失真不可忽略，如视频会议、虚拟试衣和交互应用。Zolly显式建模和利用透视失真的方法代表了处理真实世界3DHMR挑战的重大进步，其中简单的焦距假设会失败。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2303.13796" target="_blank" style="color:#8bffcf;">2303.13796</a></p>
+          <p><b>PDF:</b> <a href="https://arxiv.org/pdf/2303.13796.pdf" target="_blank" style="color:#8bffcf;">https://arxiv.org/pdf/2303.13796.pdf</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# Zolly Implementation<br>
+<br>
+// Distortion image generation<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">generate_distortion_image</span>(image, body_bbox):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Generate 2D dense distortion scale representation"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Analyze relative location of human body to camera center</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;distortion_features = extract_distortion_scale(image, body_bbox)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;distortion_img = distortion_encoder(distortion_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> distortion_img<br>
+<br>
+// Distance estimation from distortion<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">estimate_distance_from_distortion</span>(distortion_img):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Estimate camera-to-person distance using distortion scale features"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;distortion_features = extract_distortion_features(distortion_img)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;distance = distance_estimator(distortion_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> distance<br>
+<br>
+// Distortion-aware mesh reconstruction<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">reconstruct_mesh_with_distortion</span>(image, distortion_img, distance):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Reconstruct 3D mesh integrating distortion and image features"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;image_features = extract_image_features(image)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;distortion_features = extract_distortion_features(distortion_img)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Integrate distortion with image features</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;combined_features = integrate_features(image_features, distortion_features, distance)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mesh_params = mesh_estimator(combined_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> mesh_params<br>
+<br>
+// Dual projection loss<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">dual_projection_loss</span>(mesh_3d, keypoints_2d, focal_length, camera_params):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Compute both perspective and weak-perspective projection loss"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Perspective projection loss</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;proj_persp = perspective_projection(mesh_3d, focal_length, camera_params)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss_persp = compute_loss(proj_persp, keypoints_2d)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Weak-perspective projection loss</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;proj_weak = weak_perspective_projection(mesh_3d, camera_params)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss_weak = compute_loss(proj_weak, keypoints_2d)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> loss_persp + loss_weak<br>
+<br>
+// Main pipeline<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">zolly_pipeline</span>(image, body_bbox):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Complete Zolly pipeline for perspective-distorted mesh recovery"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 1: Generate distortion image</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;distortion_img = generate_distortion_image(image, body_bbox)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 2: Estimate distance from distortion</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;distance = estimate_distance_from_distortion(distortion_img)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 3: Reconstruct mesh with distortion awareness</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;mesh_3d = reconstruct_mesh_with_distortion(image, distortion_img, distance)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> mesh_3d, distance<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>
+

@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR2025
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">BLADE: Single-view Body Mesh Learning through Accurate Depth Estimation</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Shengze Wang, Jiefeng Li, Tianye Li, Ye Yuan, Henry Fuchs, Koki Nagano, Shalini De Mello, Michael Stengel<br>
+        <span style="opacity:0.8">UNC, NVIDIA</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we accurately recover human body mesh and camera parameters from a single in-the-wild image, especially for close-range images with strong perspective distortion, by accurately estimating the person's depth (T_z) without heuristic assumptions?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>如何通过准确估计人体深度（T_z）而无需启发式假设，从单张野外图像中准确恢复人体网格和相机参数，特别是对于具有强透视失真的近距离图像？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Accurate Depth Estimation:</b> Introduced BLADE, the first method to accurately recover perspective projection parameters from a single image without heuristic assumptions, by showing that perspective distortion is driven by the person's Z-translation T_z which can be reliably estimated from the input image.</div>
+            <div class="lang-zh" style="display:none"><b>准确深度估计：</b>引入BLADE，首个无需启发式假设即可从单张图像准确恢复透视投影参数的方法，通过证明透视失真由人体的Z平移T_z驱动，而T_z可以从输入图像可靠估计。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>T_z Conditioned Pose Estimation:</b> Demonstrated that conditioning the pose estimator on T_z significantly improves accuracy of estimated human mesh, especially for close-range images with strong perspective distortion, by leveraging the inverse relationship between perspective distortion and T_z.</div>
+            <div class="lang-zh" style="display:none"><b>T_z条件化姿态估计：</b>证明将姿态估计器条件化于T_z可显著提高估计人体网格的准确性，特别是对于具有强透视失真的近距离图像，通过利用透视失真与T_z之间的逆关系。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Complete Perspective Recovery:</b> Showed that once T_z and the 3D human mesh are estimated, one can accurately recover the focal length and full 3D translation (T_x, T_y, T_z), solving the long-standing challenge of simultaneous 3D pose accuracy and 2D alignment.</div>
+            <div class="lang-zh" style="display:none"><b>完整透视恢复：</b>证明一旦估计出T_z和3D人体网格，就可以准确恢复焦距和完整3D平移（T_x, T_y, T_z），解决了同时实现3D姿态准确性和2D对齐的长期挑战。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Large-Scale Synthetic Dataset:</b> Contributed BEDLAM-CC, a new large-scale synthetic dataset with 2 million images tailored for close-range human mesh recovery with strong perspective distortion, helping models learn accurate Z-translation and 3D pose across a wide range of depths.</div>
+            <div class="lang-zh" style="display:none"><b>大规模合成数据集：</b>贡献BEDLAM-CC，一个包含200万张图像的大规模合成数据集，专门用于具有强透视失真的近距离人体网格恢复，帮助模型在广泛深度范围内学习准确的Z平移和3D姿态。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Ill-posed Problem:</b> Single-image human mesh recovery is under-constrained due to the need to simultaneously estimate body shape, pose, and camera parameters from a single view, leading to scale ambiguity and potentially infinite valid yet incorrect solutions.</div>
+            <div class="lang-zh" style="display:none"><b>病态问题：</b>单图像人体网格恢复由于需要从单视角同时估计人体形状、姿态和相机参数而欠约束，导致尺度模糊和潜在无限的有效但错误的解决方案。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Perspective Distortion in Close-ups:</b> Existing methods assume near-orthographic projection for far-away subjects but break down as the person moves close to the camera, where strong perspective distortion makes it impossible to achieve both accurate 3D pose and 2D alignment simultaneously.</div>
+            <div class="lang-zh" style="display:none"><b>近景透视失真：</b>现有方法假设远距离主体为近正交投影，但当人靠近相机时会失效，强透视失真使得无法同时实现准确的3D姿态和2D对齐。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Inaccurate Projection Assumptions:</b> Current methods rely on heuristic derivation of perspective projection from orthographic parameters, leading to inaccurate focal length and 3D translation estimation, especially for close-range images with varying depths.</div>
+            <div class="lang-zh" style="display:none"><b>不准确的投影假设：</b>当前方法依赖从正交参数启发式推导透视投影，导致不准确的焦距和3D平移估计，特别是对于具有变化深度的近距离图像。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Close-range Training Data:</b> Existing labeled datasets for HMR lack close-range images with strong perspective distortion, making it difficult for models to learn accurate depth estimation and handle perspective effects in real-world scenarios like video conferencing.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏近距离训练数据：</b>现有的HMR标注数据集缺乏具有强透视失真的近距离图像，使得模型难以学习准确的深度估计并在视频会议等真实场景中处理透视效果。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>BLADE solves the perspective parameter recovery problem through accurate depth estimation:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Depth (T_z) Estimation:</b> Leverages the key insight that perspective distortion is mathematically driven by the distance between camera and person (T_z) but not affected by focal length. Trains a T_z estimator to predict the depth of the person's pelvis with respect to the camera using one-shot metrical depth estimators as inspiration.</li>
+                <li style="margin-bottom:6px;"><b>T_z Conditioned Pose Estimation:</b> Conditions the pose estimator on T_z to improve accuracy of estimated human mesh, recognizing that human pose estimators predict 3D human mesh from images affected by perspective distortion which is determined by T_z.</li>
+                <li style="margin-bottom:6px;"><b>Complete Perspective Recovery:</b> Once T_z and the 3D human mesh are estimated, accurately recovers the focal length f and remaining translation parameters T_x and T_y using the geometric relationship between 2D projections, 3D mesh points, and camera parameters.</li>
+                <li style="margin-bottom:6px;"><b>Synthetic Data Augmentation:</b> Uses BEDLAM-CC, a large-scale synthetic dataset with 2 million images containing strong variation in lighting, camera angles, and extreme close-up distortion, to train models on diverse depth ranges and perspective scenarios.</li>
+                <li style="margin-bottom:6px;"><b>End-to-End Training:</b> Trains the T_z estimator and pose estimator jointly, enabling the system to learn optimal depth-pose relationships without heuristic assumptions about perspective projection.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>BLADE通过准确的深度估计解决透视参数恢复问题：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>深度（T_z）估计：</b>利用关键洞察，即透视失真在数学上由相机与人的距离（T_z）驱动，但不受焦距影响。训练T_z估计器预测人体骨盆相对于相机的深度，以一 shots度量深度估计器为灵感。</li>
+                <li style="margin-bottom:6px;"><b>T_z条件化姿态估计：</b>将姿态估计器条件化于T_z以提高估计人体网格的准确性，认识到人体姿态估计器从受透视失真影响的图像预测3D人体网格，而透视失真由T_z决定。</li>
+                <li style="margin-bottom:6px;"><b>完整透视恢复：</b>一旦估计出T_z和3D人体网格，利用2D投影、3D网格点和相机参数之间的几何关系，准确恢复焦距f和剩余平移参数T_x和T_y。</li>
+                <li style="margin-bottom:6px;"><b>合成数据增强：</b>使用BEDLAM-CC，一个包含200万张图像的大规模合成数据集，具有强烈的光照、相机角度和极端近景失真变化，在不同深度范围和透视场景上训练模型。</li>
+                <li style="margin-bottom:6px;"><b>端到端训练：</b>联合训练T_z估计器和姿态估计器，使系统能够学习最优深度-姿态关系，而无需关于透视投影的启发式假设。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/blade_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:rgba(232,236,255,.5); text-align:center; padding:20px;\'>Intro figure not found. Please add Figures/blade_intro.png</div>'"/>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/blade_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:rgba(232,236,255,.5); text-align:center; padding:20px;\'>Overview figure not found. Please add Figures/blade_overview.png</div>'"/>
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <p>BLADE accurately recovers perspective parameters from a single image by estimating the person's depth (T_z), which drives perspective distortion. The method enables accurate human mesh and camera parameter estimation for single-view in-the-wild images including close-ups with high levels of perspective distortion.</p>
+            <p>Note: The key insight is that perspective distortion is mathematically driven by T_z (distance between camera and person) but not affected by focal length. Once T_z is estimated, the pose estimator is conditioned on it to improve mesh accuracy, and then focal length and full 3D translation can be recovered.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('BLADE_arxiv.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('BLADE_arxiv.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>BLADE succeeds by accurately estimating depth and using it to constrain the ill-posed mesh recovery problem:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Depth-Perspective Relationship:</b> The key mathematical insight is that perspective distortion is driven by T_z (person's distance from camera) but not affected by focal length, allowing T_z to be disentangled from other variables and reliably estimated from image appearance.</li>
+                <li style="margin-bottom:6px;"><b>Constraint Reduction:</b> By accurately estimating T_z first, the method reduces the number of unknowns in the under-constrained problem, making it easier to solve for body shape, pose, and remaining camera parameters.</li>
+                <li style="margin-bottom:6px;"><b>Conditioned Pose Estimation:</b> Conditioning the pose estimator on T_z allows it to account for perspective distortion effects during mesh recovery, improving accuracy especially for close-range images where perspective effects are strong.</li>
+                <li style="margin-bottom:6px;"><b>Geometric Consistency:</b> Once T_z and mesh are known, focal length and translation can be recovered using geometric relationships between 2D projections and 3D points, ensuring consistency between estimated parameters.</li>
+                <li style="margin-bottom:6px;"><b>Synthetic Data Diversity:</b> The large-scale synthetic dataset provides diverse close-range scenarios with varying depths, lighting, and camera angles, enabling robust learning of depth estimation and perspective handling.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>BLADE通过准确估计深度并使用它来约束病态网格恢复问题而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>深度-透视关系：</b>关键的数学洞察是透视失真由T_z（人与相机的距离）驱动，但不受焦距影响，允许T_z从其他变量中解耦并从图像外观可靠估计。</li>
+                <li style="margin-bottom:6px;"><b>约束减少：</b>通过首先准确估计T_z，该方法减少了欠约束问题中的未知数，使得更容易求解人体形状、姿态和剩余相机参数。</li>
+                <li style="margin-bottom:6px;"><b>条件化姿态估计：</b>将姿态估计器条件化于T_z允许它在网格恢复期间考虑透视失真效应，提高准确性，特别是对于透视效应强烈的近距离图像。</li>
+                <li style="margin-bottom:6px;"><b>几何一致性：</b>一旦T_z和网格已知，可以使用2D投影和3D点之间的几何关系恢复焦距和平移，确保估计参数之间的一致性。</li>
+                <li style="margin-bottom:6px;"><b>合成数据多样性：</b>大规模合成数据集提供具有不同深度、光照和相机角度的多样化近距离场景，实现深度估计和透视处理的鲁棒学习。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work introduces BLADE, the first method to accurately recover perspective projection parameters from a single in-the-wild image without heuristic assumptions. By recognizing that perspective distortion is mathematically driven by the person's Z-translation T_z rather than focal length, the method accurately estimates depth and uses it to constrain the ill-posed human mesh recovery problem. Through T_z conditioned pose estimation and geometric parameter recovery, BLADE achieves state-of-the-art accuracy on both 3D pose estimation and 2D alignment across a wide range of images, including challenging close-up scenarios with strong perspective distortion. The method's key contribution—disentangling and accurately estimating T_z from image appearance—resolves the long-standing challenge of simultaneous accurate 3D pose and 2D alignment. Extensive experiments on standard benchmarks (SPEC-MTP, PDHUMAN, BEDLAM-CC, HUMMAN) and real-world close-range images demonstrate BLADE's superior performance over existing methods. The large-scale synthetic dataset BEDLAM-CC further enables robust learning across diverse depth ranges and perspective scenarios. This work opens new possibilities for applications requiring accurate human mesh recovery in challenging scenarios such as video conferencing and diverse in-the-wild image analysis, where perspective effects cannot be ignored.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了BLADE，首个无需启发式假设即可从单张野外图像准确恢复透视投影参数的方法。通过认识到透视失真在数学上由人体的Z平移T_z而非焦距驱动，该方法准确估计深度并使用它来约束病态人体网格恢复问题。通过T_z条件化姿态估计和几何参数恢复，BLADE在包括具有强透视失真的挑战性近景场景在内的广泛图像上实现了3D姿态估计和2D对齐的最先进准确性。该方法的关键贡献——从图像外观中解耦并准确估计T_z——解决了同时实现准确3D姿态和2D对齐的长期挑战。在标准基准（SPEC-MTP、PDHUMAN、BEDLAM-CC、HUMMAN）和真实世界近距离图像上的广泛实验证明了BLADE相对于现有方法的优越性能。大规模合成数据集BEDLAM-CC进一步实现了跨不同深度范围和透视场景的鲁棒学习。这项工作为在视频会议和多样化野外图像分析等挑战性场景中需要准确人体网格恢复的应用开辟了新的可能性，在这些场景中透视效应不可忽略。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://research.nvidia.com/labs/amri/projects/blade/media/BLADE_arxiv.pdf" target="_blank" style="color:#8bffcf;">BLADE: Single-view Body Mesh Learning through Accurate Depth Estimation</a></p>
+          <p><b>Project Page:</b> <a href="https://research.nvidia.com/labs/amri/projects/blade/" target="_blank" style="color:#8bffcf;">https://research.nvidia.com/labs/amri/projects/blade/</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# BLADE Implementation<br>
+<br>
+// T_z (depth) estimation from single image<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">estimate_tz</span>(image):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Estimate person's depth (pelvis Z-translation) from image"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Key insight: perspective distortion is driven by T_z, not focal length</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;depth_features = extract_depth_features(image)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tz = tz_estimator(depth_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> tz<br>
+<br>
+// T_z conditioned pose estimation<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">estimate_mesh_conditioned</span>(image, tz):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Estimate 3D human mesh conditioned on T_z"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Account for perspective distortion effects</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;mesh_features = extract_mesh_features(image, tz)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mesh_params = pose_estimator(mesh_features, tz)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> mesh_params<br>
+<br>
+// Complete perspective recovery<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">recover_perspective_params</span>(image, tz, mesh_3d):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Recover focal length and full 3D translation"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Project 3D mesh points to 2D</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;proj_2d = project_3d_to_2d(mesh_3d, tz, f=<span style="color:#ce9178;">None</span>, tx=<span style="color:#ce9178;">None</span>, ty=<span style="color:#ce9178;">None</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Solve for f, T_x, T_y using geometric relationships</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;f, tx, ty = solve_camera_params(proj_2d, mesh_3d, tz)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> f, tx, ty, tz<br>
+<br>
+// Main pipeline<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">blade_pipeline</span>(image):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Complete BLADE pipeline for single-view mesh recovery"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 1: Estimate T_z</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;tz = estimate_tz(image)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 2: Estimate mesh conditioned on T_z</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;mesh_3d = estimate_mesh_conditioned(image, tz)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 3: Recover complete camera parameters</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;f, tx, ty, tz = recover_perspective_params(image, tz, mesh_3d)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> mesh_3d, {<span style="color:#9cdcfe;">'f'</span>: f, <span style="color:#9cdcfe;">'tx'</span>: tx, <span style="color:#9cdcfe;">'ty'</span>: ty, <span style="color:#9cdcfe;">'tz'</span>: tz}<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>
+

@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+      --bg:#0b1020;
+      --panel:#0f1733;
+      --panel2:#0c1430;
+      --text:#e8ecff;
+      --muted:#aeb7e6;
+      --border:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#8bffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  body {
+    background: transparent;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+</style>
+<script>
+function toggleLang(btn) {
+  const container = btn.closest('div');
+  const enElements = container.querySelectorAll('.lang-en');
+  const zhElements = container.querySelectorAll('.lang-zh');
+
+  enElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+
+  zhElements.forEach(el => {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  });
+}
+function openLocalPdf(filename) {
+  window.open('pdfs/' + filename, '_blank');
+}
+function delLocalPdf(filename) {
+  if (confirm('Delete local PDF file: ' + filename + '? Note: This requires server environment to actually delete files.')) {
+    alert('Delete function needs to be implemented on the server side.');
+  }
+}
+</script>
+</head>
+<body>
+<section style="max-width:980px;margin:0 auto;">
+    <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+      <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+      <div style="font-family:ui-monospace,Menlo,Consolas,monospace;color:rgba(232,236,255,.7);font-size:12px;">
+        Paper Digest • CVPR 2023
+      </div>
+      <h1 style="margin:6px 0 0;font-size:22px;line-height:1.25;">One-Stage 3D Whole-Body Mesh Recovery with Component Aware Transformer</h1>
+      <div style="margin-top:6px;color:rgba(232,236,255,.6);font-size:12px;line-height:1.5;">
+        Jing Lin, Ailing Zeng, Haoqian Wang, Lei Zhang, Yu Li<br>
+        <span style="opacity:0.8">Multiple Institutions</span>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(232,236,255,.75);font-size:13px;line-height:1.6;">
+        <div class="lang-en">
+            <b>One-Sentence Problem:</b> How can we accurately estimate 3D human body, face, and hands parameters from a single image using a single network, despite resolution issues where face and hands are located in extremely small regions, without requiring separate networks and manual post-processing fusion?
+        </div>
+        <div class="lang-zh" style="display:none">
+            <b>一句话问题：</b>尽管面部和手部位于极小的区域存在分辨率问题，如何在不使用单独网络和手动后处理融合的情况下，使用单个网络从单张图像准确估计3D人体、面部和手部参数？
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;">
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Contributions（贡献）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>One-Stage Whole-Body Pipeline (OSX):</b> Introduced OSX, a one-stage pipeline for expressive whole-body mesh recovery without separate networks for each body part, avoiding implausible 3D rotations and unnatural poses that arise from late fusion of body, face, and hand predictions.</div>
+            <div class="lang-zh" style="display:none"><b>单阶段全身流程（OSX）：</b>引入OSX，一个用于表达性全身网格恢复的单阶段流程，无需为每个身体部位使用单独网络，避免了由身体、面部和手部预测的后期融合引起的不可信的3D旋转和不自然姿态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Component Aware Transformer (CAT):</b> Designed CAT composed of a global body encoder and a local face/hand decoder. The encoder predicts body parameters and provides high-quality feature maps for the decoder, which performs feature-level upsample-crop to extract high-resolution part-specific features.</div>
+            <div class="lang-zh" style="display:none"><b>组件感知Transformer（CAT）：</b>设计了CAT，由全局身体编码器和局部面部/手部解码器组成。编码器预测身体参数并为解码器提供高质量特征图，解码器执行特征级上采样裁剪以提取高分辨率部分特定特征。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Keypoint-Guided Deformable Attention:</b> The decoder adopts keypoint-guided deformable attention to estimate hand and face parameters precisely, enabling the model to focus on fine-grained details in extremely small regions where face and hands are typically located.</div>
+            <div class="lang-zh" style="display:none"><b>关键点引导的可变形注意力：</b>解码器采用关键点引导的可变形注意力来精确估计手和面部参数，使模型能够关注通常位于极小区域的面部和手部的细粒度细节。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>UBody Dataset:</b> Built a large-scale Upper-Body dataset (UBody) with high-quality 2D and 3D whole-body annotations, containing persons with partially visible bodies in diverse real-life scenarios to bridge the gap between basic tasks and downstream applications.</div>
+            <div class="lang-zh" style="display:none"><b>UBody数据集：</b>构建了一个大规模的上半身数据集（UBody），具有高质量的2D和3D全身标注，包含在多样化真实场景中部分可见身体的人员，以弥合基本任务与下游应用之间的差距。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Challenges（挑战）</h2>
+        <ul style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Resolution Issues:</b> Face and hands are usually located in extremely small regions in full-body images, making it extremely challenging to perform whole-body mesh recovery with a single network due to limited resolution and detail visibility.</div>
+            <div class="lang-zh" style="display:none"><b>分辨率问题：</b>面部和手部通常位于全身图像中极小的区域，由于分辨率有限和细节可见性，使用单个网络执行全身网格恢复极其具有挑战性。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Copy-Paste Pipeline Limitations:</b> Existing works usually detect hands and faces, enlarge their resolution to feed into specific networks, and finally fuse results. While this pipeline captures fine-grained details, connections between different parts cannot be easily recovered in late fusion, leading to implausible 3D rotations and unnatural poses.</div>
+            <div class="lang-zh" style="display:none"><b>复制粘贴流程限制：</b>现有工作通常检测手和面部，放大其分辨率输入到特定网络，最后融合结果。虽然这种流程捕获了细粒度细节，但不同部分之间的连接无法在后期融合中轻松恢复，导致不可信的3D旋转和不自然姿态。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Component Integration:</b> Simultaneously modeling body, face, and hands with proper spatial relationships and avoiding discontinuities at joints requires sophisticated architecture design that can handle multi-scale features and component-specific representations.</div>
+            <div class="lang-zh" style="display:none"><b>组件集成：</b>同时建模身体、面部和手部并保持适当的空间关系，避免关节处的不连续性，需要能够处理多尺度特征和组件特定表示的复杂架构设计。</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="lang-en"><b>Lack of Training Data:</b> Existing datasets lack comprehensive whole-body annotations with high-quality 2D and 3D labels, especially for scenarios with partially visible bodies in diverse real-life situations, limiting model training and evaluation.</div>
+            <div class="lang-zh" style="display:none"><b>缺乏训练数据：</b>现有数据集缺乏具有高质量2D和3D标签的全面全身标注，特别是在多样化真实场景中部分可见身体的情况，限制了模型训练和评估。</div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Method（方法）</h2>
+        <div style="margin:0;padding-left:18px;color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>OSX uses Component Aware Transformer (CAT) for one-stage whole-body mesh recovery:</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Global Body Encoder:</b> Processes the full-body image and predicts body parameters (SMPL-X) while generating high-quality feature maps that preserve spatial information and multi-scale features necessary for face and hand reconstruction.</li>
+                <li style="margin-bottom:6px;"><b>Local Face/Hand Decoder:</b> Uses the high-quality feature maps from the encoder and performs feature-level upsample-crop scheme to extract high-resolution part-specific features for face and hands, addressing resolution issues without separate detection and cropping stages.</li>
+                <li style="margin-bottom:6px;"><b>Keypoint-Guided Deformable Attention:</b> Adopts keypoint-guided deformable attention mechanism in the decoder to precisely estimate hand and face parameters by focusing on fine-grained details in extremely small regions, enabling accurate reconstruction despite limited resolution.</li>
+                <li style="margin-bottom:6px;"><b>End-to-End Training:</b> The entire pipeline is trained end-to-end without any manual post-processing, naturally avoiding implausible predictions and ensuring consistent spatial relationships between body, face, and hands.</li>
+                <li style="margin-bottom:6px;"><b>UBody Dataset:</b> Provides large-scale training data with high-quality 2D and 3D whole-body annotations, including diverse real-life scenarios with partially visible bodies to bridge the gap between basic research and practical applications.</li>
+            </ol>
+          </div>
+          <div class="lang-zh" style="display: none;">
+            <p>OSX使用组件感知Transformer（CAT）进行单阶段全身网格恢复：</p>
+            <ol style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>全局身体编码器：</b>处理全身图像并预测身体参数（SMPL-X），同时生成高质量特征图，保留面部和手部重建所需的空间信息和多尺度特征。</li>
+                <li style="margin-bottom:6px;"><b>局部面部/手部解码器：</b>使用编码器的高质量特征图，执行特征级上采样裁剪方案以提取面部和手部的高分辨率部分特定特征，无需单独的检测和裁剪阶段即可解决分辨率问题。</li>
+                <li style="margin-bottom:6px;"><b>关键点引导的可变形注意力：</b>在解码器中采用关键点引导的可变形注意力机制，通过关注极小区域中的细粒度细节来精确估计手和面部参数，尽管分辨率有限仍能实现准确重建。</li>
+                <li style="margin-bottom:6px;"><b>端到端训练：</b>整个流程端到端训练，无需任何手动后处理，自然避免不可信预测并确保身体、面部和手部之间一致的空间关系。</li>
+                <li style="margin-bottom:6px;"><b>UBody数据集：</b>提供具有高质量2D和3D全身标注的大规模训练数据，包括具有部分可见身体的多样化真实场景，以弥合基础研究与实际应用之间的差距。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Intro Figure（引言图）</h2>
+        <div style="border-radius:14px; overflow:hidden;">
+            <img src="Figures/osx_intro.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Intro Figure" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:rgba(232,236,255,.5); text-align:center; padding:20px;\'>Intro figure not found. Please add Figures/osx_intro.png</div>'"/>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Overview Figure（示意图）</h2>
+        <div style="border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:16px;color:rgba(232,236,255,.65);line-height:1.6;">
+            <img src="Figures/osx_overview.png" style="width:100%; height:auto; display:block; border-radius:8px;" alt="Overview Figure" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:rgba(232,236,255,.5); text-align:center; padding:20px;\'>Overview figure not found. Please add Figures/osx_overview.png</div>'"/>
+            <div style="height:1px; background:rgba(255,255,255,.10); margin:12px 0;"></div>
+            <p>OSX uses Component Aware Transformer (CAT) with a global body encoder and local face/hand decoder for one-stage whole-body mesh recovery. The encoder predicts body parameters and provides high-quality feature maps, while the decoder performs feature-level upsample-crop and keypoint-guided deformable attention to precisely estimate face and hand parameters.</p>
+            <p>Note: OSX achieves Top-1 performance on AGORA SMPLX benchmark and demonstrates superior results compared to copy-paste pipelines by naturally avoiding implausible predictions and maintaining consistent spatial relationships between body components. The whole pipeline is simple yet effective without any manual post-processing.</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                 <button onclick="openLocalPdf('arxiv_osx.pdf')" style="background:rgba(139,255,207,0.1); border:1px solid rgba(139,255,207,0.3); color:#8bffcf; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">📂 Open Local PDF</button>
+                 <button onclick="delLocalPdf('arxiv_osx.pdf')" style="background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff6464; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px;">🗑️ Del Local PDF</button>
+            </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Discussion（讨论）</h2>
+        <h3 style="margin:12px 0 6px;font-size:14px;color:#8bffcf;">Why it Works?</h3>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>OSX succeeds by using component-aware architecture and feature-level processing:</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>Unified Feature Representation:</b> The global body encoder processes the entire image and generates high-quality feature maps that preserve spatial relationships and multi-scale information, enabling the decoder to access both global context and local details simultaneously.</li>
+                <li style="margin-bottom:6px;"><b>Feature-Level Upsample-Crop:</b> Instead of image-level cropping which loses context, OSX performs feature-level upsample-crop to extract high-resolution part-specific features, maintaining spatial relationships while addressing resolution issues for small regions like face and hands.</li>
+                <li style="margin-bottom:6px;"><b>Keypoint-Guided Attention:</b> The deformable attention mechanism guided by keypoints enables precise focus on fine-grained details in extremely small regions, allowing accurate parameter estimation despite limited resolution where face and hands are typically located.</li>
+                <li style="margin-bottom:6px;"><b>End-to-End Consistency:</b> Training the entire pipeline end-to-end ensures that all components (body, face, hands) are optimized together, naturally avoiding implausible predictions and maintaining consistent spatial relationships without manual post-processing fusion.</li>
+                <li style="margin-bottom:6px;"><b>Component-Aware Design:</b> The encoder-decoder architecture with component-specific processing (global for body, local for face/hands) balances between global context understanding and fine-grained detail capture, enabling accurate whole-body mesh recovery.</li>
+            </ul>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>OSX通过使用组件感知架构和特征级处理而成功：</p>
+            <ul style="margin:8px 0;">
+                <li style="margin-bottom:6px;"><b>统一特征表示：</b>全局身体编码器处理整个图像并生成高质量特征图，保留空间关系和多尺度信息，使解码器能够同时访问全局上下文和局部细节。</li>
+                <li style="margin-bottom:6px;"><b>特征级上采样裁剪：</b>OSX执行特征级上采样裁剪以提取高分辨率部分特定特征，而不是会丢失上下文的图像级裁剪，在解决小区域（如面部和手部）分辨率问题的同时保持空间关系。</li>
+                <li style="margin-bottom:6px;"><b>关键点引导注意力：</b>由关键点引导的可变形注意力机制能够在极小区域精确关注细粒度细节，尽管通常位于极小区域的面部和手部分辨率有限，仍能实现准确的参数估计。</li>
+                <li style="margin-bottom:6px;"><b>端到端一致性：</b>端到端训练整个流程确保所有组件（身体、面部、手部）一起优化，自然避免不可信预测并在无需手动后处理融合的情况下保持一致的空间关系。</li>
+                <li style="margin-bottom:6px;"><b>组件感知设计：</b>具有组件特定处理（身体为全局，面部/手部为局部）的编码器-解码器架构在全局上下文理解和细粒度细节捕获之间取得平衡，实现准确的全身网格恢复。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10); position: relative;">
+        <button onclick="toggleLang(this)" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aeb7e6; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;">中 / En</button>
+        <h2 style="margin:0 0 8px;font-size:16px;">Conclusion（结论）</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <div class="lang-en">
+            <p>This groundbreaking work introduces OSX, a one-stage pipeline for expressive 3D whole-body mesh recovery that successfully addresses the resolution challenges in simultaneously reconstructing body, face, and hands from a single image. By designing Component Aware Transformer (CAT) with a global body encoder and local face/hand decoder, OSX effectively handles the multi-scale nature of whole-body reconstruction where face and hands occupy extremely small regions. The feature-level upsample-crop scheme and keypoint-guided deformable attention enable precise estimation of fine-grained parameters despite limited resolution, while the end-to-end training naturally maintains consistent spatial relationships between all body components. Comprehensive experiments demonstrate OSX's superior performance, achieving Top-1 on the AGORA SMPLX benchmark and significantly outperforming copy-paste pipelines that suffer from implausible predictions due to late fusion. The contribution of UBody, a large-scale dataset with high-quality whole-body annotations including partially visible bodies in diverse scenarios, bridges the gap between basic research and practical applications. This work represents a significant advancement in whole-body mesh recovery, showing that unified architectures can outperform modular approaches when properly designed to handle component-specific challenges while maintaining global consistency. OSX's simple yet effective design without manual post-processing makes it particularly valuable for real-world applications requiring accurate and natural whole-body mesh reconstruction.</p>
+          </div>
+          <div class="lang-zh" style="display:none">
+            <p>这项开创性工作引入了OSX，一个用于表达性3D全身网格恢复的单阶段流程，成功解决了从单张图像同时重建身体、面部和手部的分辨率挑战。通过设计具有全局身体编码器和局部面部/手部解码器的组件感知Transformer（CAT），OSX有效处理了全身重建的多尺度特性，其中面部和手部占据极小区域。特征级上采样裁剪方案和关键点引导的可变形注意力能够在分辨率有限的情况下精确估计细粒度参数，而端到端训练自然保持了所有身体组件之间一致的空间关系。广泛实验证明了OSX的优越性能，在AGORA SMPLX基准测试中达到Top-1，并显著优于因后期融合而产生不可信预测的复制粘贴流程。UBody作为具有高质量全身标注的大规模数据集的贡献，包括多样化场景中部分可见的身体，弥合了基础研究与实际应用之间的差距。这项工作代表了全身网格恢复的重大进步，表明当统一架构被正确设计以处理组件特定挑战同时保持全局一致性时，可以优于模块化方法。OSX的简单而有效的设计无需手动后处理，使其对需要准确和自然的全身网格重建的实际应用特别有价值。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Official Code</h2>
+        <div style="color:rgba(232,236,255,.80);line-height:1.65;">
+          <p><b>ArXiv:</b> <a href="https://arxiv.org/abs/2303.16160" target="_blank" style="color:#8bffcf;">2303.16160</a></p>
+          <p><b>PDF:</b> <a href="https://arxiv.org/pdf/2303.16160.pdf" target="_blank" style="color:#8bffcf;">https://arxiv.org/pdf/2303.16160.pdf</a></p>
+          <p><b>Project Page:</b> <a href="https://osx-ubody.github.io/" target="_blank" style="color:#8bffcf;">https://osx-ubody.github.io/</a></p>
+        </div>
+      </div>
+
+      <div style="padding:16px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(0,0,0,.10)">
+        <h2 style="margin:0 0 8px;font-size:16px;">Core Code Implementation（核心代码）</h2>
+        <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#8bffcf; margin:8px 0; overflow-x:auto;">
+# OSX Implementation<br>
+<br>
+// Component Aware Transformer (CAT)<br>
+<span style="color:#569cd6;">class</span> <span style="color:#dcdcaa;">ComponentAwareTransformer</span>(nn.Module):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">__init__</span>(<span style="color:#569cd6;">self</span>):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Global body encoder</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">self</span>.body_encoder = BodyEncoder()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Local face/hand decoder</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">self</span>.face_hand_decoder = FaceHandDecoder()<br>
+<br>
+// Global body encoder<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">body_encoder</span>(image):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Encode full-body image and predict body parameters"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;body_features = backbone(image)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;body_params = body_head(body_features)  <span style="color:#6a9955;"># SMPL-X body parameters</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Provide high-quality feature maps for decoder</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;feature_maps = extract_feature_maps(body_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> body_params, feature_maps<br>
+<br>
+// Feature-level upsample-crop<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">feature_level_upsample_crop</span>(feature_maps, keypoints, part_type):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Extract high-resolution part-specific features"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Upsample feature maps for higher resolution</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;upsampled_features = upsample(feature_maps)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Crop based on keypoint locations</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;part_features = crop_features(upsampled_features, keypoints, part_type)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> part_features<br>
+<br>
+// Keypoint-guided deformable attention<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">keypoint_guided_deformable_attention</span>(part_features, keypoints):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Apply deformable attention guided by keypoints"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Generate attention offsets from keypoints</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;offsets = generate_offsets(keypoints)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Apply deformable attention</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;attended_features = deformable_attention(part_features, offsets)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> attended_features<br>
+<br>
+// Face/hand decoder<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">face_hand_decoder</span>(feature_maps, body_keypoints):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Decode face and hand parameters from feature maps"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Extract face features</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;face_features = feature_level_upsample_crop(feature_maps, body_keypoints, <span style="color:#ce9178;">'face'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;face_features = keypoint_guided_deformable_attention(face_features, face_keypoints)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;face_params = face_head(face_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Extract hand features</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;hand_features = feature_level_upsample_crop(feature_maps, body_keypoints, <span style="color:#ce9178;">'hands'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hand_features = keypoint_guided_deformable_attention(hand_features, hand_keypoints)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hand_params = hand_head(hand_features)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> face_params, hand_params<br>
+<br>
+// Main pipeline<br>
+<span style="color:#569cd6;">def</span> <span style="color:#dcdcaa;">osx_pipeline</span>(image):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""One-stage whole-body mesh recovery"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 1: Encode body and get feature maps</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;body_params, feature_maps = body_encoder(image)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 2: Decode face and hands from feature maps</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;face_params, hand_params = face_hand_decoder(feature_maps, body_params.keypoints)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a9955;"># Step 3: Combine all parameters</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;whole_body_params = combine_params(body_params, face_params, hand_params)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span> whole_body_params<br>
+        </div>
+      </div>
+    </div>
+</section>
+</body>
+</html>
+
