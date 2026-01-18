@@ -1,177 +1,222 @@
+<!DOCTYPE html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Ig3D: Integrating 3D Face Representations in Facial Expression Inference.">
+  <meta name="keywords" content="Ig3D, 3D Face, FLAME, 3DMM, Facial Expression Inference, Valence-Arousal">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ig3D: Integrating 3D Face Representations in Facial Expression Inference</title>
 
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
-	<title>Lu Dong</title>
-	<meta content="LuDong, Lu Dong UB, lu dong ub, ludong,  https://dongludeeplearning.github.io/" name="keywords">
-	<link rel="stylesheet" href="./index_files/jemdoc.css" type="text/css">
-	<script async="" src="http://www.google-analytics.com/analytics.js"></script>
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-66888300-1', 'auto');
-		ga('send', 'pageview');
-	</script>
-	<script type="text/javascript" src="./index_files/jquery-1.12.4.min.js"></script>
-	<style>
-	a {color: #2471a3; text-decoration: none;}
-	a:hover {color: #5499c7;}
-	a.btn {background-color: #2471a3; color: #fff; font-size: 12px; margin-top: 4px; display: inline-block; padding: 0 4px; border-radius: 2px; line-height: 1.5em;}
-	a.btn:hover {background-color: #174e74;}
-	a.btn.btn-red {background-color: #d63a3a;}
-	a.btn.btn-red:hover {background-color: #a02727;}
-	a.btn.btn-orange {background-color: #e2700c;}
-	a.btn.btn-orange:hover {background-color: #c46009;}
-	a.btn.btn-dark {background-color: #345;}
-	a.btn.btn-dark:hover {background-color: #234;}
-	p {line-height: 1.5em;}
-	.nobreak {white-space: nowrap;}
-	.noselect {-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
-	.bold {font-weight: bold;}
-	.italic {font-style: italic;}
-	.bulletpoints {line-height: 1.5em;}
-	.row {box-sizing: border-box;}
-	.row-media {display: block; float: left; width: 280px; height: 150px; background-position: center; background-size: contain; background-repeat: no-repeat; border-radius: 6px; border: 1px solid #def;}
-	.row-text {display: block; float: left; margin-left: 16px; line-height: 1.5em; max-width: 552px;}
-	.row-text span {line-height: inherit;}
-	.clearfix {content: ""; clear: both; display: table;}
-	.publication {margin-bottom: 32px; margin-left: 16px;}
-	.press {width: 100px; height: 80px; border: 1px solid #def; margin-right: 12px; background-size: cover;}  
-	.img-contain {background-size: contain !important;}
-	.footer {background-color: #345; width: 100%}
-	.footer-content {color: #fff; font-size: 10px; padding: 6px 0; max-width: 900px; margin: auto;}
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
+  <!-- Reuse the same website stack as SignAvatar (Bulma + Academicons) -->
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
 
-
-
-	@media only screen and (max-width: 1150px) {
-		.header-profile-picture, .header-text {display: block; margin: auto; text-align: center;}
-		.header-profile-picture {margin-bottom: 12px; width: 140px; height: 140px;}
-		body {font-size: 18px;}
-		a.btn {font-size: 14px; padding: 2px 6px;}
-	}
-	
-	@media only screen and (max-width: 900px) {
-		.publication {margin-bottom: 46px;}
-		.publication .row-media {width: 260px; height: 130px; margin: auto; margin-bottom: 12px; display: block;}
-		.publication .row-text {display: block; width: 100%; margin-left: 0;}
-		.press {display: block;}
-	}
-	</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 </head>
 
 <body>
 
+<!-- =========================
+     Hero (Title + Authors)
+     ========================= -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Ig3D: Integrating 3D Face Representations in Facial Expression Inference</h1>
 
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://dongludeeplearning.github.io/" target="_blank">Lu Dong</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://wangxiaoshawn.github.io/" target="_blank">Xiao Wang</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.buffalo.edu/cubs/members/srirangaraj-setlur.html" target="_blank">Srirangaraj Setlur</a>,</span>
+            <span class="author-block">
+              <a href="https://www.buffalo.edu/research/about-us/leadership/venu-govindaraju.html" target="_blank">Venu Govindaraju</a>,</span>
+            <span class="author-block">
+              <a href="https://engineering.buffalo.edu/home/research/faculty/diverse-faculty.host.html/content/shared/engineering/computer-science-engineering/profiles/faculty/ladder/nwogu-ifeoma.html" target="_blank">Ifeoma Nwogu</a>
+            </span>
+          </div>
 
+          <div class="is-size-6 publication-authors" style="margin-top: 0.25rem;">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+          </div>
 
+          <div class="is-size-5 publication-authors" style="margin-top: 0.75rem;">
+            <span class="author-block">National AI Institute for Exceptional Education</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University at Buffalo, SUNY</span>
+          </div>
 
+          <div class="column has-text-centered" style="margin-top: 1.25rem;">
+            <div class="publication-links">
 
+              <!-- Paper -->
+              <span class="link-block">
+                <a href="https://link.springer.com/chapter/10.1007/978-3-031-91581-9_29" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
 
-<h1 style="text-align: center; margin-top: 100px;">Ig3D: Integrating 3D Face Representations in Facial Expression Inference</h1>
-<h3 style="text-align: center; margin-top: 10px;"> <a href="https://dongludeeplearning.github.io/" target="_blank">Lu Dong</a>*, <a href="https://wangxiaoshawn.github.io/" target="_blank">Xiao Wang</a>*, <a href="https://www.buffalo.edu/cubs/members/srirangaraj-setlur.html" target="_blank">Srirangaraj Setlur</a>, <a href="https://www.buffalo.edu/research/about-us/leadership/venu-govindaraju.html" target="_blank">Venu Govindaraju</a>, <a href="https://engineering.buffalo.edu/home/research/faculty/diverse-faculty.host.html/content/shared/engineering/computer-science-engineering/profiles/faculty/ladder/nwogu-ifeoma.html" target="_blank">Ifeoma Nwogu</a></h3>
-<h4 style="text-align: center; margin-top: 10px;">*Equal Contribution</h4>
-<h4 style="text-align: center; margin-top: 10px;"> National AI Institute for Exceptional Education</h4>
-<h4 style="text-align: center; margin-top: 10px;"> University at Buffalo, SUNY</h4>
-<div style="text-align: center; margin-top: 30px;">
-  <a href="https://link.springer.com/chapter/10.1007/978-3-031-91581-9_29" target="_blank">Paper</a> |
-  <a href="https://arxiv.org/abs/2408.16907" target="_blank">ArXiv</a> |
-  <a href="https://github.com/dongludeeplearning/Ig3D" target="_blank"> Code </a> |
-  <a href="./files/ECCV_ABAW7th#50Poster.pdf" target="_blank"> Poster </a>
-</div>
+              <!-- arXiv -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2408.16907" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
 
+              <!-- Poster -->
+              <span class="link-block">
+                <a href="./files/ECCV_ABAW7th#50Poster.pdf" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Poster</span>
+                </a>
+              </span>
 
+              <!-- Code -->
+              <span class="link-block">
+                <a href="https://github.com/dongludeeplearning/Ig3D" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
 
+            </div>
+          </div>
 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- =========================
+     Teaser
+     ========================= -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered is-variable is-6">
+        <div class="column">
+          <video controls autoplay loop muted playsinline style="width:80%; height:auto; border-radius:12px; display:block; margin:0 auto;">
+            <source src="./files/3DBoyFace.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="column">
+          <video controls autoplay loop muted playsinline style="width:80%; height:auto; border-radius:12px; display:block; margin:0 auto;">
+            <source src="./files/3DMyFace.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered" style="font-size:16px; margin-top: 0.75rem;">
+        3D facial expression can support affective analysis while effectively preserving privacy; 
+        however, this capability remains insufficiently explored in many domains. 
+        The Ig3D project offers a comprehensive exploration of integrating 3D facial representations 
+        to improve the robustness and accuracy of facial expression inference.
+      </h2>
+    </div>
+  </div>
+</section>
 
+<!-- =========================
+     Abstract
+     ========================= -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p style="text-align:justify;">
+            Reconstructing 3D faces with facial geometry from single images has allowed for major advances in animation, generative models,
+            and virtual reality. However, this ability to represent faces with their 3D features is not as fully explored by the facial expression
+            inference (FEI) community. This study therefore aims to investigate the impacts of integrating such 3D representations into the FEI task,
+            specifically for facial expression classification and face-based valence-arousal (VA) estimation.
+            To accomplish this, we first assess the performance of two 3D face representations (both based on the 3D morphable model, FLAME)
+            for the FEI tasks. We further explore two fusion architectures, intermediate fusion and late fusion, for integrating the 3D face
+            representations with existing 2D inference frameworks. To evaluate our proposed architecture, we extract the corresponding 3D
+            representations and perform extensive tests on the AffectNet and RAF-DB datasets. Our experimental results demonstrate that our proposed
+            method outperforms the state-of-the-art AffectNet VA estimation and RAF-DB classification tasks. Moreover, our method can act as a
+            complement to other existing methods to boost performance in many emotion inference tasks.
+          </p>
+        </div>
+      </div>
+    </div>
 
+    <!-- Figures -->
+    <section class="main-idea" style="margin-top: 1.5rem;">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="./files/pubs/Ig3D_3DMM.png" alt="Ig3D 3D Representation" style="width:90%; height:auto; margin-left:5%">
+          <h2 class="subtitle has-text-centered" style="font-size:16px">
+            3D Face Representations used in Ig3D (FLAME/3DMM-based).
+          </h2>
+        </div>
+      </div>
+    </section>
 
+    <section class="main-idea">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="./files/pubs/Ig3D_framework.png" alt="Ig3D Framework" style="width:90%; height:auto; margin-left:5%">
+          <h2 class="subtitle has-text-centered" style="font-size:16px">
+            Ig3D Framework overview for integrating 3D representations into facial expression inference.
+          </h2>
+        </div>
+      </div>
+    </section>
 
+    <!-- Paper meta -->
+    <div class="content" style="margin-top: 1.5rem;">
+      <p><b>Type:</b> Conference Workshop Paper</p>
+      <p><b>Publication:</b> Springer ECCV 2024 (ABAW Workshop)</p>
+      <p><b>Special Thanks:</b> We thank <a href="https://www.yhzhai.com/" target="_blank">Yuanhao Zhai</a> for the insightful discussions.</p>
+    </div>
 
-<img src="./files/pubs/Ig3D_3DMM.png" alt="Ig3D Project" width="100%">
+  </div>
+</section>
 
-<img src="./files/pubs/Ig3D_framework.png" alt="Ig3D Project" width="100%">
-
-
-
-
-
-
-
-
-<h3>Abstract</h3>
-
-<p style="text-align:justify;">  Reconstructing 3D faces with facial geometry from single images has allowed for major advances in animation, generative models, and virtual reality. However, this ability to represent faces with their 3D features is not as fully explored by the facial expression inference (FEI) community.
-This study therefore aims to investigate the impacts of integrating such 3D representations into the FEI task, specifically for facial expression classification and face-based valence-arousal (VA) estimation.
-To accomplish this, we first assess the performance of two 3D face representations (both based on the 3D morphable model, FLAME) for the FEI tasks. We further explore two fusion architectures, intermediate fusion and late fusion, for integrating the 3D face representations with existing 2D inference frameworks. To evaluate our proposed architecture, we extract the corresponding 3D representations and perform extensive tests on the AffectNet and RAF-DB datasets.  
-Our experimental results demonstrate that our proposed method outperforms the state-of-the-art AffectNet VA estimation and RAF-DB classification tasks. Moreover, our method can act as a complement to other existing methods to boost performance in many emotion inference tasks. 
-</p>
-
-
-
-
-<h4 style="text-align: left; margin-left: 20px;"> Type: Conference Workshop Paper</h4>
-<h4 style="text-align: left; margin-left: 20px;"> Publication: Springer ECCV 2024</h4>
-<h4 style="text-align: left; margin-left: 20px;"> Special Thanks: We thank <a href="https://www.yhzhai.com/" target="_blank">Yuanhao Zhai</a> for the insightful discussions. </h4>
-
-​        
-
-<h2 class="title is-3">BibTeX</h2>
-
-<pre><code style="font-size: 16px;">
-@article{dong2024ig3d,
+<!-- =========================
+     BibTeX
+     ========================= -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{dong2024ig3d,
   title={Ig3D: Integrating 3D Face Representations in Facial Expression Inference},
   author={Dong, Lu and Wang, Xiao and Setlur, Srirangaraj and Govindaraju, Venu and Nwogu, Ifeoma},
   journal={arXiv preprint arXiv:2408.16907},
   year={2024}
 }
 </code></pre>
+  </div>
+</section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<hr>
-<table cellpadding="0px">
-	<tbody>
-		<tr>
-			<td width="720px">
-			<div id="clustrmaps-widget"></div>
-				<script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=7seMHMuQZlvELLsuK6wd30IX5cz7U58mGsA8iV8s6_o"></script></script>
-				</script>
-			<div class="jvectormap-tip"></div>
-			</td>
-			<td valign="top">
-				<div style="clear:both;">
-				<p align="right"><font size="2">Last Updated on September, 2024<br>
-				</div>
-				<div style="clear: both;">
-				<p align="right"><font size="5"><img src="./index_files//happy.gif"></font></p>
-				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
-
-
-
-
+<div class="content has-text-centered" style="padding: 1rem 0 2.5rem;">
+  Website template modified from <a href="https://nerfies.github.io/" target="_blank">NeRFies</a>.
+</div>
 
 </body>
 </html>
