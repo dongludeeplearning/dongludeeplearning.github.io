@@ -221,16 +221,19 @@
 <body>
     <header>
         <h1>Expert Confusion Annotation</h1>
-        <div class="subtext">
-            Welcome, and thank you for contributing to this expert annotation process.<br><br>
-            This page is designed to help you quickly review short video clips and record your judgments on whether each clip contains confusion. The annotation process is simple:<br><br>
-            <b>1.</b> Each video will load automatically. After watching the clip, please answer the question: <i>"Does this clip contain confusion?"</i><br>
-            <b>2.</b> Select one of the three options: <b>Yes</b>, <b>No</b>, or <b>Unsure</b>. Once you click your choice, the result will be automatically added to the Annotation CSV section below.<br>
-            <b>3.</b> Please review your annotations before saving. After confirming that everything is correct, click the <b>Save</b> button at the bottom of the page. Your annotations will be saved locally on your computer. Even if the webpage is accidentally closed, you can continue later by clicking the <b>Load Last Time</b> button.<br>
-            <b>4.</b> If you want to revise a previous annotation, you can replay the corresponding video and simply select a new answer. The Annotation CSV section below will update automatically.<br>
-            <b>5.</b> After completing all annotations, click <b>Download Annotation CSV</b> to export the final annotation file.<br><br>
-            Thank you again for your time and support.
-        </div>
+        <details open>
+            <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Instructions (Click to Expand/Collapse)</summary>
+            <div class="subtext">
+                Welcome, and thank you for contributing to this expert annotation process.<br><br>
+                This page is designed to help you quickly review short video clips and record your judgments on whether each clip contains confusion. The annotation process is simple:<br><br>
+                <b>1.</b> Each video will load automatically. After watching the clip, please answer the question: <i>"Does this clip contain confusion?"</i><br>
+                <b>2.</b> Select one of the three options: <b>Yes</b>, <b>No</b>, or <b>Unsure</b>. Once you click your choice, the result will be automatically added to the Annotation CSV section below.<br>
+                <b>3.</b> Please review your annotations before saving. After confirming that everything is correct, click the <b>Save</b> button at the bottom of the page. Your annotations will be saved locally on your computer. Even if the webpage is accidentally closed, you can continue later by clicking the <b>Load Last Time</b> button.<br>
+                <b>4.</b> If you want to revise a previous annotation, you can replay the corresponding video and simply select a new answer. The Annotation CSV section below will update automatically.<br>
+                <b>5.</b> After completing all annotations, click <b>Download Annotation CSV</b> to export the final annotation file.<br><br>
+                Thank you again for your time and support.
+            </div>
+        </details>
         <div class="toolbar">
             <input id="search-input" type="text" placeholder="Search video_id">
             <button id="search-btn">Search</button>
