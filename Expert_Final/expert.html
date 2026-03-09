@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Confusion Annotation</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #111827;
+            --panel-2: #1f2937;
+            --border: #334155;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --good: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(17, 24, 39, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+
+        .subtext {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            align-items: center;
+        }
+
+        button,
+        select,
+        input {
+            background: var(--panel-2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .progress {
+            margin-left: auto;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--panel-2);
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 18px;
+            padding: 18px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .panel-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .video-toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .video-toolbar .file-id {
+            color: var(--muted);
+            font-size: 13px;
+            word-break: break-all;
+        }
+
+        video {
+            width: 100%;
+            max-height: 420px;
+            border-radius: 12px;
+            background: #000;
+            display: block;
+        }
+
+        .question {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 72px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--panel-2);
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, transform 0.15s;
+        }
+
+        .option:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .option.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .option.no-active {
+            background: #7f1d1d;
+            border-color: #b91c1c;
+        }
+
+        .option.unsure-active {
+            background: #92400e;
+            border-color: #d97706;
+        }
+
+        .status {
+            color: var(--good);
+            font-size: 13px;
+            min-height: 20px;
+            margin-top: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 260px;
+            margin-top: 12px;
+            background: #020617;
+            color: #d1fae5;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: Menlo, Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 1100px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .progress {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Expert Confusion Annotation</h1>
+        <div class="subtext">
+            Welcome, and thank you for contributing to this expert annotation process.<br><br>
+            This page is designed to help you quickly review short video clips and record your judgments on whether each clip contains confusion. The annotation process is simple:<br><br>
+            <b>1.</b> Each video will load automatically. After watching the clip, please answer the question: <i>"Does this clip contain confusion?"</i><br>
+            <b>2.</b> Select one of the three options: <b>Yes</b>, <b>No</b>, or <b>Unsure</b>. Once you click your choice, the result will be automatically added to the Annotation CSV section below.<br>
+            <b>3.</b> Please review your annotations before saving. After confirming that everything is correct, click the <b>Save</b> button at the bottom of the page. Your annotations will be saved locally on your computer. Even if the webpage is accidentally closed, you can continue later by clicking the <b>Load Last Time</b> button.<br>
+            <b>4.</b> If you want to revise a previous annotation, you can replay the corresponding video and simply select a new answer. The Annotation CSV section below will update automatically.<br>
+            <b>5.</b> After completing all annotations, click <b>Download Annotation CSV</b> to export the final annotation file.<br><br>
+            Thank you again for your time and support.
+        </div>
+        <div class="toolbar">
+            <input id="search-input" type="text" placeholder="Search video_id">
+            <button id="search-btn">Search</button>
+            <button id="download-btn-top">Download Annotation CSV</button>
+            <select id="clip-select"></select>
+            <div id="progress" class="progress">
+                <div>Completed: 0 / 0</div>
+                <div>Current: -</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="panel">
+            <div class="panel-title">Video</div>
+            <div class="video-toolbar">
+                <button id="load-lasttime-btn">Load Lasttime</button>
+                <button id="prev-btn">Previous Video</button>
+                <button id="next-btn">Next Video</button>
+                <div id="video-id-label" class="file-id">-</div>
+            </div>
+            <video id="video-player" controls playsinline></video>
+        </section>
+
+        <section class="panel">
+            <div class="panel-title">Annotation</div>
+            <div class="question">Does this clip contain confusion?</div>
+            <div class="options">
+                <button class="option" data-decision="Yes" type="button">Yes</button>
+                <button class="option" data-decision="No" type="button">No</button>
+                <button class="option" data-decision="Unsure" type="button">Unsure</button>
+            </div>
+
+            <div class="actions">
+                <button id="save-next-btn">Next Video</button>
+                <span style="font-size:12px; color:#94a3b8; align-self:center;">Unsure: unclear boundary, insufficient evidence, or more context needed</span>
+            </div>
+
+            <div class="panel-title" style="margin-top: 18px;">Annotation CSV</div>
+            <textarea id="csv-preview" readonly></textarea>
+
+            <div class="actions">
+                <button id="save-btn">Save</button>
+                <button id="undo-btn">Undo</button>
+                <button id="clear-all-btn">Clear All</button>
+                <button id="download-btn-bottom">Download Annotation CSV</button>
+            </div>
+
+            <div id="status" class="status"></div>
+        </section>
+    </main>
+
+    <script>
+        const MANIFEST_PATH = "./Human_High.csv";
+        const VIDEO_ROOT = "./Videos_High_Clips";
+        const STORAGE_KEY = "expert_confusion_annotation_state";
+
+        const videoPlayer = document.getElementById("video-player");
+        const clipSelect = document.getElementById("clip-select");
+        const searchInput = document.getElementById("search-input");
+        const searchBtn = document.getElementById("search-btn");
+        const videoIdLabel = document.getElementById("video-id-label");
+        const csvPreview = document.getElementById("csv-preview");
+        const status = document.getElementById("status");
+        const progress = document.getElementById("progress");
+
+        const state = {
+            clips: [],
+            currentIndex: 0,
+            decisions: new Map(),
+            savedEntries: new Map(),
+            savedOrder: [],
+            saveHistory: []
+        };
+
+        function parseCsv(text) {
+            const lines = text.trim().split(/\r?\n/);
+            if (lines.length <= 1) return [];
+
+            const rows = [];
+            const seen = new Set();
+
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                const [split, videoId, videoStem] = line.split(",");
+                const normalizedSplit = (split || "").trim();
+                const normalizedVideoId = (videoId || "").trim();
+                const normalizedStem = (videoStem || "").trim();
+                if (!normalizedSplit || !normalizedVideoId || !normalizedStem) continue;
+
+                const fileId = `${normalizedSplit}_${normalizedStem}`;
+                if (seen.has(fileId)) continue;
+                seen.add(fileId);
+
+                rows.push({
+                    split: normalizedSplit,
+                    video_id: normalizedVideoId,
+                    video_stem: normalizedStem,
+                    file_id: fileId
+                });
+            }
+
+            return rows;
+        }
+
+        function saveState() {
+            const obj = {
+                decisions: {},
+                savedEntries: {},
+                savedOrder: [...state.savedOrder]
+            };
+            for (const [fileId, decision] of state.decisions.entries()) {
+                obj.decisions[fileId] = decision;
+            }
+            for (const [fileId, decision] of state.savedEntries.entries()) {
+                obj.savedEntries[fileId] = decision;
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+        }
+
+        function loadState() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return;
+            try {
+                const obj = JSON.parse(raw);
+                state.decisions = new Map(Object.entries(obj.decisions || {}));
+                state.savedEntries = new Map(Object.entries(obj.savedEntries || {}));
+                state.savedOrder = Array.isArray(obj.savedOrder) ? [...obj.savedOrder] : [];
+                state.savedOrder = state.savedOrder.filter(fileId => state.savedEntries.has(fileId));
+            } catch (error) {
+                status.textContent = `Failed to restore saved annotations: ${error.message}`;
+            }
+        }
+
+        function currentClip() {
+            return state.clips[state.currentIndex] || null;
+        }
+
+        function currentDecision() {
+            const clip = currentClip();
+            if (!clip) return "";
+            return state.decisions.get(clip.file_id) || "";
+        }
+
+        function captureSaveSnapshot() {
+            return {
+                savedOrder: [...state.savedOrder],
+                savedEntries: new Map(
+                    Array.from(state.savedEntries.entries(), ([fileId, decision]) => [fileId, decision])
+                )
+            };
+        }
+
+        function restoreSaveSnapshot(snapshot) {
+            state.savedOrder = [...snapshot.savedOrder];
+            state.savedEntries = new Map(
+                Array.from(snapshot.savedEntries.entries(), ([fileId, decision]) => [fileId, decision])
+            );
+            saveState();
+            updateCsvPreview();
+        }
+
+        function formatIndex(index) {
+            return String(index).padStart(3, "0");
+        }
+
+        function updateProgress() {
+            const clip = currentClip();
+            progress.innerHTML = `
+                <div>Completed: ${state.savedOrder.length} / ${state.clips.length}</div>
+                <div>Current: ${clip ? clip.file_id : "-"}</div>
+            `;
+        }
+
+        function updateCsvPreview() {
+            const lines = ["index,video_id,decision"];
+            state.savedOrder.forEach((fileId, index) => {
+                const decision = state.savedEntries.get(fileId) || "";
+                lines.push(`${formatIndex(index)},${fileId},${decision}`);
+            });
+            if (state.savedOrder.length === 0) {
+                lines.push("");
+            }
+            csvPreview.value = lines.join("\n");
+            updateProgress();
+        }
+
+        function renderDecision() {
+            const decision = currentDecision();
+            document.querySelectorAll(".option[data-decision]").forEach(button => {
+                const value = button.dataset.decision;
+                button.classList.toggle("active", value === "Yes" && value === decision);
+                button.classList.toggle("no-active", value === "No" && value === decision);
+                button.classList.toggle("unsure-active", value === "Unsure" && value === decision);
+            });
+        }
+
+        function setDecision(decision) {
+            const clip = currentClip();
+            if (!clip) return;
+            state.decisions.set(clip.file_id, decision);
+            saveState();
+            renderDecision();
+            status.textContent = `Selected decision for ${clip.file_id}: ${decision}`;
+        }
+
+        function saveCurrentAnnotation() {
+            const clip = currentClip();
+            if (!clip) return;
+            const decision = currentDecision();
+            if (!decision) {
+                status.textContent = "Please select Yes, No, or Unsure first.";
+                return;
+            }
+
+            state.saveHistory.push(captureSaveSnapshot());
+
+            if (!state.savedEntries.has(clip.file_id)) {
+                state.savedOrder.push(clip.file_id);
+            }
+            state.savedEntries.set(clip.file_id, decision);
+            saveState();
+            updateCsvPreview();
+            status.textContent = `Saved ${clip.file_id} to Annotation CSV`;
+        }
+
+        function undoLastSave() {
+            if (state.saveHistory.length === 0) {
+                status.textContent = "Nothing to undo.";
+                return;
+            }
+            const snapshot = state.saveHistory.pop();
+            restoreSaveSnapshot(snapshot);
+            status.textContent = "Undid the last save.";
+        }
+
+        function clearAllSaved() {
+            const confirmed = window.confirm("Clear all saved CSV rows?");
+            if (!confirmed) return;
+
+            state.decisions.clear();
+            state.savedEntries.clear();
+            state.savedOrder = [];
+            state.saveHistory = [];
+            localStorage.removeItem(STORAGE_KEY);
+            renderDecision();
+            updateCsvPreview();
+            status.textContent = "Cleared all saved CSV rows and removed local cache.";
+        }
+
+        function renderCurrentClip(autoPlay = false) {
+            const clip = currentClip();
+            if (!clip) {
+                videoIdLabel.textContent = "No clip loaded";
+                videoPlayer.removeAttribute("src");
+                videoPlayer.load();
+                return;
+            }
+
+            clipSelect.value = String(state.currentIndex);
+            searchInput.value = clip.file_id;
+            videoIdLabel.textContent = clip.file_id;
+            videoPlayer.pause();
+            videoPlayer.src = `${VIDEO_ROOT}/${clip.file_id}.mp4`;
+            videoPlayer.load();
+            if (autoPlay) {
+                const onLoaded = () => {
+                    videoPlayer.removeEventListener("loadeddata", onLoaded);
+                    videoPlayer.play().catch(() => {
+                        status.textContent = `Loaded ${clip.file_id}. Autoplay was blocked.`;
+                    });
+                };
+                videoPlayer.addEventListener("loadeddata", onLoaded);
+            }
+            renderDecision();
+            updateCsvPreview();
+            status.textContent = `Loaded ${clip.file_id}`;
+        }
+
+        function goToIndex(index, autoPlay = false) {
+            if (!Number.isInteger(index) || index < 0 || index >= state.clips.length) return false;
+            state.currentIndex = index;
+            renderCurrentClip(autoPlay);
+            return true;
+        }
+
+        function jumpToFileId(fileId) {
+            const normalized = (fileId || "").trim();
+            if (!normalized) {
+                status.textContent = "Please enter a video_id.";
+                return;
+            }
+            const index = state.clips.findIndex(clip => clip.file_id === normalized);
+            if (index === -1) {
+                status.textContent = `video_id not found: ${normalized}`;
+                return;
+            }
+            goToIndex(index);
+        }
+
+        function loadLasttime() {
+            if (state.savedOrder.length === 0) {
+                status.textContent = "No saved video_id found in Annotation CSV.";
+                return;
+            }
+            const lastVideoId = state.savedOrder[state.savedOrder.length - 1];
+            jumpToFileId(lastVideoId);
+            status.textContent = `Loaded last saved video_id: ${lastVideoId}`;
+        }
+
+        function populateSelect() {
+            clipSelect.innerHTML = "";
+            state.clips.forEach((clip, index) => {
+                const option = document.createElement("option");
+                option.value = String(index);
+                option.textContent = clip.file_id;
+                clipSelect.appendChild(option);
+            });
+        }
+
+        function downloadCsv() {
+            const blob = new Blob([csvPreview.value], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "expert_annotation.csv";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        }
+
+        async function init() {
+            try {
+                const response = await fetch(MANIFEST_PATH);
+                if (!response.ok) {
+                    throw new Error(`Failed to load manifest: ${response.status}`);
+                }
+
+                const text = await response.text();
+                state.clips = parseCsv(text);
+                loadState();
+
+                if (state.clips.length === 0) {
+                    status.textContent = "No clips found in manifest.";
+                    return;
+                }
+
+                populateSelect();
+                renderCurrentClip();
+            } catch (error) {
+                status.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        document.querySelectorAll(".option[data-decision]").forEach(button => {
+            button.addEventListener("click", () => {
+                setDecision(button.dataset.decision);
+                saveCurrentAnnotation();
+            });
+        });
+
+        document.getElementById("prev-btn").addEventListener("click", () => {
+            if (!goToIndex(state.currentIndex - 1)) {
+                status.textContent = "Already at the first clip.";
+            }
+        });
+
+        document.getElementById("next-btn").addEventListener("click", () => {
+            if (!goToIndex(state.currentIndex + 1, true)) {
+                status.textContent = "Already at the last clip.";
+            }
+        });
+
+        clipSelect.addEventListener("change", event => {
+            goToIndex(Number(event.target.value));
+        });
+
+        searchBtn.addEventListener("click", () => {
+            jumpToFileId(searchInput.value);
+        });
+
+        searchInput.addEventListener("keydown", event => {
+            if (event.key !== "Enter") return;
+            event.preventDefault();
+            jumpToFileId(searchInput.value);
+        });
+
+        document.getElementById("load-lasttime-btn").addEventListener("click", loadLasttime);
+        document.getElementById("save-btn").addEventListener("click", saveCurrentAnnotation);
+        document.getElementById("save-next-btn").addEventListener("click", () => {
+            if (!goToIndex(state.currentIndex + 1, true)) {
+                status.textContent = "Already at the last clip.";
+            }
+        });
+        document.getElementById("undo-btn").addEventListener("click", undoLastSave);
+        document.getElementById("clear-all-btn").addEventListener("click", clearAllSaved);
+        document.getElementById("download-btn-bottom").addEventListener("click", downloadCsv);
+        document.getElementById("download-btn-top").addEventListener("click", downloadCsv);
+
+
+        init();
+    </script>
+</body>
+</html>
