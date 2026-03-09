@@ -216,24 +216,98 @@
                 margin-left: 0;
             }
         }
+
+        /* Instructions Panel Styling */
+        .instructions-container {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .instructions-header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: var(--panel-2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .instructions-header h2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .toggle-icon {
+            font-size: 18px;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .instructions-body {
+            padding: 20px;
+            display: block;
+        }
+
+        .instructions-body.collapsed {
+            display: none;
+        }
+
+        /* Large Upward Triangle Button at the bottom of content */
+        .collapse-footer-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            background: var(--panel-2);
+            border-top: 1px solid var(--border);
+            color: var(--accent);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .collapse-footer-btn:hover {
+            background: var(--accent-hover);
+            color: white;
+        }
+
+        .collapse-footer-btn span {
+            font-size: 24px;
+            line-height: 1;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Expert Confusion Annotation</h1>
-        <details open>
-            <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">Instructions (Click to Expand/Collapse)</summary>
-            <div class="subtext">
-                Welcome, and thank you for contributing to this expert annotation process.<br><br>
-                This page is designed to help you quickly review short video clips and record your judgments on whether each clip contains confusion. The annotation process is simple:<br><br>
-                <b>1.</b> Each video will load automatically. After watching the clip, please answer the question: <i>"Does this clip contain confusion?"</i><br>
-                <b>2.</b> Select one of the three options: <b>Yes</b>, <b>No</b>, or <b>Unsure</b>. Once you click your choice, the result will be automatically added to the Annotation CSV section below.<br>
-                <b>3.</b> Please review your annotations before saving. After confirming that everything is correct, click the <b>Save</b> button at the bottom of the page. Your annotations will be saved locally on your computer. Even if the webpage is accidentally closed, you can continue later by clicking the <b>Load Last Time</b> button.<br>
-                <b>4.</b> If you want to revise a previous annotation, you can replay the corresponding video and simply select a new answer. The Annotation CSV section below will update automatically.<br>
-                <b>5.</b> After completing all annotations, click <b>Download Annotation CSV</b> to export the final annotation file.<br><br>
-                Thank you again for your time and support.
+        
+        <div class="instructions-container" id="instructions-box">
+            <div class="instructions-header" onclick="toggleInstructions()">
+                <h2>Instructions</h2>
+                <span class="toggle-icon" id="header-toggle-icon">▲</span>
             </div>
-        </details>
+            <div class="instructions-body" id="instructions-body">
+                <div class="subtext" style="margin-bottom: 0;">
+                    Welcome, and thank you for contributing to this expert annotation process.<br><br>
+                    This page is designed to help you quickly review short video clips and record your judgments on whether each clip contains confusion. The annotation process is simple:<br><br>
+                    <b>1.</b> Each video will load automatically. After watching the clip, please answer the question: <i>"Does this clip contain confusion?"</i><br>
+                    <b>2.</b> Select one of the three options: <b>Yes</b>, <b>No</b>, or <b>Unsure</b>. Once you click your choice, the result will be automatically added to the Annotation CSV section below.<br>
+                    <b>3.</b> Please review your annotations before saving. After confirming that everything is correct, click the <b>Save</b> button at the bottom of the page. Your annotations will be saved locally on your computer. Even if the webpage is accidentally closed, you can continue later by clicking the <b>Load Last Time</b> button.<br>
+                    <b>4.</b> If you want to revise a previous annotation, you can replay the corresponding video and simply select a new answer. The Annotation CSV section below will update automatically.<br>
+                    <b>5.</b> After completing all annotations, click <b>Download Annotation CSV</b> to export the final annotation file.<br><br>
+                    Thank you again for your time and support.
+                </div>
+            </div>
+            <div class="collapse-footer-btn" onclick="toggleInstructions()" title="Collapse Instructions">
+                <span id="footer-toggle-icon">▲</span>
+            </div>
+        </div>
+
         <div class="toolbar">
             <input id="search-input" type="text" placeholder="Search video_id">
             <button id="search-btn">Search</button>
@@ -278,7 +352,6 @@
             <div class="actions">
                 <button id="save-btn">Save</button>
                 <button id="undo-btn">Undo</button>
-                <button id="clear-all-btn">Clear All</button>
                 <button id="download-btn-bottom">Download Annotation CSV</button>
             </div>
 
@@ -471,19 +544,6 @@
             status.textContent = "Undid the last save.";
         }
 
-        function clearAllSaved() {
-            const confirmed = window.confirm("Clear all saved CSV rows?");
-            if (!confirmed) return;
-
-            state.decisions.clear();
-            state.savedEntries.clear();
-            state.savedOrder = [];
-            state.saveHistory = [];
-            localStorage.removeItem(STORAGE_KEY);
-            renderDecision();
-            updateCsvPreview();
-            status.textContent = "Cleared all saved CSV rows and removed local cache.";
-        }
 
         function renderCurrentClip(autoPlay = false) {
             const clip = currentClip();
@@ -567,6 +627,29 @@
             URL.revokeObjectURL(url);
         }
 
+        function toggleInstructions() {
+            const body = document.getElementById("instructions-body");
+            const headerIcon = document.getElementById("header-toggle-icon");
+            const footerIcon = document.getElementById("footer-toggle-icon");
+            const footerBtn = document.querySelector(".collapse-footer-btn");
+            
+            const isCollapsed = body.classList.contains("collapsed");
+            
+            if (isCollapsed) {
+                // Expand
+                body.classList.remove("collapsed");
+                headerIcon.textContent = "▲";
+                footerIcon.textContent = "▲";
+                footerBtn.style.display = "flex"; // Show footer button when expanded
+            } else {
+                // Collapse
+                body.classList.add("collapsed");
+                headerIcon.textContent = "▼";
+                footerIcon.textContent = "▼";
+                footerBtn.style.display = "none"; // Hide footer button when collapsed
+            }
+        }
+
         async function init() {
             try {
                 const response = await fetch(MANIFEST_PATH);
@@ -631,7 +714,6 @@
             }
         });
         document.getElementById("undo-btn").addEventListener("click", undoLastSave);
-        document.getElementById("clear-all-btn").addEventListener("click", clearAllSaved);
         document.getElementById("download-btn-bottom").addEventListener("click", downloadCsv);
         document.getElementById("download-btn-top").addEventListener("click", downloadCsv);
 
