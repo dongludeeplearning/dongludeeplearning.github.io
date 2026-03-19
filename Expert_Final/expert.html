@@ -446,6 +446,45 @@
             }
         }
 
+        // 清洗函数：删除本地存储中那些已经不在 CSV 里的“幽灵”数据
+        function syncStateWithManifest() {
+            // 1. 获取当前 CSV 中所有有效的 file_id
+            const validFileIds = new Set(state.clips.map(clip => clip.file_id));
+            
+            let hasChanges = false;
+
+            // 2. 过滤已保存的顺序列表 (savedOrder)
+            const originalCount = state.savedOrder.length;
+            state.savedOrder = state.savedOrder.filter(fileId => validFileIds.has(fileId));
+            
+            if (state.savedOrder.length !== originalCount) {
+                hasChanges = true;
+            }
+
+            // 3. 清理 decisions (临时决定)
+            for (const [fileId] of state.decisions) {
+                if (!validFileIds.has(fileId)) {
+                    state.decisions.delete(fileId);
+                    hasChanges = true;
+                }
+            }
+
+            // 4. 清理 savedEntries (已保存的决定)
+            for (const [fileId] of state.savedEntries) {
+                if (!validFileIds.has(fileId)) {
+                    state.savedEntries.delete(fileId);
+                    hasChanges = true;
+                }
+            }
+
+            // 5. 如果有变化，立即保存回 localStorage 并更新界面
+            if (hasChanges) {
+                saveState();
+                updateCsvPreview(); // 刷新 CSV 预览区域
+                status.textContent = `Synced: Removed ${originalCount - state.savedOrder.length} obsolete annotations.`;
+            }
+        }
+
         function currentClip() {
             return state.clips[state.currentIndex] || null;
         }
@@ -664,6 +703,10 @@
                 const text = await response.text();
                 state.clips = parseCsv(text);
                 loadState();
+
+                // === 新增：在这里调用清洗函数 ===
+                syncStateWithManifest(); 
+                // ============================
 
                 if (state.clips.length === 0) {
                     status.textContent = "No clips found in manifest.";
