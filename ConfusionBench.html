@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ConfusionBench: An Expert-Validated Benchmark for Confusion Recognition
+        and Localization in Educational Videos">
+  <meta name="keywords" content="SignAvatar, SMPLX, 3D Mesh">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfusionBench: An Expert-Validated Benchmark for Confusion Recognition
+    and Localization in Educational Videos</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ConfusionBench: An Expert-Validated Benchmark for Confusion Recognition
+            and Localization in Educational Videos </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://dongludeeplearning.github.io/">Lu Dong</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href=" ">Xiao Wang</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href=" ">Mark G Frank</a>, 
+            </span>
+            <span class="author-block">
+              <a href=" ">Srirangaraj Setlur</a>,
+            </span>
+            <span class="author-block">
+              <a href=" ">Venu Govindaraju</a>,
+            </span>
+            <span class="author-block">
+              <a href=" ">Ifeoma Nwogu</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University at Buffalo,SUNY</span>
+
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2603.17267"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Poster</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href=" "
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./files/pubs/ConfusionBench_intro.png" alt="ConfusionBench Teaser" style="width:90%; height:auto; margin-left:3%">
+      <h2 class="subtitle has-text-centered" style="font-size:16px">
+        Comparison between existing confusion datasets and our ConfusionBench. Existing datasets often suffer from noisy labels,
+        coarse temporal annotations, and limited expert oversight. In contrast, our ConfusionBench highlights multi-stage filtering, fine-grained
+        annotation, and expert-validated golden clips, together with long-video confusion localization. All human figures shown in this illustration
+        are AI-generated.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p style="text-align:justify;">  
+            Recognizing and localizing student confusion from video is an important yet challenging problem in educational AI. 
+            Existing confusion datasets suffer from noisy labels, coarse temporal annotations, and limited expert validation, which hinder reliable fine-grained recognition and temporally grounded analysis. 
+            To address these limitations, we propose a practical multi-stage filtering pipeline that integrates two stages of model-assisted screening, researcher curation, and expert validation to build a higher-quality benchmark for confusion understanding.
+            Based on this pipeline, we introduce ConfusionBench, a new benchmark for educational videos consisting of a balanced confusion recognition dataset and a video localization dataset. 
+            We further provide zero-shot baseline evaluations of a representative open-source model and a proprietary model on clip-level confusion recognition, long-video confusion localization tasks. 
+            Experimental results show that the proprietary model performs better overall but tends to over-predict transitional segments, while the open-source model is more conservative and more prone to missed detections. 
+            In addition, the proposed student confusion report visualization can support educational experts in making intervention decisions and adapting learning plans accordingly. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+
+    <section class="main-idea">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="./files/pubs/ConfusionBench_overview.png" alt="SignAvatar" style="width:90%; height:auto; margin-left:5%">
+          <h2 class="subtitle has-text-centered">
+            <span class="dnerf"> ConfusionBench Multi-Stage Construction Pipeline</span> 
+          </h2>
+        </div>
+      </div>
+    </section>
+
+
+
+  
+    
+<!-- </section> -->
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{dong2026confusionbench,
+  title   = {ConfusionBench: An Expert-Validated Benchmark for Confusion Recognition and Localization in Educational Videos},
+  author  = {Dong, Lu and Wang, Xiao and Frank, Mark and Setlur, Srirangaraj and Govindaraju, Venu and Nwogu, Ifeoma},
+  journal = {arXiv preprint arXiv:2603.17267},
+  year    = {2026}
+}</code></pre>
+  </div>
+</section>
+
+Website template modified from <a href="https://nerfies.github.io/" target="_blank">NeRFies</a>.
+</body>
+</html>
